@@ -638,6 +638,12 @@ img {
     margin-bottom: 32px;
 }
 
+.section-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
 .section-title {
     font-size: 1.5rem;
     font-weight: 700;

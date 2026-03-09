@@ -22,6 +22,8 @@
         closeSearch: document.getElementById('closeSearch'),
         categoryGrid: document.getElementById('categoryGrid'),
         difficultyFilter: document.getElementById('difficultyFilter'),
+        categoriesTitle: document.getElementById('categoriesTitle'),
+        backToCategories: document.getElementById('backToCategories'),
         knowledgeDetail: document.getElementById('knowledgeDetail'),
         backBtn: document.getElementById('backBtn'),
         detailCategory: document.getElementById('detailCategory'),
@@ -74,18 +76,15 @@
     }
     
     function resetToHomePage() {
-        // 隐藏知识详情页面
         elements.knowledgeDetail.classList.remove('active');
         
-        // 显示分类和学习路径区域
         document.querySelector('.categories').style.display = 'block';
         document.querySelector('.learning-path').style.display = 'block';
         
-        // 重置标题和筛选器
-        document.querySelector('.section-title').textContent = '技术分类';
+        elements.categoriesTitle.textContent = '技术分类';
+        elements.backToCategories.style.display = 'none';
         elements.difficultyFilter.value = 'all';
         
-        // 重置当前知识状态
         state.currentKnowledge = null;
     }
     
@@ -105,6 +104,8 @@
         elements.difficultyFilter.addEventListener('change', filterByDifficulty);
         
         elements.backBtn.addEventListener('click', hideKnowledgeDetail);
+        
+        elements.backToCategories.addEventListener('click', backToCategoryList);
         
         elements.favoriteBtn.addEventListener('click', toggleFavorite);
         elements.completeBtn.addEventListener('click', markComplete);
@@ -251,7 +252,8 @@
         const category = knowledgeData.categories.find(c => c.id === categoryId);
         if (!category) return;
         
-        document.querySelector('.section-title').textContent = category.name;
+        elements.categoriesTitle.textContent = category.name;
+        elements.backToCategories.style.display = 'flex';
         elements.difficultyFilter.value = 'all';
         renderKnowledgeCards(categoryId, 'all');
         
@@ -297,6 +299,15 @@
         elements.knowledgeDetail.classList.remove('active');
         document.querySelector('.categories').style.display = 'block';
         document.querySelector('.learning-path').style.display = 'block';
+        
+        renderCategories();
+        document.getElementById('categories').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function backToCategoryList() {
+        elements.categoriesTitle.textContent = '技术分类';
+        elements.backToCategories.style.display = 'none';
+        elements.difficultyFilter.value = 'all';
         
         renderCategories();
         document.getElementById('categories').scrollIntoView({ behavior: 'smooth' });

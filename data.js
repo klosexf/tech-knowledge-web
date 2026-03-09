@@ -33,7 +33,7 @@ const knowledgeData = {
             name: '服务器和接口',
             icon: '⚙️',
             description: '理解后台是怎么工作的，学会看接口文档',
-            topics: ['后端用什么写', '接口文档怎么看', '服务器是什么']
+            topics: ['后端用什么写', '接口文档怎么看', '服务器是什么', '接口基础', '常见接口类型']
         },
         {
             id: 'data',
@@ -3744,6 +3744,333 @@ Token = 本地存储.读取("token")
                         <li>水平扩容：加更多服务器</li>
                     </ul>
                     <p><strong>例子：</strong>双11前，淘宝会增加几千台服务器应对流量高峰</p>
+                </div>
+            `
+        },
+        {
+            id: 'back-4',
+            categoryId: 'backend',
+            title: '接口基础：产品与服务端的"沟通协议"',
+            difficulty: 'beginner',
+            summary: '理解接口的本质，它是前端与服务端、服务端与数据库之间的"沟通通道"。',
+            content: `
+                <h3>🔌 接口是什么？</h3>
+                <p>接口（API）就是<strong>产品与服务端的"沟通协议"</strong>，规定了数据传递的格式、方式和内容。</p>
+                
+                <div class="example-box">
+                    <h4>🏠 打个比方：餐厅点餐</h4>
+                    <table class="concept-table">
+                        <tr>
+                            <th>餐厅场景</th>
+                            <th>互联网产品</th>
+                        </tr>
+                        <tr>
+                            <td>顾客（你）</td>
+                            <td>前端（APP/网页）</td>
+                        </tr>
+                        <tr>
+                            <td>服务员</td>
+                            <td>接口</td>
+                        </tr>
+                        <tr>
+                            <td>厨房</td>
+                            <td>服务端</td>
+                        </tr>
+                        <tr>
+                            <td>菜品</td>
+                            <td>数据</td>
+                        </tr>
+                    </table>
+                    <p><strong>接口就像服务员：</strong>你告诉服务员要什么菜，服务员去厨房下单，厨房做好后服务员把菜端给你。</p>
+                </div>
+                
+                <h3>🔄 接口的三个角色</h3>
+                
+                <div class="example-box">
+                    <h4>📊 接口连接的三方</h4>
+                    <table class="concept-table">
+                        <tr>
+                            <th>角色</th>
+                            <th>做什么</th>
+                            <th>例子</th>
+                        </tr>
+                        <tr>
+                            <td>前端（APP/网页）</td>
+                            <td>发起请求，展示数据</td>
+                            <td>你点击"登录"按钮</td>
+                        </tr>
+                        <tr>
+                            <td>接口</td>
+                            <td>传递数据，约定格式</td>
+                            <td>把账号密码发给服务端</td>
+                        </tr>
+                        <tr>
+                            <td>服务端/数据库</td>
+                            <td>处理请求，返回结果</td>
+                            <td>验证账号密码，返回登录成功</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <h3>📝 接口规定了什么？</h3>
+                
+                <div class="info-box">
+                    <h4>💡 接口的三要素</h4>
+                    <ul>
+                        <li><strong>格式：</strong>数据用什么格式传递（如JSON）</li>
+                        <li><strong>方式：</strong>用什么方法传递（如GET、POST）</li>
+                        <li><strong>内容：</strong>传递什么数据（如用户名、密码）</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <h4>📋 一个登录接口的例子</h4>
+                    <div class="code-block">
+<pre>{
+    "接口地址": "/api/login",
+    "请求方式": "POST",
+    "请求数据": {
+        "username": "zhangsan",
+        "password": "123456"
+    },
+    "返回数据": {
+        "code": 200,
+        "message": "登录成功",
+        "data": {
+            "userId": 10001,
+            "nickname": "张三"
+        }
+    }
+}</pre>
+                    </div>
+                </div>
+                
+                <h3>🎯 为什么产品经理要懂接口？</h3>
+                
+                <div class="info-box">
+                    <h4>💡 产品经理的工作场景</h4>
+                    <ul>
+                        <li><strong>需求评审：</strong>和开发讨论功能怎么实现</li>
+                        <li><strong>看接口文档：</strong>确认前端能拿到什么数据</li>
+                        <li><strong>排查问题：</strong>功能不work时定位是前端还是后端问题</li>
+                        <li><strong>对接第三方：</strong>接入微信支付、地图等功能需要看接口文档</li>
+                    </ul>
+                </div>
+                
+                <h3>❓ 常见问题</h3>
+                
+                <div class="example-box">
+                    <h4>Q1：接口和API是一回事吗？</h4>
+                    <p><strong>基本是一回事。</strong>API（Application Programming Interface）是应用程序接口的英文缩写，接口是中文说法。日常交流中两个词经常混用。</p>
+                </div>
+                
+                <div class="example-box">
+                    <h4>Q2：前端和后端都能写接口吗？</h4>
+                    <p><strong>接口由后端开发。</strong>前端调用接口，后端定义和实现接口。产品经理主要看接口文档（后端写的）。</p>
+                </div>
+            `
+        },
+        {
+            id: 'back-5',
+            categoryId: 'backend',
+            title: '常见接口类型：对应产品不同功能场景',
+            difficulty: 'beginner',
+            summary: '掌握4种常用接口类型，覆盖80%的产品场景，和数据库"增删改查"一一对应。',
+            content: `
+                <h3>📚 四种常用接口类型</h3>
+                <p>接口按功能可分为4种常用类型，分别对应<strong>"查、增、改、删"</strong>四大操作，和数据库的"增删改查"一一对应。</p>
+                
+                <div class="example-box">
+                    <h4>📊 四种接口类型速查表</h4>
+                    <table class="concept-table">
+                        <tr>
+                            <th>操作类型</th>
+                            <th>接口方法</th>
+                            <th>产品场景</th>
+                            <th>例子</th>
+                        </tr>
+                        <tr>
+                            <td>查（Read）</td>
+                            <td>GET</td>
+                            <td>查看、搜索、列表</td>
+                            <td>查看商品列表、搜索用户</td>
+                        </tr>
+                        <tr>
+                            <td>增（Create）</td>
+                            <td>POST</td>
+                            <td>新建、添加、发布</td>
+                            <td>注册账号、发布文章、加入购物车</td>
+                        </tr>
+                        <tr>
+                            <td>改（Update）</td>
+                            <td>PUT/PATCH</td>
+                            <td>修改、编辑、更新</td>
+                            <td>修改个人信息、编辑文章</td>
+                        </tr>
+                        <tr>
+                            <td>删（Delete）</td>
+                            <td>DELETE</td>
+                            <td>删除、移除</td>
+                            <td>删除评论、移出购物车</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <h3>🔍 1. 查询接口（GET）</h3>
+                
+                <div class="example-box">
+                    <h4>📱 产品场景</h4>
+                    <ul>
+                        <li>查看商品列表</li>
+                        <li>搜索用户</li>
+                        <li>获取个人信息</li>
+                        <li>查看订单详情</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <h4>📋 接口示例</h4>
+                    <div class="code-block">
+<pre>GET /api/users/123
+// 获取ID为123的用户信息
+
+返回：
+{
+    "code": 200,
+    "data": {
+        "id": 123,
+        "name": "张三",
+        "age": 25
+    }
+}</pre>
+                    </div>
+                </div>
+                
+                <h3>➕ 2. 新增接口（POST）</h3>
+                
+                <div class="example-box">
+                    <h4>📱 产品场景</h4>
+                    <ul>
+                        <li>用户注册</li>
+                        <li>发布文章/评论</li>
+                        <li>加入购物车</li>
+                        <li>创建订单</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <h4>📋 接口示例</h4>
+                    <div class="code-block">
+<pre>POST /api/articles
+// 发布新文章
+
+请求数据：
+{
+    "title": "我的第一篇文章",
+    "content": "文章内容..."
+}
+
+返回：
+{
+    "code": 200,
+    "message": "发布成功",
+    "data": {
+        "articleId": 1001
+    }
+}</pre>
+                    </div>
+                </div>
+                
+                <h3>✏️ 3. 修改接口（PUT/PATCH）</h3>
+                
+                <div class="example-box">
+                    <h4>📱 产品场景</h4>
+                    <ul>
+                        <li>修改个人信息</li>
+                        <li>编辑文章</li>
+                        <li>更新订单状态</li>
+                        <li>修改密码</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <h4>📋 接口示例</h4>
+                    <div class="code-block">
+<pre>PUT /api/users/123
+// 修改ID为123的用户信息
+
+请求数据：
+{
+    "name": "李四",
+    "age": 28
+}
+
+返回：
+{
+    "code": 200,
+    "message": "修改成功"
+}</pre>
+                    </div>
+                </div>
+                
+                <h3>🗑️ 4. 删除接口（DELETE）</h3>
+                
+                <div class="example-box">
+                    <h4>📱 产品场景</h4>
+                    <ul>
+                        <li>删除评论</li>
+                        <li>移出购物车</li>
+                        <li>取消收藏</li>
+                        <li>删除地址</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <h4>📋 接口示例</h4>
+                    <div class="code-block">
+<pre>DELETE /api/comments/456
+// 删除ID为456的评论
+
+返回：
+{
+    "code": 200,
+    "message": "删除成功"
+}</pre>
+                    </div>
+                </div>
+                
+                <h3>🎓 产品经理工作指南</h3>
+                
+                <div class="info-box">
+                    <h4>💡 如何快速判断用什么接口？</h4>
+                    <ul>
+                        <li>用户在<strong>看</strong>东西 → GET接口</li>
+                        <li>用户在<strong>创建</strong>东西 → POST接口</li>
+                        <li>用户在<strong>修改</strong>东西 → PUT接口</li>
+                        <li>用户在<strong>删除</strong>东西 → DELETE接口</li>
+                    </ul>
+                </div>
+                
+                <h3>❓ 常见问题</h3>
+                
+                <div class="example-box">
+                    <h4>Q1：PUT和PATCH有什么区别？</h4>
+                    <p><strong>PUT是全量更新，PATCH是部分更新。</strong></p>
+                    <ul>
+                        <li>PUT：需要传所有字段，没传的字段会被清空</li>
+                        <li>PATCH：只传要修改的字段，其他字段不变</li>
+                    </ul>
+                    <p>实际工作中，两个经常混用，不用太纠结。</p>
+                </div>
+                
+                <div class="example-box">
+                    <h4>Q2：记住这4种就够了吗？</h4>
+                    <p><strong>覆盖80%的场景够了。</strong>还有一些特殊场景：</p>
+                    <ul>
+                        <li>文件上传：特殊的POST接口</li>
+                        <li>批量操作：一次操作多条数据</li>
+                        <li>复杂查询：带筛选、排序、分页</li>
+                    </ul>
                 </div>
             `
         },
