@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技术知识学习平台 - 产品经理必备技术知识</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">📚</span>
+                <span class="logo-text">TechLearn</span>
+            </div>
+            
+            <button class="nav-toggle" id="navToggle" aria-label="切换导航菜单">
+                <span class="hamburger"></span>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="#home" class="nav-link active">首页</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">关于我们</a></li>
+            </ul>
+            
+            <div class="nav-search">
+                <input type="text" id="searchInput" placeholder="搜索知识点..." class="search-input">
+                <button class="search-btn" id="searchBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 搜索结果面板 -->
+    <div class="search-results" id="searchResults">
+        <div class="search-results-header">
+            <h3>搜索结果</h3>
+            <button class="close-search" id="closeSearch">×</button>
+        </div>
+        <div class="search-results-list" id="searchResultsList"></div>
+    </div>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+        <!-- 首页Banner区 -->
+        <section class="hero" id="home">
+            <div class="hero-bg"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">产品经理必备技术知识</h1>
+                <p class="hero-subtitle">用大白话讲透技术原理，让产品经理与开发无缝沟通</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">7</span>
+                        <span class="stat-label">知识模块</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">核心知识点</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">实战案例</span>
+                    </div>
+                </div>
+                <a href="#categories" class="hero-cta">开始学习</a>
+            </div>
+            
+
+        </section>
+
+        <!-- 内容布局：左侧边栏 + 主内容 -->
+        <div class="content-wrapper">
+            <!-- 侧边栏 -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">学习进度</h3>
+                    <div class="progress-overview">
+                        <div class="progress-ring">
+                            <svg viewBox="0 0 100 100">
+                                <circle class="progress-ring-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="progress-ring-fill" id="progressRing" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <span class="progress-percent" id="progressPercent">0%</span>
+                        </div>
+                        <p class="progress-text">已完成 <span id="completedCount">0</span>/<span id="totalCount">0</span> 个知识点</p>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">收藏的知识点</h3>
+                    <ul class="favorites-list" id="favoritesList">
+                        <li class="empty-tip">暂无收藏</li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">最近浏览</h3>
+                    <ul class="recent-list" id="recentList">
+                        <li class="empty-tip">暂无浏览记录</li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- 主内容区域 -->
+            <div class="main-area">
+                <!-- 技术分类区 -->
+                <section class="categories" id="categories">
+                    <div class="section-header">
+                        <h2 class="section-title">技术分类</h2>
+                        <div class="filter-group">
+                            <select id="difficultyFilter" class="filter-select">
+                                <option value="all">全部难度</option>
+                                <option value="beginner">入门级</option>
+                                <option value="intermediate">进阶级</option>
+                                <option value="advanced">高级</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="category-grid" id="categoryGrid">
+                        <!-- 分类卡片将由JS动态生成 -->
+                    </div>
+                </section>
+
+                <!-- 学习路径 -->
+                <section class="learning-path" id="learning-path">
+                    <h2 class="section-title">推荐学习路径</h2>
+                    <div class="path-timeline">
+                        <div class="path-item" data-step="1">
+                            <div class="path-marker">1</div>
+                            <div class="path-content">
+                                <h4>基础架构认知</h4>
+                                <p>了解互联网基础架构，建立技术思维</p>
+                            </div>
+                        </div>
+                        <div class="path-item" data-step="2">
+                            <div class="path-marker">2</div>
+                            <div class="path-content">
+                                <h4>编程逻辑入门</h4>
+                                <p>理解代码的思考方式，掌握基本逻辑结构</p>
+                            </div>
+                        </div>
+                        <div class="path-item" data-step="3">
+                            <div class="path-marker">3</div>
+                            <div class="path-content">
+                                <h4>数据库原理</h4>
+                                <p>学习数据存储与管理，理解产品数据流</p>
+                            </div>
+                        </div>
+                        <div class="path-item" data-step="4">
+                            <div class="path-marker">4</div>
+                            <div class="path-content">
+                                <h4>前后端技术</h4>
+                                <p>掌握客户端与服务端技术，理解产品实现</p>
+                            </div>
+                        </div>
+                        <div class="path-item" data-step="5">
+                            <div class="path-marker">5</div>
+                            <div class="path-content">
+                                <h4>数据分析能力</h4>
+                                <p>学会用数据驱动产品决策与优化</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 知识详情区（默认隐藏） -->
+                <section class="knowledge-detail" id="knowledgeDetail">
+                    <button class="back-btn" id="backBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        返回列表
+                    </button>
+                    
+                    <div class="detail-header">
+                        <div class="detail-meta">
+                            <span class="detail-category" id="detailCategory"></span>
+                            <span class="detail-difficulty" id="detailDifficulty"></span>
+                        </div>
+                        <h2 class="detail-title" id="detailTitle"></h2>
+                        <p class="detail-summary" id="detailSummary"></p>
+                    </div>
+                    
+                    <div class="detail-actions">
+                        <button class="action-btn favorite-btn" id="favoriteBtn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                            收藏
+                        </button>
+                        <button class="action-btn complete-btn" id="completeBtn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            标记完成
+                        </button>
+                    </div>
+                    
+                    <div class="detail-content" id="detailContent">
+                        <!-- 内容将由JS动态填充 -->
+                    </div>
+                    
+                    <div class="next-knowledge" id="nextKnowledge">
+                        <span>下一个知识点：</span>
+                        <a href="#" id="nextKnowledgeLink"></a>
+                    </div>
+                </section>
+
+                <!-- 交互学习区 -->
+                <section class="interactive-zone" id="interactiveZone">
+                    <h2 class="section-title">交互学习</h2>
+                    
+                    <div class="interactive-tabs">
+                        <button class="tab-btn active" data-tab="code">代码练习</button>
+                        <button class="tab-btn" data-tab="quiz">知识点自测</button>
+                    </div>
+                    
+                    <!-- 代码编辑器 -->
+                    <div class="tab-content active" id="codeTab">
+                        <div class="code-editor">
+                            <div class="editor-header">
+                                <span class="editor-title">在线代码编辑器</span>
+                                <div class="editor-actions">
+                                    <button class="editor-btn" id="runCode">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="5 3 19 12 5 21 5 3"/>
+                                        </svg>
+                                        运行
+                                    </button>
+                                    <button class="editor-btn" id="clearCode">清空</button>
+                                </div>
+                            </div>
+                            <div class="editor-body">
+                                <div class="code-input">
+                                    <div class="line-numbers" id="lineNumbers"></div>
+                                    <textarea id="codeInput" placeholder="在此输入代码..." spellcheck="false">// 示例：计算用户积分
+function calculateIntegral(consumeMoney) {
+    // 1元 = 1积分
+    let integral = consumeMoney * 1;
+    return integral;
+}
+
+// 测试
+console.log("消费100元获得积分：" + calculateIntegral(100));</textarea>
+                                </div>
+                                <div class="code-output">
+                                    <div class="output-header">输出结果</div>
+                                    <pre id="codeOutput"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 自测题 -->
+                    <div class="tab-content" id="quizTab">
+                        <div class="quiz-container" id="quizContainer">
+                            <div class="quiz-header">
+                                <h3 id="quizTitle">知识点自测</h3>
+                                <span class="quiz-progress" id="quizProgress">题目 1/5</span>
+                            </div>
+                            <div class="quiz-content" id="quizContent">
+                                <!-- 题目将由JS动态生成 -->
+                            </div>
+                            <div class="quiz-actions">
+                                <button class="quiz-btn" id="prevQuiz" disabled>上一题</button>
+                                <button class="quiz-btn primary" id="nextQuiz">下一题</button>
+                            </div>
+                        </div>
+                        <div class="quiz-result" id="quizResult" style="display: none;">
+                            <div class="result-score">
+                                <span class="score-number" id="scoreNumber">0</span>
+                                <span class="score-label">分</span>
+                            </div>
+                            <p class="result-text" id="resultText"></p>
+                            <button class="quiz-btn primary" id="retryQuiz">重新测试</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- 收藏夹页面 -->
+        <section class="favorites-page" id="favoritesPage">
+            <h2 class="section-title">我的收藏</h2>
+            <div class="favorites-grid" id="favoritesGrid">
+                <!-- 收藏的知识点卡片 -->
+            </div>
+        </section>
+
+        <!-- 关于我们 -->
+        <section class="about" id="about">
+            <div class="about-content">
+                <h2>关于 TechLearn</h2>
+                <p>TechLearn 是一个专为产品经理设计的技术知识学习平台。我们相信，产品经理不需要成为程序员，但需要理解技术的底层逻辑，才能与开发团队高效协作，设计出可落地的产品。</p>
+                <p>本平台内容基于《产品经理必备技术知识》整理，采用大白话讲解方式，配合丰富的实例和思维导图，帮助零基础的产品经理快速建立技术思维。</p>
+                <div class="about-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">🎯</span>
+                        <h4>目标明确</h4>
+                        <p>专注产品经理真正需要的技术知识</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">💡</span>
+                        <h4>通俗易懂</h4>
+                        <p>大白话讲解，零基础也能快速理解</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔄</span>
+                        <h4>交互学习</h4>
+                        <p>代码练习与自测题巩固学习效果</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 完成提示弹窗 -->
+    <div class="modal" id="completeModal">
+        <div class="modal-content">
+            <div class="modal-icon">🎉</div>
+            <h3>恭喜完成学习！</h3>
+            <p id="completeMessage">你已完成当前知识点的学习</p>
+            <div class="modal-actions">
+                <button class="modal-btn" id="modalClose">继续学习</button>
+                <button class="modal-btn primary" id="modalNext">下一个知识点</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部区域 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <div class="footer-brand">
+                    <span class="logo-icon">📚</span>
+                    <span class="logo-text">TechLearn</span>
+                </div>
+                <p class="footer-desc">产品经理的技术知识学习平台</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>学习资源</h4>
+                    <a href="#categories">技术分类</a>
+                    <a href="#learning-path">学习路径</a>
+                    <a href="#interactiveZone">交互练习</a>
+                </div>
+                <div class="footer-column">
+                    <h4>帮助支持</h4>
+                    <a href="#about">关于我们</a>
+                    <a href="javascript:void(0)" id="feedbackBtn">问题反馈</a>
+                    <a href="javascript:void(0)">使用指南</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TechLearn. All rights reserved.</p>
+            <p>内容基于《产品经理必备技术知识》整理</p>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" aria-label="返回顶部">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
