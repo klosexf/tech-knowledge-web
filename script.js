@@ -61,14 +61,32 @@
     };
     
     function init() {
+        // 重置页面状态，确保刷新后显示技术分类页面
+        resetToHomePage();
+        
         renderCategories();
-        renderKnowledgeCards();
         updateProgress();
         updateFavoritesList();
         updateRecentList();
         setupEventListeners();
         updateLineNumbers();
         renderQuiz();
+    }
+    
+    function resetToHomePage() {
+        // 隐藏知识详情页面
+        elements.knowledgeDetail.classList.remove('active');
+        
+        // 显示分类和学习路径区域
+        document.querySelector('.categories').style.display = 'block';
+        document.querySelector('.learning-path').style.display = 'block';
+        
+        // 重置标题和筛选器
+        document.querySelector('.section-title').textContent = '技术分类';
+        elements.difficultyFilter.value = 'all';
+        
+        // 重置当前知识状态
+        state.currentKnowledge = null;
     }
     
     function setupEventListeners() {
@@ -138,6 +156,13 @@
         
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         e.target.classList.add('active');
+        
+        if (href === '#home') {
+            e.preventDefault();
+            resetToHomePage();
+            renderCategories();
+            document.getElementById('categories').scrollIntoView({ behavior: 'smooth' });
+        }
         
         if (window.innerWidth <= 768) {
             toggleNav();
@@ -691,6 +716,368 @@
             updateRecentList();
         }
     };
+    
+    // ==================== 交互式学习功能 ====================
+    
+    // 打开代码编辑器
+    window.openCodeEditor = function(knowledgeId) {
+        const knowledge = knowledgeData.knowledge.find(k => k.id === knowledgeId);
+        if (!knowledge) return;
+        
+        // 切换到代码编辑器标签
+        const codeTab = document.querySelector('[data-tab="code"]');
+        if (codeTab) {
+            codeTab.click();
+        }
+        
+        // 滚动到交互区域
+        const interactiveZone = document.querySelector('.interactive-zone');
+        if (interactiveZone) {
+            interactiveZone.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 显示提示
+        if (window.InteractiveLearning && window.InteractiveLearning.FeedbackSystem) {
+            window.InteractiveLearning.FeedbackSystem.showInfo('请在代码编辑器中修改代码，然后点击"运行代码"查看结果');
+        }
+    };
+    
+    // 开始练习
+    window.startPractice = function(knowledgeId) {
+        if (!window.InteractiveLearning) {
+            alert('交互式学习系统正在加载中，请稍后再试');
+            return;
+        }
+        
+        const task = window.InteractiveLearning.PracticeSystem.loadTask(knowledgeId);
+        if (!task) {
+            alert('暂无练习任务');
+            return;
+        }
+        
+        // 切换到代码编辑器标签
+        const codeTab = document.querySelector('[data-tab="code"]');
+        if (codeTab) {
+            codeTab.click();
+        }
+        
+        // 滚动到交互区域
+        const interactiveZone = document.querySelector('.interactive-zone');
+        if (interactiveZone) {
+            interactiveZone.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 显示练习任务
+        showPracticeModal(task);
+    };
+    
+    // 显示练习任务弹窗
+    function showPracticeModal(task) {
+        // 创建弹窗
+        const modal = document.createElement('div');
+        modal.className = 'practice-modal';
+        modal.innerHTML = `
+            <div class="practice-modal-content">
+                <div class="practice-modal-header">
+                    <h3>📝 ${task.title}</h3>
+                    <button class="modal-close-btn" onclick="this.closest('.practice-modal').remove()">×</button>
+                </div>
+                <div class="practice-modal-body">
+                    <p class="practice-desc">${task.description}</p>
+                    <div class="practice-hint-box">
+                        <strong>💡 提示：</strong>
+                        <p>${task.hint}</p>
+                    </div>
+                    <div class="practice-actions">
+                        <button class="practice-action-btn primary" onclick="loadPracticeCode('${task.knowledgeId}')">
+                            开始编写代码
+                        </button>
+                        <button class="practice-action-btn secondary" onclick="this.closest('.practice-modal').remove()">
+                            稍后再做
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // 添加样式
+        const style = document.createElement('style');
+        style.textContent = `
+            .practice-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                animation: fadeIn 0.3s ease;
+            }
+            .practice-modal-content {
+                background: white;
+                border-radius: 16px;
+                max-width: 500px;
+                width: 90%;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                animation: slideUp 0.3s ease;
+            }
+            .practice-modal-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px 24px;
+                border-bottom: 1px solid #e5e7eb;
+            }
+            .practice-modal-header h3 {
+                margin: 0;
+                font-size: 1.25rem;
+                color: #1f2937;
+            }
+            .modal-close-btn {
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: #9ca3af;
+                cursor: pointer;
+                padding: 0;
+                line-height: 1;
+            }
+            .modal-close-btn:hover {
+                color: #4b5563;
+            }
+            .practice-modal-body {
+                padding: 24px;
+            }
+            .practice-desc {
+                color: #4b5563;
+                line-height: 1.6;
+                margin-bottom: 16px;
+            }
+            .practice-hint-box {
+                background: #eff6ff;
+                border-radius: 8px;
+                padding: 16px;
+                margin-bottom: 24px;
+            }
+            .practice-hint-box strong {
+                color: #2563eb;
+            }
+            .practice-hint-box p {
+                margin: 8px 0 0;
+                color: #4b5563;
+            }
+            .practice-actions {
+                display: flex;
+                gap: 12px;
+            }
+            .practice-action-btn {
+                flex: 1;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 8px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+            .practice-action-btn.primary {
+                background: #0d9488;
+                color: white;
+            }
+            .practice-action-btn.primary:hover {
+                background: #0f766e;
+            }
+            .practice-action-btn.secondary {
+                background: #f3f4f6;
+                color: #4b5563;
+            }
+            .practice-action-btn.secondary:hover {
+                background: #e5e7eb;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            @keyframes slideUp {
+                from { transform: translateY(20px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+        `;
+        
+        document.head.appendChild(style);
+        document.body.appendChild(modal);
+        
+        // 点击背景关闭
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
+    }
+    
+    // 加载练习代码
+    window.loadPracticeCode = function(knowledgeId) {
+        // 关闭弹窗
+        const modal = document.querySelector('.practice-modal');
+        if (modal) modal.remove();
+        
+        // 获取练习任务
+        const task = window.InteractiveLearning.PracticeSystem.taskTemplates[knowledgeId];
+        if (!task) return;
+        
+        // 加载示例代码到编辑器
+        if (elements.codeInput) {
+            elements.codeInput.value = task.solution.trim();
+            updateLineNumbers();
+        }
+        
+        // 显示成功提示
+        if (window.InteractiveLearning.FeedbackSystem) {
+            window.InteractiveLearning.FeedbackSystem.showSuccess('练习代码已加载，请修改后运行测试');
+        }
+    };
+    
+    // 查看参考答案
+    window.viewSolution = function(knowledgeId) {
+        if (!window.InteractiveLearning) {
+            alert('交互式学习系统正在加载中，请稍后再试');
+            return;
+        }
+        
+        const task = window.InteractiveLearning.PracticeSystem.taskTemplates[knowledgeId];
+        if (!task) {
+            alert('暂无参考答案');
+            return;
+        }
+        
+        // 切换到代码编辑器标签
+        const codeTab = document.querySelector('[data-tab="code"]');
+        if (codeTab) {
+            codeTab.click();
+        }
+        
+        // 加载参考答案
+        if (elements.codeInput) {
+            elements.codeInput.value = task.solution.trim();
+            updateLineNumbers();
+        }
+        
+        // 滚动到交互区域
+        const interactiveZone = document.querySelector('.interactive-zone');
+        if (interactiveZone) {
+            interactiveZone.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 显示提示
+        if (window.InteractiveLearning.FeedbackSystem) {
+            window.InteractiveLearning.FeedbackSystem.showInfo('参考答案已加载，请仔细阅读代码注释理解实现逻辑');
+        }
+    };
+    
+    // 运行代码并检查答案
+    window.runAndCheck = function() {
+        if (!window.InteractiveLearning || !state.currentKnowledge) {
+            return;
+        }
+        
+        const userCode = elements.codeInput.value;
+        const result = window.InteractiveLearning.PracticeSystem.checkAnswer(userCode);
+        
+        if (result.success) {
+            window.InteractiveLearning.FeedbackSystem.showSuccess(result.message);
+        } else {
+            window.InteractiveLearning.FeedbackSystem.showError(result.message);
+        }
+        
+        // 显示结果
+        if (elements.codeOutput) {
+            elements.codeOutput.textContent = result.message;
+        }
+    };
+    
+    // 初始化知识点自测
+    window.initKnowledgeQuiz = function(knowledgeId) {
+        if (!window.InteractiveLearning) return;
+        
+        const quiz = window.InteractiveLearning.QuizSystem.loadQuiz(knowledgeId);
+        if (!quiz) return;
+        
+        // 渲染自测题目
+        renderKnowledgeQuiz(quiz);
+    };
+    
+    // 渲染知识点自测
+    function renderKnowledgeQuiz(quiz) {
+        const container = document.querySelector('.quiz-container');
+        if (!container) return;
+        
+        const questionIndex = quiz.currentQuestionIndex || 0;
+        const question = quiz.questions[questionIndex];
+        
+        container.innerHTML = `
+            <div class="quiz-header">
+                <h3>知识点自测</h3>
+                <span class="quiz-progress">题目 ${questionIndex + 1}/${quiz.questions.length}</span>
+            </div>
+            <div class="quiz-content">
+                <p class="quiz-question">${question.question}</p>
+                <div class="quiz-options">
+                    ${question.options.map((option, i) => `
+                        <div class="quiz-option" data-index="${i}">
+                            <span class="option-marker">${String.fromCharCode(65 + i)}</span>
+                            <span>${option}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            <div class="quiz-actions">
+                <button class="quiz-btn" id="prevQuestion" disabled>上一题</button>
+                <button class="quiz-btn primary" id="nextQuestion">下一题</button>
+            </div>
+        `;
+        
+        // 添加事件监听
+        container.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const index = parseInt(this.dataset.index);
+                handleQuizAnswer(quiz, questionIndex, index);
+            });
+        });
+    }
+    
+    // 处理自测答案
+    function handleQuizAnswer(quiz, questionIndex, answerIndex) {
+        const result = window.InteractiveLearning.QuizSystem.answerQuestion(questionIndex, answerIndex);
+        
+        // 更新UI
+        const options = document.querySelectorAll('.quiz-option');
+        options.forEach((option, i) => {
+            option.classList.remove('selected', 'correct', 'incorrect');
+            if (i === result.correctAnswer) {
+                option.classList.add('correct');
+            } else if (i === answerIndex && !result.isCorrect) {
+                option.classList.add('incorrect');
+            }
+        });
+        
+        // 显示解析
+        const content = document.querySelector('.quiz-content');
+        if (content && result.explanation) {
+            const explanation = document.createElement('div');
+            explanation.className = 'quiz-explanation';
+            explanation.innerHTML = `<strong>解析：</strong>${result.explanation}`;
+            content.appendChild(explanation);
+        }
+        
+        // 显示反馈
+        if (result.isCorrect) {
+            window.InteractiveLearning.FeedbackSystem.showSuccess('回答正确！');
+        } else {
+            window.InteractiveLearning.FeedbackSystem.showError('回答错误，请看解析');
+        }
+    }
     
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
