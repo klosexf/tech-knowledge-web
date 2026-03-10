@@ -15,13 +15,6 @@ const knowledgeData = {
             topics: ['数据是什么', '程序怎么做事', '数据怎么存放', '功能怎么复用']
         },
         {
-            id: 'database',
-            name: '数据存储原理',
-            icon: '🗄️',
-            description: '理解数据存在哪里，产品经理怎么设计数据',
-            topics: ['Excel式存储', '文件夹式存储', '怎么查数据', '删了还能找回吗']
-        },
-        {
             id: 'frontend',
             name: '手机APP是怎么做的',
             icon: '📱',
@@ -34,6 +27,13 @@ const knowledgeData = {
             icon: '⚙️',
             description: '理解后台是怎么工作的，学会看接口文档',
             topics: ['后端用什么写', '接口文档怎么看', '服务器是什么', '接口基础', '常见接口类型']
+        },
+        {
+            id: 'database',
+            name: '数据存储原理',
+            icon: '🗄️',
+            description: '理解数据存在哪里，产品经理怎么设计数据',
+            topics: ['Excel式存储', '文件夹式存储', '怎么查数据', '删了还能找回吗']
         },
         {
             id: 'data',
@@ -51,6 +51,163 @@ const knowledgeData = {
             title: '一个APP是怎么跑起来的？',
             difficulty: 'beginner',
             summary: '用最通俗的方式理解APP的四个组成部分，像点外卖一样简单。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p>现代APP采用<strong>客户端-服务器架构（Client-Server Architecture）</strong>，这是一种分布式计算模型。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow">
+                            <div class="diagram-node client">
+                                <div class="node-icon">📱</div>
+                                <div class="node-title">客户端（前端）</div>
+                                <div class="node-desc">运行在用户设备上<br/>负责UI渲染和用户交互</div>
+                            </div>
+                            <div class="diagram-arrow">↔️ HTTP/HTTPS</div>
+                            <div class="diagram-node server">
+                                <div class="node-icon">🖥️</div>
+                                <div class="node-title">服务器（后端）</div>
+                                <div class="node-desc">运行在云端<br/>处理业务逻辑和数据</div>
+                            </div>
+                            <div class="diagram-arrow">↔️ SQL/NoSQL</div>
+                            <div class="diagram-node database">
+                                <div class="node-icon">🗄️</div>
+                                <div class="node-title">数据库</div>
+                                <div class="node-desc">持久化存储<br/>用户数据和业务数据</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>核心通信协议</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>协议</th>
+                            <th>作用</th>
+                            <th>特点</th>
+                        </tr>
+                        <tr>
+                            <td>HTTP/HTTPS</td>
+                            <td>客户端与服务器通信</td>
+                            <td>无状态、请求-响应模式</td>
+                        </tr>
+                        <tr>
+                            <td>REST API</td>
+                            <td>接口设计规范</td>
+                            <td>资源导向、统一接口</td>
+                        </tr>
+                        <tr>
+                            <td>WebSocket</td>
+                            <td>实时双向通信</td>
+                            <td>长连接、低延迟</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>前端（客户端）</h5>
+                            <ul>
+                                <li><strong>UI渲染</strong>：将数据可视化展示给用户</li>
+                                <li><strong>用户交互</strong>：响应用户的点击、滑动等操作</li>
+                                <li><strong>数据缓存</strong>：本地存储提升体验</li>
+                                <li><strong>请求发起</strong>：向服务器请求数据</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>后端（服务器）</h5>
+                            <ul>
+                                <li><strong>业务逻辑</strong>：处理核心业务规则</li>
+                                <li><strong>数据验证</strong>：确保数据合法性和安全性</li>
+                                <li><strong>权限控制</strong>：验证用户身份和权限</li>
+                                <li><strong>数据聚合</strong>：整合多数据源返回</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>数据库</h5>
+                            <ul>
+                                <li><strong>持久化存储</strong>：数据永久保存</li>
+                                <li><strong>高效查询</strong>：快速检索数据</li>
+                                <li><strong>事务处理</strong>：保证数据一致性</li>
+                                <li><strong>数据备份</strong>：防止数据丢失</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>用户登录场景</h5>
+                                <p><strong>前端</strong>：收集用户输入 → 发起登录请求 → 保存Token</p>
+                                <p><strong>后端</strong>：验证账号密码 → 生成Token → 返回用户信息</p>
+                                <p><strong>数据库</strong>：查询用户记录 → 验证密码哈希</p>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <div class="scenario-number">2</div>
+                            <div class="scenario-content">
+                                <h5>商品下单场景</h5>
+                                <p><strong>前端</strong>：展示商品 → 收集订单信息 → 发起下单请求</p>
+                                <p><strong>后端</strong>：验证库存 → 创建订单 → 扣减库存 → 返回结果</p>
+                                <p><strong>数据库</strong>：事务处理保证库存和订单一致性</p>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <div class="scenario-number">3</div>
+                            <div class="scenario-content">
+                                <h5>实时消息场景</h5>
+                                <p><strong>前端</strong>：建立WebSocket连接 → 发送/接收消息</p>
+                                <p><strong>后端</strong>：维护连接 → 消息路由 → 推送给接收方</p>
+                                <p><strong>数据库</strong>：存储消息记录 → 更新未读数</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    
+                    <div class="conversation-box">
+                        <div class="conversation-item bad">
+                            <div class="conv-header">
+                                <span class="conv-icon">❌</span>
+                                <span class="conv-title">错误沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"这个功能很简单，就是加个按钮，点一下就行"</p>
+                                <p><strong>开发内心：</strong>这需要前端改UI、后端加接口、数据库加字段、还要考虑并发和安全性...</p>
+                                <p><strong>结果：</strong>开发时间预估严重不足，项目延期</p>
+                            </div>
+                        </div>
+                        
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"用户点击这个按钮后，需要调用哪个接口？前端还是后端处理？需要存什么数据？"</p>
+                                <p><strong>开发：</strong>"这个需要后端新加一个接口，前端调用。数据库需要加一个字段记录操作日志。大概需要2天时间。"</p>
+                                <p><strong>结果：</strong>需求清晰，时间预估准确，项目按时交付</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <h5>💡 产品经理必问清单</h5>
+                        <ul>
+                            <li>这个功能前端做还是后端做？</li>
+                            <li>需要新增接口吗？还是复用现有接口？</li>
+                            <li>需要存哪些数据？数据库要改吗？</li>
+                            <li>有没有性能风险？高并发怎么处理？</li>
+                            <li>开发周期大概多久？</li>
+                        </ul>
+                    </div>
+                `
+            },
             content: `
                 <h3>🍔 先打个比方：点外卖</h3>
                 <p>你每天都在用APP，但你知道它们是怎么工作的吗？别着急，我们先打个比方。</p>
@@ -434,6 +591,188 @@ runLoginProcess();</code></pre>
             title: '点击一个按钮后，发生了什么？',
             difficulty: 'beginner',
             summary: '用发快递的例子，彻底理解APP点击后的完整流程。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p>用户点击按钮后的完整流程涉及<strong>HTTP请求-响应模型</strong>，这是Web应用的核心通信机制。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow vertical">
+                            <div class="diagram-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h5>用户交互层</h5>
+                                    <p>用户点击按钮 → 触发事件监听器</p>
+                                    <p><strong>技术术语：</strong>Event Listener / DOM Event</p>
+                                </div>
+                            </div>
+                            <div class="diagram-arrow down">↓</div>
+                            <div class="diagram-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h5>前端处理层</h5>
+                                    <p>收集数据 → 构建请求 → 发起HTTP请求</p>
+                                    <p><strong>技术术语：</strong>HTTP Request / AJAX / Fetch API</p>
+                                </div>
+                            </div>
+                            <div class="diagram-arrow down">↓</div>
+                            <div class="diagram-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h5>网络传输层</h5>
+                                    <p>DNS解析 → TCP连接 → 数据传输</p>
+                                    <p><strong>技术术语：</strong>DNS / TCP/IP / SSL/TLS</p>
+                                </div>
+                            </div>
+                            <div class="diagram-arrow down">↓</div>
+                            <div class="diagram-step">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <h5>服务端处理层</h5>
+                                    <p>接收请求 → 路由分发 → 业务处理</p>
+                                    <p><strong>技术术语：</strong>Web Server / Router / Controller</p>
+                                </div>
+                            </div>
+                            <div class="diagram-arrow down">↓</div>
+                            <div class="diagram-step">
+                                <div class="step-number">5</div>
+                                <div class="step-content">
+                                    <h5>数据持久层</h5>
+                                    <p>数据库查询 → 数据处理 → 返回结果</p>
+                                    <p><strong>技术术语：</strong>SQL / ORM / Cache</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>关键技术指标</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>指标</th>
+                            <th>说明</th>
+                            <th>参考值</th>
+                        </tr>
+                        <tr>
+                            <td>RTT（往返时间）</td>
+                            <td>请求发出到收到响应的时间</td>
+                            <td>< 200ms 为优秀</td>
+                        </tr>
+                        <tr>
+                            <td>TTFB（首字节时间）</td>
+                            <td>从请求到收到第一个字节的时间</td>
+                            <td>< 100ms 为优秀</td>
+                        </tr>
+                        <tr>
+                            <td>DOM Ready</td>
+                            <td>页面DOM结构加载完成</td>
+                            <td>< 1s 为优秀</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>事件监听器</h5>
+                            <ul>
+                                <li><strong>作用</strong>：捕获用户的交互行为</li>
+                                <li><strong>实现</strong>：addEventListener / onClick</li>
+                                <li><strong>注意</strong>：防抖和节流优化</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>HTTP客户端</h5>
+                            <ul>
+                                <li><strong>作用</strong>：构建和发送网络请求</li>
+                                <li><strong>实现</strong>：Fetch API / Axios / XMLHttpRequest</li>
+                                <li><strong>注意</strong>：超时处理、错误重试</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>网络层</h5>
+                            <ul>
+                                <li><strong>作用</strong>：数据在网络中的传输</li>
+                                <li><strong>协议</strong>：TCP/IP、HTTP/HTTPS</li>
+                                <li><strong>注意</strong>：DNS缓存、CDN加速</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>服务端路由</h5>
+                            <ul>
+                                <li><strong>作用</strong>：将请求分发到对应的处理函数</li>
+                                <li><strong>实现</strong>：Nginx / Router中间件</li>
+                                <li><strong>注意</strong>：负载均衡、限流</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>电商下单场景</h5>
+                                <p><strong>前端</strong>：收集商品ID、数量、地址 → 构建POST请求</p>
+                                <p><strong>网络</strong>：HTTPS加密传输 → CDN加速</p>
+                                <p><strong>后端</strong>：验证库存 → 创建订单 → 扣减库存 → 返回订单号</p>
+                                <p><strong>耗时参考</strong>：总耗时应 < 500ms</p>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <div class="scenario-number">2</div>
+                            <div class="scenario-content">
+                                <h5>搜索查询场景</h5>
+                                <p><strong>前端</strong>：收集搜索关键词 → 发起GET请求</p>
+                                <p><strong>网络</strong>：请求参数URL编码 → 浏览器缓存检查</p>
+                                <p><strong>后端</strong>：关键词分词 → 搜索引擎查询 → 结果排序 → 返回列表</p>
+                                <p><strong>耗时参考</strong>：首屏渲染 < 1s</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    
+                    <div class="conversation-box">
+                        <div class="conversation-item bad">
+                            <div class="conv-header">
+                                <span class="conv-icon">❌</span>
+                                <span class="conv-title">错误沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"点击这个按钮，数据就传过去了，很简单吧？"</p>
+                                <p><strong>开发内心：</strong>需要考虑网络超时、请求重试、数据校验、并发控制、错误处理...</p>
+                                <p><strong>结果：</strong>功能上线后频繁出现"网络错误"投诉</p>
+                            </div>
+                        </div>
+                        
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"点击按钮后，网络超时怎么处理？用户重复点击怎么处理？请求失败后要自动重试吗？"</p>
+                                <p><strong>开发：</strong>"好的，我会加防抖处理防止重复点击，超时3秒后提示用户重试，失败自动重试1次。"</p>
+                                <p><strong>结果：</strong>功能稳定，用户体验好</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <h5>💡 产品经理必问清单</h5>
+                        <ul>
+                            <li>网络超时时间设多久？超时后怎么提示用户？</li>
+                            <li>用户重复点击怎么处理？需要防抖吗？</li>
+                            <li>请求失败后要自动重试吗？重试几次？</li>
+                            <li>敏感数据需要加密传输吗？</li>
+                            <li>这个接口的响应时间要求是多少？</li>
+                        </ul>
+                    </div>
+                `
+            },
             content: `
                 <h3>📦 打个比方：发快递</h3>
                 <p>你在APP上点击一个按钮，就像发一个快递。让我们看看完整流程：</p>
@@ -668,6 +1007,170 @@ runLoginProcess();</code></pre>
             title: '怎么和程序员好好说话？',
             difficulty: 'beginner',
             summary: '学会用程序员的思维方式沟通，避免撕逼，提高效率。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p>软件开发遵循<strong>软件工程方法论</strong>，强调需求的完整性、可测试性和可实现性。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow">
+                            <div class="diagram-node">
+                                <div class="node-icon">📝</div>
+                                <div class="node-title">需求分析</div>
+                                <div class="node-desc">明确功能边界<br/>输入输出定义</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">🏗️</div>
+                                <div class="node-title">技术方案</div>
+                                <div class="node-desc">架构设计<br/>接口定义</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">💻</div>
+                                <div class="node-title">开发实现</div>
+                                <div class="node-desc">编码实现<br/>单元测试</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">🧪</div>
+                                <div class="node-title">测试验收</div>
+                                <div class="node-desc">功能测试<br/>Bug修复</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>需求文档关键要素</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>要素</th>
+                            <th>说明</th>
+                            <th>示例</th>
+                        </tr>
+                        <tr>
+                            <td>功能描述</td>
+                            <td>这个功能是做什么的</td>
+                            <td>用户可以使用积分兑换商品</td>
+                        </tr>
+                        <tr>
+                            <td>前置条件</td>
+                            <td>使用功能的前提</td>
+                            <td>用户已登录，积分余额≥商品所需积分</td>
+                        </tr>
+                        <tr>
+                            <td>输入参数</td>
+                            <td>需要哪些数据</td>
+                            <td>商品ID、兑换数量、收货地址</td>
+                        </tr>
+                        <tr>
+                            <td>输出结果</td>
+                            <td>返回什么数据</td>
+                            <td>订单号、剩余积分、预计送达时间</td>
+                        </tr>
+                        <tr>
+                            <td>异常处理</td>
+                            <td>出错时怎么办</td>
+                            <td>积分不足时提示"积分不足，当前积分XX"</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>产品经理</h5>
+                            <ul>
+                                <li><strong>定义需求</strong>：明确功能目标和用户价值</li>
+                                <li><strong>梳理流程</strong>：完整的业务逻辑和分支</li>
+                                <li><strong>验收标准</strong>：可测试的验收条件</li>
+                                <li><strong>优先级排序</strong>：MVP vs 后续迭代</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>开发工程师</h5>
+                            <ul>
+                                <li><strong>技术评估</strong>：可行性分析和工时评估</li>
+                                <li><strong>方案设计</strong>：技术架构和接口设计</li>
+                                <li><strong>风险识别</strong>：技术难点和依赖项</li>
+                                <li><strong>实现细节</strong>：边界条件和异常处理</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>需求评审会</h5>
+                                <p><strong>产品经理</strong>：讲解需求背景、用户场景、功能目标</p>
+                                <p><strong>开发</strong>：提问澄清、评估技术难度、识别风险点</p>
+                                <p><strong>产出</strong>：确认需求范围、技术方案、排期计划</p>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <div class="scenario-number">2</div>
+                            <div class="scenario-content">
+                                <h5>开发过程中</h5>
+                                <p><strong>产品经理</strong>：及时响应开发疑问，确认细节</p>
+                                <p><strong>开发</strong>：遇到阻塞及时反馈，提出替代方案</p>
+                                <p><strong>产出</strong>：需求文档更新、技术方案调整</p>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <div class="scenario-number">3</div>
+                            <div class="scenario-content">
+                                <h5>验收测试</h5>
+                                <p><strong>产品经理</strong>：按验收标准测试，记录Bug</p>
+                                <p><strong>开发</strong>：修复Bug，解释技术限制</p>
+                                <p><strong>产出</strong>：Bug列表、修复计划、上线决策</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    
+                    <div class="conversation-box">
+                        <div class="conversation-item bad">
+                            <div class="conv-header">
+                                <span class="conv-icon">❌</span>
+                                <span class="conv-title">错误沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"这个需求很简单，就是加个按钮。"</p>
+                                <p><strong>开发：</strong>（内心：按钮点击后呢？数据存在哪？要不要权限控制？）</p>
+                                <p><strong>结果</strong>：开发做出来的和预期不符，返工浪费时间</p>
+                            </div>
+                        </div>
+                        
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"用户点击这个按钮后，需要调用XX接口，参数是XX，成功后显示XX，失败时提示XX。这个功能预计XX人使用，需要支持并发吗？"</p>
+                                <p><strong>开发：</strong>"明白了，我需要新建一个接口，预计2天完成。并发量不大，现有架构可以支持。"</p>
+                                <p><strong>结果</strong>：需求清晰，一次做对，按时交付</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <h5>💡 沟通技巧清单</h5>
+                        <ul>
+                            <li>用"用户场景+具体数据"描述需求，避免模糊词汇</li>
+                            <li>提供流程图或原型图，可视化表达</li>
+                            <li>明确验收标准，什么算完成</li>
+                            <li>询问技术风险和依赖项</li>
+                            <li>尊重技术判断，共同探讨解决方案</li>
+                        </ul>
+                    </div>
+                `
+            },
             content: `
                 <h3>🗣️ 为什么和程序员沟通难？</h3>
                 <p>很多产品经理和程序员沟通时，会出现这样的情况：</p>
@@ -876,6 +1379,156 @@ runLoginProcess();</code></pre>
             title: '哪些需求技术上做不了？',
             difficulty: 'beginner',
             summary: '了解技术边界，避免提不靠谱的需求，提高沟通效率。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p>技术实现受限于<strong>物理定律、计算复杂度、系统架构</strong>等因素。理解这些限制有助于制定可行的产品方案。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow">
+                            <div class="diagram-node">
+                                <div class="node-icon">⚛️</div>
+                                <div class="node-title">物理限制</div>
+                                <div class="node-desc">光速、量子力学<br/>硬件性能上限</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">📊</div>
+                                <div class="node-title">算法复杂度</div>
+                                <div class="node-desc">计算复杂度<br/>时间/空间限制</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">🔒</div>
+                                <div class="node-title">安全限制</div>
+                                <div class="node-desc">隐私保护<br/>平台政策</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">💰</div>
+                                <div class="node-title">成本限制</div>
+                                <div class="node-desc">开发成本<br/>维护成本</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>常见技术限制</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>限制类型</th>
+                            <th>具体说明</th>
+                            <th>示例</th>
+                        </tr>
+                        <tr>
+                            <td>物理限制</td>
+                            <td>受物理定律约束</td>
+                            <td>无法突破光速传输数据</td>
+                        </tr>
+                        <tr>
+                            <td>算法限制</td>
+                            <td>NP-hard问题无法在合理时间内解决</td>
+                            <td>大规模实时路径规划</td>
+                        </tr>
+                        <tr>
+                            <td>平台限制</td>
+                            <td>iOS/Android系统限制</td>
+                            <td>iOS不允许后台持续定位</td>
+                        </tr>
+                        <tr>
+                            <td>隐私限制</td>
+                            <td>法律法规约束</td>
+                            <td>无法获取用户通讯录</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>技术可行性评估</h5>
+                            <ul>
+                                <li><strong>算法复杂度</strong>：O(n) vs O(n²)的性能差异</li>
+                                <li><strong>系统架构</strong>：单体 vs 微服务的扩展性</li>
+                                <li><strong>第三方依赖</strong>：API限制和稳定性</li>
+                                <li><strong>硬件限制</strong>：移动端计算能力</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>替代方案设计</h5>
+                            <ul>
+                                <li><strong>近似算法</strong>：用启发式算法替代精确解</li>
+                                <li><strong>分步实现</strong>：MVP + 迭代优化</li>
+                                <li><strong>降级方案</strong>：优雅降级保证核心功能</li>
+                                <li><strong>技术选型</strong>：选择成熟稳定的技术栈</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>实时推荐场景</h5>
+                                <p><strong>需求</strong>：用户每滑动一个商品，实时推荐相似商品</p>
+                                <p><strong>技术限制</strong>：实时计算推荐结果需要大量计算资源</p>
+                                <p><strong>替代方案</strong>：预计算推荐结果，缓存热点数据</p>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <div class="scenario-number">2</div>
+                            <div class="scenario-content">
+                                <h5>离线功能场景</h5>
+                                <p><strong>需求</strong>：用户没网时也能使用全部功能</p>
+                                <p><strong>技术限制</strong>：部分功能必须联网（支付、实时数据）</p>
+                                <p><strong>替代方案</strong>：核心功能支持离线，关键操作联网</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    
+                    <div class="conversation-box">
+                        <div class="conversation-item bad">
+                            <div class="conv-header">
+                                <span class="conv-icon">❌</span>
+                                <span class="conv-title">错误沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"这个功能必须实现，用户需要！"</p>
+                                <p><strong>开发：</strong>"技术上不可行，算法复杂度太高。"</p>
+                                <p><strong>结果</strong>：双方僵持，项目延期</p>
+                            </div>
+                        </div>
+                        
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"这个功能的核心需求是什么？有没有替代方案可以达到类似效果？"</p>
+                                <p><strong>开发：</strong>"实时计算成本太高，可以用预计算+缓存的方案，用户体验差不多，成本降低80%。"</p>
+                                <p><strong>结果</strong>：找到可行方案，按时交付</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <h5>💡 技术边界评估清单</h5>
+                        <ul>
+                            <li>这个功能涉及什么算法？时间复杂度是多少？</li>
+                            <li>数据量有多大？会不会超过系统承载能力？</li>
+                            <li>有没有第三方依赖？API是否稳定？</li>
+                            <li>平台有什么限制？iOS/Android都能做吗？</li>
+                            <li>有没有替代方案可以达到类似效果？</li>
+                        </ul>
+                    </div>
+                `
+            },
             content: `
                 <h3>🚫 先来看几个"翻车"案例</h3>
                 
@@ -1091,6 +1744,150 @@ runLoginProcess();</code></pre>
             title: '数据是什么？',
             difficulty: 'beginner',
             summary: '用生活中的例子理解程序里的数据，知道数据有哪些类型。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p>计算机程序通过<strong>数据类型系统</strong>来组织和操作数据。不同编程语言有各自的数据类型定义，但核心概念相通。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow">
+                            <div class="diagram-node">
+                                <div class="node-icon">🔤</div>
+                                <div class="node-title">基本类型</div>
+                                <div class="node-desc">String / Number<br/>Boolean / Null</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">📦</div>
+                                <div class="node-title">复合类型</div>
+                                <div class="node-desc">Array / Object<br/>Map / Set</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">⚙️</div>
+                                <div class="node-title">内存存储</div>
+                                <div class="node-desc">栈 / 堆<br/>引用 / 值</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>数据类型对比</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>类型</th>
+                            <th>存储方式</th>
+                            <th>适用场景</th>
+                        </tr>
+                        <tr>
+                            <td>String</td>
+                            <td>字符序列，UTF-8编码</td>
+                            <td>文本、ID、手机号</td>
+                        </tr>
+                        <tr>
+                            <td>Number</td>
+                            <td>64位浮点数</td>
+                            <td>计算、金额（注意精度）</td>
+                        </tr>
+                        <tr>
+                            <td>Boolean</td>
+                            <td>1位（true/false）</td>
+                            <td>状态标记、条件判断</td>
+                        </tr>
+                        <tr>
+                            <td>Object</td>
+                            <td>键值对集合</td>
+                            <td>结构化数据、实体</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>类型系统</h5>
+                            <ul>
+                                <li><strong>类型检查</strong>：编译期/运行期验证</li>
+                                <li><strong>内存分配</strong>：决定存储空间和方式</li>
+                                <li><strong>运算规则</strong>：不同类型运算规则不同</li>
+                                <li><strong>序列化</strong>：JSON/XML转换</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>数据建模</h5>
+                            <ul>
+                                <li><strong>实体设计</strong>：用户、订单、商品</li>
+                                <li><strong>关系映射</strong>：一对一、一对多</li>
+                                <li><strong>字段约束</strong>：必填、长度、格式</li>
+                                <li><strong>索引优化</strong>：查询性能</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>用户注册数据</h5>
+                                <p><strong>手机号</strong>：String类型，正则验证格式</p>
+                                <p><strong>年龄</strong>：Number类型，范围校验18-120</p>
+                                <p><strong>是否会员</strong>：Boolean类型，默认false</p>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <div class="scenario-number">2</div>
+                            <div class="scenario-content">
+                                <h5>订单数据结构</h5>
+                                <p><strong>订单对象</strong>：包含订单号、金额、状态等字段</p>
+                                <p><strong>商品列表</strong>：Array类型，存储多个商品</p>
+                                <p><strong>地址信息</strong>：嵌套Object，省市区街道</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    
+                    <div class="conversation-box">
+                        <div class="conversation-item bad">
+                            <div class="conv-header">
+                                <span class="conv-icon">❌</span>
+                                <span class="conv-title">错误沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"用户年龄就存数字吧。"</p>
+                                <p><strong>开发：</strong>（内心：年龄是整数还是小数？最大多少？可以为空吗？）</p>
+                                <p><strong>结果</strong>：数据校验不完善，出现负数年龄、200岁年龄等异常数据</p>
+                            </div>
+                        </div>
+                        
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"年龄字段：整数类型，范围0-150，必填，默认0表示未填写。"</p>
+                                <p><strong>开发：</strong>"明白了，我会在数据库加约束，API层加校验。"</p>
+                                <p><strong>结果</strong>：数据质量高，系统稳定</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <h5>💡 数据设计清单</h5>
+                        <ul>
+                            <li>每个字段的数据类型是什么？（String/Number/Boolean）</li>
+                            <li>是否必填？默认值是什么？</li>
+                            <li>有没有格式要求？（手机号、邮箱、身份证）</li>
+                            <li>取值范围是多少？（年龄0-150，评分1-5）</li>
+                            <li>是否需要唯一约束？（用户ID、订单号）</li>
+                        </ul>
+                    </div>
+                `
+            },
             content: `
                 <h3>📦 数据就是"东西"</h3>
                 <p>在程序员眼里，世界上的一切都是<strong>数据</strong>。就像你家里的东西一样，数据也有不同的类型。</p>
@@ -1600,6 +2397,12 @@ runLoginProcess();</code></pre>
                     </ul>
                     <p><strong>产品经理要做什么：</strong>设计友好的错误提示，告诉用户发生了什么、该怎么办</p>
                 </div>
+                
+                <h3>🎮 动手试试：代码的四个基本构件</h3>
+                <p>理解了程序的执行逻辑，现在来动手体验一下代码的四个基本构件：<strong>变量、函数、条件、循环</strong>。</p>
+                <p>这四个构件是所有程序的基础，就像乐高的四种基本积木块。掌握它们，你就能理解程序员在写什么。</p>
+                
+                <div class="interactive-demo-section" id="codeConceptsDemoArea"></div>
             `
         },
         {

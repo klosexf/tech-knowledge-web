@@ -1,6 +1,9 @@
 (function() {
     'use strict';
     
+    // 获取全局 knowledgeData 对象（在 init 函数中检查）
+    let knowledgeData = window.knowledgeData;
+    
     const state = {
         favorites: JSON.parse(localStorage.getItem('favorites') || '[]'),
         completed: JSON.parse(localStorage.getItem('completed') || '[]'),
@@ -63,6 +66,15 @@
     };
     
     function init() {
+        // 确保 knowledgeData 已加载
+        if (!window.knowledgeData) {
+            console.error('错误: knowledgeData 未定义。请确保 data/index.js 在 script.js 之前加载。');
+            return;
+        }
+        
+        // 更新 knowledgeData 引用
+        knowledgeData = window.knowledgeData;
+        
         // 重置页面状态，确保刷新后显示技术分类页面
         resetToHomePage();
         
@@ -282,7 +294,9 @@
                                                  knowledge.difficulty === 'intermediate' ? '进阶级' : '高级';
         elements.detailTitle.textContent = knowledge.title;
         elements.detailSummary.textContent = knowledge.summary;
-        elements.detailContent.innerHTML = knowledge.content;
+        
+        // 渲染内容，包含白话版和技术版切换
+        renderKnowledgeContent(knowledge);
         
         updateFavoriteButton();
         updateCompleteButton();
@@ -293,6 +307,72 @@
         elements.knowledgeDetail.classList.add('active');
         
         elements.knowledgeDetail.scrollIntoView({ behavior: 'smooth' });
+        
+        if (typeof window.startCodeConceptsDemo === 'function') {
+            setTimeout(() => window.startCodeConceptsDemo(), 100);
+        }
+    }
+    
+    // 渲染知识点内容（白话版/技术版切换）
+    function renderKnowledgeContent(knowledge) {
+        let contentHTML = '';
+        
+        // 如果有技术版内容，添加切换按钮
+        if (knowledge.technicalContent) {
+            contentHTML = `
+                <div class="version-toggle">
+                    <button class="version-btn active" data-version="simple">📖 白话版</button>
+                    <button class="version-btn" data-version="technical">🔬 技术版</button>
+                </div>
+                
+                <div class="content-version active" id="simpleVersion">
+                    ${knowledge.content}
+                </div>
+                
+                <div class="content-version" id="technicalVersion">
+                    <div class="technical-section">
+                        ${knowledge.technicalContent.principle || ''}
+                        ${knowledge.technicalContent.role || ''}
+                        ${knowledge.technicalContent.businessScenario || ''}
+                        ${knowledge.technicalContent.pmDevScenario || ''}
+                    </div>
+                </div>
+            `;
+        } else {
+            // 没有技术版内容，只显示白话版
+            contentHTML = knowledge.content;
+        }
+        
+        elements.detailContent.innerHTML = contentHTML;
+        
+        // 绑定版本切换事件
+        if (knowledge.technicalContent) {
+            document.querySelectorAll('.version-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const version = this.dataset.version;
+                    switchContentVersion(version);
+                });
+            });
+        }
+    }
+    
+    // 切换内容版本
+    function switchContentVersion(version) {
+        // 更新按钮状态
+        document.querySelectorAll('.version-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.version === version);
+        });
+        
+        // 更新内容显示
+        document.querySelectorAll('.content-version').forEach(content => {
+            content.classList.remove('active');
+        });
+        
+        if (version === 'simple') {
+            document.getElementById('simpleVersion').classList.add('active');
+        } else {
+            document.getElementById('technicalVersion').classList.add('active');
+        }
     }
     
     function hideKnowledgeDetail() {
@@ -546,6 +626,15 @@
     }
     
     function renderQuiz() {
+        // 检查是否有测验数据
+        if (!knowledgeData.quizzes || knowledgeData.quizzes.length === 0) {
+            // 如果没有测验数据，隐藏测验容器
+            if (elements.quizContainer) {
+                elements.quizContainer.style.display = 'none';
+            }
+            return;
+        }
+        
         state.currentQuizIndex = 0;
         state.quizAnswers = [];
         state.quizScore = 0;
