@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Content Test</title>
+</head>
+<body>
+    <h1>Technical Content Test</h1>
+    <div id="result"></div>
+    
+    <script src="data/categories.js"></script>
+    <script src="data/architecture.js"></script>
+    <script src="data/programming.js"></script>
+    <script src="data/database.js"></script>
+    <script src="data/frontend.js"></script>
+    <script src="data/backend.js"></script>
+    <script src="data/data-analysis.js"></script>
+    <script src="data/index.js"></script>
+    
+    <script>
+        const resultDiv = document.getElementById('result');
+        
+        // 检查 knowledgeData 是否存在
+        if (typeof knowledgeData === 'undefined') {
+            resultDiv.innerHTML = '<p style="color: red;">Error: knowledgeData is undefined</p>';
+        } else {
+            let html = '<h2>Knowledge Data Loaded</h2>';
+            html += `<p>Categories: ${knowledgeData.categories.length}</p>`;
+            html += `<p>Knowledge items: ${knowledgeData.knowledge.length}</p>`;
+            
+            // 检查每个知识点的 technicalContent
+            html += '<h3>Technical Content Check:</h3>';
+            html += '<ul>';
+            
+            knowledgeData.knowledge.forEach(k => {
+                const hasTechnical = k.technicalContent ? '✅' : '❌';
+                html += `<li>${k.id}: ${k.title} - ${hasTechnical}</li>`;
+            });
+            
+            html += '</ul>';
+            
+            // 详细显示 arch-1 的内容
+            const arch1 = knowledgeData.knowledge.find(k => k.id === 'arch-1');
+            if (arch1) {
+                html += '<h3>Arch-1 Details:</h3>';
+                html += `<p>Has technicalContent: ${arch1.technicalContent ? 'Yes' : 'No'}</p>`;
+                if (arch1.technicalContent) {
+                    html += '<p>technicalContent keys: ' + Object.keys(arch1.technicalContent).join(', ') + '</p>';
+                }
+            }
+            
+            resultDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

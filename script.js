@@ -11,7 +11,10 @@
         currentKnowledge: null,
         currentQuizIndex: 0,
         quizAnswers: [],
-        quizScore: 0
+        quizScore: 0,
+        previousView: null,
+        currentCategoryId: null,
+        currentDifficulty: 'all'
     };
     
     const elements = {
@@ -98,6 +101,9 @@
         elements.difficultyFilter.value = 'all';
         
         state.currentKnowledge = null;
+        state.previousView = null;
+        state.currentCategoryId = null;
+        state.currentDifficulty = 'all';
     }
     
     function setupEventListeners() {
@@ -264,6 +270,9 @@
         const category = knowledgeData.categories.find(c => c.id === categoryId);
         if (!category) return;
         
+        state.currentCategoryId = categoryId;
+        state.currentDifficulty = 'all';
+        
         elements.categoriesTitle.textContent = category.name;
         elements.backToCategories.style.display = 'flex';
         elements.difficultyFilter.value = 'all';
@@ -274,6 +283,7 @@
     
     function filterByDifficulty() {
         const difficulty = elements.difficultyFilter.value;
+        state.currentDifficulty = difficulty;
         const activeCategory = document.querySelector('.category-card.active');
         const categoryId = activeCategory ? activeCategory.dataset.categoryId : null;
         
@@ -283,6 +293,12 @@
     function showKnowledgeDetail(id) {
         const knowledge = knowledgeData.knowledge.find(k => k.id === id);
         if (!knowledge) return;
+        
+        if (state.currentCategoryId) {
+            state.previousView = 'categoryList';
+        } else {
+            state.previousView = 'home';
+        }
         
         state.currentKnowledge = knowledge;
         addToRecent(id);
@@ -317,6 +333,13 @@
     function renderKnowledgeContent(knowledge) {
         let contentHTML = '';
         
+        // 调试日志
+        console.log('Rendering knowledge:', knowledge.id, knowledge.title);
+        console.log('Has technicalContent:', !!knowledge.technicalContent);
+        if (knowledge.technicalContent) {
+            console.log('technicalContent keys:', Object.keys(knowledge.technicalContent));
+        }
+        
         // 如果有技术版内容，添加切换按钮
         if (knowledge.technicalContent) {
             contentHTML = `
@@ -344,6 +367,9 @@
         }
         
         elements.detailContent.innerHTML = contentHTML;
+        
+        // 初始化交互式组件
+        initInteractiveComponents();
         
         // 绑定版本切换事件
         if (knowledge.technicalContent) {
@@ -377,14 +403,31 @@
     
     function hideKnowledgeDetail() {
         elements.knowledgeDetail.classList.remove('active');
+        
+        if (state.previousView === 'categoryList' && state.currentCategoryId) {
+            const category = knowledgeData.categories.find(c => c.id === state.currentCategoryId);
+            if (category) {
+                elements.categoriesTitle.textContent = category.name;
+                elements.backToCategories.style.display = 'flex';
+                elements.difficultyFilter.value = state.currentDifficulty;
+                renderKnowledgeCards(state.currentCategoryId, state.currentDifficulty);
+            }
+        } else {
+            elements.categoriesTitle.textContent = '技术分类';
+            elements.backToCategories.style.display = 'none';
+            elements.difficultyFilter.value = 'all';
+            renderCategories();
+        }
+        
         document.querySelector('.categories').style.display = 'block';
         document.querySelector('.learning-path').style.display = 'block';
-        
-        renderCategories();
         document.getElementById('categories').scrollIntoView({ behavior: 'smooth' });
     }
     
     function backToCategoryList() {
+        state.currentCategoryId = null;
+        state.currentDifficulty = 'all';
+        
         elements.categoriesTitle.textContent = '技术分类';
         elements.backToCategories.style.display = 'none';
         elements.difficultyFilter.value = 'all';
@@ -816,6 +859,25 @@
             updateRecentList();
         }
     };
+    
+    // 初始化交互式组件
+    function initInteractiveComponents() {
+        // 延迟初始化，确保DOM已完全渲染
+        setTimeout(() => {
+            if (typeof window.startIosAndroidDemo === 'function') {
+                window.startIosAndroidDemo();
+            }
+            if (typeof window.startUiBuilderDemo === 'function') {
+                window.startUiBuilderDemo();
+            }
+            if (typeof window.startAppTypesDemo === 'function') {
+                window.startAppTypesDemo();
+            }
+            if (typeof window.startDevMethodsDemo === 'function') {
+                window.startDevMethodsDemo();
+            }
+        }, 100);
+    }
     
     // ==================== 交互式学习功能 ====================
     

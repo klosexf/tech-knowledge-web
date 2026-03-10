@@ -574,6 +574,121 @@ runLoginProcess();</code></pre>
             title: '点击一个按钮后，发生了什么？',
             difficulty: 'beginner',
             summary: '用发快递的例子，彻底理解APP点击后的完整流程。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p>用户点击按钮后的完整流程涉及<strong>HTTP请求-响应模型</strong>，这是Web应用的核心通信机制。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow vertical">
+                            <div class="diagram-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h5>用户交互层</h5>
+                                    <p>用户点击按钮 → 触发事件监听器</p>
+                                    <p><strong>技术术语：</strong>Event Listener / DOM Event</p>
+                                </div>
+                            </div>
+                            <div class="diagram-arrow down">↓</div>
+                            <div class="diagram-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h5>前端处理层</h5>
+                                    <p>收集数据 → 构建请求 → 发起HTTP请求</p>
+                                    <p><strong>技术术语：</strong>HTTP Request / AJAX / Fetch API</p>
+                                </div>
+                            </div>
+                            <div class="diagram-arrow down">↓</div>
+                            <div class="diagram-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h5>网络传输层</h5>
+                                    <p>DNS解析 → TCP连接 → 数据传输</p>
+                                    <p><strong>技术术语：</strong>DNS / TCP/IP / SSL/TLS</p>
+                                </div>
+                            </div>
+                            <div class="diagram-arrow down">↓</div>
+                            <div class="diagram-step">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <h5>服务端处理层</h5>
+                                    <p>接收请求 → 路由分发 → 业务处理</p>
+                                    <p><strong>技术术语：</strong>Web Server / Router / Controller</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>关键技术指标</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>指标</th>
+                            <th>说明</th>
+                            <th>参考值</th>
+                        </tr>
+                        <tr>
+                            <td>RTT（往返时间）</td>
+                            <td>请求发出到收到响应的时间</td>
+                            <td>< 200ms 为优秀</td>
+                        </tr>
+                        <tr>
+                            <td>TTFB（首字节时间）</td>
+                            <td>从请求到收到第一个字节的时间</td>
+                            <td>< 100ms 为优秀</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>事件监听器</h5>
+                            <ul>
+                                <li><strong>作用</strong>：捕获用户的交互行为</li>
+                                <li><strong>实现</strong>：addEventListener / onClick</li>
+                                <li><strong>注意</strong>：防抖和节流优化</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>HTTP客户端</h5>
+                            <ul>
+                                <li><strong>作用</strong>：构建和发送网络请求</li>
+                                <li><strong>实现</strong>：Fetch API / Axios</li>
+                                <li><strong>注意</strong>：超时处理、错误重试</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>电商下单场景</h5>
+                                <p><strong>前端</strong>：收集商品ID、数量、地址 → 构建POST请求</p>
+                                <p><strong>网络</strong>：HTTPS加密传输 → CDN加速</p>
+                                <p><strong>后端</strong>：验证库存 → 创建订单 → 返回订单号</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    <div class="conversation-box">
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"点击按钮后，网络超时怎么处理？用户重复点击怎么处理？"</p>
+                                <p><strong>开发：</strong>"我会加防抖处理防止重复点击，超时3秒后提示用户重试。"</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
             content: `
                 <h3>📦 打个比方：发快递</h3>
                 <p>你在APP上点击一个按钮，就像发一个快递。让我们看看完整流程：</p>
@@ -808,6 +923,95 @@ runLoginProcess();</code></pre>
             title: '怎么和程序员好好说话？',
             difficulty: 'beginner',
             summary: '学会用程序员的思维方式沟通，避免撕逼，提高效率。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p>软件开发遵循<strong>软件工程方法论</strong>，强调需求的完整性、可测试性和可实现性。</p>
+                    
+                    <h5>需求文档关键要素</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>要素</th>
+                            <th>说明</th>
+                            <th>示例</th>
+                        </tr>
+                        <tr>
+                            <td>功能描述</td>
+                            <td>这个功能是做什么的</td>
+                            <td>用户可以使用积分兑换商品</td>
+                        </tr>
+                        <tr>
+                            <td>前置条件</td>
+                            <td>使用功能的前提</td>
+                            <td>用户已登录，积分余额≥商品所需积分</td>
+                        </tr>
+                        <tr>
+                            <td>输入参数</td>
+                            <td>需要哪些数据</td>
+                            <td>商品ID、兑换数量、收货地址</td>
+                        </tr>
+                        <tr>
+                            <td>输出结果</td>
+                            <td>返回什么数据</td>
+                            <td>订单号、剩余积分、预计送达时间</td>
+                        </tr>
+                        <tr>
+                            <td>异常处理</td>
+                            <td>出错时怎么办</td>
+                            <td>积分不足时提示"积分不足，当前积分XX"</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>产品经理</h5>
+                            <ul>
+                                <li><strong>定义需求</strong>：明确功能目标和用户价值</li>
+                                <li><strong>梳理流程</strong>：完整的业务逻辑和分支</li>
+                                <li><strong>验收标准</strong>：可测试的验收条件</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>开发工程师</h5>
+                            <ul>
+                                <li><strong>技术评估</strong>：可行性分析和工时评估</li>
+                                <li><strong>方案设计</strong>：技术架构和接口设计</li>
+                                <li><strong>风险识别</strong>：技术难点和依赖项</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>需求评审会</h5>
+                                <p><strong>产品经理</strong>：讲解需求背景、用户场景、功能目标</p>
+                                <p><strong>开发</strong>：提问澄清、评估技术难度、识别风险点</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    <div class="conversation-box">
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"用户点击这个按钮后，需要调用XX接口，参数是XX，成功后显示XX，失败时提示XX。"</p>
+                                <p><strong>开发：</strong>"明白了，我需要新建一个接口，预计2天完成。"</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
             content: `
                 <h3>🗣️ 为什么和程序员沟通难？</h3>
                 <p>很多产品经理和程序员沟通时，会出现这样的情况：</p>
@@ -1016,6 +1220,91 @@ runLoginProcess();</code></pre>
             title: '哪些需求技术上做不了？',
             difficulty: 'beginner',
             summary: '了解技术边界，避免提不靠谱的需求，提高沟通效率。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p>技术实现受限于<strong>物理定律、计算复杂度、系统架构</strong>等因素。理解这些限制有助于制定可行的产品方案。</p>
+                    
+                    <h5>常见技术限制</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>限制类型</th>
+                            <th>具体说明</th>
+                            <th>示例</th>
+                        </tr>
+                        <tr>
+                            <td>物理限制</td>
+                            <td>受物理定律约束</td>
+                            <td>无法突破光速传输数据</td>
+                        </tr>
+                        <tr>
+                            <td>算法限制</td>
+                            <td>NP-hard问题无法在合理时间内解决</td>
+                            <td>大规模实时路径规划</td>
+                        </tr>
+                        <tr>
+                            <td>平台限制</td>
+                            <td>iOS/Android系统限制</td>
+                            <td>iOS不允许后台持续定位</td>
+                        </tr>
+                        <tr>
+                            <td>隐私限制</td>
+                            <td>法律法规约束</td>
+                            <td>无法获取用户通讯录</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>技术可行性评估</h5>
+                            <ul>
+                                <li><strong>算法复杂度</strong>：O(n) vs O(n²)的性能差异</li>
+                                <li><strong>系统架构</strong>：单体 vs 微服务的扩展性</li>
+                                <li><strong>第三方依赖</strong>：API限制和稳定性</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>替代方案设计</h5>
+                            <ul>
+                                <li><strong>近似算法</strong>：用启发式算法替代精确解</li>
+                                <li><strong>分步实现</strong>：MVP + 迭代优化</li>
+                                <li><strong>降级方案</strong>：优雅降级保证核心功能</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>实时推荐场景</h5>
+                                <p><strong>需求</strong>：用户每滑动一个商品，实时推荐相似商品</p>
+                                <p><strong>技术限制</strong>：实时计算推荐结果需要大量计算资源</p>
+                                <p><strong>替代方案</strong>：预计算推荐结果，缓存热点数据</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    <div class="conversation-box">
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"这个功能的核心需求是什么？有没有替代方案可以达到类似效果？"</p>
+                                <p><strong>开发：</strong>"实时计算成本太高，可以用预计算+缓存的方案，用户体验差不多。"</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
             content: `
                 <h3>🚫 先来看几个"翻车"案例</h3>
                 

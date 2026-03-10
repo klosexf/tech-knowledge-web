@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Technical Content Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .category { margin-bottom: 30px; }
+        .category h2 { color: #333; border-bottom: 2px solid #ddd; padding-bottom: 10px; }
+        .knowledge-item { padding: 8px; margin: 5px 0; border-radius: 4px; }
+        .has-technical { background: #d4edda; }
+        .no-technical { background: #f8d7da; }
+        .summary { margin: 20px 0; padding: 15px; background: #e7f3ff; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <h1>所有知识点技术版内容检查</h1>
+    <div id="result"></div>
+    
+    <script src="data/categories.js"></script>
+    <script src="data/architecture.js"></script>
+    <script src="data/programming.js"></script>
+    <script src="data/database.js"></script>
+    <script src="data/frontend.js"></script>
+    <script src="data/backend.js"></script>
+    <script src="data/data-analysis.js"></script>
+    <script src="data/index.js"></script>
+    
+    <script>
+        const resultDiv = document.getElementById('result');
+        
+        if (typeof knowledgeData === 'undefined') {
+            resultDiv.innerHTML = '<p style="color: red;">Error: knowledgeData is undefined</p>';
+        } else {
+            let html = '<div class="summary">';
+            html += `<h3>总览</h3>`;
+            html += `<p>分类数量: ${knowledgeData.categories.length}</p>`;
+            html += `<p>知识点总数: ${knowledgeData.knowledge.length}</p>`;
+            
+            const withTechnical = knowledgeData.knowledge.filter(k => k.technicalContent).length;
+            const withoutTechnical = knowledgeData.knowledge.length - withTechnical;
+            
+            html += `<p>有技术版: ${withTechnical} 个</p>`;
+            html += `<p>无技术版: ${withoutTechnical} 个</p>`;
+            html += '</div>';
+            
+            // 按分类分组显示
+            knowledgeData.categories.forEach(category => {
+                const categoryKnowledge = knowledgeData.knowledge.filter(k => k.categoryId === category.id);
+                if (categoryKnowledge.length === 0) return;
+                
+                html += `<div class="category">`;
+                html += `<h2>${category.name} (${categoryKnowledge.length}个知识点)</h2>`;
+                
+                categoryKnowledge.forEach(k => {
+                    const hasTechnical = k.technicalContent ? 'has-technical' : 'no-technical';
+                    const status = k.technicalContent ? '✅' : '❌';
+                    html += `<div class="knowledge-item ${hasTechnical}">${status} ${k.id}: ${k.title}</div>`;
+                });
+                
+                html += `</div>`;
+            });
+            
+            resultDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

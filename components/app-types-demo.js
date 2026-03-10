@@ -85,10 +85,11 @@
             return;
         }
 
-        if (demoState.isInitialized) {
+        if (demoState.isInitialized && demoArea.innerHTML.trim() !== '') {
             return;
         }
 
+        demoState.isInitialized = false;
         demoArea.innerHTML = createComponentHTML();
         addComponentStyles();
         cacheElements();
