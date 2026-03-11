@@ -34,7 +34,133 @@ var knowledge = [
             title: '核心数据指标',
             difficulty: 'beginner',
             summary: '了解产品经理必须关注的核心数据指标，用数据驱动产品决策。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p><strong>数据分析</strong>是通过数据采集、清洗、存储、分析、可视化等环节，从数据中提取有价值信息的过程。产品经理需要掌握核心指标的定义、计算方法和分析框架。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow">
+                            <div class="diagram-node">
+                                <div class="node-icon">📥</div>
+                                <div class="node-title">数据采集</div>
+                                <div class="node-desc">埋点上报<br/>日志收集</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">🗄️</div>
+                                <div class="node-title">数据存储</div>
+                                <div class="node-desc">数据仓库<br/>实时/离线</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">📊</div>
+                                <div class="node-title">数据分析</div>
+                                <div class="node-desc">指标计算<br/>趋势分析</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">📈</div>
+                                <div class="node-title">可视化</div>
+                                <div class="node-desc">报表展示<br/>数据大屏</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>核心指标计算公式</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>指标</th>
+                            <th>计算公式</th>
+                            <th>技术实现</th>
+                        </tr>
+                        <tr>
+                            <td>DAU</td>
+                            <td>当日去重用户数</td>
+                            <td>COUNT(DISTINCT user_id) WHERE date = today</td>
+                        </tr>
+                        <tr>
+                            <td>留存率</td>
+                            <td>次日回访用户 / 新增用户</td>
+                            <td>用户分群 + 时间窗口计算</td>
+                        </tr>
+                        <tr>
+                            <td>转化率</td>
+                            <td>转化用户 / 总用户</td>
+                            <td>漏斗分析 + 漏斗模型</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>用户指标</h5>
+                            <ul>
+                                <li><strong>DAU/MAU</strong>：衡量产品活跃度</li>
+                                <li><strong>留存率</strong>：衡量用户粘性</li>
+                                <li><strong>新增用户</strong>：衡量增长速度</li>
+                                <li><strong>用户生命周期价值</strong>：LTV</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>业务指标</h5>
+                            <ul>
+                                <li><strong>转化率</strong>：衡量商业效率</li>
+                                <li><strong>ARPU</strong>：平均每用户收入</li>
+                                <li><strong>GMV</strong>：商品交易总额</li>
+                                <li><strong>ROI</strong>：投资回报率</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>产品迭代决策</h5>
+                                <p><strong>场景</strong>：新功能上线后，判断是否成功</p>
+                                <p><strong>指标</strong>：功能使用率、留存率变化、转化率提升</p>
+                                <p><strong>决策</strong>：数据正向则推广，负向则优化</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    <div class="conversation-box">
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"这个功能上线后，需要埋哪些点？怎么衡量功能是否成功？"</p>
+                                <p><strong>开发：</strong>"需要埋点：功能入口点击、功能使用完成、使用时长。成功指标看使用率和留存率变化。"</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tips-box">
+                        <h5>💡 数据埋点清单</h5>
+                        <ul>
+                            <li>这个功能需要埋哪些点？</li>
+                            <li>埋点时机是什么？（点击、曝光、完成）</li>
+                            <li>需要传哪些参数？</li>
+                            <li>数据上报频率是多少？</li>
+                        </ul>
+                    </div>
+                `
+            },
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>介绍产品经理必须关注的核心数据指标，包括DAU、MAU、留存率、转化率、ARPU等关键指标的定义和计算方法。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够建立数据思维，设定产品目标，用数据驱动产品决策和迭代优化。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是数据驱动产品模块的基础课程，帮助产品经理建立数据意识，是数据驱动决策的起点。</div>
+                </div>
+                
                 <h3>📊 数据是产品的指南针</h3>
                 <p>产品经理不能靠感觉做决策，要<strong>用数据说话</strong>。了解一些核心指标，能帮你判断产品做得好不好。</p>
                 
@@ -182,6 +308,13 @@ var knowledge = [
             difficulty: 'beginner',
             summary: '学会使用数据分析工具，理解埋点和事件追踪的概念。',
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>理解数据埋点的概念和原理，掌握埋点设计方法，了解主流数据分析工具的特点和选择。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够设计埋点方案，使用数据分析工具查看和分析用户行为数据。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是数据驱动产品模块的技术课程，帮助产品经理理解数据从哪来、怎么收集。</div>
+                </div>
+                
                 <h3>🔍 数据从哪来？</h3>
                 <p>APP里的用户行为数据，是通过<strong>埋点</strong>收集的。就像在路上装摄像头，记录经过的车辆。</p>
                 
@@ -306,6 +439,13 @@ var knowledge = [
             difficulty: 'beginner',
             summary: '学会制作数据报表和看板，让数据更直观地指导决策。',
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>掌握数据可视化的方法，学会制作数据报表和看板，理解不同图表类型的适用场景。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够设计数据看板，制作有效的数据报表，用数据驱动团队决策。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是数据驱动产品模块的实践课程，帮助产品经理将数据转化为可视化的决策依据。</div>
+                </div>
+                
                 <h3>📈 数据可视化</h3>
                 <p>把数据变成图表，更容易发现问题和趋势。</p>
                 

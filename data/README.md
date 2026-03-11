@@ -11,7 +11,7 @@ tech-knowledge-web/
 ├── data/                          # 数据模块目录
 │   ├── index.js                   # 主入口模块 - 聚合所有数据
 │   ├── categories.js              # 分类定义模块 - 6个分类
-│   ├── architecture.js            # 互联网基础架构模块 - 4个知识点
+│   ├── architecture.js            # 互联网基础架构模块 - 3个知识点
 │   ├── programming.js             # 编程入门知识模块 - 4个知识点
 │   ├── database.js                # 数据存储原理模块 - 4个知识点
 │   ├── frontend.js                # 前端开发模块 - 4个知识点
@@ -96,7 +96,6 @@ index.html
 
 **包含知识点**：
 - `arch-1` - 一个APP是怎么跑起来的？
-- `arch-2` - 点击一个按钮后，发生了什么？
 - `arch-3` - 怎么和程序员好好说话？
 - `arch-4` - 哪些需求技术上做不了？
 
@@ -200,7 +199,7 @@ index.html
 ```javascript
 {
     categories: Array,   // 分类列表（6个）
-    knowledge: Array     // 所有知识点列表（24个）
+    knowledge: Array     // 所有知识点列表（23个）
 }
 ```
 

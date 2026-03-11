@@ -101,9 +101,6 @@
         elements.difficultyFilter.value = 'all';
         
         state.currentKnowledge = null;
-        state.previousView = null;
-        state.currentCategoryId = null;
-        state.currentDifficulty = 'all';
     }
     
     function setupEventListeners() {
@@ -147,6 +144,55 @@
         elements.backToTop.addEventListener('click', scrollToTop);
         
         document.addEventListener('click', handleCopyCode);
+        
+        // 图片全屏查看功能
+        setupImageLightbox();
+    }
+    
+    // 图片全屏查看功能
+    function setupImageLightbox() {
+        const heroImageWrapper = document.getElementById('heroImageWrapper');
+        const lightbox = document.getElementById('imageLightbox');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxBackdrop = lightbox?.querySelector('.lightbox-backdrop');
+        
+        if (!heroImageWrapper || !lightbox) return;
+        
+        // 点击图片打开全屏
+        heroImageWrapper.addEventListener('click', () => {
+            openLightbox();
+        });
+        
+        // 键盘支持（Enter或Space键）
+        heroImageWrapper.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openLightbox();
+            }
+        });
+        
+        // 关闭按钮
+        lightboxClose?.addEventListener('click', closeLightbox);
+        
+        // 点击背景关闭
+        lightboxBackdrop?.addEventListener('click', closeLightbox);
+        
+        // ESC键关闭
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+        
+        function openLightbox() {
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     }
     
     function handleScroll() {
@@ -333,13 +379,6 @@
     function renderKnowledgeContent(knowledge) {
         let contentHTML = '';
         
-        // 调试日志
-        console.log('Rendering knowledge:', knowledge.id, knowledge.title);
-        console.log('Has technicalContent:', !!knowledge.technicalContent);
-        if (knowledge.technicalContent) {
-            console.log('technicalContent keys:', Object.keys(knowledge.technicalContent));
-        }
-        
         // 如果有技术版内容，添加切换按钮
         if (knowledge.technicalContent) {
             contentHTML = `
@@ -403,31 +442,14 @@
     
     function hideKnowledgeDetail() {
         elements.knowledgeDetail.classList.remove('active');
-        
-        if (state.previousView === 'categoryList' && state.currentCategoryId) {
-            const category = knowledgeData.categories.find(c => c.id === state.currentCategoryId);
-            if (category) {
-                elements.categoriesTitle.textContent = category.name;
-                elements.backToCategories.style.display = 'flex';
-                elements.difficultyFilter.value = state.currentDifficulty;
-                renderKnowledgeCards(state.currentCategoryId, state.currentDifficulty);
-            }
-        } else {
-            elements.categoriesTitle.textContent = '技术分类';
-            elements.backToCategories.style.display = 'none';
-            elements.difficultyFilter.value = 'all';
-            renderCategories();
-        }
-        
         document.querySelector('.categories').style.display = 'block';
         document.querySelector('.learning-path').style.display = 'block';
+        
+        renderCategories();
         document.getElementById('categories').scrollIntoView({ behavior: 'smooth' });
     }
     
     function backToCategoryList() {
-        state.currentCategoryId = null;
-        state.currentDifficulty = 'all';
-        
         elements.categoriesTitle.textContent = '技术分类';
         elements.backToCategories.style.display = 'none';
         elements.difficultyFilter.value = 'all';
@@ -875,6 +897,9 @@
             }
             if (typeof window.startDevMethodsDemo === 'function') {
                 window.startDevMethodsDemo();
+            }
+            if (typeof window.startAppLifecycleDemo === 'function') {
+                window.startAppLifecycleDemo();
             }
         }, 100);
     }

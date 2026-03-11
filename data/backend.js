@@ -34,7 +34,159 @@ var knowledge = [
             title: '后端用什么写？',
             difficulty: 'beginner',
             summary: '了解主流后端编程语言，知道不同语言的适用场景。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p>后端开发语言选择取决于<strong>性能需求、开发效率、团队技术栈、生态成熟度</strong>等因素。不同语言有不同的运行时环境和框架支持。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow">
+                            <div class="diagram-node">
+                                <div class="node-icon">☕</div>
+                                <div class="node-title">Java</div>
+                                <div class="node-desc">JVM虚拟机<br/>Spring生态</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">🐍</div>
+                                <div class="node-title">Python</div>
+                                <div class="node-desc">解释执行<br/>Django/Flask</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">🦀</div>
+                                <div class="node-title">Go</div>
+                                <div class="node-desc">编译型<br/>高并发</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>后端语言技术栈对比</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>语言</th>
+                            <th>运行时</th>
+                            <th>主流框架</th>
+                            <th>并发模型</th>
+                        </tr>
+                        <tr>
+                            <td>Java</td>
+                            <td>JVM</td>
+                            <td>Spring Boot</td>
+                            <td>线程池</td>
+                        </tr>
+                        <tr>
+                            <td>Python</td>
+                            <td>CPython</td>
+                            <td>Django / FastAPI</td>
+                            <td>协程( asyncio)</td>
+                        </tr>
+                        <tr>
+                            <td>Go</td>
+                            <td>原生编译</td>
+                            <td>Gin / Echo</td>
+                            <td>Goroutine</td>
+                        </tr>
+                        <tr>
+                            <td>Node.js</td>
+                            <td>V8引擎</td>
+                            <td>Express / NestJS</td>
+                            <td>事件循环</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>Java企业级开发</h5>
+                            <ul>
+                                <li><strong>稳定性</strong>：长期支持版本，成熟稳定</li>
+                                <li><strong>生态完善</strong>：Spring全家桶，开箱即用</li>
+                                <li><strong>人才储备</strong>：市场上Java开发者最多</li>
+                                <li><strong>适用场景</strong>：金融、电商、企业系统</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>Python快速开发</h5>
+                            <ul>
+                                <li><strong>开发效率</strong>：语法简洁，开发速度快</li>
+                                <li><strong>AI生态</strong>：机器学习、数据分析首选</li>
+                                <li><strong>原型验证</strong>：快速验证业务想法</li>
+                                <li><strong>适用场景</strong>：AI应用、数据分析、创业公司</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>高并发场景选型</h5>
+                                <p><strong>需求</strong>：秒杀系统，QPS 10万+</p>
+                                <p><strong>选择</strong>：Go语言，Goroutine轻量级并发</p>
+                                <p><strong>原因</strong>：内存占用低，并发性能强</p>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <div class="scenario-number">2</div>
+                            <div class="scenario-content">
+                                <h5>企业系统选型</h5>
+                                <p><strong>需求</strong>：ERP系统，稳定可靠</p>
+                                <p><strong>选择</strong>：Java + Spring Boot</p>
+                                <p><strong>原因</strong>：生态成熟，维护方便，人才好招</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    <div class="conversation-box">
+                        <div class="conversation-item bad">
+                            <div class="conv-header">
+                                <span class="conv-icon">❌</span>
+                                <span class="conv-title">错误沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"为什么开发这么慢？换个语言不就行了？"</p>
+                                <p><strong>开发：</strong>"换语言成本很高，需要重写整个系统。"</p>
+                                <p><strong>结果：</strong>双方不理解，产生矛盾</p>
+                            </div>
+                        </div>
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"当前语言有什么限制？如果要提升性能，有哪些方案？成本是多少？"</p>
+                                <p><strong>开发：</strong>"当前Python适合快速迭代，但高并发场景性能不足。可以引入Go做核心服务，预计2周完成。"</p>
+                                <p><strong>结果：</strong>方案清晰，决策有依据</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tips-box">
+                        <h5>💡 技术选型清单</h5>
+                        <ul>
+                            <li>当前团队技术栈是什么？</li>
+                            <li>业务场景对性能要求多高？</li>
+                            <li>开发周期和人力预算？</li>
+                            <li>长期维护成本考虑？</li>
+                            <li>市场上相关人才是否好招？</li>
+                        </ul>
+                    </div>
+                `
+            },
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>介绍主流后端编程语言（Java、Python、Go、Node.js等）的特点、适用场景和选择依据。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够理解团队技术选型的原因，知道不同语言的优势和局限，参与技术讨论。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是后端开发模块的入门课程，帮助产品经理建立对后端技术栈的基本认知。</div>
+                </div>
+                
                 <h3>🖥️ 后端开发语言</h3>
                 <p>后端（服务端）可以用多种编程语言写，就像你可以用中文、英文、法文表达同一个意思。</p>
                 
@@ -157,7 +309,147 @@ var knowledge = [
             title: '接口文档怎么看？',
             difficulty: 'beginner',
             summary: '学会看懂接口文档，知道前后端怎么协作。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p><strong>API文档（接口文档）</strong>是前后端协作的核心文档，定义了接口的请求方式、参数格式、返回数据结构等关键信息。主流的API文档规范包括Swagger/OpenAPI、API Blueprint等。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow">
+                            <div class="diagram-node">
+                                <div class="node-icon">📝</div>
+                                <div class="node-title">接口定义</div>
+                                <div class="node-desc">URL + Method<br/>参数 + 返回值</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">📋</div>
+                                <div class="node-title">文档生成</div>
+                                <div class="node-desc">Swagger/OpenAPI<br/>自动生成</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">🤝</div>
+                                <div class="node-title">前后端协作</div>
+                                <div class="node-desc">按文档开发<br/>减少沟通成本</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>接口文档核心要素</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>要素</th>
+                            <th>说明</th>
+                            <th>示例</th>
+                        </tr>
+                        <tr>
+                            <td>请求方法</td>
+                            <td>HTTP动词，表示操作类型</td>
+                            <td>GET/POST/PUT/DELETE</td>
+                        </tr>
+                        <tr>
+                            <td>请求路径</td>
+                            <td>接口的URL地址</td>
+                            <td>/api/user/login</td>
+                        </tr>
+                        <tr>
+                            <td>请求参数</td>
+                            <td>前端需要传递的数据</td>
+                            <td>Query/Body/Header</td>
+                        </tr>
+                        <tr>
+                            <td>返回数据</td>
+                            <td>后端返回的数据结构</td>
+                            <td>JSON格式</td>
+                        </tr>
+                        <tr>
+                            <td>错误码</td>
+                            <td>错误状态的编码和说明</td>
+                            <td>401未授权、404不存在</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>对前端</h5>
+                            <ul>
+                                <li><strong>知道调什么接口</strong>：URL和方法</li>
+                                <li><strong>知道传什么参数</strong>：参数名和类型</li>
+                                <li><strong>知道返回什么数据</strong>：字段名和含义</li>
+                                <li><strong>知道怎么处理错误</strong>：错误码和提示</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>对后端</h5>
+                            <ul>
+                                <li><strong>明确需求边界</strong>：做什么不做什么</li>
+                                <li><strong>规范数据格式</strong>：统一返回结构</li>
+                                <li><strong>减少沟通成本</strong>：文档即约定</li>
+                                <li><strong>便于接口测试</strong>：按文档验证</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>用户登录接口</h5>
+                                <p><strong>请求</strong>：POST /api/user/login</p>
+                                <p><strong>参数</strong>：{ phone: "手机号", password: "密码" }</p>
+                                <p><strong>返回</strong>：{ code: 0, data: { token: "登录凭证" } }</p>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <div class="scenario-number">2</div>
+                            <div class="scenario-content">
+                                <h5>商品列表接口</h5>
+                                <p><strong>请求</strong>：GET /api/product/list</p>
+                                <p><strong>参数</strong>：{ page: 1, size: 20, category: "分类ID" }</p>
+                                <p><strong>返回</strong>：{ code: 0, data: { list: [...], total: 100 } }</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    <div class="conversation-box">
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"这个功能需要哪些接口？接口文档在哪里？我可以提前看吗？"</p>
+                                <p><strong>开发：</strong>"需要3个接口：列表查询、详情查询、提交订单。文档在Swagger上，链接是xxx。"</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tips-box">
+                        <h5>💡 接口文档阅读清单</h5>
+                        <ul>
+                            <li>接口地址是什么？请求方法是什么？</li>
+                            <li>需要传哪些参数？哪些必填？</li>
+                            <li>返回数据的字段含义是什么？</li>
+                            <li>错误码有哪些？怎么处理？</li>
+                            <li>是否需要登录？需要什么权限？</li>
+                        </ul>
+                    </div>
+                `
+            },
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>学会阅读和理解接口文档，掌握接口地址、请求方法、参数、返回数据等关键要素。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够看懂接口文档，确认前端能拿到什么数据，参与接口设计讨论。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是后端开发模块的核心课程，是产品经理与开发协作的重要桥梁。</div>
+                </div>
+                
                 <h3>📄 接口文档是什么？</h3>
                 <p>接口文档就是<strong>前后端的"合同"</strong>，约定好：前端要什么数据，后端给什么数据。</p>
                 
@@ -277,7 +569,147 @@ var knowledge = [
             title: '服务器是什么？',
             difficulty: 'beginner',
             summary: '理解服务器的概念，知道云服务器和物理服务器的区别。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p><strong>服务器（Server）</strong>是提供计算服务的设备，包括文件服务器、数据库服务器、应用程序服务器、Web服务器等。现代服务器架构已经从物理服务器演进到云服务器、容器化部署。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow">
+                            <div class="diagram-node">
+                                <div class="node-icon">🖥️</div>
+                                <div class="node-title">物理服务器</div>
+                                <div class="node-desc">独立硬件<br/>完全控制</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">☁️</div>
+                                <div class="node-title">云服务器</div>
+                                <div class="node-desc">弹性伸缩<br/>按需付费</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">📦</div>
+                                <div class="node-title">容器化</div>
+                                <div class="node-desc">Docker/K8s<br/>微服务架构</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>服务器类型对比</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>类型</th>
+                            <th>优势</th>
+                            <th>劣势</th>
+                            <th>适用场景</th>
+                        </tr>
+                        <tr>
+                            <td>物理服务器</td>
+                            <td>性能稳定、安全可控</td>
+                            <td>成本高、维护复杂</td>
+                            <td>金融、政府、大型企业</td>
+                        </tr>
+                        <tr>
+                            <td>云服务器</td>
+                            <td>弹性伸缩、按需付费</td>
+                            <td>长期成本可能更高</td>
+                            <td>创业公司、互联网应用</td>
+                        </tr>
+                        <tr>
+                            <td>容器化部署</td>
+                            <td>部署快、易扩展</td>
+                            <td>技术门槛高</td>
+                            <td>微服务、DevOps</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>Web服务器</h5>
+                            <ul>
+                                <li><strong>Nginx</strong>：高性能反向代理、负载均衡</li>
+                                <li><strong>Apache</strong>：老牌Web服务器，模块丰富</li>
+                                <li><strong>IIS</strong>：微软Web服务器</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>应用服务器</h5>
+                            <ul>
+                                <li><strong>Tomcat</strong>：Java应用服务器</li>
+                                <li><strong>Node.js</strong>：JavaScript运行环境</li>
+                                <li><strong>Gunicorn</strong>：Python应用服务器</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>云服务商</h5>
+                            <ul>
+                                <li><strong>阿里云</strong>：国内最大云服务商</li>
+                                <li><strong>腾讯云</strong>：游戏、社交领域优势</li>
+                                <li><strong>AWS</strong>：全球最大云服务商</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>电商大促场景</h5>
+                                <p><strong>需求</strong>：双11流量激增10倍</p>
+                                <p><strong>方案</strong>：云服务器弹性扩容，活动后缩容</p>
+                                <p><strong>成本</strong>：按实际使用量付费，节省成本</p>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <div class="scenario-number">2</div>
+                            <div class="scenario-content">
+                                <h5>金融系统场景</h5>
+                                <p><strong>需求</strong>：数据安全、合规要求</p>
+                                <p><strong>方案</strong>：物理服务器 + 私有云</p>
+                                <p><strong>原因</strong>：数据不出机房，满足监管要求</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    <div class="conversation-box">
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"预计上线后有多少用户？需要多大的服务器？成本是多少？"</p>
+                                <p><strong>开发：</strong>"预计日活1万，建议2核4G云服务器，月成本约200元。后续可以弹性扩容。"</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tips-box">
+                        <h5>💡 服务器选型清单</h5>
+                        <ul>
+                            <li>预计用户量和并发量是多少？</li>
+                            <li>对数据安全有什么要求？</li>
+                            <li>预算是多少？</li>
+                            <li>是否需要弹性伸缩？</li>
+                            <li>运维团队的技术能力如何？</li>
+                        </ul>
+                    </div>
+                `
+            },
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>理解服务器的概念，区分云服务器和物理服务器，了解服务器成本构成和运维指标。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够理解服务器相关的技术讨论，参与服务器成本预算，关注核心运维指标。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是后端开发模块的基础设施课程，帮助产品经理理解APP运行的物理基础。</div>
+                </div>
+                
                 <h3>🖥️ 服务器就是24小时开机的电脑</h3>
                 <p>服务器本质上就是一台<strong>一直开机的电脑</strong>，专门用来提供服务。</p>
                 
@@ -456,6 +888,13 @@ var knowledge = [
             difficulty: 'beginner',
             summary: '理解接口的本质，它是前端与服务端、服务端与数据库之间的"沟通通道"。',
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>理解接口的本质，它是前端与服务端之间的"沟通协议"，规定了数据传递的格式、方式和内容。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够理解接口在系统中的角色，知道接口规定了什么，能参与接口相关的讨论。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是后端开发模块的基础概念课程，是理解前后端协作的关键知识点。</div>
+                </div>
+                
                 <h3>🔌 接口是什么？</h3>
                 <p>接口（API）就是<strong>产品与服务端的"沟通协议"</strong>，规定了数据传递的格式、方式和内容。</p>
                 
@@ -579,6 +1018,13 @@ var knowledge = [
             difficulty: 'beginner',
             summary: '掌握4种常用接口类型，覆盖80%的产品场景，和数据库"增删改查"一一对应。',
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>掌握GET、POST、PUT、DELETE四种常用接口类型，理解它们与数据库"增删改查"的对应关系。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够快速判断产品功能需要用什么类型的接口，理解接口设计的规范。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是后端开发模块的实战课程，覆盖80%的产品场景，是产品经理必备技能。</div>
+                </div>
+                
                 <h3>📚 四种常用接口类型</h3>
                 <p>接口按功能可分为4种常用类型，分别对应<strong>"查、增、改、删"</strong>四大操作，和数据库的"增删改查"一一对应。</p>
                 

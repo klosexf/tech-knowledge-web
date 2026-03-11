@@ -34,7 +34,128 @@ var knowledge = [
             title: 'Excel式存储（关系型数据库）',
             difficulty: 'beginner',
             summary: '像Excel表格一样存储数据，理解表、行、列的概念。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p><strong>关系型数据库（RDBMS）</strong>基于关系模型，使用SQL语言进行数据操作。数据以表格形式存储，表与表之间通过外键建立关联。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow">
+                            <div class="diagram-node">
+                                <div class="node-icon">📊</div>
+                                <div class="node-title">表结构</div>
+                                <div class="node-desc">Schema定义<br/>字段类型约束</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">🔗</div>
+                                <div class="node-title">关系映射</div>
+                                <div class="node-desc">外键关联<br/>一对一/一对多</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">⚡</div>
+                                <div class="node-title">索引优化</div>
+                                <div class="node-desc">B+树索引<br/>查询加速</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>主流关系型数据库对比</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>数据库</th>
+                            <th>特点</th>
+                            <th>适用场景</th>
+                        </tr>
+                        <tr>
+                            <td>MySQL</td>
+                            <td>开源、轻量、社区活跃</td>
+                            <td>Web应用、中小型系统</td>
+                        </tr>
+                        <tr>
+                            <td>PostgreSQL</td>
+                            <td>功能强大、扩展性好</td>
+                            <td>复杂查询、地理信息</td>
+                        </tr>
+                        <tr>
+                            <td>Oracle</td>
+                            <td>企业级、稳定可靠</td>
+                            <td>金融、电信、大型企业</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>数据建模</h5>
+                            <ul>
+                                <li><strong>表结构设计</strong>：定义字段类型、长度、约束</li>
+                                <li><strong>关系设计</strong>：一对一、一对多、多对多</li>
+                                <li><strong>规范化</strong>：消除数据冗余，保证一致性</li>
+                                <li><strong>索引设计</strong>：提升查询性能</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>数据操作</h5>
+                            <ul>
+                                <li><strong>CRUD操作</strong>：增删改查</li>
+                                <li><strong>事务处理</strong>：ACID保证数据一致性</li>
+                                <li><strong>复杂查询</strong>：JOIN、子查询、聚合</li>
+                                <li><strong>数据备份</strong>：定期备份、灾难恢复</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>电商订单系统</h5>
+                                <p><strong>用户表</strong>：存储用户基本信息</p>
+                                <p><strong>订单表</strong>：存储订单信息，关联用户ID</p>
+                                <p><strong>商品表</strong>：存储商品信息</p>
+                                <p><strong>订单商品关联表</strong>：多对多关系</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    <div class="conversation-box">
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"这个查询功能需要支持哪些筛选条件？数据量大吗？需要多快返回结果？"</p>
+                                <p><strong>开发：</strong>"需要按时间、状态、用户三个维度筛选，预计数据量100万条，加索引后1秒内返回。"</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tips-box">
+                        <h5>💡 数据库设计清单</h5>
+                        <ul>
+                            <li>需要存储哪些数据？字段类型是什么？</li>
+                            <li>表与表之间的关系是什么？</li>
+                            <li>查询频率高的字段需要加索引吗？</li>
+                            <li>数据量预估有多大？需要分表吗？</li>
+                        </ul>
+                    </div>
+                `
+            },
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>用Excel表格的比喻理解关系型数据库，掌握表、行、列、主键、外键等核心概念，理解表与表之间的关联关系。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够理解数据库表结构设计，参与数据模型讨论，知道数据是怎么组织和存储的。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是数据存储模块的基础课程，帮助产品经理建立结构化数据思维，是理解数据管理的关键。</div>
+                </div>
+                
                 <h3>📊 数据库就像Excel表格</h3>
                 <p>最常见的数据存储方式，就是像<strong>Excel表格</strong>一样，把数据一行一行地存起来。</p>
                 
@@ -167,6 +288,13 @@ var knowledge = [
             difficulty: 'beginner',
             summary: '像文件夹一样灵活存储，适合存复杂、不规则的数据。',
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>用文件夹的比喻理解非关系型数据库，掌握文档型数据库的特点，对比关系型和非关系型数据库的适用场景。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够判断什么数据适合用哪种数据库，理解灵活数据结构的存储方式。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是数据存储模块的进阶课程，帮助产品经理理解现代数据存储的多样性，做出合理的技术选型。</div>
+                </div>
+                
                 <h3>📁 像文件夹一样存数据</h3>
                 <p>除了Excel式的表格，还有一种更灵活的存储方式，就像<strong>电脑里的文件夹</strong>。</p>
                 
@@ -336,6 +464,13 @@ var knowledge = [
             difficulty: 'beginner',
             summary: '理解查询的基本逻辑，知道怎么从数据库里找到想要的数据。',
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>理解数据库查询的基本逻辑，掌握精确查询、条件查询、模糊查询、排序查询、分页查询等常用方式。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够设计合理的查询功能，理解搜索性能问题，参与查询优化讨论。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是数据存储模块的实战课程，帮助产品经理理解"查找数据"背后的技术原理。</div>
+                </div>
+                
                 <h3>🔍 查数据就像找文件</h3>
                 <p>从数据库查数据，就像你在电脑上<strong>找文件</strong>一样，有不同的找法。</p>
                 
@@ -507,6 +642,13 @@ var knowledge = [
             difficulty: 'beginner',
             summary: '理解数据的增删改查，特别是删除和恢复机制。',
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>理解数据的增删改查操作，区分软删除和硬删除，掌握数据恢复机制和操作日志的重要性。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够设计合理的数据删除策略，理解数据安全和备份的重要性。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是数据存储模块的安全课程，帮助产品经理建立数据安全意识，设计可靠的数据管理策略。</div>
+                </div>
+                
                 <h3>🗑️ 删除不是真的删除</h3>
                 <p>在大多数系统里，"删除"数据并不是真的从数据库删掉，而是<strong>标记为已删除</strong>。</p>
                 

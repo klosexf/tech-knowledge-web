@@ -1,6 +1,6 @@
 /**
  * @fileoverview 互联网基础架构模块
- * @description 包含 4 个知识点：arch-1, arch-2, arch-3, arch-4
+ * @description 包含 3 个知识点：arch-1, arch-3, arch-4
  * @module data/architecture
  * @version 1.0.0
  * @author Tech Knowledge Web
@@ -192,6 +192,13 @@ var knowledge = [
                 `
             },
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>通过点外卖的比喻，通俗讲解APP的四大组成部分：前端、网络、服务端、数据库及其协作方式。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够理解APP的基本架构，知道用户操作如何转化为数据处理，能与技术进行基础沟通。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是整个课程体系的入门基础，帮助产品经理建立技术思维，为后续学习各模块知识奠定基础。</div>
+                </div>
+                
                 <h3>🍔 先打个比方：点外卖</h3>
                 <p>你每天都在用APP，但你知道它们是怎么工作的吗？别着急，我们先打个比方。</p>
                 
@@ -566,357 +573,11 @@ runLoginProcess();</code></pre>
                         <button class="practice-btn secondary" onclick="viewSolution('arch-1')">查看参考答案</button>
                     </div>
                 </div>
+                
+                <div class="interactive-demo-section" id="appLifecycleDemoArea"></div>
             `
         },
-{
-            id: 'arch-2',
-            categoryId: 'architecture',
-            title: '点击一个按钮后，发生了什么？',
-            difficulty: 'beginner',
-            summary: '用发快递的例子，彻底理解APP点击后的完整流程。',
-            technicalContent: {
-                principle: `
-                    <h4>🔬 技术原理</h4>
-                    <p>用户点击按钮后的完整流程涉及<strong>HTTP请求-响应模型</strong>，这是Web应用的核心通信机制。</p>
-                    
-                    <div class="tech-diagram">
-                        <div class="diagram-flow vertical">
-                            <div class="diagram-step">
-                                <div class="step-number">1</div>
-                                <div class="step-content">
-                                    <h5>用户交互层</h5>
-                                    <p>用户点击按钮 → 触发事件监听器</p>
-                                    <p><strong>技术术语：</strong>Event Listener / DOM Event</p>
-                                </div>
-                            </div>
-                            <div class="diagram-arrow down">↓</div>
-                            <div class="diagram-step">
-                                <div class="step-number">2</div>
-                                <div class="step-content">
-                                    <h5>前端处理层</h5>
-                                    <p>收集数据 → 构建请求 → 发起HTTP请求</p>
-                                    <p><strong>技术术语：</strong>HTTP Request / AJAX / Fetch API</p>
-                                </div>
-                            </div>
-                            <div class="diagram-arrow down">↓</div>
-                            <div class="diagram-step">
-                                <div class="step-number">3</div>
-                                <div class="step-content">
-                                    <h5>网络传输层</h5>
-                                    <p>DNS解析 → TCP连接 → 数据传输</p>
-                                    <p><strong>技术术语：</strong>DNS / TCP/IP / SSL/TLS</p>
-                                </div>
-                            </div>
-                            <div class="diagram-arrow down">↓</div>
-                            <div class="diagram-step">
-                                <div class="step-number">4</div>
-                                <div class="step-content">
-                                    <h5>服务端处理层</h5>
-                                    <p>接收请求 → 路由分发 → 业务处理</p>
-                                    <p><strong>技术术语：</strong>Web Server / Router / Controller</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h5>关键技术指标</h5>
-                    <table class="concept-table">
-                        <tr>
-                            <th>指标</th>
-                            <th>说明</th>
-                            <th>参考值</th>
-                        </tr>
-                        <tr>
-                            <td>RTT（往返时间）</td>
-                            <td>请求发出到收到响应的时间</td>
-                            <td>< 200ms 为优秀</td>
-                        </tr>
-                        <tr>
-                            <td>TTFB（首字节时间）</td>
-                            <td>从请求到收到第一个字节的时间</td>
-                            <td>< 100ms 为优秀</td>
-                        </tr>
-                    </table>
-                `,
-                role: `
-                    <h4>🎯 核心作用</h4>
-                    <div class="role-grid">
-                        <div class="role-card">
-                            <h5>事件监听器</h5>
-                            <ul>
-                                <li><strong>作用</strong>：捕获用户的交互行为</li>
-                                <li><strong>实现</strong>：addEventListener / onClick</li>
-                                <li><strong>注意</strong>：防抖和节流优化</li>
-                            </ul>
-                        </div>
-                        <div class="role-card">
-                            <h5>HTTP客户端</h5>
-                            <ul>
-                                <li><strong>作用</strong>：构建和发送网络请求</li>
-                                <li><strong>实现</strong>：Fetch API / Axios</li>
-                                <li><strong>注意</strong>：超时处理、错误重试</li>
-                            </ul>
-                        </div>
-                    </div>
-                `,
-                businessScenario: `
-                    <h4>💼 业务场景</h4>
-                    <div class="scenario-timeline">
-                        <div class="scenario-item">
-                            <div class="scenario-number">1</div>
-                            <div class="scenario-content">
-                                <h5>电商下单场景</h5>
-                                <p><strong>前端</strong>：收集商品ID、数量、地址 → 构建POST请求</p>
-                                <p><strong>网络</strong>：HTTPS加密传输 → CDN加速</p>
-                                <p><strong>后端</strong>：验证库存 → 创建订单 → 返回订单号</p>
-                            </div>
-                        </div>
-                    </div>
-                `,
-                pmDevScenario: `
-                    <h4>🗣️ 产品经理与开发沟通场景</h4>
-                    <div class="conversation-box">
-                        <div class="conversation-item good">
-                            <div class="conv-header">
-                                <span class="conv-icon">✅</span>
-                                <span class="conv-title">正确沟通</span>
-                            </div>
-                            <div class="conv-content">
-                                <p><strong>产品经理：</strong>"点击按钮后，网络超时怎么处理？用户重复点击怎么处理？"</p>
-                                <p><strong>开发：</strong>"我会加防抖处理防止重复点击，超时3秒后提示用户重试。"</p>
-                            </div>
-                        </div>
-                    </div>
-                `
-            },
-            content: `
-                <h3>📦 打个比方：发快递</h3>
-                <p>你在APP上点击一个按钮，就像发一个快递。让我们看看完整流程：</p>
-                
-                <div class="diagram-box">
-                    <pre style="font-family: monospace; line-height: 2;">
-你（寄件人）
-   │
-   │ 1. 填快递单（点击按钮）
-   ▼
-快递员取件（网络传输）
-   │
-   │ 2. 运输中（数据在路上）
-   ▼
-快递分拣中心（服务端处理）
-   │
-   │ 3. 分拣、打包（数据处理）
-   ▼
-收件人收到（结果显示）
-                    </pre>
-                </div>
-                
-                <h3>📝 第一步：填快递单（发起请求）</h3>
-                <p>你在APP上点击"购买"按钮，就像填了一张快递单，上面要写清楚：</p>
-                <ul>
-                    <li><strong>收件人地址</strong> → 要发给哪个服务器</li>
-                    <li><strong>物品名称</strong> → 你要干什么（买商品？查信息？）</li>
-                    <li><strong>物品详情</strong> → 具体信息（买什么商品？买几件？）</li>
-                    <li><strong>寄件人信息</strong> → 你是谁（用户ID、登录凭证）</li>
-                </ul>
-                
-                <div class="example-box">
-                    <h4>💡 实际案例：下单买奶茶</h4>
-                    <p>你在美团上点了一杯奶茶，点击"立即购买"，APP会打包这些信息：</p>
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">发给服务器的信息</span></div>
-                        <pre><code>{
-    "用户ID": "12345",           ← 你是谁
-    "商品ID": "奶茶001",         ← 买什么
-    "数量": 1,                  ← 买几杯
-    "甜度": "少糖",             ← 什么要求
-    "地址": "北京市朝阳区xxx",   ← 送到哪
-    "手机号": "13800138000"     ← 联系方式
-}</code></pre>
-                    </div>
-                </div>
-                
-                <h3>🚚 第二步：快递员取件（网络传输）</h3>
-                <p>信息打包好了，要通过<strong>网络</strong>送到服务器。这就像快递员上门取件。</p>
-                
-                <p>但是，路上可能会出问题：</p>
-                <table class="concept-table">
-                    <tr>
-                        <th>快递问题</th>
-                        <th>网络问题</th>
-                        <th>用户看到的</th>
-                    </tr>
-                    <tr>
-                        <td>快递员迷路了</td>
-                        <td>网络延迟高</td>
-                        <td>页面一直在转圈</td>
-                    </tr>
-                    <tr>
-                        <td>快递车坏了</td>
-                        <td>网络断开</td>
-                        <td>提示"网络错误"</td>
-                    </tr>
-                    <tr>
-                        <td>地址写错了</td>
-                        <td>服务器地址错误</td>
-                        <td>提示"页面找不到"</td>
-                    </tr>
-                </table>
-                
-                <div class="info-box">
-                    <h4>⚠️ 产品经理要注意</h4>
-                    <p>网络是不可靠的！设计功能时一定要考虑：</p>
-                    <ul>
-                        <li><strong>加载状态</strong>：让用户知道"正在处理，请稍候"</li>
-                        <li><strong>超时处理</strong>：超过10秒还没响应，要提示用户</li>
-                        <li><strong>重试机制</strong>：失败了给用户一个"重新加载"的按钮</li>
-                        <li><strong>失败提示</strong>：不要用"系统错误"这种模糊的话，要说"网络不太好，请检查网络后重试"</li>
-                    </ul>
-                </div>
-                
-                <h3>🏭 第三步：快递分拣中心（服务端处理）</h3>
-                <p>服务器收到你的请求后，开始处理。就像快递到了分拣中心，要：</p>
-                <ol>
-                    <li><strong>验货</strong> → 检查请求合不合法（你有没有登录？参数对不对？）</li>
-                    <li><strong>分拣</strong> → 确定这个请求该谁处理（下单？查询？退款？）</li>
-                    <li><strong>处理</strong> → 真正干活（扣款、减库存、生成订单）</li>
-                    <li><strong>打包</strong> → 把处理结果整理好</li>
-                </ol>
-                
-                <div class="example-box">
-                    <h4>🔐 验货环节：检查你有没有权限</h4>
-                    <p>服务器首先要确认你是谁，有没有资格做这件事：</p>
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">服务器的检查流程</span></div>
-                        <pre><code>收到买奶茶的请求后，服务器会检查：
 
-1. 这个用户登录了吗？
-   ├─ 没登录 → 返回"请先登录"
-   └─ 登录了 → 继续下一步
-
-2. 这个用户被封号了吗？
-   ├─ 被封了 → 返回"账号异常"
-   └─ 正常 → 继续下一步
-
-3. 这个商品还有货吗？
-   ├─ 没货了 → 返回"商品已售罄"
-   └─ 有货 → 继续下一步
-
-4. 这个用户的余额够吗？
-   ├─ 不够 → 返回"余额不足"
-   └─ 够 → 正式下单！</code></pre>
-                    </div>
-                </div>
-                
-                <h3>📬 第四步：收件人收到（返回结果）</h3>
-                <p>服务器处理完了，要把结果返回给你。就像快递送到了，你要签收。</p>
-                
-                <p>结果有几种可能：</p>
-                <table class="concept-table">
-                    <tr>
-                        <th>结果</th>
-                        <th>含义</th>
-                        <th>用户应该看到什么</th>
-                    </tr>
-                    <tr style="background: rgba(34, 197, 94, 0.1);">
-                        <td>成功 ✅</td>
-                        <td>一切都好</td>
-                        <td>"下单成功！订单号：12345"</td>
-                    </tr>
-                    <tr style="background: rgba(249, 115, 22, 0.1);">
-                        <td>参数错误 ⚠️</td>
-                        <td>你填的信息不对</td>
-                        <td>"请选择商品规格"</td>
-                    </tr>
-                    <tr style="background: rgba(249, 115, 22, 0.1);">
-                        <td>没登录 ⚠️</td>
-                        <td>需要登录</td>
-                        <td>跳转登录页面</td>
-                    </tr>
-                    <tr style="background: rgba(239, 68, 68, 0.1);">
-                        <td>服务器错误 ❌</td>
-                        <td>服务器出bug了</td>
-                        <td>"系统繁忙，请稍后重试"</td>
-                    </tr>
-                </table>
-                
-                <h3>🎓 小白产品经理工作指南</h3>
-                <div class="info-box">
-                    <h4>设计一个功能时，你要想清楚这几步：</h4>
-                    <ol>
-                        <li><strong>用户怎么触发？</strong>
-                            <ul>
-                                <li>点击按钮？</li>
-                                <li>下拉刷新？</li>
-                                <li>页面自动加载？</li>
-                            </ul>
-                        </li>
-                        <li><strong>要传什么信息给服务器？</strong>
-                            <ul>
-                                <li>用户ID？</li>
-                                <li>商品ID？</li>
-                                <li>数量？</li>
-                            </ul>
-                        </li>
-                        <li><strong>服务器要做什么处理？</strong>
-                            <ul>
-                                <li>查数据库？</li>
-                                <li>计算价格？</li>
-                                <li>生成订单？</li>
-                            </ul>
-                        </li>
-                        <li><strong>返回什么结果？</strong>
-                            <ul>
-                                <li>成功显示什么？</li>
-                                <li>失败显示什么？</li>
-                                <li>加载中显示什么？</li>
-                            </ul>
-                        </li>
-                    </ol>
-                </div>
-                
-                <h3>❓ 实际工作中的常见问题</h3>
-                
-                <div class="example-box">
-                    <h4>Q1：用户说"我点了没反应"，怎么回事？</h4>
-                    <p><strong>排查步骤：</strong></p>
-                    <ol>
-                        <li>问用户网络好不好（是不是WiFi断了）</li>
-                        <li>看数据有没有发到服务器（查日志）</li>
-                        <li>看服务器有没有处理（查服务端日志）</li>
-                        <li>看结果有没有返回给客户端</li>
-                    </ol>
-                    <p><strong>产品经理要做什么：</strong>和技术一起定位问题，如果是网络问题，考虑优化提示文案；如果是bug，催技术修。</p>
-                </div>
-                
-                <div class="example-box">
-                    <h4>Q2：为什么有时候操作完要等很久？</h4>
-                    <p>可能的原因：</p>
-                    <ul>
-                        <li>网络慢（用户那边信号不好）</li>
-                        <li>服务器忙（太多人同时用）</li>
-                        <li>处理复杂（要算很多东西）</li>
-                    </ul>
-                    <p><strong>优化方案：</strong></p>
-                    <ul>
-                        <li>设计骨架屏（先显示个大概轮廓）</li>
-                        <li>分步加载（先显示文字，再加载图片）</li>
-                        <li>缓存数据（把常用的先存本地）</li>
-                    </ul>
-                </div>
-                
-                <div class="example-box">
-                    <h4>Q3：怎么判断一个需求能不能做？</h4>
-                    <p>问技术这几个问题：</p>
-                    <ol>
-                        <li>"这个功能技术上能实现吗？"</li>
-                        <li>"大概要做多久？"</li>
-                        <li>"有没有什么限制？"（比如苹果不让做）</li>
-                        <li>"如果很多人同时用，会不会卡？"</li>
-                    </ol>
-                </div>
-            `
-        },
 {
             id: 'arch-3',
             categoryId: 'architecture',
@@ -1013,6 +674,13 @@ runLoginProcess();</code></pre>
                 `
             },
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>掌握与程序员高效沟通的方法，学会用步骤化、严谨化的思维方式描述需求，避免沟通误区。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够编写清晰完整的需求文档，掌握需求评审的沟通技巧，提升与开发团队的协作效率。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是产品经理必备的软技能课程，贯穿整个产品开发流程，是需求落地的重要保障。</div>
+                </div>
+                
                 <h3>🗣️ 为什么和程序员沟通难？</h3>
                 <p>很多产品经理和程序员沟通时，会出现这样的情况：</p>
                 
@@ -1306,6 +974,13 @@ runLoginProcess();</code></pre>
                 `
             },
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>了解技术实现的边界和限制，识别哪些需求可行、哪些成本过高，学会提出合理的产品方案。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够判断需求的技术可行性，掌握与技术讨论替代方案的方法，避免提出不靠谱的需求。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是产品经理避免"翻车"的必修课，帮助建立合理的技术预期，提升需求质量。</div>
+                </div>
+                
                 <h3>🚫 先来看几个"翻车"案例</h3>
                 
                 <div class="example-box" style="border-left-color: #dc2626;">

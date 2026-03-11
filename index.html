@@ -53,27 +53,44 @@
         <!-- 首页Banner区 -->
         <section class="hero" id="home">
             <div class="hero-bg"></div>
-            <div class="hero-content">
-                <h1 class="hero-title">产品经理必备技术知识</h1>
-                <p class="hero-subtitle">用大白话讲透技术原理，让产品经理与开发无缝沟通</p>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">7</span>
-                        <span class="stat-label">知识模块</span>
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">产品经理必备技术知识</h1>
+                    <p class="hero-subtitle">用大白话讲透技术原理，让产品经理与开发无缝沟通</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">7</span>
+                            <span class="stat-label">知识模块</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">核心知识点</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100+</span>
+                            <span class="stat-label">实战案例</span>
+                        </div>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">核心知识点</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">100+</span>
-                        <span class="stat-label">实战案例</span>
-                    </div>
+                    <a href="#categories" class="hero-cta">开始学习</a>
                 </div>
-                <a href="#categories" class="hero-cta">开始学习</a>
+                
+                <div class="hero-visual">
+                    <div class="hero-image-wrapper" id="heroImageWrapper" role="button" tabindex="0" aria-label="点击全屏查看图片">
+                        <img src="images/tech-knowledge-map.png" alt="产品经理所需核心技术知识地图" class="hero-image">
+                        <div class="hero-image-glow"></div>
+                        <div class="hero-image-overlay">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <polyline points="9 21 3 21 3 15"></polyline>
+                                <line x1="21" y1="3" x2="14" y2="10"></line>
+                                <line x1="3" y1="21" x2="10" y2="14"></line>
+                            </svg>
+                            <span>点击全屏查看</span>
+                        </div>
+                    </div>
+                    <p class="hero-image-caption">产品经理所需核心技术知识地图</p>
+                </div>
             </div>
-            
-
         </section>
 
         <!-- 内容布局：左侧边栏 + 主内容 -->
@@ -345,6 +362,21 @@ console.log("消费100元获得积分：" + calculateIntegral(100));</textarea>
         </div>
     </div>
 
+    <!-- 图片全屏查看模态框 -->
+    <div class="image-lightbox" id="imageLightbox">
+        <div class="lightbox-backdrop"></div>
+        <button class="lightbox-close" id="lightboxClose" aria-label="关闭">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="lightbox-content">
+            <img src="images/tech-knowledge-map.png" alt="产品经理所需核心技术知识地图" class="lightbox-image" id="lightboxImage">
+            <p class="lightbox-caption">产品经理所需核心技术知识地图</p>
+        </div>
+    </div>
+
     <!-- 底部区域 -->
     <footer class="footer">
         <div class="footer-content">
@@ -403,5 +435,8 @@ console.log("消费100元获得积分：" + calculateIntegral(100));</textarea>
     <script src="components/ui-builder-demo.js"></script>
     <script src="components/app-types-demo.js"></script>
     <script src="components/dev-methods-demo.js"></script>
+    
+    <!-- 互联网基础架构模块交互式组件 -->
+    <script src="components/app-lifecycle-demo.js"></script>
 </body>
 </html>

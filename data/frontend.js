@@ -34,7 +34,153 @@ var knowledge = [
             title: '苹果和安卓的区别',
             difficulty: 'beginner',
             summary: '理解iOS和Android的差异，知道为什么有些功能两个平台不一样。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p>iOS和Android是两个完全不同的<strong>移动操作系统</strong>，它们在内核、开发语言、UI框架、应用生态等方面都有本质区别。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow">
+                            <div class="diagram-node">
+                                <div class="node-icon">🍎</div>
+                                <div class="node-title">iOS架构</div>
+                                <div class="node-desc">Darwin内核<br/>Cocoa Touch框架</div>
+                            </div>
+                            <div class="diagram-arrow">VS</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">🤖</div>
+                                <div class="node-title">Android架构</div>
+                                <div class="node-desc">Linux内核<br/>Android Framework</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>技术栈对比</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>维度</th>
+                            <th>iOS</th>
+                            <th>Android</th>
+                        </tr>
+                        <tr>
+                            <td>操作系统内核</td>
+                            <td>Darwin (XNU)</td>
+                            <td>Linux Kernel</td>
+                        </tr>
+                        <tr>
+                            <td>开发语言</td>
+                            <td>Swift / Objective-C</td>
+                            <td>Kotlin / Java</td>
+                        </tr>
+                        <tr>
+                            <td>IDE</td>
+                            <td>Xcode</td>
+                            <td>Android Studio</td>
+                        </tr>
+                        <tr>
+                            <td>UI框架</td>
+                            <td>UIKit / SwiftUI</td>
+                            <td>Jetpack Compose / XML</td>
+                        </tr>
+                        <tr>
+                            <td>应用商店</td>
+                            <td>App Store</td>
+                            <td>Google Play + 第三方</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>iOS平台特点</h5>
+                            <ul>
+                                <li><strong>封闭生态</strong>：严格的审核机制，应用质量高</li>
+                                <li><strong>设备统一</strong>：屏幕尺寸、系统版本相对统一</li>
+                                <li><strong>开发效率</strong>：适配成本低，调试方便</li>
+                                <li><strong>用户付费意愿高</strong>：适合付费应用</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>Android平台特点</h5>
+                            <ul>
+                                <li><strong>开放生态</strong>：自由度高，分发渠道多</li>
+                                <li><strong>设备碎片化</strong>：需要适配各种屏幕和系统版本</li>
+                                <li><strong>市场份额大</strong>：全球用户基数大</li>
+                                <li><strong>定制性强</strong>：支持深度定制和扩展</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>功能差异场景</h5>
+                                <p><strong>场景</strong>：iOS不支持后台下载，Android支持</p>
+                                <p><strong>原因</strong>：iOS对后台任务限制严格，省电优先</p>
+                                <p><strong>解决方案</strong>：iOS使用后台URLSession，Android使用Service</p>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <div class="scenario-number">2</div>
+                            <div class="scenario-content">
+                                <h5>支付功能场景</h5>
+                                <p><strong>场景</strong>：iOS必须使用IAP内购，Android可用第三方支付</p>
+                                <p><strong>原因</strong>：Apple政策要求虚拟商品必须走内购</p>
+                                <p><strong>影响</strong>：iOS需要抽成30%，Android可以绕过</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    <div class="conversation-box">
+                        <div class="conversation-item bad">
+                            <div class="conv-header">
+                                <span class="conv-icon">❌</span>
+                                <span class="conv-title">错误沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"这个功能iOS和Android都要有，做得一模一样。"</p>
+                                <p><strong>开发：</strong>"iOS有限制，做不到和Android一样。"</p>
+                                <p><strong>结果：</strong>功能被砍掉，或者体验差异大</p>
+                            </div>
+                        </div>
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"这个功能两个平台的差异是什么？iOS有什么限制？有没有替代方案能达到类似效果？"</p>
+                                <p><strong>开发：</strong>"iOS后台限制严格，可以用推送通知的方式实现类似效果。"</p>
+                                <p><strong>结果：</strong>找到可行方案，功能顺利上线</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tips-box">
+                        <h5>💡 平台差异清单</h5>
+                        <ul>
+                            <li>iOS后台任务限制有哪些？</li>
+                            <li>Android设备碎片化怎么处理？</li>
+                            <li>两个平台的支付政策差异？</li>
+                            <li>应用审核周期和规则差异？</li>
+                            <li>推送通知机制差异？</li>
+                        </ul>
+                    </div>
+                `
+            },
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>对比iOS和Android两大移动操作系统的差异，包括开发语言、审核机制、用户群体、功能限制等关键维度。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够理解两个平台的技术差异，在产品设计时考虑平台特性，避免提出跨平台不可行的需求。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是前端开发模块的基础课程，帮助产品经理理解移动端开发的基本约束，为后续学习前端技术奠定基础。</div>
+                </div>
+                
                 <h3>📱 两个不同的世界</h3>
                 <p>苹果手机（iOS）和安卓手机（Android）是两个完全不同的系统，就像<strong>中文和英文</strong>，虽然都能表达意思，但写法完全不同。</p>
                 
@@ -208,7 +354,157 @@ var knowledge = [
             title: '界面上的按钮文字',
             difficulty: 'beginner',
             summary: '理解前端开发的基本概念，知道界面是怎么画出来的。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p>前端界面通过<strong>UI组件（UI Component）</strong>构建，每个组件对应一个可视化元素。组件系统是现代前端开发的核心概念。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow">
+                            <div class="diagram-node">
+                                <div class="node-icon">📝</div>
+                                <div class="node-title">声明式UI</div>
+                                <div class="node-desc">描述界面长什么样<br/>框架自动渲染</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">🧩</div>
+                                <div class="node-title">组件化</div>
+                                <div class="node-desc">可复用的UI单元<br/>组合构建页面</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">🔄</div>
+                                <div class="node-title">状态驱动</div>
+                                <div class="node-desc">数据变化自动更新<br/>响应式渲染</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>主流UI框架对比</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>平台</th>
+                            <th>框架</th>
+                            <th>语言</th>
+                            <th>特点</th>
+                        </tr>
+                        <tr>
+                            <td>iOS</td>
+                            <td>SwiftUI / UIKit</td>
+                            <td>Swift</td>
+                            <td>声明式 / 命令式</td>
+                        </tr>
+                        <tr>
+                            <td>Android</td>
+                            <td>Jetpack Compose</td>
+                            <td>Kotlin</td>
+                            <td>声明式UI</td>
+                        </tr>
+                        <tr>
+                            <td>Web</td>
+                            <td>React / Vue</td>
+                            <td>JavaScript</td>
+                            <td>组件化开发</td>
+                        </tr>
+                        <tr>
+                            <td>跨平台</td>
+                            <td>Flutter</td>
+                            <td>Dart</td>
+                            <td>自绘引擎</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>基础组件</h5>
+                            <ul>
+                                <li><strong>Text/Label</strong>：文字显示组件</li>
+                                <li><strong>Button</strong>：可点击按钮组件</li>
+                                <li><strong>Image</strong>：图片显示组件</li>
+                                <li><strong>Input/TextField</strong>：输入框组件</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>布局组件</h5>
+                            <ul>
+                                <li><strong>Container</strong>：容器组件，包裹其他组件</li>
+                                <li><strong>ListView</strong>：列表组件，滚动显示多项</li>
+                                <li><strong>Stack</strong>：堆叠布局，层叠显示</li>
+                                <li><strong>Grid</strong>：网格布局，行列排列</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>登录页面组件</h5>
+                                <p><strong>组件结构</strong>：Logo图片 + 标题文字 + 手机号输入框 + 密码输入框 + 登录按钮</p>
+                                <p><strong>交互逻辑</strong>：点击登录按钮 → 验证输入 → 调用API → 跳转首页</p>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <div class="scenario-number">2</div>
+                            <div class="scenario-content">
+                                <h5>商品列表组件</h5>
+                                <p><strong>组件结构</strong>：ListView包裹多个商品卡片组件</p>
+                                <p><strong>数据驱动</strong>：传入商品数组 → 自动渲染对应数量的卡片</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    <div class="conversation-box">
+                        <div class="conversation-item bad">
+                            <div class="conv-header">
+                                <span class="conv-icon">❌</span>
+                                <span class="conv-title">错误沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"这里加个按钮，好看一点。"</p>
+                                <p><strong>开发：</strong>"按钮放哪？多大？什么样式？点击后做什么？"</p>
+                                <p><strong>结果：</strong>反复修改，浪费时间</p>
+                            </div>
+                        </div>
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"在页面底部添加一个主按钮，宽度占满屏幕，高度44px，蓝色背景白色文字'提交'，点击后调用提交接口。"</p>
+                                <p><strong>开发：</strong>"明白了，使用主按钮样式，绑定提交事件。"</p>
+                                <p><strong>结果：</strong>一次做对，效率高</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tips-box">
+                        <h5>💡 UI组件沟通清单</h5>
+                        <ul>
+                            <li>组件类型是什么？（按钮/输入框/列表）</li>
+                            <li>位置和大小？（坐标、宽高）</li>
+                            <li>样式是什么？（颜色、字体、圆角）</li>
+                            <li>交互行为？（点击、滑动、长按）</li>
+                            <li>数据来源？（静态文字/动态数据）</li>
+                        </ul>
+                    </div>
+                `
+            },
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>理解前端界面的构成元素，包括文字、按钮、输入框等UI组件，以及布局、样式、交互的基本概念。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够看懂设计稿，理解前端开发的要素，能与技术准确描述界面需求。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是前端开发模块的核心课程，帮助产品经理理解界面是如何"画"出来的，提升设计评审能力。</div>
+                </div>
+                
                 <h3>🎨 界面是怎么画出来的？</h3>
                 <p>你看到的APP界面，其实是程序员用代码"画"出来的。就像你用乐高积木搭房子一样，他们用代码积木搭界面。</p>
                 
@@ -385,7 +681,159 @@ var knowledge = [
             title: '网页和APP的区别',
             difficulty: 'beginner',
             summary: '理解H5、小程序、原生APP的区别，知道什么时候用什么。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p>三种前端形态在<strong>运行环境、技术栈、性能、能力</strong>等方面有本质区别，选择合适的形态取决于业务需求和资源投入。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow">
+                            <div class="diagram-node">
+                                <div class="node-icon">🌐</div>
+                                <div class="node-title">H5网页</div>
+                                <div class="node-desc">浏览器运行<br/>跨平台最强</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">📱</div>
+                                <div class="node-title">小程序</div>
+                                <div class="node-desc">微信/支付宝<br/>无需安装</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">📲</div>
+                                <div class="node-title">原生APP</div>
+                                <div class="node-desc">系统级能力<br/>性能最优</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>技术栈对比</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>维度</th>
+                            <th>H5网页</th>
+                            <th>小程序</th>
+                            <th>原生APP</th>
+                        </tr>
+                        <tr>
+                            <td>技术栈</td>
+                            <td>HTML/CSS/JS</td>
+                            <td>WXML/WXSS/JS</td>
+                            <td>Swift/Kotlin</td>
+                        </tr>
+                        <tr>
+                            <td>运行环境</td>
+                            <td>浏览器内核</td>
+                            <td>小程序引擎</td>
+                            <td>操作系统</td>
+                        </tr>
+                        <tr>
+                            <td>性能</td>
+                            <td>一般</td>
+                            <td>较好</td>
+                            <td>最优</td>
+                        </tr>
+                        <tr>
+                            <td>系统能力</td>
+                            <td>受限</td>
+                            <td>部分开放</td>
+                            <td>全部能力</td>
+                        </tr>
+                        <tr>
+                            <td>分发成本</td>
+                            <td>最低（链接直达）</td>
+                            <td>低（扫码/搜索）</td>
+                            <td>高（应用商店）</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>H5网页</h5>
+                            <ul>
+                                <li><strong>优势</strong>：开发快、分发易、跨平台</li>
+                                <li><strong>劣势</strong>：性能差、能力受限、体验一般</li>
+                                <li><strong>适用场景</strong>：营销活动、落地页、内容展示</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>小程序</h5>
+                            <ul>
+                                <li><strong>优势</strong>：无需安装、体验好、获客成本低</li>
+                                <li><strong>劣势</strong>：平台限制、包体积限制</li>
+                                <li><strong>适用场景</strong>：电商、工具、轻量级应用</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>原生APP</h5>
+                            <ul>
+                                <li><strong>优势</strong>：性能最优、能力完整、体验最佳</li>
+                                <li><strong>劣势</strong>：开发成本高、分发难、更新慢</li>
+                                <li><strong>适用场景</strong>：高频应用、游戏、复杂功能</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>营销活动页</h5>
+                                <p><strong>选择</strong>：H5网页</p>
+                                <p><strong>原因</strong>：开发快、易传播、生命周期短</p>
+                                <p><strong>示例</strong>：双11活动页、抽奖活动</p>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <div class="scenario-number">2</div>
+                            <div class="scenario-content">
+                                <h5>电商购物</h5>
+                                <p><strong>选择</strong>：小程序 + 原生APP</p>
+                                <p><strong>原因</strong>：小程序获客，APP沉淀用户</p>
+                                <p><strong>示例</strong>：京东、拼多多</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    <div class="conversation-box">
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"这个功能需要用到蓝牙，H5能做吗？小程序呢？原生APP呢？"</p>
+                                <p><strong>开发：</strong>"H5不支持蓝牙，小程序支持部分蓝牙功能，原生APP支持完整蓝牙能力。建议用原生APP或小程序。"</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tips-box">
+                        <h5>💡 技术选型清单</h5>
+                        <ul>
+                            <li>目标用户在哪里？（微信/浏览器/应用商店）</li>
+                            <li>需要哪些系统能力？（相机/蓝牙/定位）</li>
+                            <li>性能要求多高？（流畅度、响应速度）</li>
+                            <li>开发预算和时间？</li>
+                            <li>是否需要离线使用？</li>
+                        </ul>
+                    </div>
+                `
+            },
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>对比H5网页、小程序、原生APP三种前端形态的特点，包括开发成本、用户体验、功能限制等关键维度。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够根据业务场景选择合适的前端形态，理解不同形态的优劣势和适用场景。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是前端开发模块的决策课程，帮助产品经理在产品规划阶段做出正确的技术选型。</div>
+                </div>
+                
                 <h3>🌐 三种前端形态</h3>
                 <p>用户可以在手机上通过三种方式使用你的产品：<strong>网页（H5）</strong>、<strong>小程序</strong>、<strong>原生APP</strong>。</p>
                 
@@ -540,7 +988,159 @@ var knowledge = [
             title: '做APP的三种方式',
             difficulty: 'beginner',
             summary: '了解原生开发、混合开发、跨平台开发的区别和适用场景。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p>APP开发方式的选择涉及<strong>性能、开发效率、团队技术栈、维护成本</strong>等多方面因素。三种方式各有优劣，需要根据实际情况选择。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow">
+                            <div class="diagram-node">
+                                <div class="node-icon">📱</div>
+                                <div class="node-title">原生开发</div>
+                                <div class="node-desc">Swift/Kotlin<br/>性能最优</div>
+                            </div>
+                            <div class="diagram-arrow">VS</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">🌐</div>
+                                <div class="node-title">混合开发</div>
+                                <div class="node-desc">WebView<br/>开发最快</div>
+                            </div>
+                            <div class="diagram-arrow">VS</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">🔄</div>
+                                <div class="node-title">跨平台</div>
+                                <div class="node-desc">Flutter/RN<br/>平衡方案</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>开发方式技术对比</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>维度</th>
+                            <th>原生开发</th>
+                            <th>混合开发</th>
+                            <th>跨平台</th>
+                        </tr>
+                        <tr>
+                            <td>技术栈</td>
+                            <td>Swift + Kotlin</td>
+                            <td>HTML/CSS/JS</td>
+                            <td>Dart/JavaScript</td>
+                        </tr>
+                        <tr>
+                            <td>性能</td>
+                            <td>⭐⭐⭐⭐⭐</td>
+                            <td>⭐⭐</td>
+                            <td>⭐⭐⭐⭐</td>
+                        </tr>
+                        <tr>
+                            <td>开发效率</td>
+                            <td>⭐⭐</td>
+                            <td>⭐⭐⭐⭐⭐</td>
+                            <td>⭐⭐⭐⭐</td>
+                        </tr>
+                        <tr>
+                            <td>代码复用率</td>
+                            <td>0%</td>
+                            <td>70-80%</td>
+                            <td>90%+</td>
+                        </tr>
+                        <tr>
+                            <td>团队能力要求</td>
+                            <td>需要iOS+Android两套人</td>
+                            <td>前端开发即可</td>
+                            <td>学习新框架</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>原生开发</h5>
+                            <ul>
+                                <li><strong>优势</strong>：性能最优、体验最佳、能力完整</li>
+                                <li><strong>劣势</strong>：开发成本高、维护两套代码</li>
+                                <li><strong>适用场景</strong>：游戏、高性能应用、金融类</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>混合开发</h5>
+                            <ul>
+                                <li><strong>优势</strong>：开发快、前端技术栈、易更新</li>
+                                <li><strong>劣势</strong>：性能差、体验一般</li>
+                                <li><strong>适用场景</strong>：内容类、工具类、快速迭代</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>跨平台开发</h5>
+                            <ul>
+                                <li><strong>优势</strong>：一套代码多端运行、性能接近原生</li>
+                                <li><strong>劣势</strong>：学习成本、部分原生能力需桥接</li>
+                                <li><strong>适用场景</strong>：大多数应用、创业公司</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>游戏类应用</h5>
+                                <p><strong>选择</strong>：原生开发</p>
+                                <p><strong>原因</strong>：对性能要求极高，需要GPU加速</p>
+                                <p><strong>示例</strong>：王者荣耀、原神</p>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <div class="scenario-number">2</div>
+                            <div class="scenario-content">
+                                <h5>内容类应用</h5>
+                                <p><strong>选择</strong>：混合开发或跨平台</p>
+                                <p><strong>原因</strong>：内容展示为主，性能要求不高</p>
+                                <p><strong>示例</strong>：新闻APP、电商APP</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    <div class="conversation-box">
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"我们预算有限，团队只有前端，但想要接近原生的体验，有什么方案？"</p>
+                                <p><strong>开发：</strong>"推荐Flutter，一套代码同时生成iOS和Android应用，性能接近原生，前端学习成本也不高。"</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tips-box">
+                        <h5>💡 开发方式选型清单</h5>
+                        <ul>
+                            <li>团队技术栈是什么？</li>
+                            <li>性能要求有多高？</li>
+                            <li>预算和时间限制？</li>
+                            <li>是否需要频繁更新？</li>
+                            <li>是否需要复杂动画和交互？</li>
+                        </ul>
+                    </div>
+                `
+            },
             content: `
+                <div class="knowledge-overview">
+                    <h4>【知识点概览】</h4>
+                    <div class="overview-item"><strong>核心内容：</strong>介绍原生开发、混合开发、跨平台开发三种APP开发方式，对比其开发成本、性能表现、维护难度。</div>
+                    <div class="overview-item"><strong>学习目标：</strong>能够理解不同开发方式的特点，在项目启动时参与技术选型讨论，做出合理的决策。</div>
+                    <div class="overview-item"><strong>课程定位：</strong>这是前端开发模块的进阶课程，帮助产品经理理解开发方式对项目的影响，提升项目管理能力。</div>
+                </div>
+                
                 <h3>🔨 三种开发方式</h3>
                 <p>做APP有三种主流方式，各有优缺点。</p>
                 
