@@ -33,6 +33,7 @@
         if (window.databaseKnowledge) allKnowledge.push(...window.databaseKnowledge);
         if (window.frontendKnowledge) allKnowledge.push(...window.frontendKnowledge);
         if (window.backendKnowledge) allKnowledge.push(...window.backendKnowledge);
+
         if (window.dataAnalysisKnowledge) allKnowledge.push(...window.dataAnalysisKnowledge);
     }
     
@@ -47,6 +48,7 @@
                 './database.js',
                 './frontend.js',
                 './backend.js',
+                './server.js',
                 './data-analysis.js'
             ];
             

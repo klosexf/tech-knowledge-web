@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>决策树卡片 - 价格判断逻辑</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/visual-cards-v5.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .demo-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .demo-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 40px;
+        }
+        
+        .vc-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 class="demo-title">决策树卡片展示</h1>
+        
+        <div class="vc-card vc-decision-tree">
+            <div class="vc-decision-tree__header">
+                <div class="vc-decision-tree__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h2 class="vc-decision-tree__title">用户价格判断流程</h2>
+                <p class="vc-decision-tree__subtitle">根据用户类型确定最终价格</p>
+            </div>
+            
+            <div class="vc-decision-tree__tree">
+                <!-- 开始节点 -->
+                <div class="vc-decision-tree__start">开始</div>
+                
+                <!-- 箭头 -->
+                <div class="vc-decision-tree__arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M19 12l-7 7-7-7"/>
+                    </svg>
+                </div>
+                
+                <!-- 判断节点 -->
+                <div class="vc-decision-tree__node">判断用户类型</div>
+                
+                <!-- 分支 -->
+                <div class="vc-decision-tree__branches">
+                    <!-- 新用户分支 -->
+                    <div class="vc-decision-tree__branch">
+                        <div class="vc-decision-tree__branch-label vc-decision-tree__branch-label--yes">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            是新用户
+                        </div>
+                        <div class="vc-decision-tree__result vc-decision-tree__result--new">
+                            新用户价格<br>
+                            <small style="font-size: 12px; opacity: 0.8;">(最优惠)</small>
+                        </div>
+                        <div class="vc-decision-tree__end-marker">流程结束</div>
+                    </div>
+                    
+                    <!-- 非新用户分支 -->
+                    <div class="vc-decision-tree__branch">
+                        <div class="vc-decision-tree__branch-label vc-decision-tree__branch-label--no">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"/>
+                                <line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                            不是新用户
+                        </div>
+                        <div class="vc-decision-tree__result vc-decision-tree__result--continue">
+                            继续判断
+                        </div>
+                        
+                        <!-- 子判断节点 -->
+                        <div class="vc-decision-tree__sub-node">是VIP?</div>
+                        
+                        <!-- 子分支 -->
+                        <div class="vc-decision-tree__final-results">
+                            <div class="vc-decision-tree__sub-branch">
+                                <div class="vc-decision-tree__branch-label vc-decision-tree__branch-label--yes">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                    是VIP
+                                </div>
+                                <div class="vc-decision-tree__final-result vc-decision-tree__final-result--vip">
+                                    VIP价格
+                                </div>
+                            </div>
+                            
+                            <div class="vc-decision-tree__sub-branch">
+                                <div class="vc-decision-tree__branch-label vc-decision-tree__branch-label--no">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="18" y1="6" x2="6" y2="18"/>
+                                        <line x1="6" y1="6" x2="18" y2="18"/>
+                                    </svg>
+                                    不是VIP
+                                </div>
+                                <div class="vc-decision-tree__final-result vc-decision-tree__final-result--regular">
+                                    原价
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

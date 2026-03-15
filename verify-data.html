@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据验证</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 1200px; margin: 0 auto; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        pre { background: #f5f5f5; padding: 10px; overflow-x: auto; border: 1px solid #ddd; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>编程知识数据验证</h1>
+    <div id="output"></div>
+
+    <script src="data/categories.js?v=5"></script>
+    <script src="data/programming.js?v=5"></script>
+    <script src="data/index.js?v=5"></script>
+
+    <script>
+        const output = document.getElementById('output');
+
+        function log(msg, type = 'info') {
+            const div = document.createElement('div');
+            div.className = type;
+            div.innerHTML = msg;
+            output.appendChild(div);
+        }
+
+        function createSection(title, content) {
+            const section = document.createElement('div');
+            section.className = 'section';
+            section.innerHTML = `<h3>${title}</h3>${content}`;
+            output.appendChild(section);
+        }
+
+        // 验证 1: programmingKnowledge
+        if (window.programmingKnowledge) {
+            log('✅ programmingKnowledge 已加载', 'success');
+            log(`知识点数量: ${window.programmingKnowledge.length}`, 'info');
+
+            window.programmingKnowledge.forEach(k => {
+                log(`- ${k.id}: ${k.title}`, 'info');
+            });
+
+            // 验证第一个知识点的内容
+            const k = window.programmingKnowledge[0];
+            const hasNewContent = k.content && k.content.includes('knowledge-overview');
+
+            createSection('第一个知识点详情 (prog-1)', `
+                <p><strong>ID:</strong> ${k.id}</p>
+                <p><strong>标题:</strong> ${k.title}</p>
+                <p><strong>内容长度:</strong> ${k.content ? k.content.length : 0} 字符</p>
+                <p><strong>是否有 technicalContent:</strong> ${k.technicalContent ? '是' : '否'}</p>
+                <p class="${hasNewContent ? 'success' : 'error'}">
+                    <strong>是否包含新内容特征:</strong> ${hasNewContent ? '✅ 是' : '❌ 否'}
+                </p>
+                <h4>内容预览:</h4>
+                <pre>${k.content ? k.content.substring(0, 500) : '无内容'}...</pre>
+            `);
+        } else {
+            log('❌ programmingKnowledge 未定义', 'error');
+        }
+
+        // 验证 2: knowledgeData
+        if (window.knowledgeData) {
+            log('<hr>', 'info');
+            log('✅ knowledgeData 已加载', 'success');
+            log(`分类数量: ${window.knowledgeData.categories.length}`, 'info');
+            log(`知识点总数: ${window.knowledgeData.knowledge.length}`, 'info');
+
+            const programmingItems = window.knowledgeData.knowledge.filter(k => k.categoryId === 'programming');
+            log(`编程类知识点: ${programmingItems.length} 个`, 'info');
+        } else {
+            log('❌ knowledgeData 未定义', 'error');
+        }
+    </script>
+</body>
+</html>

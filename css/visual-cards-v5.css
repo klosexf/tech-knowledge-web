@@ -1,0 +1,2154 @@
+/**
+ * Visual Cards System v5.0
+ * Professional Tech Knowledge Cards
+ * 采用 Aurora UI + Claymorphism + Glassmorphism 混合风格
+ * 专为技术知识学习平台设计
+ */
+
+/* ==================== 
+   1. CSS Variables - 设计令牌
+   ==================== */
+:root {
+  /* 主色调 - 极光蓝紫渐变 */
+  --vc-primary: #6366f1;
+  --vc-primary-light: #818cf8;
+  --vc-primary-dark: #4f46e5;
+  --vc-primary-glow: rgba(99, 102, 241, 0.3);
+  
+  /* 辅助色 - 极光色系 */
+  --vc-accent-cyan: #06b6d4;
+  --vc-accent-pink: #ec4899;
+  --vc-accent-purple: #8b5cf6;
+  --vc-accent-orange: #f97316;
+  --vc-accent-green: #10b981;
+  --vc-accent-yellow: #f59e0b;
+  
+  /* 中性色 - 浅色主题 */
+  --vc-bg-main: #f8fafc;
+  --vc-bg-card: #ffffff;
+  --vc-bg-elevated: #f1f5f9;
+  --vc-text-primary: #0f172a;
+  --vc-text-secondary: #475569;
+  --vc-text-muted: #64748b;
+  --vc-border: #e2e8f0;
+  --vc-border-light: #f1f5f9;
+  
+  /* Claymorphism 效果 */
+  --vc-clay-shadow: 
+    8px 8px 16px rgba(0, 0, 0, 0.08),
+    -8px -8px 16px rgba(255, 255, 255, 0.8),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.5),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.05);
+  --vc-clay-shadow-hover:
+    12px 12px 24px rgba(0, 0, 0, 0.12),
+    -12px -12px 24px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.5),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.05);
+  
+  /* Glassmorphism 效果 */
+  --vc-glass-bg: rgba(255, 255, 255, 0.7);
+  --vc-glass-border: rgba(255, 255, 255, 0.5);
+  --vc-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --vc-glass-blur: blur(20px);
+  
+  /* 阴影层级 */
+  --vc-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --vc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --vc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --vc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --vc-shadow-hover: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* 圆角 - Clay风格 */
+  --vc-radius-sm: 12px;
+  --vc-radius-md: 20px;
+  --vc-radius-lg: 28px;
+  --vc-radius-xl: 36px;
+  
+  /* 动画 */
+  --vc-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --vc-transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --vc-transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --vc-transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* 渐变 - Aurora风格 */
+  --vc-gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  --vc-gradient-cyan: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  --vc-gradient-warm: linear-gradient(135deg, #f97316 0%, #ec4899 100%);
+  --vc-gradient-green: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+  --vc-gradient-aurora: linear-gradient(135deg, #6366f1 0%, #06b6d4 25%, #10b981 50%, #f59e0b 75%, #ec4899 100%);
+}
+
+/* ==================== 
+   2. Base Card Styles - Claymorphism + Glassmorphism
+   ==================== */
+.vc-container {
+  display: grid;
+  gap: 24px;
+  padding: 32px;
+  background: var(--vc-bg-main);
+  border-radius: var(--vc-radius-lg);
+}
+
+.vc-card {
+  position: relative;
+  background: var(--vc-bg-card);
+  border-radius: var(--vc-radius-md);
+  box-shadow: var(--vc-clay-shadow);
+  overflow: hidden;
+  transition: all var(--vc-transition-normal);
+  border: 2px solid transparent;
+}
+
+.vc-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--vc-gradient-aurora);
+  opacity: 0;
+  transition: opacity var(--vc-transition-normal);
+}
+
+.vc-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--vc-clay-shadow-hover);
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+.vc-card:hover::before {
+  opacity: 1;
+}
+
+/* 卡片变体 */
+.vc-card--featured {
+  grid-column: span 2;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.vc-card--glass {
+  background: var(--vc-glass-bg);
+  backdrop-filter: var(--vc-glass-blur);
+  -webkit-backdrop-filter: var(--vc-glass-blur);
+  border: 1px solid var(--vc-glass-border);
+  box-shadow: var(--vc-glass-shadow);
+}
+
+.vc-card--gradient {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+}
+
+/* ==================== 
+   3. SVG Icons - 专业图标系统
+   ==================== */
+.vc-icon {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vc-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.vc-icon--lg {
+  width: 48px;
+  height: 48px;
+}
+
+.vc-icon--xl {
+  width: 64px;
+  height: 64px;
+}
+
+/* ==================== 
+   4. Architecture Card - 架构图卡片
+   ==================== */
+.vc-architecture {
+  padding: 28px;
+}
+
+.vc-architecture__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.vc-architecture__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--vc-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--vc-gradient-primary);
+  box-shadow: 0 4px 16px var(--vc-primary-glow);
+  color: white;
+}
+
+.vc-architecture__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--vc-text-primary);
+  margin: 0;
+  background: var(--vc-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.vc-architecture__subtitle {
+  font-size: 14px;
+  color: var(--vc-text-muted);
+  margin-top: 4px;
+}
+
+.vc-architecture__layers {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vc-architecture__layer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  background: var(--vc-bg-elevated);
+  border-radius: var(--vc-radius-sm);
+  border-left: 5px solid transparent;
+  transition: all var(--vc-transition-fast);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.vc-architecture__layer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.vc-architecture__layer:hover::after {
+  transform: translateX(100%);
+}
+
+.vc-architecture__layer:hover {
+  transform: translateX(8px);
+  box-shadow: var(--vc-shadow-md);
+}
+
+.vc-architecture__layer--client { border-left-color: #6366f1; background: linear-gradient(90deg, rgba(99, 102, 241, 0.1) 0%, transparent 100%); }
+.vc-architecture__layer--server { border-left-color: #10b981; background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, transparent 100%); }
+.vc-architecture__layer--database { border-left-color: #ec4899; background: linear-gradient(90deg, rgba(236, 72, 153, 0.1) 0%, transparent 100%); }
+.vc-architecture__layer--network { border-left-color: #06b6d4; background: linear-gradient(90deg, rgba(6, 182, 212, 0.1) 0%, transparent 100%); }
+.vc-architecture__layer--security { border-left-color: #8b5cf6; background: linear-gradient(90deg, rgba(139, 92, 246, 0.1) 0%, transparent 100%); }
+
+.vc-architecture__layer-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: white;
+  box-shadow: var(--vc-shadow-sm);
+  transition: transform var(--vc-transition-bounce);
+}
+
+.vc-architecture__layer:hover .vc-architecture__layer-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.vc-architecture__layer-content {
+  flex: 1;
+}
+
+.vc-architecture__layer-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--vc-text-primary);
+  margin: 0 0 4px 0;
+}
+
+.vc-architecture__layer-desc {
+  font-size: 13px;
+  color: var(--vc-text-secondary);
+  margin: 0;
+}
+
+/* ==================== 
+   5. Flow Card - 流程图卡片
+   ==================== */
+.vc-flow {
+  padding: 28px;
+}
+
+.vc-flow__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.vc-flow__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--vc-text-primary);
+  margin: 0;
+}
+
+.vc-flow__badge {
+  padding: 6px 14px;
+  background: var(--vc-gradient-primary);
+  border-radius: 20px;
+  font-size: 12px;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 8px var(--vc-primary-glow);
+}
+
+.vc-flow__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.vc-flow__step {
+  display: flex;
+  gap: 16px;
+  position: relative;
+  padding-bottom: 24px;
+}
+
+.vc-flow__step:last-child {
+  padding-bottom: 0;
+}
+
+.vc-flow__step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 44px;
+  width: 3px;
+  height: calc(100% - 24px);
+  background: linear-gradient(to bottom, var(--vc-primary), var(--vc-primary-light), transparent);
+  border-radius: 2px;
+}
+
+.vc-flow__step-number {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+  z-index: 1;
+  background: white;
+  border: 3px solid var(--vc-border);
+  color: var(--vc-text-secondary);
+  transition: all var(--vc-transition-bounce);
+  box-shadow: var(--vc-shadow-sm);
+}
+
+.vc-flow__step:hover .vc-flow__step-number {
+  background: var(--vc-gradient-primary);
+  border-color: transparent;
+  color: white;
+  transform: scale(1.15);
+  box-shadow: 0 4px 16px var(--vc-primary-glow);
+}
+
+.vc-flow__step-content {
+  flex: 1;
+  padding-top: 8px;
+  background: var(--vc-bg-elevated);
+  padding: 16px 20px;
+  border-radius: var(--vc-radius-sm);
+  transition: all var(--vc-transition-fast);
+}
+
+.vc-flow__step:hover .vc-flow__step-content {
+  background: white;
+  box-shadow: var(--vc-shadow-md);
+  transform: translateX(4px);
+}
+
+.vc-flow__step-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--vc-text-primary);
+  margin: 0 0 6px 0;
+}
+
+.vc-flow__step-desc {
+  font-size: 13px;
+  color: var(--vc-text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ==================== 
+   6. Mindmap Card - 思维导图卡片
+   ==================== */
+.vc-mindmap {
+  padding: 28px;
+}
+
+.vc-mindmap__center {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.vc-mindmap__core {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 28px;
+  background: var(--vc-gradient-primary);
+  color: white;
+  border-radius: var(--vc-radius-md);
+  font-weight: 700;
+  font-size: 16px;
+  box-shadow: 0 8px 24px var(--vc-primary-glow);
+  position: relative;
+  overflow: hidden;
+}
+
+.vc-mindmap__core::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.vc-mindmap__branches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.vc-mindmap__branch {
+  padding: 18px;
+  background: var(--vc-bg-elevated);
+  border-radius: var(--vc-radius-sm);
+  border-top: 4px solid transparent;
+  transition: all var(--vc-transition-normal);
+  cursor: pointer;
+  position: relative;
+}
+
+.vc-mindmap__branch::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: var(--vc-radius-sm) var(--vc-radius-sm) 0 0;
+  opacity: 0;
+  transition: opacity var(--vc-transition-fast);
+}
+
+.vc-mindmap__branch:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: var(--vc-shadow-lg);
+  background: white;
+}
+
+.vc-mindmap__branch:hover::before {
+  opacity: 1;
+}
+
+.vc-mindmap__branch--concept { border-top-color: #6366f1; }
+.vc-mindmap__branch--concept::before { background: var(--vc-gradient-primary); }
+.vc-mindmap__branch--feature { border-top-color: #10b981; }
+.vc-mindmap__branch--feature::before { background: var(--vc-gradient-green); }
+.vc-mindmap__branch--tech { border-top-color: #8b5cf6; }
+.vc-mindmap__branch--tech::before { background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%); }
+.vc-mindmap__branch--process { border-top-color: #f59e0b; }
+.vc-mindmap__branch--process::before { background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); }
+.vc-mindmap__branch--example { border-top-color: #ec4899; }
+.vc-mindmap__branch--example::before { background: var(--vc-gradient-warm); }
+
+.vc-mindmap__branch-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vc-text-primary);
+  margin: 0 0 10px 0;
+}
+
+.vc-mindmap__branch-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vc-mindmap__item {
+  padding: 4px 10px;
+  background: white;
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--vc-text-secondary);
+  border: 1px solid var(--vc-border);
+  transition: all var(--vc-transition-fast);
+}
+
+.vc-mindmap__item:hover {
+  background: var(--vc-gradient-primary);
+  color: white;
+  border-color: transparent;
+  transform: scale(1.05);
+}
+
+/* ==================== 
+   7. Tech Stack Card - 技术栈卡片
+   ==================== */
+.vc-techstack {
+  padding: 28px;
+}
+
+.vc-techstack__header {
+  margin-bottom: 24px;
+}
+
+.vc-techstack__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--vc-text-primary);
+  margin: 0 0 6px 0;
+  background: var(--vc-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.vc-techstack__subtitle {
+  font-size: 14px;
+  color: var(--vc-text-muted);
+  margin: 0;
+}
+
+.vc-techstack__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 16px;
+}
+
+.vc-techstack__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 14px;
+  background: var(--vc-bg-elevated);
+  border-radius: var(--vc-radius-sm);
+  transition: all var(--vc-transition-normal);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.vc-techstack__item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  background: var(--vc-gradient-primary);
+  transition: height var(--vc-transition-fast);
+}
+
+.vc-techstack__item:hover {
+  background: white;
+  box-shadow: var(--vc-shadow-lg);
+  transform: translateY(-6px);
+}
+
+.vc-techstack__item:hover::before {
+  height: 4px;
+}
+
+.vc-techstack__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  box-shadow: var(--vc-shadow-sm);
+  transition: all var(--vc-transition-bounce);
+  z-index: 1;
+}
+
+.vc-techstack__item:hover .vc-techstack__icon {
+  transform: scale(1.15) rotate(-5deg);
+  box-shadow: 0 8px 24px var(--vc-primary-glow);
+}
+
+.vc-techstack__name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vc-text-primary);
+  text-align: center;
+  z-index: 1;
+}
+
+.vc-techstack__category {
+  font-size: 10px;
+  color: var(--vc-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  z-index: 1;
+}
+
+/* ==================== 
+   8. Comparison Card - 对比卡片
+   ==================== */
+.vc-compare {
+  padding: 28px;
+}
+
+.vc-compare__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--vc-border);
+}
+
+.vc-compare__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--vc-text-primary);
+  margin: 0;
+  background: var(--vc-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.vc-compare__vs {
+  padding: 6px 16px;
+  background: var(--vc-bg-elevated);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--vc-text-muted);
+  border: 2px solid var(--vc-border);
+}
+
+.vc-compare__content {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.vc-compare__side {
+  text-align: center;
+}
+
+.vc-compare__label {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  box-shadow: var(--vc-shadow-sm);
+}
+
+.vc-compare__label--left {
+  background: var(--vc-gradient-cyan);
+  color: white;
+}
+
+.vc-compare__label--right {
+  background: var(--vc-gradient-warm);
+  color: white;
+}
+
+.vc-compare__features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vc-compare__feature {
+  padding: 12px 16px;
+  background: var(--vc-bg-elevated);
+  border-radius: var(--vc-radius-sm);
+  font-size: 14px;
+  color: var(--vc-text-secondary);
+  transition: all var(--vc-transition-fast);
+  border-left: 3px solid transparent;
+}
+
+.vc-compare__feature:hover {
+  background: white;
+  box-shadow: var(--vc-shadow-sm);
+  transform: translateX(4px);
+}
+
+.vc-compare__side:first-child .vc-compare__feature:hover {
+  border-left-color: #06b6d4;
+}
+
+.vc-compare__side:last-child .vc-compare__feature:hover {
+  border-left-color: #ec4899;
+}
+
+.vc-compare__divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--vc-gradient-primary);
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 800;
+  color: white;
+  align-self: center;
+  box-shadow: 0 4px 12px var(--vc-primary-glow);
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 4px 12px var(--vc-primary-glow); }
+  50% { box-shadow: 0 4px 24px var(--vc-primary-glow), 0 0 20px rgba(99, 102, 241, 0.4); }
+}
+
+/* ==================== 
+   9. HTTP Structure Card - HTTP结构卡片
+   ==================== */
+.vc-http {
+  padding: 28px;
+}
+
+.vc-http__header {
+  margin-bottom: 24px;
+}
+
+.vc-http__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--vc-text-primary);
+  margin: 0 0 6px 0;
+  background: var(--vc-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.vc-http__subtitle {
+  font-size: 14px;
+  color: var(--vc-text-muted);
+  margin: 0;
+}
+
+.vc-http__structure {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vc-http__section {
+  border-radius: var(--vc-radius-sm);
+  overflow: hidden;
+  border: 2px solid var(--vc-border);
+  transition: all var(--vc-transition-fast);
+}
+
+.vc-http__section:hover {
+  border-color: var(--vc-primary-light);
+  box-shadow: var(--vc-shadow-md);
+}
+
+.vc-http__section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.vc-http__section-header--request {
+  background: var(--vc-gradient-cyan);
+  color: white;
+}
+
+.vc-http__section-header--response {
+  background: var(--vc-gradient-green);
+  color: white;
+}
+
+.vc-http__section-content {
+  padding: 14px 18px;
+  background: var(--vc-bg-card);
+}
+
+.vc-http__field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  font-size: 14px;
+  border-bottom: 1px solid var(--vc-border-light);
+  transition: all var(--vc-transition-fast);
+}
+
+.vc-http__field:last-child {
+  border-bottom: none;
+}
+
+.vc-http__field:hover {
+  background: var(--vc-bg-elevated);
+  margin: 0 -18px;
+  padding: 10px 18px;
+}
+
+.vc-http__field-name {
+  font-weight: 700;
+  color: var(--vc-text-primary);
+  min-width: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+}
+
+.vc-http__field-value {
+  color: var(--vc-text-secondary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+}
+
+/* ==================== 
+   10. Info Card - 信息提示卡片
+   ==================== */
+.vc-info {
+  padding: 24px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.vc-info__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--vc-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--vc-shadow-sm);
+  transition: all var(--vc-transition-bounce);
+}
+
+.vc-info__icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.vc-info:hover .vc-info__icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.vc-info__icon--tip { 
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); 
+  color: #1e40af;
+}
+.vc-info__icon--warning { 
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); 
+  color: #92400e;
+}
+.vc-info__icon--note { 
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); 
+  color: #3730a3;
+}
+.vc-info__icon--example { 
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); 
+  color: #065f46;
+}
+
+.vc-info__content {
+  flex: 1;
+}
+
+.vc-info__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--vc-text-primary);
+  margin: 0 0 8px 0;
+}
+
+.vc-info__text {
+  font-size: 14px;
+  color: var(--vc-text-secondary);
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* ==================== 
+   11. Grid Layouts - Bento布局
+   ==================== */
+.vc-bento {
+  display: grid;
+  gap: 24px;
+  padding: 32px;
+}
+
+.vc-bento--2col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.vc-bento--3col {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.vc-bento--4col {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.vc-bento--mixed {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+}
+
+.vc-bento--mixed .vc-card:nth-child(1) {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.vc-bento--mixed .vc-card:nth-child(2) {
+  grid-column: span 2;
+}
+
+.vc-bento--mixed .vc-card:nth-child(3),
+.vc-bento--mixed .vc-card:nth-child(4) {
+  grid-column: span 1;
+}
+
+/* ==================== 
+   12. Responsive Design
+   ==================== */
+@media (max-width: 1024px) {
+  .vc-bento--4col,
+  .vc-bento--mixed {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .vc-bento--mixed .vc-card:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+  
+  .vc-bento--mixed .vc-card:nth-child(2) {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .vc-container,
+  .vc-bento {
+    padding: 20px;
+    gap: 20px;
+  }
+  
+  .vc-bento--2col,
+  .vc-bento--3col,
+  .vc-bento--4col,
+  .vc-bento--mixed {
+    grid-template-columns: 1fr;
+  }
+  
+  .vc-bento--mixed .vc-card:nth-child(1),
+  .vc-bento--mixed .vc-card:nth-child(2),
+  .vc-card--featured {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  
+  .vc-compare__content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .vc-compare__divider {
+    display: none;
+  }
+  
+  .vc-mindmap__branches {
+    grid-template-columns: 1fr;
+  }
+  
+  .vc-techstack__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .vc-architecture__layer {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .vc-techstack__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .vc-card {
+    padding: 20px;
+  }
+}
+
+/* ==================== 
+   13. Animation Keyframes
+   ==================== */
+@keyframes vc-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes vc-fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes vc-scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes vc-slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.vc-card {
+  animation: vc-fadeInUp 0.5s ease-out backwards;
+}
+
+.vc-card:nth-child(1) { animation-delay: 0.05s; }
+.vc-card:nth-child(2) { animation-delay: 0.1s; }
+.vc-card:nth-child(3) { animation-delay: 0.15s; }
+.vc-card:nth-child(4) { animation-delay: 0.2s; }
+.vc-card:nth-child(5) { animation-delay: 0.25s; }
+
+.vc-flow__step {
+  animation: vc-fadeInLeft 0.4s ease-out backwards;
+}
+
+.vc-flow__step:nth-child(1) { animation-delay: 0.1s; }
+.vc-flow__step:nth-child(2) { animation-delay: 0.2s; }
+.vc-flow__step:nth-child(3) { animation-delay: 0.3s; }
+.vc-flow__step:nth-child(4) { animation-delay: 0.4s; }
+.vc-flow__step:nth-child(5) { animation-delay: 0.5s; }
+
+.vc-mindmap__branch {
+  animation: vc-scaleIn 0.4s ease-out backwards;
+}
+
+.vc-mindmap__branch:nth-child(1) { animation-delay: 0.1s; }
+.vc-mindmap__branch:nth-child(2) { animation-delay: 0.2s; }
+.vc-mindmap__branch:nth-child(3) { animation-delay: 0.3s; }
+.vc-mindmap__branch:nth-child(4) { animation-delay: 0.4s; }
+
+/* ==================== 
+   14. Data Type Card - 数据类型类比卡片
+   ==================== */
+.vc-datatype {
+  padding: 28px;
+}
+
+.vc-datatype__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.vc-datatype__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--vc-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--vc-gradient-primary);
+  box-shadow: 0 4px 16px var(--vc-primary-glow);
+  color: white;
+}
+
+.vc-datatype__icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.vc-datatype__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--vc-text-primary);
+  margin: 0;
+  background: var(--vc-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.vc-datatype__subtitle {
+  font-size: 14px;
+  color: var(--vc-text-muted);
+  margin-top: 4px;
+}
+
+.vc-datatype__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.vc-datatype__type {
+  background: var(--vc-bg-elevated);
+  border-radius: var(--vc-radius-sm);
+  padding: 20px;
+  border-left: 4px solid var(--type-color);
+  transition: all var(--vc-transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.vc-datatype__type::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--type-color) 0%, transparent 100%);
+  opacity: 0.05;
+  transition: opacity var(--vc-transition-fast);
+}
+
+.vc-datatype__type:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--vc-shadow-lg);
+  background: white;
+}
+
+.vc-datatype__type:hover::before {
+  opacity: 0.1;
+}
+
+.vc-datatype__type-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.vc-datatype__type-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--vc-transition-bounce);
+}
+
+.vc-datatype__type-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.vc-datatype__type:hover .vc-datatype__type-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.vc-datatype__type-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--vc-text-primary);
+}
+
+.vc-datatype__examples {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.vc-datatype__example {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: white;
+  border-radius: 8px;
+  transition: all var(--vc-transition-fast);
+}
+
+.vc-datatype__example:hover {
+  transform: translateX(4px);
+  box-shadow: var(--vc-shadow-sm);
+}
+
+.vc-datatype__example-label {
+  font-size: 13px;
+  color: var(--vc-text-muted);
+  font-weight: 500;
+}
+
+.vc-datatype__example-value {
+  font-size: 13px;
+  color: var(--vc-text-primary);
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .vc-datatype__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 动画 */
+.vc-datatype__type {
+  animation: vc-fadeInUp 0.5s ease-out backwards;
+}
+
+.vc-datatype__type:nth-child(1) { animation-delay: 0.1s; }
+.vc-datatype__type:nth-child(2) { animation-delay: 0.2s; }
+.vc-datatype__type:nth-child(3) { animation-delay: 0.3s; }
+.vc-datatype__type:nth-child(4) { animation-delay: 0.4s; }
+
+/* ==================== 
+   15. Concept Compare Card - 概念对比卡片
+   ==================== */
+.vc-concept {
+  padding: 32px;
+  background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+}
+
+.vc-concept__header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.vc-concept__icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 20px;
+  border-radius: var(--vc-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--vc-gradient-aurora);
+  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.vc-concept__icon::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+.vc-concept__icon svg {
+  width: 36px;
+  height: 36px;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.vc-concept__title {
+  font-size: 26px;
+  font-weight: 800;
+  margin: 0 0 8px 0;
+  background: var(--vc-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+.vc-concept__subtitle {
+  font-size: 15px;
+  color: var(--vc-text-muted);
+  margin: 0;
+}
+
+.vc-concept__question {
+  text-align: center;
+  margin-bottom: 28px;
+  padding: 20px 28px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%);
+  border-radius: var(--vc-radius-md);
+  border: 2px dashed var(--vc-border);
+  position: relative;
+}
+
+.vc-concept__question::before {
+  content: '?';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  background: var(--vc-gradient-warm);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: white;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.vc-concept__question-text {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--vc-text-primary);
+  margin: 0;
+}
+
+.vc-concept__compare {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 28px;
+}
+
+.vc-concept__side {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--vc-radius-md);
+  overflow: hidden;
+  transition: all var(--vc-transition-normal);
+  position: relative;
+}
+
+.vc-concept__side:hover {
+  transform: translateY(-8px);
+}
+
+.vc-concept__side--left {
+  background: linear-gradient(180deg, #fef3c7 0%, #fde68a 100%);
+  border: 2px solid #f59e0b;
+}
+
+.vc-concept__side--right {
+  background: linear-gradient(180deg, #dbeafe 0%, #bfdbfe 100%);
+  border: 2px solid #3b82f6;
+}
+
+.vc-concept__side-header {
+  padding: 18px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.vc-concept__side--left .vc-concept__side-header {
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+}
+
+.vc-concept__side--right .vc-concept__side-header {
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.vc-concept__side-icon {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transition: all var(--vc-transition-bounce);
+}
+
+.vc-concept__side:hover .vc-concept__side-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.vc-concept__side-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.vc-concept__side--left .vc-concept__side-icon svg {
+  color: #d97706;
+}
+
+.vc-concept__side--right .vc-concept__side-icon svg {
+  color: #2563eb;
+}
+
+.vc-concept__side-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.vc-concept__side-content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vc-concept__feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: var(--vc-radius-sm);
+  transition: all var(--vc-transition-fast);
+}
+
+.vc-concept__feature:hover {
+  background: white;
+  transform: translateX(4px);
+  box-shadow: var(--vc-shadow-sm);
+}
+
+.vc-concept__feature-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.vc-concept__side--left .vc-concept__feature-icon {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  color: #d97706;
+}
+
+.vc-concept__side--right .vc-concept__feature-icon {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #2563eb;
+}
+
+.vc-concept__feature-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.vc-concept__feature-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--vc-text-primary);
+}
+
+.vc-concept__vs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 8px;
+}
+
+.vc-concept__vs-line {
+  width: 3px;
+  height: 60px;
+  background: linear-gradient(180deg, transparent, var(--vc-border), transparent);
+  border-radius: 2px;
+}
+
+.vc-concept__vs-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--vc-gradient-primary);
+  font-size: 14px;
+  font-weight: 800;
+  color: white;
+  box-shadow: 0 4px 20px var(--vc-primary-glow);
+  animation: pulse-glow 2s infinite;
+  position: relative;
+}
+
+.vc-concept__vs-badge::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: var(--vc-gradient-primary);
+  opacity: 0.3;
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.vc-concept__summary {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+  border-radius: var(--vc-radius-md);
+  padding: 24px;
+  border: 2px solid rgba(16, 185, 129, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.vc-concept__summary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--vc-gradient-green);
+}
+
+.vc-concept__summary-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--vc-text-primary);
+  margin: 0 0 16px 0;
+}
+
+.vc-concept__summary-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--vc-gradient-green);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.vc-concept__summary-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.vc-concept__points {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.vc-concept__point {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: white;
+  border-radius: var(--vc-radius-sm);
+  transition: all var(--vc-transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.vc-concept__point::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--point-color);
+  opacity: 0;
+  transition: opacity var(--vc-transition-fast);
+}
+
+.vc-concept__point:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--vc-shadow-md);
+}
+
+.vc-concept__point:hover::before {
+  opacity: 1;
+}
+
+.vc-concept__point:nth-child(1) { --point-color: #6366f1; }
+.vc-concept__point:nth-child(2) { --point-color: #10b981; }
+.vc-concept__point:nth-child(3) { --point-color: #f59e0b; }
+
+.vc-concept__point-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--vc-transition-bounce);
+}
+
+.vc-concept__point:nth-child(1) .vc-concept__point-icon {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0.05) 100%);
+  color: #6366f1;
+}
+
+.vc-concept__point:nth-child(2) .vc-concept__point-icon {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%);
+  color: #10b981;
+}
+
+.vc-concept__point:nth-child(3) .vc-concept__point-icon {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);
+  color: #f59e0b;
+}
+
+.vc-concept__point:hover .vc-concept__point-icon {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.vc-concept__point-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.vc-concept__point-content {
+  flex: 1;
+}
+
+.vc-concept__point-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vc-text-primary);
+  margin: 0 0 4px 0;
+}
+
+.vc-concept__point-desc {
+  font-size: 13px;
+  color: var(--vc-text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* 响应式 */
+@media (max-width: 900px) {
+  .vc-concept__compare {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .vc-concept__vs {
+    flex-direction: row;
+    padding: 12px 0;
+  }
+  
+  .vc-concept__vs-line {
+    width: 60px;
+    height: 3px;
+  }
+  
+  .vc-concept__points {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .vc-concept {
+    padding: 24px 20px;
+  }
+  
+  .vc-concept__title {
+    font-size: 22px;
+  }
+  
+  .vc-concept__side-content {
+    padding: 16px;
+  }
+}
+
+/* 动画 */
+.vc-concept__side {
+  animation: vc-fadeInUp 0.6s ease-out backwards;
+}
+
+.vc-concept__side--left { animation-delay: 0.1s; }
+.vc-concept__side--right { animation-delay: 0.2s; }
+
+.vc-concept__point {
+  animation: vc-fadeInUp 0.5s ease-out backwards;
+}
+
+.vc-concept__point:nth-child(1) { animation-delay: 0.3s; }
+.vc-concept__point:nth-child(2) { animation-delay: 0.4s; }
+.vc-concept__point:nth-child(3) { animation-delay: 0.5s; }
+
+/* ==================== 
+   16. Decision Tree Card - 决策树卡片
+   ==================== */
+.vc-decision-tree {
+  padding: 32px;
+  background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+}
+
+.vc-decision-tree__header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.vc-decision-tree__icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  border-radius: var(--vc-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--vc-gradient-primary);
+  box-shadow: 0 8px 24px var(--vc-primary-glow);
+  color: white;
+}
+
+.vc-decision-tree__icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.vc-decision-tree__title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--vc-text-primary);
+  margin: 0;
+  background: var(--vc-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.vc-decision-tree__subtitle {
+  font-size: 14px;
+  color: var(--vc-text-muted);
+  margin-top: 8px;
+}
+
+.vc-decision-tree__tree {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.vc-decision-tree__start {
+  padding: 14px 32px;
+  background: var(--vc-gradient-primary);
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  box-shadow: 0 4px 16px var(--vc-primary-glow);
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.vc-decision-tree__start::after {
+  content: '';
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 28px;
+  background: linear-gradient(to bottom, var(--vc-primary), var(--vc-primary-light));
+  border-radius: 2px;
+}
+
+.vc-decision-tree__arrow {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vc-text-muted);
+  margin: 8px 0;
+}
+
+.vc-decision-tree__arrow svg {
+  width: 24px;
+  height: 24px;
+  animation: bounce-down 1.5s infinite;
+}
+
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+.vc-decision-tree__node {
+  padding: 16px 28px;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 2px solid #f59e0b;
+  border-radius: var(--vc-radius-sm);
+  font-size: 15px;
+  font-weight: 700;
+  color: #92400e;
+  text-align: center;
+  box-shadow: var(--vc-shadow-sm);
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.vc-decision-tree__node::after {
+  content: '';
+  position: absolute;
+  bottom: -36px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 36px;
+  background: linear-gradient(to bottom, #f59e0b, #fbbf24);
+  border-radius: 2px;
+}
+
+.vc-decision-tree__branches {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-top: 24px;
+  position: relative;
+  width: 100%;
+}
+
+.vc-decision-tree__branches::before {
+  content: '';
+  position: absolute;
+  top: -24px;
+  left: 20%;
+  right: 20%;
+  height: 3px;
+  background: linear-gradient(to right, #fbbf24, #f59e0b 30%, #f59e0b 70%, #fbbf24);
+  border-radius: 2px;
+}
+
+.vc-decision-tree__branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  max-width: 200px;
+}
+
+.vc-decision-tree__branch-label {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vc-decision-tree__branch-label--yes {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  color: #065f46;
+}
+
+.vc-decision-tree__branch-label--no {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  color: #991b1b;
+}
+
+.vc-decision-tree__branch-label svg {
+  width: 16px;
+  height: 16px;
+}
+
+.vc-decision-tree__result {
+  padding: 12px 20px;
+  border-radius: var(--vc-radius-sm);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: var(--vc-shadow-sm);
+  transition: all var(--vc-transition-normal);
+  position: relative;
+}
+
+.vc-decision-tree__result::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 16px;
+  background: linear-gradient(to bottom, #fbbf24, transparent);
+  border-radius: 2px;
+}
+
+.vc-decision-tree__result:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--vc-shadow-md);
+}
+
+.vc-decision-tree__result--new {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  color: #065f46;
+  border: 2px solid #10b981;
+}
+
+.vc-decision-tree__result--continue {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  color: #92400e;
+  border: 2px solid #f59e0b;
+}
+
+.vc-decision-tree__sub-branches {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.vc-decision-tree__sub-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.vc-decision-tree__sub-node {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 2px solid #f59e0b;
+  border-radius: var(--vc-radius-sm);
+  font-size: 14px;
+  font-weight: 700;
+  color: #92400e;
+  text-align: center;
+  position: relative;
+}
+
+.vc-decision-tree__sub-node::after {
+  content: '';
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 24px;
+  background: linear-gradient(to bottom, #f59e0b, #fbbf24);
+  border-radius: 2px;
+}
+
+.vc-decision-tree__final-results {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.vc-decision-tree__final-result {
+  padding: 14px 24px;
+  border-radius: var(--vc-radius-sm);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: var(--vc-shadow-sm);
+  transition: all var(--vc-transition-normal);
+  min-width: 120px;
+  position: relative;
+}
+
+.vc-decision-tree__final-result::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 20px;
+  background: linear-gradient(to bottom, #fbbf24, transparent);
+  border-radius: 2px;
+}
+
+.vc-decision-tree__final-result:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--vc-shadow-lg);
+}
+
+.vc-decision-tree__final-result--vip {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #1e40af;
+  border: 2px solid #3b82f6;
+}
+
+.vc-decision-tree__final-result--regular {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  color: #475569;
+  border: 2px solid #94a3b8;
+}
+
+.vc-decision-tree__end-marker {
+  font-size: 12px;
+  color: var(--vc-text-muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .vc-decision-tree {
+    padding: 24px 20px;
+  }
+  
+  .vc-decision-tree__branches {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .vc-decision-tree__branches::before {
+    display: none;
+  }
+  
+  .vc-decision-tree__branch {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .vc-decision-tree__final-results {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .vc-decision-tree__sub-branches {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+/* 动画 */
+.vc-decision-tree__start {
+  animation: vc-scaleIn 0.4s ease-out backwards;
+}
+
+.vc-decision-tree__node {
+  animation: vc-fadeInUp 0.5s ease-out backwards;
+  animation-delay: 0.2s;
+}
+
+.vc-decision-tree__branch {
+  animation: vc-fadeInUp 0.5s ease-out backwards;
+}
+
+.vc-decision-tree__branch:nth-child(1) { animation-delay: 0.4s; }
+.vc-decision-tree__branch:nth-child(2) { animation-delay: 0.5s; }
+
+.vc-decision-tree__sub-branch {
+  animation: vc-fadeInUp 0.5s ease-out backwards;
+}
+
+.vc-decision-tree__sub-branch:nth-child(1) { animation-delay: 0.6s; }
+.vc-decision-tree__sub-branch:nth-child(2) { animation-delay: 0.7s; }
+
+/* ==================== 
+   17. Print Styles
+   ==================== */
+@media print {
+  .vc-card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    break-inside: avoid;
+    animation: none;
+  }
+  
+  .vc-card:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,140 @@
+/**
+ * Sidebar Component - 侧边栏组件样式
+ * 
+ * 包含：
+ * - 侧边栏主体样式
+ * - 进度环样式
+ * - 收藏列表样式
+ * - 最近浏览列表样式
+ * 
+ * @author TechLearn Team
+ * @version 1.0.0
+ */
+
+/* ==================== 
+   Sidebar
+   ==================== */
+.sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 88px;
+    height: fit-content;
+    max-height: calc(100vh - 112px);
+    overflow-y: auto;
+}
+
+.sidebar-section {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+}
+
+.sidebar-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.progress-overview {
+    text-align: center;
+}
+
+.progress-ring {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 12px;
+}
+
+.progress-ring svg {
+    transform: rotate(-90deg);
+}
+
+.progress-ring-bg {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 8;
+}
+
+.progress-ring-fill {
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 283;
+    stroke-dashoffset: 283;
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+.progress-percent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.progress-text {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+}
+
+.favorites-list,
+.recent-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.favorites-list li,
+.recent-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 0.875rem;
+}
+
+.favorites-list li:last-child,
+.recent-list li:last-child {
+    border-bottom: none;
+}
+
+.empty-tip {
+    color: var(--text-light);
+    text-align: center;
+    padding: 20px 0 !important;
+}
+
+.favorite-item,
+.recent-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+
+.favorite-item:hover,
+.recent-item:hover {
+    color: var(--primary);
+}
+
+.favorite-item .remove-btn,
+.recent-item .remove-btn {
+    margin-left: auto;
+    opacity: 0;
+    color: var(--text-light);
+    font-size: 1.25rem;
+    line-height: 1;
+    transition: opacity var(--transition-fast);
+}
+
+.favorite-item:hover .remove-btn,
+.recent-item:hover .remove-btn {
+    opacity: 1;
+}

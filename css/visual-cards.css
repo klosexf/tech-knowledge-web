@@ -1,0 +1,1051 @@
+/* ==================== 
+   Visual Cards System
+   自定义可视化卡片组件系统
+   版本: 2.0.0
+   ==================== */
+
+/* ==================== 
+   1. CSS Variables - 设计令牌
+   ==================== */
+:root {
+    /* 主色调 */
+    --vc-primary: #0d9488;
+    --vc-primary-light: #14b8a6;
+    --vc-primary-dark: #0f766e;
+    
+    /* 层级颜色 */
+    --vc-layer-frontend: #3b82f6;
+    --vc-layer-frontend-light: #60a5fa;
+    --vc-layer-network: #8b5cf6;
+    --vc-layer-network-light: #a78bfa;
+    --vc-layer-backend: #10b981;
+    --vc-layer-backend-light: #34d399;
+    --vc-layer-database: #f59e0b;
+    --vc-layer-database-light: #fbbf24;
+    --vc-layer-cache: #ec4899;
+    --vc-layer-cache-light: #f472b6;
+    
+    /* 中性色 */
+    --vc-bg-primary: #ffffff;
+    --vc-bg-secondary: #f8fafc;
+    --vc-bg-tertiary: #f1f5f9;
+    --vc-text-primary: #1e293b;
+    --vc-text-secondary: #64748b;
+    --vc-text-muted: #94a3b8;
+    --vc-border: #e2e8f0;
+    --vc-border-light: #f1f5f9;
+    
+    /* 阴影 */
+    --vc-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --vc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --vc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --vc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    
+    /* 圆角 */
+    --vc-radius-sm: 6px;
+    --vc-radius-md: 10px;
+    --vc-radius-lg: 16px;
+    --vc-radius-xl: 24px;
+    
+    /* 动画 */
+    --vc-transition-fast: 150ms ease;
+    --vc-transition-normal: 250ms ease;
+    --vc-transition-slow: 350ms ease;
+}
+
+/* ==================== 
+   2. Base Card Styles - 基础卡片样式
+   ==================== */
+.vc-card {
+    background: var(--vc-bg-primary);
+    border-radius: var(--vc-radius-lg);
+    box-shadow: var(--vc-shadow-md);
+    overflow: hidden;
+    transition: transform var(--vc-transition-normal), box-shadow var(--vc-transition-normal);
+}
+
+.vc-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--vc-shadow-lg);
+}
+
+.vc-card-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--vc-border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.vc-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--vc-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.vc-card-icon svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.vc-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--vc-text-primary);
+    line-height: 1.3;
+}
+
+.vc-card-subtitle {
+    font-size: 0.875rem;
+    color: var(--vc-text-secondary);
+    margin-top: 2px;
+}
+
+.vc-card-body {
+    padding: 24px;
+}
+
+/* ==================== 
+   3. Architecture Card - 架构图卡片
+   ==================== */
+.vc-architecture {
+    margin: 24px 0;
+}
+
+.vc-architecture .vc-card-body {
+    padding: 0;
+}
+
+.vc-arch-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--vc-text-primary);
+    text-align: center;
+    padding: 24px 24px 16px;
+    background: linear-gradient(180deg, var(--vc-bg-secondary) 0%, transparent 100%);
+}
+
+.vc-arch-layers {
+    padding: 0 24px 24px;
+}
+
+.vc-arch-layer {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border-radius: var(--vc-radius-md);
+    border-left: 4px solid;
+    background: var(--vc-bg-primary);
+    box-shadow: var(--vc-shadow-sm);
+    transition: all var(--vc-transition-normal);
+    cursor: pointer;
+}
+
+.vc-arch-layer:last-child {
+    margin-bottom: 0;
+}
+
+.vc-arch-layer:hover {
+    transform: translateX(4px);
+    box-shadow: var(--vc-shadow-md);
+}
+
+/* Layer Types */
+.vc-arch-layer.frontend {
+    border-left-color: var(--vc-layer-frontend);
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.06) 0%, var(--vc-bg-primary) 100%);
+}
+
+.vc-arch-layer.network {
+    border-left-color: var(--vc-layer-network);
+    background: linear-gradient(90deg, rgba(139, 92, 246, 0.06) 0%, var(--vc-bg-primary) 100%);
+}
+
+.vc-arch-layer.backend {
+    border-left-color: var(--vc-layer-backend);
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.06) 0%, var(--vc-bg-primary) 100%);
+}
+
+.vc-arch-layer.database {
+    border-left-color: var(--vc-layer-database);
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.06) 0%, var(--vc-bg-primary) 100%);
+}
+
+.vc-arch-layer.cache {
+    border-left-color: var(--vc-layer-cache);
+    background: linear-gradient(90deg, rgba(236, 72, 153, 0.06) 0%, var(--vc-bg-primary) 100%);
+}
+
+.vc-arch-layer-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--vc-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+    flex-shrink: 0;
+}
+
+.vc-arch-layer.frontend .vc-arch-layer-icon {
+    background: linear-gradient(135deg, var(--vc-layer-frontend), var(--vc-layer-frontend-light));
+}
+
+.vc-arch-layer.network .vc-arch-layer-icon {
+    background: linear-gradient(135deg, var(--vc-layer-network), var(--vc-layer-network-light));
+}
+
+.vc-arch-layer.backend .vc-arch-layer-icon {
+    background: linear-gradient(135deg, var(--vc-layer-backend), var(--vc-layer-backend-light));
+}
+
+.vc-arch-layer.database .vc-arch-layer-icon {
+    background: linear-gradient(135deg, var(--vc-layer-database), var(--vc-layer-database-light));
+}
+
+.vc-arch-layer.cache .vc-arch-layer-icon {
+    background: linear-gradient(135deg, var(--vc-layer-cache), var(--vc-layer-cache-light));
+}
+
+.vc-arch-layer-icon svg {
+    width: 22px;
+    height: 22px;
+    color: white;
+}
+
+.vc-arch-layer-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.vc-arch-layer-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--vc-text-primary);
+}
+
+.vc-arch-layer-name-en {
+    font-size: 0.75rem;
+    color: var(--vc-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+
+.vc-arch-layer-desc {
+    margin-left: auto;
+    text-align: right;
+    padding-left: 16px;
+    flex-shrink: 0;
+}
+
+.vc-arch-layer-desc-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--vc-text-primary);
+}
+
+.vc-arch-layer-desc-tech {
+    font-size: 0.8125rem;
+    color: var(--vc-text-secondary);
+    margin-top: 2px;
+}
+
+/* Case Study Section */
+.vc-case-study {
+    margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-radius: var(--vc-radius-md);
+    border: 1px solid rgba(186, 230, 253, 0.5);
+}
+
+.vc-case-study-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0369a1;
+    margin-bottom: 8px;
+}
+
+.vc-case-study-desc {
+    font-size: 0.9375rem;
+    color: var(--vc-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.vc-case-layers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.vc-case-layer-item {
+    background: var(--vc-bg-primary);
+    border-radius: var(--vc-radius-md);
+    padding: 16px;
+    text-align: center;
+    box-shadow: var(--vc-shadow-sm);
+    transition: all var(--vc-transition-normal);
+}
+
+.vc-case-layer-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--vc-shadow-md);
+}
+
+.vc-case-layer-name {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--vc-text-primary);
+    margin-bottom: 8px;
+}
+
+.vc-case-layer-desc {
+    font-size: 0.8125rem;
+    color: var(--vc-text-secondary);
+    line-height: 1.5;
+}
+
+/* ==================== 
+   4. Flow Card - 流程图卡片
+   ==================== */
+.vc-flow {
+    margin: 24px 0;
+}
+
+.vc-flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 32px 24px;
+    flex-wrap: wrap;
+}
+
+.vc-flow-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 100px;
+}
+
+.vc-flow-node-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    box-shadow: var(--vc-shadow-lg);
+    transition: transform var(--vc-transition-normal);
+}
+
+.vc-flow-node:hover .vc-flow-node-icon {
+    transform: scale(1.05);
+}
+
+.vc-flow-node-icon.client {
+    background: linear-gradient(135deg, var(--vc-layer-frontend), var(--vc-layer-frontend-light));
+}
+
+.vc-flow-node-icon.server {
+    background: linear-gradient(135deg, var(--vc-layer-backend), var(--vc-layer-backend-light));
+}
+
+.vc-flow-node-icon.database {
+    background: linear-gradient(135deg, var(--vc-layer-database), var(--vc-layer-database-light));
+}
+
+.vc-flow-node-icon svg {
+    width: 32px;
+    height: 32px;
+    color: white;
+}
+
+.vc-flow-node-label {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--vc-text-primary);
+}
+
+.vc-flow-node-sublabel {
+    font-size: 0.75rem;
+    color: var(--vc-text-muted);
+    margin-top: 2px;
+}
+
+.vc-flow-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--vc-text-muted);
+}
+
+.vc-flow-arrow svg {
+    width: 28px;
+    height: 28px;
+}
+
+.vc-flow-arrow-label {
+    font-size: 0.75rem;
+    color: var(--vc-text-secondary);
+    margin-top: 4px;
+    white-space: nowrap;
+}
+
+/* Flow Steps */
+.vc-flow-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.vc-flow-step {
+    background: var(--vc-bg-secondary);
+    border-radius: var(--vc-radius-md);
+    padding: 20px;
+    position: relative;
+    border: 1px solid var(--vc-border);
+    transition: all var(--vc-transition-normal);
+}
+
+.vc-flow-step:hover {
+    background: var(--vc-bg-primary);
+    box-shadow: var(--vc-shadow-md);
+    border-color: var(--vc-primary);
+}
+
+.vc-flow-step-number {
+    position: absolute;
+    top: -12px;
+    left: 16px;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, var(--vc-primary), var(--vc-primary-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: white;
+}
+
+.vc-flow-step-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--vc-text-primary);
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+.vc-flow-step-desc {
+    font-size: 0.875rem;
+    color: var(--vc-text-secondary);
+    line-height: 1.5;
+}
+
+/* ==================== 
+   5. Sequence Card - 时序图卡片
+   ==================== */
+.vc-sequence {
+    margin: 24px 0;
+}
+
+.vc-sequence-diagram {
+    padding: 24px;
+    overflow-x: auto;
+}
+
+.vc-sequence-participants {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 24px;
+    gap: 40px;
+}
+
+.vc-sequence-participant {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;
+}
+
+.vc-sequence-participant-box {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--vc-layer-frontend), var(--vc-layer-frontend-light));
+    border-radius: var(--vc-radius-md);
+    color: white;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    box-shadow: var(--vc-shadow-md);
+}
+
+.vc-sequence-participant-box.server {
+    background: linear-gradient(135deg, var(--vc-layer-backend), var(--vc-layer-backend-light));
+}
+
+.vc-sequence-participant-box.database {
+    background: linear-gradient(135deg, var(--vc-layer-database), var(--vc-layer-database-light));
+}
+
+.vc-sequence-participant-line {
+    width: 2px;
+    height: 200px;
+    background: var(--vc-border);
+    margin-top: 8px;
+}
+
+.vc-sequence-messages {
+    position: relative;
+    padding: 0 60px;
+}
+
+.vc-sequence-message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.vc-sequence-message-line {
+    flex: 1;
+    height: 2px;
+    background: var(--vc-text-muted);
+    position: relative;
+}
+
+.vc-sequence-message-line::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -4px;
+    border: 5px solid transparent;
+    border-left-color: var(--vc-text-muted);
+}
+
+.vc-sequence-message-line.dashed {
+    background: repeating-linear-gradient(
+        90deg,
+        var(--vc-text-muted),
+        var(--vc-text-muted) 4px,
+        transparent 4px,
+        transparent 8px
+    );
+}
+
+.vc-sequence-message-line.dashed::after {
+    border-left-color: transparent;
+    border-top-color: var(--vc-text-muted);
+    border-right-color: var(--vc-text-muted);
+}
+
+.vc-sequence-message-label {
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--vc-bg-primary);
+    padding: 4px 12px;
+    border-radius: var(--vc-radius-sm);
+    font-size: 0.8125rem;
+    color: var(--vc-text-secondary);
+    white-space: nowrap;
+    box-shadow: var(--vc-shadow-sm);
+}
+
+/* ==================== 
+   6. Mind Map Card - 思维导图卡片
+   ==================== */
+.vc-mindmap {
+    margin: 24px 0;
+}
+
+.vc-mindmap-center {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.vc-mindmap-root {
+    padding: 20px 40px;
+    background: linear-gradient(135deg, var(--vc-primary), var(--vc-primary-light));
+    border-radius: var(--vc-radius-xl);
+    color: white;
+    font-size: 1.125rem;
+    font-weight: 700;
+    box-shadow: var(--vc-shadow-lg);
+    text-align: center;
+}
+
+.vc-mindmap-branches {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.vc-mindmap-branch {
+    background: var(--vc-bg-secondary);
+    border-radius: var(--vc-radius-lg);
+    padding: 20px;
+    border: 1px solid var(--vc-border);
+    transition: all var(--vc-transition-normal);
+}
+
+.vc-mindmap-branch:hover {
+    background: var(--vc-bg-primary);
+    box-shadow: var(--vc-shadow-md);
+    transform: translateY(-2px);
+}
+
+.vc-mindmap-branch-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--vc-border);
+}
+
+.vc-mindmap-branch-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--vc-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vc-mindmap-branch-icon svg {
+    width: 18px;
+    height: 18px;
+    color: white;
+}
+
+.vc-mindmap-branch-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--vc-text-primary);
+}
+
+.vc-mindmap-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.vc-mindmap-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 0.9375rem;
+    color: var(--vc-text-secondary);
+}
+
+.vc-mindmap-item::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--vc-primary);
+    border-radius: 50%;
+    margin-top: 8px;
+    flex-shrink: 0;
+}
+
+/* ==================== 
+   7. Tech Stack Card - 技术栈卡片
+   ==================== */
+.vc-techstack {
+    margin: 24px 0;
+}
+
+.vc-techstack-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.vc-techstack-section {
+    background: var(--vc-bg-secondary);
+    border-radius: var(--vc-radius-lg);
+    padding: 24px;
+    border: 1px solid var(--vc-border);
+}
+
+.vc-techstack-section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.vc-techstack-section-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--vc-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vc-techstack-section-icon.frontend {
+    background: linear-gradient(135deg, var(--vc-layer-frontend), var(--vc-layer-frontend-light));
+}
+
+.vc-techstack-section-icon.backend {
+    background: linear-gradient(135deg, var(--vc-layer-backend), var(--vc-layer-backend-light));
+}
+
+.vc-techstack-section-icon svg {
+    width: 20px;
+    height: 20px;
+    color: white;
+}
+
+.vc-techstack-section-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--vc-text-primary);
+}
+
+.vc-techstack-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.vc-techstack-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: var(--vc-bg-primary);
+    border-radius: var(--vc-radius-md);
+    transition: all var(--vc-transition-normal);
+}
+
+.vc-techstack-item:hover {
+    box-shadow: var(--vc-shadow-sm);
+    transform: translateX(4px);
+}
+
+.vc-techstack-item-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--vc-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.vc-techstack-item-icon.blue { background: rgba(59, 130, 246, 0.1); color: var(--vc-layer-frontend); }
+.vc-techstack-item-icon.green { background: rgba(16, 185, 129, 0.1); color: var(--vc-layer-backend); }
+.vc-techstack-item-icon.yellow { background: rgba(245, 158, 11, 0.1); color: var(--vc-layer-database); }
+.vc-techstack-item-icon.purple { background: rgba(139, 92, 246, 0.1); color: var(--vc-layer-network); }
+
+.vc-techstack-item-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.vc-techstack-item-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.vc-techstack-item-name {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--vc-text-primary);
+}
+
+.vc-techstack-item-desc {
+    font-size: 0.8125rem;
+    color: var(--vc-text-secondary);
+}
+
+.vc-techstack-rating {
+    display: flex;
+    gap: 2px;
+}
+
+.vc-techstack-star {
+    width: 14px;
+    height: 14px;
+    color: #fbbf24;
+}
+
+.vc-techstack-star.empty {
+    color: var(--vc-border);
+}
+
+/* ==================== 
+   8. Comparison Card - 对比卡片
+   ==================== */
+.vc-comparison {
+    margin: 24px 0;
+}
+
+.vc-comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.vc-comparison-item {
+    background: var(--vc-bg-secondary);
+    border-radius: var(--vc-radius-lg);
+    padding: 24px;
+    border: 2px solid var(--vc-border);
+    transition: all var(--vc-transition-normal);
+}
+
+.vc-comparison-item:hover {
+    border-color: var(--vc-primary);
+    box-shadow: var(--vc-shadow-md);
+}
+
+.vc-comparison-item-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.vc-comparison-item-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--vc-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vc-comparison-item-icon.a {
+    background: linear-gradient(135deg, var(--vc-layer-frontend), var(--vc-layer-frontend-light));
+}
+
+.vc-comparison-item-icon.b {
+    background: linear-gradient(135deg, var(--vc-layer-backend), var(--vc-layer-backend-light));
+}
+
+.vc-comparison-item-icon svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.vc-comparison-item-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--vc-text-primary);
+}
+
+.vc-comparison-item-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.vc-comparison-item-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--vc-border-light);
+    font-size: 0.9375rem;
+    color: var(--vc-text-secondary);
+}
+
+.vc-comparison-item-list li:last-child {
+    border-bottom: none;
+}
+
+.vc-comparison-item-list li::before {
+    content: '✓';
+    color: var(--vc-primary);
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+/* ==================== 
+   9. HTTP Structure Card - HTTP结构卡片
+   ==================== */
+.vc-http {
+    margin: 24px 0;
+}
+
+.vc-http-structure {
+    background: var(--vc-bg-secondary);
+    border-radius: var(--vc-radius-md);
+    padding: 20px;
+    border: 1px solid var(--vc-border);
+}
+
+.vc-http-structure-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--vc-text-primary);
+    margin-bottom: 16px;
+}
+
+.vc-http-part {
+    background: var(--vc-bg-primary);
+    border-radius: var(--vc-radius-sm);
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--vc-primary);
+    transition: all var(--vc-transition-normal);
+}
+
+.vc-http-part:hover {
+    box-shadow: var(--vc-shadow-sm);
+}
+
+.vc-http-part:last-child {
+    margin-bottom: 0;
+}
+
+.vc-http-part-label {
+    font-size: 0.75rem;
+    color: var(--vc-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.vc-http-part-content {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875rem;
+    color: var(--vc-text-primary);
+    word-break: break-all;
+}
+
+.vc-http-part-content.optional {
+    color: var(--vc-text-secondary);
+}
+
+/* ==================== 
+   10. Responsive Styles - 响应式样式
+   ==================== */
+@media (max-width: 1024px) {
+    .vc-techstack-grid,
+    .vc-comparison-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .vc-arch-layer {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .vc-arch-layer-icon {
+        margin-right: 0;
+        margin-bottom: 12px;
+    }
+    
+    .vc-arch-layer-desc {
+        margin-left: 0;
+        text-align: center;
+        padding-left: 0;
+        margin-top: 12px;
+    }
+    
+    .vc-case-layers {
+        grid-template-columns: 1fr;
+    }
+    
+    .vc-flow-diagram {
+        flex-direction: column;
+        gap: 24px;
+    }
+    
+    .vc-flow-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .vc-flow-steps {
+        grid-template-columns: 1fr;
+    }
+    
+    .vc-sequence-participants {
+        gap: 20px;
+    }
+    
+    .vc-sequence-participant-box {
+        padding: 8px 16px;
+        font-size: 0.8125rem;
+    }
+    
+    .vc-mindmap-branches {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== 
+   11. Animation Utilities - 动画工具类
+   ==================== */
+@keyframes vc-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes vc-slide-in-left {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes vc-pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.vc-animate-fade-in {
+    animation: vc-fade-in 0.4s ease-out;
+}
+
+.vc-animate-slide-in {
+    animation: vc-slide-in-left 0.4s ease-out;
+}
+
+/* Staggered animation delays */
+.vc-arch-layer:nth-child(1) { animation-delay: 0ms; }
+.vc-arch-layer:nth-child(2) { animation-delay: 100ms; }
+.vc-arch-layer:nth-child(3) { animation-delay: 200ms; }
+.vc-arch-layer:nth-child(4) { animation-delay: 300ms; }
+.vc-arch-layer:nth-child(5) { animation-delay: 400ms; }
+
+.vc-mindmap-branch:nth-child(1) { animation-delay: 0ms; }
+.vc-mindmap-branch:nth-child(2) { animation-delay: 100ms; }
+.vc-mindmap-branch:nth-child(3) { animation-delay: 200ms; }
+.vc-mindmap-branch:nth-child(4) { animation-delay: 300ms; }

@@ -1,0 +1,301 @@
+/**
+ * Technical Content Styles - 技术内容样式
+ * 
+ * 包含：
+ * - 技术内容区块样式
+ * - 技术图表样式
+ * - 角色网格样式
+ * - 场景时间线样式
+ * - 对话框样式
+ * - 提示框样式
+ * 
+ * @author TechLearn Team
+ * @version 1.0.0
+ */
+
+/* ==================== 
+   Technical Content Section
+   ==================== */
+.technical-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+}
+
+.technical-section h4 {
+    font-size: 1.125rem;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.technical-section h5 {
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin: 20px 0 12px;
+}
+
+/* Tech Diagram */
+.tech-diagram {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 24px;
+    margin: 20px 0;
+    border: 1px solid var(--border);
+}
+
+.diagram-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.diagram-node {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+    color: white;
+    padding: 20px;
+    border-radius: var(--radius-md);
+    text-align: center;
+    min-width: 140px;
+    box-shadow: var(--shadow-md);
+}
+
+.diagram-node.client {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.diagram-node.server {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.diagram-node.database {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.node-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.node-title {
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 4px;
+}
+
+.node-desc {
+    font-size: 0.75rem;
+    opacity: 0.9;
+    line-height: 1.4;
+}
+
+.diagram-arrow {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    padding: 0 8px;
+}
+
+/* Role Grid */
+.role-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 16px;
+}
+
+.role-card {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 20px;
+    border: 1px solid var(--border);
+}
+
+.role-card h5 {
+    margin: 0 0 12px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.role-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.role-card li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.role-card li:last-child {
+    border-bottom: none;
+}
+
+.role-card li strong {
+    color: var(--text-primary);
+}
+
+/* Scenario Timeline */
+.scenario-timeline {
+    margin-top: 16px;
+}
+
+.scenario-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.scenario-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 44px;
+    bottom: -24px;
+    width: 2px;
+    background: var(--border);
+}
+
+.scenario-number {
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.scenario-content {
+    flex: 1;
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 20px;
+    border: 1px solid var(--border);
+}
+
+.scenario-content h5 {
+    margin: 0 0 12px;
+    color: var(--text-primary);
+}
+
+.scenario-content p {
+    margin: 8px 0;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.scenario-content p strong {
+    color: var(--primary);
+}
+
+/* Conversation Box */
+.conversation-box {
+    margin-top: 16px;
+}
+
+.conversation-item {
+    background: white;
+    border-radius: var(--radius-md);
+    margin-bottom: 16px;
+    overflow: hidden;
+    border: 2px solid var(--border);
+}
+
+.conversation-item.bad {
+    border-color: #fecaca;
+}
+
+.conversation-item.good {
+    border-color: #bbf7d0;
+}
+
+.conv-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    font-weight: 600;
+}
+
+.conversation-item.bad .conv-header {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.conversation-item.good .conv-header {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+.conv-icon {
+    font-size: 1.25rem;
+}
+
+.conv-content {
+    padding: 16px;
+}
+
+.conv-content p {
+    margin: 8px 0;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.conv-content p strong {
+    color: var(--text-primary);
+}
+
+/* Tips Box */
+.tips-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin-top: 24px;
+    border: 1px solid #93c5fd;
+}
+
+.tips-box h5 {
+    margin: 0 0 12px;
+    color: #1e40af;
+}
+
+.tips-box ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.tips-box li {
+    padding: 6px 0;
+    color: #1e40af;
+    font-size: 0.875rem;
+}
+
+/* Technical Badge */
+.technical-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-left: 8px;
+}

@@ -1,0 +1,857 @@
+/**
+ * Visual Cards System v4.0
+ * Bento Box Grid + Glassmorphism 混合设计风格
+ * 专为技术知识学习平台设计
+ */
+
+/* ==================== 
+   1. CSS Variables - 设计令牌
+   ==================== */
+:root {
+  /* 主色调 - 知识蓝 */
+  --vc-primary: #3b82f6;
+  --vc-primary-light: #60a5fa;
+  --vc-primary-dark: #2563eb;
+  --vc-primary-glow: rgba(59, 130, 246, 0.25);
+  
+  /* 强调色 */
+  --vc-accent-orange: #f97316;
+  --vc-accent-green: #10b981;
+  --vc-accent-purple: #8b5cf6;
+  --vc-accent-pink: #ec4899;
+  --vc-accent-cyan: #06b6d4;
+  
+  /* 中性色 - 浅色主题 (与主站一致) */
+  --vc-bg-main: #f8fafc;
+  --vc-bg-card: #ffffff;
+  --vc-bg-elevated: #f1f5f9;
+  --vc-text-primary: #1e293b;
+  --vc-text-secondary: #64748b;
+  --vc-text-muted: #94a3b8;
+  --vc-border: #e2e8f0;
+  --vc-border-light: #f1f5f9;
+  
+  /* 玻璃拟态效果 */
+  --vc-glass-bg: rgba(255, 255, 255, 0.85);
+  --vc-glass-border: rgba(255, 255, 255, 0.5);
+  --vc-glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --vc-glass-blur: blur(12px);
+  
+  /* 卡片阴影层级 */
+  --vc-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --vc-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --vc-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
+  --vc-shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.15);
+  
+  /* 圆角 - Bento风格 */
+  --vc-radius-sm: 8px;
+  --vc-radius-md: 16px;
+  --vc-radius-lg: 24px;
+  --vc-radius-xl: 32px;
+  
+  /* 动画 */
+  --vc-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --vc-transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --vc-transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* 渐变 */
+  --vc-gradient-primary: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+  --vc-gradient-glow: radial-gradient(ellipse at top, rgba(59, 130, 246, 0.15) 0%, transparent 60%);
+}
+
+/* ==================== 
+   2. Base Card Styles - Bento Box
+   ==================== */
+.vc-container {
+  display: grid;
+  gap: 20px;
+  padding: 24px;
+  background: var(--vc-bg-main);
+  border-radius: var(--vc-radius-lg);
+}
+
+.vc-card {
+  position: relative;
+  background: var(--vc-bg-card);
+  border: 1px solid var(--vc-border);
+  border-radius: var(--vc-radius-md);
+  box-shadow: var(--vc-shadow-md);
+  overflow: hidden;
+  transition: all var(--vc-transition-normal);
+}
+
+.vc-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--vc-gradient-primary);
+  opacity: 0;
+  transition: opacity var(--vc-transition-normal);
+}
+
+.vc-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--vc-shadow-hover);
+  border-color: var(--vc-primary-light);
+}
+
+.vc-card:hover::before {
+  opacity: 1;
+}
+
+/* 卡片变体 */
+.vc-card--featured {
+  grid-column: span 2;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.vc-card--compact {
+  padding: 16px;
+}
+
+.vc-card--glass {
+  background: var(--vc-glass-bg);
+  backdrop-filter: var(--vc-glass-blur);
+  -webkit-backdrop-filter: var(--vc-glass-blur);
+  border: 1px solid var(--vc-glass-border);
+}
+
+/* ==================== 
+   3. Architecture Card - 架构图卡片
+   ==================== */
+.vc-architecture {
+  padding: 24px;
+}
+
+.vc-architecture__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.vc-architecture__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--vc-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background: var(--vc-bg-elevated);
+}
+
+.vc-architecture__icon--client { background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); }
+.vc-architecture__icon--server { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); }
+.vc-architecture__icon--database { background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); }
+.vc-architecture__icon--network { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); }
+.vc-architecture__icon--security { background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); }
+
+.vc-architecture__title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--vc-text-primary);
+  margin: 0;
+}
+
+.vc-architecture__subtitle {
+  font-size: 13px;
+  color: var(--vc-text-muted);
+  margin-top: 2px;
+}
+
+.vc-architecture__layers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vc-architecture__layer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--vc-bg-elevated);
+  border-radius: var(--vc-radius-sm);
+  border-left: 4px solid transparent;
+  transition: all var(--vc-transition-fast);
+}
+
+.vc-architecture__layer:hover {
+  background: var(--vc-bg-card);
+  box-shadow: var(--vc-shadow-sm);
+}
+
+.vc-architecture__layer--client { border-left-color: #3b82f6; }
+.vc-architecture__layer--server { border-left-color: #10b981; }
+.vc-architecture__layer--database { border-left-color: #ec4899; }
+.vc-architecture__layer--network { border-left-color: #f59e0b; }
+.vc-architecture__layer--security { border-left-color: #8b5cf6; }
+
+.vc-architecture__layer-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.vc-architecture__layer-content {
+  flex: 1;
+}
+
+.vc-architecture__layer-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vc-text-primary);
+  margin: 0 0 2px 0;
+}
+
+.vc-architecture__layer-desc {
+  font-size: 12px;
+  color: var(--vc-text-secondary);
+  margin: 0;
+}
+
+/* ==================== 
+   4. Flow Card - 流程图卡片
+   ==================== */
+.vc-flow {
+  padding: 24px;
+}
+
+.vc-flow__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.vc-flow__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--vc-text-primary);
+  margin: 0;
+}
+
+.vc-flow__badge {
+  padding: 4px 10px;
+  background: var(--vc-bg-elevated);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--vc-text-secondary);
+  font-weight: 500;
+}
+
+.vc-flow__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.vc-flow__step {
+  display: flex;
+  gap: 12px;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.vc-flow__step:last-child {
+  padding-bottom: 0;
+}
+
+.vc-flow__step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: 36px;
+  width: 2px;
+  height: calc(100% - 20px);
+  background: linear-gradient(to bottom, var(--vc-border), transparent);
+}
+
+.vc-flow__step-number {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+  z-index: 1;
+  background: var(--vc-bg-card);
+  border: 2px solid var(--vc-border);
+  color: var(--vc-text-secondary);
+  transition: all var(--vc-transition-fast);
+}
+
+.vc-flow__step:hover .vc-flow__step-number {
+  background: var(--vc-primary);
+  border-color: var(--vc-primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+.vc-flow__step-content {
+  flex: 1;
+  padding-top: 6px;
+}
+
+.vc-flow__step-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vc-text-primary);
+  margin: 0 0 4px 0;
+}
+
+.vc-flow__step-desc {
+  font-size: 13px;
+  color: var(--vc-text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ==================== 
+   5. Mindmap Card - 思维导图卡片
+   ==================== */
+.vc-mindmap {
+  padding: 24px;
+}
+
+.vc-mindmap__center {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.vc-mindmap__core {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: var(--vc-gradient-primary);
+  color: white;
+  border-radius: var(--vc-radius-md);
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 4px 16px var(--vc-primary-glow);
+}
+
+.vc-mindmap__branches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.vc-mindmap__branch {
+  padding: 14px;
+  background: var(--vc-bg-elevated);
+  border-radius: var(--vc-radius-sm);
+  border-top: 3px solid transparent;
+  transition: all var(--vc-transition-fast);
+  cursor: pointer;
+}
+
+.vc-mindmap__branch:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--vc-shadow-md);
+  background: var(--vc-bg-card);
+}
+
+.vc-mindmap__branch--concept { border-top-color: #3b82f6; }
+.vc-mindmap__branch--feature { border-top-color: #10b981; }
+.vc-mindmap__branch--tech { border-top-color: #8b5cf6; }
+.vc-mindmap__branch--process { border-top-color: #f59e0b; }
+.vc-mindmap__branch--example { border-top-color: #ec4899; }
+
+.vc-mindmap__branch-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vc-text-primary);
+  margin: 0 0 6px 0;
+}
+
+.vc-mindmap__branch-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.vc-mindmap__item {
+  padding: 3px 8px;
+  background: var(--vc-bg-card);
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--vc-text-secondary);
+  border: 1px solid var(--vc-border);
+}
+
+/* ==================== 
+   6. Tech Stack Card - 技术栈卡片
+   ==================== */
+.vc-techstack {
+  padding: 24px;
+}
+
+.vc-techstack__header {
+  margin-bottom: 20px;
+}
+
+.vc-techstack__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--vc-text-primary);
+  margin: 0 0 4px 0;
+}
+
+.vc-techstack__subtitle {
+  font-size: 13px;
+  color: var(--vc-text-muted);
+  margin: 0;
+}
+
+.vc-techstack__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 12px;
+}
+
+.vc-techstack__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 12px;
+  background: var(--vc-bg-elevated);
+  border-radius: var(--vc-radius-sm);
+  transition: all var(--vc-transition-fast);
+  cursor: pointer;
+}
+
+.vc-techstack__item:hover {
+  background: var(--vc-bg-card);
+  box-shadow: var(--vc-shadow-md);
+  transform: translateY(-2px);
+}
+
+.vc-techstack__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background: white;
+  box-shadow: var(--vc-shadow-sm);
+}
+
+.vc-techstack__name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--vc-text-primary);
+  text-align: center;
+}
+
+.vc-techstack__category {
+  font-size: 10px;
+  color: var(--vc-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==================== 
+   7. Comparison Card - 对比卡片
+   ==================== */
+.vc-compare {
+  padding: 24px;
+}
+
+.vc-compare__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--vc-border);
+}
+
+.vc-compare__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--vc-text-primary);
+  margin: 0;
+}
+
+.vc-compare__vs {
+  padding: 4px 12px;
+  background: var(--vc-bg-elevated);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--vc-text-muted);
+}
+
+.vc-compare__content {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.vc-compare__side {
+  text-align: center;
+}
+
+.vc-compare__label {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.vc-compare__label--left {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #1e40af;
+}
+
+.vc-compare__label--right {
+  background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+  color: #9d174d;
+}
+
+.vc-compare__features {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vc-compare__feature {
+  padding: 10px 12px;
+  background: var(--vc-bg-elevated);
+  border-radius: var(--vc-radius-sm);
+  font-size: 13px;
+  color: var(--vc-text-secondary);
+}
+
+.vc-compare__divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--vc-bg-elevated);
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--vc-text-muted);
+  align-self: center;
+}
+
+/* ==================== 
+   8. HTTP Structure Card - HTTP结构卡片
+   ==================== */
+.vc-http {
+  padding: 24px;
+}
+
+.vc-http__header {
+  margin-bottom: 20px;
+}
+
+.vc-http__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--vc-text-primary);
+  margin: 0 0 4px 0;
+}
+
+.vc-http__subtitle {
+  font-size: 13px;
+  color: var(--vc-text-muted);
+  margin: 0;
+}
+
+.vc-http__structure {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vc-http__section {
+  border-radius: var(--vc-radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--vc-border);
+}
+
+.vc-http__section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--vc-bg-elevated);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vc-text-primary);
+}
+
+.vc-http__section-header--request {
+  background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);
+  color: #1e40af;
+}
+
+.vc-http__section-header--response {
+  background: linear-gradient(135deg, #d1fae5 0%, #ecfdf5 100%);
+  color: #065f46;
+}
+
+.vc-http__section-content {
+  padding: 12px 16px;
+  background: var(--vc-bg-card);
+}
+
+.vc-http__field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 13px;
+  border-bottom: 1px solid var(--vc-border-light);
+}
+
+.vc-http__field:last-child {
+  border-bottom: none;
+}
+
+.vc-http__field-name {
+  font-weight: 600;
+  color: var(--vc-text-primary);
+  min-width: 100px;
+}
+
+.vc-http__field-value {
+  color: var(--vc-text-secondary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+/* ==================== 
+   9. Info Card - 信息卡片
+   ==================== */
+.vc-info {
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.vc-info__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--vc-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.vc-info__icon--tip { background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); }
+.vc-info__icon--warning { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); }
+.vc-info__icon--note { background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); }
+.vc-info__icon--example { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); }
+
+.vc-info__content {
+  flex: 1;
+}
+
+.vc-info__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vc-text-primary);
+  margin: 0 0 6px 0;
+}
+
+.vc-info__text {
+  font-size: 13px;
+  color: var(--vc-text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ==================== 
+   10. Grid Layouts - Bento布局
+   ==================== */
+.vc-bento {
+  display: grid;
+  gap: 20px;
+  padding: 24px;
+}
+
+.vc-bento--2col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.vc-bento--3col {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.vc-bento--4col {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.vc-bento--mixed {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+}
+
+.vc-bento--mixed .vc-card:nth-child(1) {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.vc-bento--mixed .vc-card:nth-child(2) {
+  grid-column: span 2;
+}
+
+.vc-bento--mixed .vc-card:nth-child(3),
+.vc-bento--mixed .vc-card:nth-child(4) {
+  grid-column: span 1;
+}
+
+/* ==================== 
+   11. Responsive Design
+   ==================== */
+@media (max-width: 1024px) {
+  .vc-bento--4col,
+  .vc-bento--mixed {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .vc-bento--mixed .vc-card:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+  
+  .vc-bento--mixed .vc-card:nth-child(2) {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .vc-bento--2col,
+  .vc-bento--3col,
+  .vc-bento--4col,
+  .vc-bento--mixed {
+    grid-template-columns: 1fr;
+    padding: 16px;
+    gap: 16px;
+  }
+  
+  .vc-bento--mixed .vc-card:nth-child(1),
+  .vc-bento--mixed .vc-card:nth-child(2),
+  .vc-card--featured {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  
+  .vc-compare__content {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .vc-compare__divider {
+    display: none;
+  }
+  
+  .vc-mindmap__branches {
+    grid-template-columns: 1fr;
+  }
+  
+  .vc-techstack__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .vc-techstack__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .vc-architecture__layer {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ==================== 
+   12. Animation Keyframes
+   ==================== */
+@keyframes vc-fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes vc-slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes vc-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(59, 130, 246, 0);
+  }
+}
+
+.vc-card {
+  animation: vc-fadeIn 0.4s ease-out;
+}
+
+.vc-flow__step {
+  animation: vc-slideIn 0.3s ease-out backwards;
+}
+
+.vc-flow__step:nth-child(1) { animation-delay: 0.05s; }
+.vc-flow__step:nth-child(2) { animation-delay: 0.1s; }
+.vc-flow__step:nth-child(3) { animation-delay: 0.15s; }
+.vc-flow__step:nth-child(4) { animation-delay: 0.2s; }
+.vc-flow__step:nth-child(5) { animation-delay: 0.25s; }
+
+/* ==================== 
+   13. Print Styles
+   ==================== */
+@media print {
+  .vc-card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    break-inside: avoid;
+  }
+  
+  .vc-card:hover {
+    transform: none;
+  }
+}

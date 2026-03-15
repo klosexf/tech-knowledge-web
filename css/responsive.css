@@ -1,0 +1,326 @@
+/**
+ * Responsive Styles - 响应式样式
+ * 
+ * 包含：
+ * - 平板设备响应式样式 (max-width: 1024px)
+ * - 移动设备响应式样式 (max-width: 768px)
+ * - 小屏设备响应式样式 (max-width: 480px)
+ * 
+ * @author TechLearn Team
+ * @version 1.0.0
+ */
+
+/* ==================== 
+   Responsive Design - Tablet
+   ==================== */
+@media (max-width: 1024px) {
+    .sidebar {
+        display: none;
+    }
+    
+    .content-wrapper {
+        padding: 0 16px;
+    }
+    
+    /* Hero区域响应式 - 平板 */
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+    
+    .hero-content {
+        text-align: center;
+        order: 2;
+    }
+    
+    .hero-visual {
+        order: 1;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .hero-stats {
+        justify-content: center;
+    }
+    
+    .about-features {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-links {
+        justify-content: center;
+    }
+}
+
+/* ==================== 
+   Responsive Design - Mobile
+   ==================== */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 0 16px;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--bg-card);
+        flex-direction: column;
+        padding: 16px;
+        border-bottom: 1px solid var(--border);
+        box-shadow: var(--shadow-lg);
+        display: none;
+    }
+    
+    .nav-menu.active {
+        display: flex;
+    }
+    
+    .nav-toggle {
+        display: flex;
+    }
+    
+    .nav-search {
+        display: none;
+    }
+    
+    .hero {
+        padding: 100px 16px 60px;
+    }
+    
+    /* Hero区域响应式 - 移动端 */
+    .hero-container {
+        gap: 32px;
+    }
+    
+    .hero-visual {
+        max-width: 100%;
+    }
+    
+    .hero-image-wrapper {
+        border-radius: var(--radius-lg);
+        box-shadow: 
+            0 15px 30px -8px rgba(13, 148, 136, 0.2),
+            0 8px 16px -4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .hero-image-wrapper:hover {
+        transform: translateY(-4px);
+    }
+    
+    .hero-image {
+        border-radius: var(--radius-lg);
+    }
+    
+    .hero-image-glow {
+        filter: blur(20px);
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+    }
+    
+    .hero-image-caption {
+        font-size: 0.8125rem;
+        margin-top: 12px;
+    }
+    
+    .hero-stats {
+        gap: 24px;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .editor-body {
+        grid-template-columns: 1fr;
+    }
+    
+    .code-output {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .detail-content {
+        padding: 20px;
+    }
+    
+    .detail-title {
+        font-size: 1.5rem;
+    }
+    
+    .detail-actions {
+        flex-direction: column;
+    }
+    
+    .action-btn {
+        justify-content: center;
+    }
+    
+    .modal-content {
+        padding: 24px;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+    }
+    
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+    }
+    
+    /* Technical Content Responsive */
+    .diagram-flow {
+        flex-direction: column;
+    }
+    
+    .diagram-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .role-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .scenario-item {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .scenario-item:not(:last-child)::after {
+        display: none;
+    }
+    
+    /* Visualization Responsive */
+    .arch-layer {
+        padding: 16px;
+    }
+    
+    .arch-layer-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .arch-evolution-timeline {
+        flex-direction: column;
+    }
+    
+    .arch-evolution-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .arch-graph-node {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    /* Modern Cards Responsive */
+    .stack-layer {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .layer-icon {
+        margin-right: 0;
+        margin-bottom: 12px;
+    }
+    
+    .layer-description {
+        margin-left: 0;
+        text-align: center;
+        padding-left: 0;
+        margin-top: 12px;
+    }
+    
+    .case-layers {
+        grid-template-columns: 1fr;
+    }
+    
+    .tech-stack-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .backend-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .request-flow-card .flow-diagram {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .request-flow-card .flow-arrow {
+        transform: rotate(90deg);
+    }
+}
+
+/* ==================== 
+   Responsive Design - Small Mobile
+   ==================== */
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .path-timeline {
+        padding-left: 32px;
+    }
+    
+    .path-marker {
+        left: -32px;
+        width: 28px;
+        height: 28px;
+        font-size: 0.8125rem;
+    }
+    
+    .interactive-tabs {
+        flex-direction: column;
+    }
+    
+    .tab-btn {
+        width: 100%;
+    }
+    
+    .quiz-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .quiz-btn {
+        width: 100%;
+    }
+    
+    /* Solution Comparison Responsive */
+    .solution-pros-cons {
+        grid-template-columns: 1fr;
+    }
+}

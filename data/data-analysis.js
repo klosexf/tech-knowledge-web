@@ -307,6 +307,133 @@ var knowledge = [
             title: '数据怎么看？',
             difficulty: 'beginner',
             summary: '学会使用数据分析工具，理解埋点和事件追踪的概念。',
+            technicalContent: {
+                principle: `
+                    <h4>🔬 技术原理</h4>
+                    <p><strong>数据埋点</strong>是数据采集的核心技术，通过在代码中埋入数据采集点，记录用户行为数据。主流埋点方式包括代码埋点、可视化埋点、全埋点三种。</p>
+                    
+                    <div class="tech-diagram">
+                        <div class="diagram-flow">
+                            <div class="diagram-node">
+                                <div class="node-icon">📱</div>
+                                <div class="node-title">用户行为</div>
+                                <div class="node-desc">点击/浏览<br/>输入/提交</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">📍</div>
+                                <div class="node-title">埋点采集</div>
+                                <div class="node-desc">事件上报<br/>参数传递</div>
+                            </div>
+                            <div class="diagram-arrow">→</div>
+                            <div class="diagram-node">
+                                <div class="node-icon">📊</div>
+                                <div class="node-title">数据分析</div>
+                                <div class="node-desc">统计计算<br/>可视化展示</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5>埋点方式对比</h5>
+                    <table class="concept-table">
+                        <tr>
+                            <th>方式</th>
+                            <th>实现方式</th>
+                            <th>优势</th>
+                            <th>劣势</th>
+                        </tr>
+                        <tr>
+                            <td>代码埋点</td>
+                            <td>手动编写埋点代码</td>
+                            <td>精确控制、参数灵活</td>
+                            <td>开发成本高、需发版</td>
+                        </tr>
+                        <tr>
+                            <td>可视化埋点</td>
+                            <td>配置平台圈选元素</td>
+                            <td>无需发版、操作简单</td>
+                            <td>灵活性差、依赖平台</td>
+                        </tr>
+                        <tr>
+                            <td>全埋点</td>
+                            <td>自动采集所有事件</td>
+                            <td>无需开发、数据全</td>
+                            <td>数据量大、噪音多</td>
+                        </tr>
+                    </table>
+                `,
+                role: `
+                    <h4>🎯 核心作用</h4>
+                    <div class="role-grid">
+                        <div class="role-card">
+                            <h5>埋点设计</h5>
+                            <ul>
+                                <li><strong>事件命名</strong>：button_click、page_view</li>
+                                <li><strong>参数设计</strong>：button_name、page_id、user_id</li>
+                                <li><strong>上报时机</strong>：点击时、曝光时、完成时</li>
+                                <li><strong>数据格式</strong>：JSON结构化数据</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h5>分析工具</h5>
+                            <ul>
+                                <li><strong>神策数据</strong>：私有化部署、功能强大</li>
+                                <li><strong>友盟+</strong>：免费、易上手</li>
+                                <li><strong>Mixpanel</strong>：用户行为分析</li>
+                                <li><strong>Google Analytics</strong>：免费、全球通用</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                businessScenario: `
+                    <h4>💼 业务场景</h4>
+                    <div class="scenario-timeline">
+                        <div class="scenario-item">
+                            <div class="scenario-number">1</div>
+                            <div class="scenario-content">
+                                <h5>购买按钮埋点</h5>
+                                <p><strong>事件</strong>：buy_button_click</p>
+                                <p><strong>参数</strong>：product_id、product_name、price、user_id</p>
+                                <p><strong>分析</strong>：统计购买按钮点击率、转化漏斗</p>
+                            </div>
+                        </div>
+                        <div class="scenario-item">
+                            <div class="scenario-number">2</div>
+                            <div class="scenario-content">
+                                <h5>页面浏览埋点</h5>
+                                <p><strong>事件</strong>：page_view</p>
+                                <p><strong>参数</strong>：page_name、page_id、from_page、duration</p>
+                                <p><strong>分析</strong>：页面访问量、停留时长、跳出率</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pmDevScenario: `
+                    <h4>🗣️ 产品经理与开发沟通场景</h4>
+                    <div class="conversation-box">
+                        <div class="conversation-item good">
+                            <div class="conv-header">
+                                <span class="conv-icon">✅</span>
+                                <span class="conv-title">正确沟通</span>
+                            </div>
+                            <div class="conv-content">
+                                <p><strong>产品经理：</strong>"这个按钮需要埋点，事件名是buy_click，需要传商品ID、商品名称、价格三个参数。"</p>
+                                <p><strong>开发：</strong>"明白了，我会在按钮点击事件里添加埋点代码，上报这三个参数。"</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tips-box">
+                        <h5>💡 埋点设计清单</h5>
+                        <ul>
+                            <li>需要采集哪些用户行为？</li>
+                            <li>事件命名是否规范？</li>
+                            <li>需要传哪些参数？</li>
+                            <li>上报时机是什么？</li>
+                            <li>数据存储周期多长？</li>
+                        </ul>
+                    </div>
+                `
+            },
             content: `
                 <div class="knowledge-overview">
                     <h4>【知识点概览】</h4>

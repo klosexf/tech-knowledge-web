@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据结构的本质 - 可视化卡片演示</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/visual-cards-v5.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        
+        .demo-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .demo-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .demo-title h1 {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+        
+        .demo-title p {
+            color: #64748b;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-title">
+            <h1>概念对比卡片组件演示</h1>
+            <p>基于 Aurora UI + Claymorphism 设计系统</p>
+        </div>
+        
+        <div class="vc-card">
+            <div class="vc-concept">
+                <div class="vc-concept__header">
+                    <div class="vc-concept__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h2 class="vc-concept__title">数据结构的本质</h2>
+                    <p class="vc-concept__subtitle">理解数据组织方式的核心价值</p>
+                </div>
+                
+                <div class="vc-concept__question">
+                    <p class="vc-concept__question-text">为什么需要数据结构？</p>
+                </div>
+                
+                <div class="vc-concept__compare">
+                    <div class="vc-concept__side vc-concept__side--left">
+                        <div class="vc-concept__side-header">
+                            <div class="vc-concept__side-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="vc-concept__side-title">散乱的书</h3>
+                        </div>
+                        <div class="vc-concept__side-content">
+                            <div class="vc-concept__feature">
+                                <div class="vc-concept__feature-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                    </svg>
+                                </div>
+                                <span class="vc-concept__feature-text">找书很慢</span>
+                            </div>
+                            <div class="vc-concept__feature">
+                                <div class="vc-concept__feature-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M18 6L6 18M6 6l12 12"></path>
+                                    </svg>
+                                </div>
+                                <span class="vc-concept__feature-text">不好放回去</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="vc-concept__vs">
+                        <div class="vc-concept__vs-line"></div>
+                        <div class="vc-concept__vs-badge">VS</div>
+                        <div class="vc-concept__vs-line"></div>
+                    </div>
+                    
+                    <div class="vc-concept__side vc-concept__side--right">
+                        <div class="vc-concept__side-header">
+                            <div class="vc-concept__side-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="3" width="7" height="7"></rect>
+                                    <rect x="14" y="3" width="7" height="7"></rect>
+                                    <rect x="14" y="14" width="7" height="7"></rect>
+                                    <rect x="3" y="14" width="7" height="7"></rect>
+                                </svg>
+                            </div>
+                            <h3 class="vc-concept__side-title">整理好的书架</h3>
+                        </div>
+                        <div class="vc-concept__side-content">
+                            <div class="vc-concept__feature">
+                                <div class="vc-concept__feature-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </div>
+                                <span class="vc-concept__feature-text">找书很快</span>
+                            </div>
+                            <div class="vc-concept__feature">
+                                <div class="vc-concept__feature-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </div>
+                                <span class="vc-concept__feature-text">容易放回去</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="vc-concept__summary">
+                    <h3 class="vc-concept__summary-title">
+                        <span class="vc-concept__summary-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                        </span>
+                        数据结构的核心作用
+                    </h3>
+                    <div class="vc-concept__points">
+                        <div class="vc-concept__point">
+                            <div class="vc-concept__point-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                </svg>
+                            </div>
+                            <div class="vc-concept__point-content">
+                                <h4 class="vc-concept__point-title">高效存储</h4>
+                                <p class="vc-concept__point-desc">节省空间</p>
+                            </div>
+                        </div>
+                        <div class="vc-concept__point">
+                            <div class="vc-concept__point-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </div>
+                            <div class="vc-concept__point-content">
+                                <h4 class="vc-concept__point-title">快速访问</h4>
+                                <p class="vc-concept__point-desc">快速找到数据</p>
+                            </div>
+                        </div>
+                        <div class="vc-concept__point">
+                            <div class="vc-concept__point-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                            </div>
+                            <div class="vc-concept__point-content">
+                                <h4 class="vc-concept__point-title">方便操作</h4>
+                                <p class="vc-concept__point-desc">方便插入、删除、修改</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

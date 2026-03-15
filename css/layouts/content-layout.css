@@ -1,0 +1,26 @@
+/**
+ * Content Layout - 内容布局样式
+ * 
+ * 包含：
+ * - 主内容区域布局
+ * - 侧边栏布局
+ * 
+ * @author TechLearn Team
+ * @version 1.0.0
+ */
+
+/* ==================== 
+   Content Layout
+   ==================== */
+.content-wrapper {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+    gap: 32px;
+}
+
+.main-area {
+    flex: 1;
+    min-width: 0;
+}

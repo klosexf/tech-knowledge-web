@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Cards v4.0 - 测试页面</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/visual-cards-v4.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #f8fafc;
+            padding: 40px 20px;
+        }
+        .test-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .test-header h1 {
+            font-size: 32px;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        .test-header p {
+            color: #64748b;
+            font-size: 16px;
+        }
+        .test-section {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+        }
+        .test-section h2 {
+            font-size: 20px;
+            color: #1e293b;
+            margin-bottom: 20px;
+            padding-left: 12px;
+            border-left: 4px solid #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1>Visual Cards v4.0</h1>
+        <p>Bento Box + Glassmorphism 混合设计风格测试</p>
+    </div>
+
+    <!-- 架构图卡片测试 -->
+    <div class="test-section">
+        <h2>1. 架构图卡片 (Architecture Card)</h2>
+        <div id="architecture-test"></div>
+    </div>
+
+    <!-- 流程图卡片测试 -->
+    <div class="test-section">
+        <h2>2. 流程图卡片 (Flow Card)</h2>
+        <div id="flow-test"></div>
+    </div>
+
+    <!-- 思维导图卡片测试 -->
+    <div class="test-section">
+        <h2>3. 思维导图卡片 (Mindmap Card)</h2>
+        <div id="mindmap-test"></div>
+    </div>
+
+    <!-- 技术栈卡片测试 -->
+    <div class="test-section">
+        <h2>4. 技术栈卡片 (Tech Stack Card)</h2>
+        <div id="techstack-test"></div>
+    </div>
+
+    <!-- 对比卡片测试 -->
+    <div class="test-section">
+        <h2>5. 对比卡片 (Comparison Card)</h2>
+        <div id="compare-test"></div>
+    </div>
+
+    <!-- HTTP结构卡片测试 -->
+    <div class="test-section">
+        <h2>6. HTTP结构卡片 (HTTP Structure Card)</h2>
+        <div id="http-test"></div>
+    </div>
+
+    <!-- 信息提示卡片测试 -->
+    <div class="test-section">
+        <h2>7. 信息提示卡片 (Info Cards)</h2>
+        <div id="info-test"></div>
+    </div>
+
+    <!-- Bento布局测试 -->
+    <div class="test-section">
+        <h2>8. Bento布局 (Bento Grid Layout)</h2>
+        <div id="bento-test"></div>
+    </div>
+
+    <script src="js/visual-cards-v4.js"></script>
+    <script>
+        // 1. 架构图卡片
+        document.getElementById('architecture-test').innerHTML = VisualCards.createArchitectureCard({
+            title: '互联网产品技术架构',
+            subtitle: '典型三层架构设计',
+            layers: [
+                { type: 'client', name: '客户端层', desc: 'Web/App/小程序', icon: 'client' },
+                { type: 'network', name: '网络层', desc: 'CDN/负载均衡', icon: 'network' },
+                { type: 'server', name: '服务端层', desc: '业务逻辑处理', icon: 'server' },
+                { type: 'database', name: '数据存储层', desc: 'MySQL/Redis', icon: 'database' }
+            ]
+        });
+
+        // 2. 流程图卡片
+        document.getElementById('flow-test').innerHTML = VisualCards.createFlowCard({
+            title: '用户登录流程',
+            badge: '4步流程',
+            steps: [
+                { title: '输入账号密码', desc: '用户在登录页面输入凭证信息' },
+                { title: '服务端验证', desc: '服务器校验账号密码是否正确' },
+                { title: '生成Token', desc: '验证通过后生成访问令牌' },
+                { title: '登录成功', desc: '跳转至用户首页' }
+            ]
+        });
+
+        // 3. 思维导图卡片
+        document.getElementById('mindmap-test').innerHTML = VisualCards.createMindmapCard({
+            title: '前端技术栈',
+            branches: [
+                { type: 'concept', title: '基础技术', items: ['HTML5', 'CSS3', 'JavaScript'] },
+                { type: 'feature', title: '框架', items: ['React', 'Vue', 'Angular'] },
+                { type: 'tech', title: '工具链', items: ['Webpack', 'Vite', 'ESLint'] },
+                { type: 'example', title: 'UI库', items: ['Ant Design', 'Element UI', 'Material UI'] }
+            ]
+        });
+
+        // 4. 技术栈卡片
+        document.getElementById('techstack-test').innerHTML = VisualCards.createTechStackCard({
+            title: '推荐技术栈',
+            subtitle: '全栈开发最佳实践',
+            items: [
+                { name: 'React', category: '前端', icon: 'frontend' },
+                { name: 'Node.js', category: '后端', icon: 'backend' },
+                { name: 'MySQL', category: '数据库', icon: 'database' },
+                { name: 'Redis', category: '缓存', icon: 'cache' },
+                { name: 'Docker', category: '运维', icon: 'cloud' },
+                { name: 'Nginx', category: '网关', icon: 'network' }
+            ]
+        });
+
+        // 5. 对比卡片
+        document.getElementById('compare-test').innerHTML = VisualCards.createComparisonCard({
+            title: 'SQL vs NoSQL',
+            leftLabel: 'SQL数据库',
+            rightLabel: 'NoSQL数据库',
+            leftFeatures: ['结构化数据', '强一致性', '复杂查询', '垂直扩展'],
+            rightFeatures: ['灵活Schema', '高可扩展', '高性能', '水平扩展']
+        });
+
+        // 6. HTTP结构卡片
+        document.getElementById('http-test').innerHTML = VisualCards.createHttpStructureCard({
+            title: 'HTTP 请求响应结构',
+            subtitle: 'RESTful API 通信格式',
+            requestFields: [
+                { name: 'Method', value: 'GET /api/users' },
+                { name: 'Headers', value: 'Authorization: Bearer xxx' },
+                { name: 'Body', value: '{"page": 1, "size": 10}' }
+            ],
+            responseFields: [
+                { name: 'Status', value: '200 OK' },
+                { name: 'Headers', value: 'Content-Type: application/json' },
+                { name: 'Body', value: '{"data": [], "total": 100}' }
+            ]
+        });
+
+        // 7. 信息提示卡片
+        document.getElementById('info-test').innerHTML = `
+            ${VisualCards.createInfoCard({
+                type: 'tip',
+                title: '最佳实践',
+                text: '使用缓存可以显著提升系统性能，建议对热点数据进行Redis缓存。'
+            })}
+            ${VisualCards.createInfoCard({
+                type: 'warning',
+                title: '注意事项',
+                text: '生产环境请勿开启调试模式，避免泄露敏感信息。'
+            })}
+            ${VisualCards.createInfoCard({
+                type: 'note',
+                title: '补充说明',
+                text: '本章节内容基于RESTful API设计规范，适用于大多数Web应用场景。'
+            })}
+            ${VisualCards.createInfoCard({
+                type: 'example',
+                title: '实际案例',
+                text: '淘宝双11活动期间，通过多级缓存架构支撑了每秒百万级QPS。'
+            })}
+        `;
+
+        // 8. Bento布局
+        const bentoCards = `
+            ${VisualCards.createArchitectureCard({
+                title: '系统架构',
+                subtitle: '微服务设计',
+                layers: [
+                    { type: 'client', name: '客户端', desc: 'Web/App', icon: 'client' },
+                    { type: 'server', name: '网关层', desc: 'API Gateway', icon: 'network' },
+                    { type: 'server', name: '服务层', desc: '微服务集群', icon: 'server' },
+                    { type: 'database', name: '数据层', desc: '分布式存储', icon: 'database' }
+                ]
+            })}
+            ${VisualCards.createFlowCard({
+                title: 'CI/CD流程',
+                badge: '自动化',
+                steps: [
+                    { title: '代码提交', desc: 'Git Push触发' },
+                    { title: '构建', desc: 'Docker镜像打包' },
+                    { title: '部署', desc: 'K8s滚动更新' }
+                ]
+            })}
+            ${VisualCards.createTechStackCard({
+                title: '核心技术',
+                subtitle: '云原生栈',
+                items: [
+                    { name: 'K8s', category: '编排', icon: 'cloud' },
+                    { name: 'Docker', category: '容器', icon: 'server' }
+                ]
+            })}
+            ${VisualCards.createInfoCard({
+                type: 'tip',
+                title: '监控告警',
+                text: '建议配置Prometheus + Grafana监控体系'
+            })}
+        `;
+        document.getElementById('bento-test').innerHTML = VisualCards.createBentoContainer('mixed', bentoCards);
+    </script>
+</body>
+</html>

@@ -1,0 +1,813 @@
+/**
+ * Modern Cards Styles - 现代化卡片样式
+ * 
+ * 包含：
+ * - 架构堆栈卡片样式
+ * - 技术栈卡片样式
+ * - 请求流程卡片样式
+ * - HTTP结构卡片样式
+ * 
+ * @author TechLearn Team
+ * @version 1.0.0
+ */
+
+/* ==================== 
+   Modern Visualization Cards
+   现代化可视化卡片样式
+   ==================== */
+
+/* 四层架构卡片 - 参考图片1 */
+.architecture-stack-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin: 24px 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.architecture-stack-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.stack-layer {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border-radius: var(--radius-md);
+    border-left: 4px solid;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+}
+
+.stack-layer:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.stack-layer:last-child {
+    margin-bottom: 0;
+}
+
+/* 前端层 - 蓝色 */
+.stack-layer.frontend {
+    border-left-color: #3b82f6;
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.05) 0%, white 100%);
+}
+
+.stack-layer.frontend .layer-icon {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+/* 网络层 - 紫色 */
+.stack-layer.network {
+    border-left-color: #8b5cf6;
+    background: linear-gradient(90deg, rgba(139, 92, 246, 0.05) 0%, white 100%);
+}
+
+.stack-layer.network .layer-icon {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+}
+
+/* 服务层 - 绿色 */
+.stack-layer.backend {
+    border-left-color: #10b981;
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.05) 0%, white 100%);
+}
+
+.stack-layer.backend .layer-icon {
+    background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+/* 数据层 - 橙色 */
+.stack-layer.database {
+    border-left-color: #f59e0b;
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.05) 0%, white 100%);
+}
+
+.stack-layer.database .layer-icon {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.layer-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+    flex-shrink: 0;
+}
+
+.layer-icon svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.layer-content {
+    flex: 1;
+}
+
+.layer-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.layer-name-en {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.layer-description {
+    margin-left: auto;
+    text-align: right;
+    padding-left: 16px;
+}
+
+.layer-desc-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.layer-desc-tech {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+}
+
+/* 案例展示卡片 */
+.case-study-card {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid rgba(186, 230, 253, 0.5);
+}
+
+.case-study-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #0369a1;
+    margin-bottom: 12px;
+}
+
+.case-study-desc {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+.case-layers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.case-layer-item {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.case-layer-name {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.case-layer-desc {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* 技术栈卡片 - 参考图片2 */
+.tech-stack-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 24px 0;
+}
+
+.tech-stack-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border);
+}
+
+.tech-stack-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.tech-stack-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tech-stack-icon.frontend {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+.tech-stack-icon.backend {
+    background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.tech-stack-icon svg {
+    width: 20px;
+    height: 20px;
+    color: white;
+}
+
+.tech-stack-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.tech-stack-subtitle {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.tech-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.tech-item:last-child {
+    border-bottom: none;
+}
+
+.tech-item-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.tech-item-icon.blue {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.tech-item-icon.yellow {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+.tech-item-icon.purple {
+    background: rgba(139, 92, 246, 0.1);
+    color: #8b5cf6;
+}
+
+.tech-item-icon.green {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.tech-item-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.tech-item-content {
+    flex: 1;
+}
+
+.tech-item-name {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.tech-item-desc {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+}
+
+.tech-rating {
+    display: flex;
+    gap: 2px;
+}
+
+.star {
+    width: 16px;
+    height: 16px;
+    color: #fbbf24;
+}
+
+.star.empty {
+    color: #e2e8f0;
+}
+
+/* 服务端技术栈网格 */
+.backend-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.backend-item {
+    background: var(--bg-main);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.backend-item:hover {
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.backend-item-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+}
+
+.backend-item-icon.java {
+    background: linear-gradient(135deg, #f97316, #fb923c);
+}
+
+.backend-item-icon.go {
+    background: linear-gradient(135deg, #06b6d4, #22d3ee);
+}
+
+.backend-item-icon.node {
+    background: linear-gradient(135deg, #84cc16, #a3e635);
+}
+
+.backend-item-icon.micro {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+}
+
+.backend-item-icon svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.backend-item-name {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.backend-item-tech {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* 请求响应流程卡片 - 参考图片3 */
+.request-flow-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    margin: 24px 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border);
+}
+
+.request-flow-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.flow-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.flow-node-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.flow-node-icon.client {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+.flow-node-icon.server {
+    background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.flow-node-icon svg {
+    width: 28px;
+    height: 28px;
+    color: white;
+}
+
+.flow-node-label {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.flow-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-light);
+}
+
+.flow-arrow svg {
+    width: 24px;
+    height: 24px;
+}
+
+.flow-arrow-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+/* HTTP请求结构卡片 */
+.http-structure-card {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    border: 1px solid var(--border);
+}
+
+.http-structure-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+.http-part {
+    background: white;
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--primary);
+}
+
+.http-part:last-child {
+    margin-bottom: 0;
+}
+
+.http-part-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.http-part-content {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    word-break: break-all;
+}
+
+.http-part-content.optional {
+    color: var(--text-secondary);
+}
+
+/* 数据库表卡片 */
+.database-table-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin: 24px 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border);
+}
+
+.database-table-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.database-table-header {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    padding: 14px 16px;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    color: white;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    font-weight: 600;
+}
+
+.table-cell {
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+.database-table-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-light);
+    transition: all 0.2s ease;
+}
+
+.database-table-row:hover {
+    background: var(--bg-main);
+}
+
+.database-table-row:last-child {
+    border-bottom: none;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.database-table-row .table-cell {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.database-table-row .table-cell:first-child {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* 架构演进图卡片 */
+.architecture-evolution-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: var(--radius-lg);
+    padding: 32px 24px;
+    margin: 24px 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+}
+
+.architecture-evolution-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #0d9488, #14b8a6, #5eead4);
+}
+
+.architecture-evolution-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.evolution-stages {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+}
+
+.evolution-arrow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.evolution-arrow-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #0d9488, #14b8a6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+}
+
+.evolution-arrow-label {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    background: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+}
+
+.evolution-stage {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 24px;
+    border: 2px solid;
+    position: relative;
+}
+
+.evolution-stage.monolith {
+    border-color: #6366f1;
+}
+
+.evolution-stage.microservice {
+    border-color: #ec4899;
+}
+
+.stage-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.evolution-stage.monolith .stage-title {
+    color: #4f46e5;
+}
+
+.evolution-stage.microservice .stage-title {
+    color: #db2777;
+}
+
+.stage-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.evolution-stage.monolith .stage-icon {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(129, 140, 248, 0.15));
+}
+
+.evolution-stage.microservice .stage-icon {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(244, 114, 182, 0.15));
+}
+
+.stage-services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.service-tag {
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+
+.evolution-stage.monolith .service-tag {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(129, 140, 248, 0.1));
+    color: #4f46e5;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.evolution-stage.microservice .service-tag {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(244, 114, 182, 0.1));
+    color: #db2777;
+    border: 1px solid rgba(236, 72, 153, 0.3);
+}
+
+.stage-pros-cons {
+    background: var(--bg-main);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+}
+
+.stage-pros, .stage-cons {
+    margin-bottom: 12px;
+}
+
+.stage-pros:last-child, .stage-cons:last-child {
+    margin-bottom: 0;
+}
+
+.stage-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.evolution-stage.monolith .stage-pros .stage-label {
+    color: #16a34a;
+}
+
+.evolution-stage.monolith .stage-cons .stage-label {
+    color: #dc2626;
+}
+
+.evolution-stage.microservice .stage-pros .stage-label {
+    color: #16a34a;
+}
+
+.evolution-stage.microservice .stage-cons .stage-label {
+    color: #dc2626;
+}
+
+.stage-list {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+}
+
+.stage-list li {
+    margin-bottom: 4px;
+}
+
+.stage-list li:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .evolution-stages {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .evolution-arrow {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        display: flex;
+        justify-content: center;
+        margin: 16px 0;
+    }
+    
+    .evolution-arrow-label {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin-top: 4px;
+    }
+}

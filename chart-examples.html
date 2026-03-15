@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图表可视化库对比演示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #1e293b;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+        
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 30px;
+        }
+        
+        .chart-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .chart-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .chart-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .chart-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .chart-subtitle {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+        
+        .chart-body {
+            padding: 24px;
+            min-height: 400px;
+        }
+        
+        .chart-footer {
+            padding: 16px 24px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        .pros, .cons {
+            font-size: 0.875rem;
+        }
+        
+        .pros h4 {
+            color: #10b981;
+            margin-bottom: 8px;
+        }
+        
+        .cons h4 {
+            color: #ef4444;
+            margin-bottom: 8px;
+        }
+        
+        .pros ul, .cons ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .pros li, .cons li {
+            padding: 4px 0;
+            color: #64748b;
+        }
+        
+        .pros li::before {
+            content: "✓ ";
+            color: #10b981;
+        }
+        
+        .cons li::before {
+            content: "✗ ";
+            color: #ef4444;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+        
+        .tag-blue { background: #dbeafe; color: #1d4ed8; }
+        .tag-green { background: #d1fae5; color: #047857; }
+        .tag-purple { background: #ede9fe; color: #6d28d9; }
+        .tag-orange { background: #ffedd5; color: #c2410c; }
+        .tag-pink { background: #fce7f3; color: #be185d; }
+        
+        /* Mermaid 样式 */
+        .mermaid-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 350px;
+        }
+        
+        /* ECharts 样式 */
+        .echarts-container {
+            width: 100%;
+            height: 350px;
+        }
+        
+        /* Chart.js 样式 */
+        .chartjs-container {
+            width: 100%;
+            height: 350px;
+        }
+        
+        /* D3.js 样式 */
+        .d3-container {
+            width: 100%;
+            height: 350px;
+        }
+        
+        /* G6 样式 */
+        .g6-container {
+            width: 100%;
+            height: 350px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 JavaScript 图表可视化库对比</h1>
+        <p class="subtitle">主流图表库效果演示，帮助您选择最适合的方案</p>
+        
+        <div class="chart-grid">
+            <!-- Mermaid.js -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-icon" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">🧜‍♀️</div>
+                    <div>
+                        <div class="chart-title">Mermaid.js</div>
+                        <div class="chart-subtitle">基于文本的图表绘制</div>
+                    </div>
+                </div>
+                <div class="chart-body">
+                    <div class="mermaid-container">
+                        <pre class="mermaid">
+flowchart TB
+    subgraph arch["互联网产品架构"]
+        subgraph client["前端层"]
+            c1["用户界面"]
+            c2["用户交互"]
+        end
+        subgraph server["服务层"]
+            s1["业务逻辑"]
+            s2["数据处理"]
+        end
+        subgraph db["数据层"]
+            d1["数据存储"]
+        end
+        client -->|"HTTP请求"| server
+        server -->|"SQL查询"| db
+    end
+                        </pre>
+                    </div>
+                </div>
+                <div class="chart-footer">
+                    <span class="tag tag-purple">文本驱动</span>
+                    <span class="tag tag-blue">Markdown友好</span>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>优势</h4>
+                            <ul>
+                                <li>语法简单易学</li>
+                                <li>与Markdown完美集成</li>
+                                <li>版本控制友好</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>劣势</h4>
+                            <ul>
+                                <li>定制性有限</li>
+                                <li>复杂图表受限</li>
+                                <li>交互功能较少</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ECharts -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-icon" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">📈</div>
+                    <div>
+                        <div class="chart-title">ECharts</div>
+                        <div class="chart-subtitle">Apache开源可视化库</div>
+                    </div>
+                </div>
+                <div class="chart-body">
+                    <div id="echarts-demo" class="echarts-container"></div>
+                </div>
+                <div class="chart-footer">
+                    <span class="tag tag-blue">功能全面</span>
+                    <span class="tag tag-green">中文文档</span>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>优势</h4>
+                            <ul>
+                                <li>图表类型丰富</li>
+                                <li>性能优秀</li>
+                                <li>中文文档完善</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>劣势</h4>
+                            <ul>
+                                <li>包体积较大</li>
+                                <li>定制性不如D3</li>
+                                <li>配置项繁多</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chart.js -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-icon" style="background: linear-gradient(135deg, #10b981, #34d399);">📊</div>
+                    <div>
+                        <div class="chart-title">Chart.js</div>
+                        <div class="chart-subtitle">轻量级图表库</div>
+                    </div>
+                </div>
+                <div class="chart-body">
+                    <canvas id="chartjs-demo" class="chartjs-container"></canvas>
+                </div>
+                <div class="chart-footer">
+                    <span class="tag tag-green">轻量级</span>
+                    <span class="tag tag-blue">易上手</span>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>优势</h4>
+                            <ul>
+                                <li>体积小（~60KB）</li>
+                                <li>简单易用</li>
+                                <li>响应式设计</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>劣势</h4>
+                            <ul>
+                                <li>图表类型有限</li>
+                                <li>定制性一般</li>
+                                <li>无关系图支持</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- D3.js -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-icon" style="background: linear-gradient(135deg, #f97316, #fb923c);">🎯</div>
+                    <div>
+                        <div class="chart-title">D3.js</div>
+                        <div class="chart-subtitle">数据驱动文档</div>
+                    </div>
+                </div>
+                <div class="chart-body">
+                    <div id="d3-demo" class="d3-container"></div>
+                </div>
+                <div class="chart-footer">
+                    <span class="tag tag-orange">最灵活</span>
+                    <span class="tag tag-purple">高定制</span>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>优势</h4>
+                            <ul>
+                                <li>最高自由度</li>
+                                <li>交互性强</li>
+                                <li>动画效果出色</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>劣势</h4>
+                            <ul>
+                                <li>学习曲线陡峭</li>
+                                <li>代码量大</li>
+                                <li>开发成本高</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- AntV G6 -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-icon" style="background: linear-gradient(135deg, #ec4899, #f472b6);">🔗</div>
+                    <div>
+                        <div class="chart-title">AntV G6</div>
+                        <div class="chart-subtitle">蚂蚁图可视化引擎</div>
+                    </div>
+                </div>
+                <div class="chart-body">
+                    <div id="g6-demo" class="g6-container"></div>
+                </div>
+                <div class="chart-footer">
+                    <span class="tag tag-pink">关系图专家</span>
+                    <span class="tag tag-green">交互丰富</span>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>优势</h4>
+                            <ul>
+                                <li>关系图专业</li>
+                                <li>交互功能强大</li>
+                                <li>中文文档</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>劣势</h4>
+                            <ul>
+                                <li>学习成本中等</li>
+                                <li>包体积较大</li>
+                                <li>非关系图较弱</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 自定义HTML/CSS卡片 -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-icon" style="background: linear-gradient(135deg, #6366f1, #818cf8);">🎨</div>
+                    <div>
+                        <div class="chart-title">自定义HTML/CSS卡片</div>
+                        <div class="chart-subtitle">纯前端实现</div>
+                    </div>
+                </div>
+                <div class="chart-body">
+                    <div style="padding: 20px;">
+                        <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 12px; padding: 20px; margin-bottom: 12px; border-left: 4px solid #3b82f6;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #3b82f6, #60a5fa); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">📱</div>
+                                <div>
+                                    <div style="font-weight: 600; color: #1e293b;">前端层 Frontend</div>
+                                    <div style="font-size: 0.875rem; color: #64748b;">用户界面展示</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-radius: 12px; padding: 20px; margin-bottom: 12px; border-left: 4px solid #10b981;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #10b981, #34d399); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">⚙️</div>
+                                <div>
+                                    <div style="font-weight: 600; color: #1e293b;">服务层 Backend</div>
+                                    <div style="font-size: 0.875rem; color: #64748b;">业务逻辑处理</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border-radius: 12px; padding: 20px; border-left: 4px solid #f59e0b;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #f59e0b, #fbbf24); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">🗄️</div>
+                                <div>
+                                    <div style="font-weight: 600; color: #1e293b;">数据层 Database</div>
+                                    <div style="font-size: 0.875rem; color: #64748b;">数据持久化存储</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-footer">
+                    <span class="tag tag-blue">无依赖</span>
+                    <span class="tag tag-green">完全可控</span>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>优势</h4>
+                            <ul>
+                                <li>无第三方依赖</li>
+                                <li>完全可控</li>
+                                <li>性能最优</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>劣势</h4>
+                            <ul>
+                                <li>开发成本高</li>
+                                <li>无交互功能</li>
+                                <li>维护成本高</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    
+    <!-- ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+    
+    <!-- D3.js -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+    
+    <!-- AntV G6 -->
+    <script src="https://gw.alipayobjects.com/os/lib/antv/g6/4.8.24/dist/g6.min.js"></script>
+    
+    <script>
+        // 初始化 Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#8b5cf6',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#7c3aed',
+                lineColor: '#a78bfa',
+                secondaryColor: '#ede9fe',
+                tertiaryColor: '#f5f3ff'
+            }
+        });
+        
+        // ECharts 示例
+        const echartsChart = echarts.init(document.getElementById('echarts-demo'));
+        echartsChart.setOption({
+            tooltip: { trigger: 'axis' },
+            legend: { data: ['用户量', '收入', '转化率'] },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'category', data: ['1月', '2月', '3月', '4月', '5月', '6月'] },
+            yAxis: [
+                { type: 'value', name: '数量' },
+                { type: 'value', name: '比率', axisLabel: { formatter: '{value}%' } }
+            ],
+            series: [
+                { name: '用户量', type: 'bar', data: [120, 200, 150, 80, 70, 110], itemStyle: { color: '#3b82f6' } },
+                { name: '收入', type: 'bar', data: [60, 140, 100, 50, 40, 80], itemStyle: { color: '#10b981' } },
+                { name: '转化率', type: 'line', yAxisIndex: 1, data: [25, 35, 30, 20, 15, 28], itemStyle: { color: '#f97316' } }
+            ]
+        });
+        
+        // Chart.js 示例
+        const ctx = document.getElementById('chartjs-demo').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['前端开发', '后端开发', '数据分析', '产品设计', '测试运维'],
+                datasets: [{
+                    data: [35, 25, 18, 12, 10],
+                    backgroundColor: [
+                        '#3b82f6',
+                        '#10b981',
+                        '#f97316',
+                        '#8b5cf6',
+                        '#ec4899'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right' }
+                }
+            }
+        });
+        
+        // D3.js 示例
+        const d3Container = d3.select('#d3-demo');
+        const width = 550;
+        const height = 350;
+        
+        const svg = d3Container.append('svg')
+            .attr('width', width)
+            .attr('height', height);
+        
+        // 创建力导向图
+        const nodes = [
+            { id: '前端', group: 1 },
+            { id: '后端', group: 2 },
+            { id: '数据库', group: 3 },
+            { id: '缓存', group: 3 },
+            { id: '消息队列', group: 2 },
+            { id: '用户', group: 1 }
+        ];
+        
+        const links = [
+            { source: '用户', target: '前端' },
+            { source: '前端', target: '后端' },
+            { source: '后端', target: '数据库' },
+            { source: '后端', target: '缓存' },
+            { source: '后端', target: '消息队列' }
+        ];
+        
+        const simulation = d3.forceSimulation(nodes)
+            .force('link', d3.forceLink(links).id(d => d.id).distance(100))
+            .force('charge', d3.forceManyBody().strength(-300))
+            .force('center', d3.forceCenter(width / 2, height / 2));
+        
+        const link = svg.append('g')
+            .selectAll('line')
+            .data(links)
+            .enter().append('line')
+            .attr('stroke', '#94a3b8')
+            .attr('stroke-width', 2);
+        
+        const node = svg.append('g')
+            .selectAll('g')
+            .data(nodes)
+            .enter().append('g')
+            .call(d3.drag()
+                .on('start', dragstarted)
+                .on('drag', dragged)
+                .on('end', dragended));
+        
+        node.append('circle')
+            .attr('r', 25)
+            .attr('fill', d => ['#3b82f6', '#10b981', '#f97316'][d.group - 1]);
+        
+        node.append('text')
+            .text(d => d.id)
+            .attr('text-anchor', 'middle')
+            .attr('dy', 5)
+            .attr('fill', 'white')
+            .attr('font-size', '12px');
+        
+        simulation.on('tick', () => {
+            link
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y);
+            node.attr('transform', d => `translate(${d.x},${d.y})`);
+        });
+        
+        function dragstarted(event) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            event.subject.fx = event.subject.x;
+            event.subject.fy = event.subject.y;
+        }
+        
+        function dragged(event) {
+            event.subject.fx = event.x;
+            event.subject.fy = event.y;
+        }
+        
+        function dragended(event) {
+            if (!event.active) simulation.alphaTarget(0);
+            event.subject.fx = null;
+            event.subject.fy = null;
+        }
+        
+        // AntV G6 示例
+        const g6Data = {
+            nodes: [
+                { id: 'node1', label: '产品经理', style: { fill: '#3b82f6' } },
+                { id: 'node2', label: '前端开发', style: { fill: '#10b981' } },
+                { id: 'node3', label: '后端开发', style: { fill: '#f97316' } },
+                { id: 'node4', label: '测试工程师', style: { fill: '#8b5cf6' } },
+                { id: 'node5', label: '运维工程师', style: { fill: '#ec4899' } }
+            ],
+            edges: [
+                { source: 'node1', target: 'node2' },
+                { source: 'node1', target: 'node3' },
+                { source: 'node2', target: 'node3' },
+                { source: 'node3', target: 'node4' },
+                { source: 'node4', target: 'node5' }
+            ]
+        };
+        
+        const g6Graph = new G6.Graph({
+            container: 'g6-demo',
+            width: 550,
+            height: 350,
+            modes: {
+                default: ['drag-canvas', 'drag-node']
+            },
+            layout: {
+                type: 'force',
+                preventOverlap: true,
+                nodeSize: 50
+            },
+            defaultNode: {
+                type: 'circle',
+                size: 50,
+                style: {
+                    lineWidth: 3,
+                    stroke: '#fff'
+                },
+                labelCfg: {
+                    style: {
+                        fill: '#fff',
+                        fontSize: 12
+                    },
+                    position: 'center'
+                }
+            },
+            defaultEdge: {
+                style: {
+                    stroke: '#94a3b8',
+                    lineWidth: 2
+                }
+            }
+        });
+        
+        g6Graph.data(g6Data);
+        g6Graph.render();
+        
+        // 响应式调整
+        window.addEventListener('resize', () => {
+            echartsChart.resize();
+        });
+    </script>
+</body>
+</html>

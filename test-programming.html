@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试编程知识数据</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        pre { background: #f5f5f5; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>编程知识数据测试</h1>
+    <div id="results"></div>
+
+    <!-- 加载数据文件 -->
+    <script src="data/categories.js?v=4"></script>
+    <script src="data/programming.js?v=4"></script>
+    <script src="data/index.js?v=4"></script>
+
+    <script>
+        const resultsDiv = document.getElementById('results');
+
+        function addResult(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.innerHTML = message;
+            resultsDiv.appendChild(div);
+        }
+
+        // 测试 1: 检查 window.programmingKnowledge
+        addResult('<h3>测试 1: window.programmingKnowledge</h3>', 'info');
+        if (window.programmingKnowledge) {
+            addResult(`✅ programmingKnowledge 存在，包含 ${window.programmingKnowledge.length} 个知识点`, 'success');
+            window.programmingKnowledge.forEach((k, i) => {
+                addResult(`  - ${k.id}: ${k.title}`, 'info');
+            });
+        } else {
+            addResult('❌ programmingKnowledge 未定义', 'error');
+        }
+
+        // 测试 2: 检查 window.knowledgeData
+        addResult('<h3>测试 2: window.knowledgeData</h3>', 'info');
+        if (window.knowledgeData) {
+            addResult(`✅ knowledgeData 存在`, 'success');
+            addResult(`  - 分类数量: ${window.knowledgeData.categories.length}`, 'info');
+            addResult(`  - 知识点总数: ${window.knowledgeData.knowledge.length}`, 'info');
+
+            // 检查编程类知识点
+            const programmingKnowledge = window.knowledgeData.knowledge.filter(k => k.categoryId === 'programming');
+            addResult(`  - 编程类知识点: ${programmingKnowledge.length} 个`, 'info');
+            programmingKnowledge.forEach(k => {
+                addResult(`    - ${k.id}: ${k.title}`, 'info');
+            });
+        } else {
+            addResult('❌ knowledgeData 未定义', 'error');
+        }
+
+        // 测试 3: 检查第一个知识点的内容
+        addResult('<h3>测试 3: 第一个知识点详情 (prog-1)</h3>', 'info');
+        if (window.programmingKnowledge && window.programmingKnowledge[0]) {
+            const k = window.programmingKnowledge[0];
+            addResult(`ID: ${k.id}`, 'info');
+            addResult(`标题: ${k.title}`, 'info');
+            addResult(`摘要: ${k.summary}`, 'info');
+            addResult(`内容长度: ${k.content ? k.content.length : 0} 字符`, 'info');
+            addResult(`是否有 technicalContent: ${k.technicalContent ? '是' : '否'}`, 'info');
+
+            if (k.technicalContent) {
+                addResult(`  - principle: ${k.technicalContent.principle ? '有' : '无'}`, 'info');
+                addResult(`  - role: ${k.technicalContent.role ? '有' : '无'}`, 'info');
+                addResult(`  - businessScenario: ${k.technicalContent.businessScenario ? '有' : '无'}`, 'info');
+                addResult(`  - pmDevScenario: ${k.technicalContent.pmDevScenario ? '有' : '无'}`, 'info');
+                addResult(`  - codeExample: ${k.technicalContent.codeExample ? '有' : '无'}`, 'info');
+            }
+
+            // 显示内容前 200 字符
+            if (k.content) {
+                addResult('<h4>内容预览 (前300字符):</h4>', 'info');
+                const preview = document.createElement('pre');
+                preview.textContent = k.content.substring(0, 300) + '...';
+                resultsDiv.appendChild(preview);
+            }
+        }
+
+        // 测试 4: 检查内容是否包含新内容特征
+        addResult('<h3>测试 4: 内容特征检查</h3>', 'info');
+        if (window.programmingKnowledge) {
+            const k = window.programmingKnowledge[0];
+            if (k.content) {
+                const hasNewContent = k.content.includes('数据就像商品的分类') ||
+                                      k.content.includes('知识概览') ||
+                                      k.content.includes('knowledge-overview');
+                if (hasNewContent) {
+                    addResult('✅ 内容包含新内容特征（数据就像商品的分类/知识概览）', 'success');
+                } else {
+                    addResult('❌ 内容不包含新内容特征，可能是旧内容', 'error');
+                    addResult(`内容开头: ${k.content.substring(0, 100)}`, 'info');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

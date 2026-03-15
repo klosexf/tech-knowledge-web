@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Cards v5.0 - 全新设计</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/visual-cards-v5.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .test-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .test-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .test-header p {
+            color: #64748b;
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .test-section {
+            max-width: 1200px;
+            margin: 0 auto 70px;
+        }
+        .test-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 24px;
+            padding-left: 16px;
+            border-left: 5px solid #6366f1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .test-section h2::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #6366f1;
+            border-radius: 50%;
+            margin-left: -20px;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+        .back-link:hover {
+            color: #4f46e5;
+            transform: translateX(-4px);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1>Visual Cards v5.0</h1>
+        <p>Aurora UI + Claymorphism + Glassmorphism 混合设计风格<br>专业SVG图标系统，全面提升视觉体验</p>
+    </div>
+
+    <!-- 架构图卡片 -->
+    <div class="test-section">
+        <h2>1. 架构图卡片 Architecture Card</h2>
+        <div id="architecture-test"></div>
+    </div>
+
+    <!-- 流程图卡片 -->
+    <div class="test-section">
+        <h2>2. 流程图卡片 Flow Card</h2>
+        <div id="flow-test"></div>
+    </div>
+
+    <!-- 思维导图卡片 -->
+    <div class="test-section">
+        <h2>3. 思维导图卡片 Mindmap Card</h2>
+        <div id="mindmap-test"></div>
+    </div>
+
+    <!-- 技术栈卡片 -->
+    <div class="test-section">
+        <h2>4. 技术栈卡片 Tech Stack Card</h2>
+        <div id="techstack-test"></div>
+    </div>
+
+    <!-- 对比卡片 -->
+    <div class="test-section">
+        <h2>5. 对比卡片 Comparison Card</h2>
+        <div id="compare-test"></div>
+    </div>
+
+    <!-- HTTP结构卡片 -->
+    <div class="test-section">
+        <h2>6. HTTP结构卡片 HTTP Structure Card</h2>
+        <div id="http-test"></div>
+    </div>
+
+    <!-- 信息提示卡片 -->
+    <div class="test-section">
+        <h2>7. 信息提示卡片 Info Cards</h2>
+        <div id="info-test"></div>
+    </div>
+
+    <!-- Bento布局 -->
+    <div class="test-section">
+        <h2>8. Bento混合布局 Bento Mixed Layout</h2>
+        <div id="bento-test"></div>
+    </div>
+
+    <script src="js/visual-cards-v5.js"></script>
+    <script>
+        // 1. 架构图卡片 - 展示微服务架构
+        document.getElementById('architecture-test').innerHTML = VisualCards.createArchitectureCard({
+            title: '微服务技术架构',
+            subtitle: '高可用分布式系统设计',
+            layers: [
+                { type: 'client', name: '客户端层', desc: 'Web/App/小程序/桌面端', icon: 'client' },
+                { type: 'network', name: '网关层', desc: 'Nginx / Kong / Traefik', icon: 'network' },
+                { type: 'server', name: '服务层', desc: 'Spring Cloud / K8s 集群', icon: 'server' },
+                { type: 'cache', name: '缓存层', desc: 'Redis Cluster / CDN', icon: 'cache' },
+                { type: 'database', name: '数据层', desc: 'MySQL / MongoDB / ES', icon: 'database' }
+            ]
+        });
+
+        // 2. 流程图卡片 - 用户注册流程
+        document.getElementById('flow-test').innerHTML = VisualCards.createFlowCard({
+            title: '用户注册流程',
+            badge: '5步流程',
+            steps: [
+                { title: '填写注册信息', desc: '用户输入手机号/邮箱和密码' },
+                { title: '验证身份', desc: '发送并验证短信/邮件验证码' },
+                { title: '创建账户', desc: '系统创建用户账户和初始配置' },
+                { title: '初始化数据', desc: '设置默认用户偏好和权限' },
+                { title: '注册完成', desc: '自动登录并跳转至欢迎页面' }
+            ]
+        });
+
+        // 3. 思维导图卡片 - 前端技术体系
+        document.getElementById('mindmap-test').innerHTML = VisualCards.createMindmapCard({
+            title: '前端技术体系',
+            branches: [
+                { type: 'concept', title: '基础三剑客', items: ['HTML5 语义化', 'CSS3 动画/布局', 'ES6+ 新特性'] },
+                { type: 'feature', title: '主流框架', items: ['React 生态', 'Vue 3 组合式', 'Angular 企业级'] },
+                { type: 'tech', title: '工程化工具', items: ['Webpack/Vite', 'TypeScript', 'ESLint/Prettier'] },
+                { type: 'process', title: '性能优化', items: ['代码分割', '懒加载', '缓存策略'] },
+                { type: 'example', title: 'UI组件库', items: ['Ant Design', 'Element Plus', 'Tailwind UI'] }
+            ]
+        });
+
+        // 4. 技术栈卡片 - 全栈推荐
+        document.getElementById('techstack-test').innerHTML = VisualCards.createTechStackCard({
+            title: '推荐技术栈',
+            subtitle: '2024年全栈开发最佳实践',
+            items: [
+                { name: 'React 18', category: '前端框架', icon: 'frontend' },
+                { name: 'Next.js', category: '全栈框架', icon: 'web' },
+                { name: 'Node.js', category: '后端运行', icon: 'backend' },
+                { name: 'PostgreSQL', category: '关系数据库', icon: 'database' },
+                { name: 'Redis', category: '内存缓存', icon: 'cache' },
+                { name: 'Docker', category: '容器化', icon: 'cloud' },
+                { name: 'AWS/阿里云', category: '云服务', icon: 'cloud' },
+                { name: 'GitHub Actions', category: 'CI/CD', icon: 'api' }
+            ]
+        });
+
+        // 5. 对比卡片 - SQL vs NoSQL
+        document.getElementById('compare-test').innerHTML = VisualCards.createComparisonCard({
+            title: 'SQL vs NoSQL 数据库对比',
+            leftLabel: 'SQL 关系型',
+            rightLabel: 'NoSQL 非关系型',
+            leftFeatures: ['结构化数据模型', 'ACID事务支持', '复杂JOIN查询', '垂直扩展', '数据一致性优先'],
+            rightFeatures: ['灵活Schema设计', '高可扩展性', '高性能读写', '水平扩展', '最终一致性']
+        });
+
+        // 6. HTTP结构卡片
+        document.getElementById('http-test').innerHTML = VisualCards.createHttpStructureCard({
+            title: 'RESTful API 通信协议',
+            subtitle: 'HTTP/1.1 请求响应报文结构',
+            requestFields: [
+                { name: 'Method', value: 'POST /api/v1/users' },
+                { name: 'Headers', value: 'Authorization: Bearer {token}' },
+                { name: 'Content-Type', value: 'application/json' },
+                { name: 'Body', value: '{"name":"张三","email":"zhang@example.com"}' }
+            ],
+            responseFields: [
+                { name: 'Status', value: '201 Created' },
+                { name: 'Content-Type', value: 'application/json' },
+                { name: 'Body', value: '{"id": 1001, "createdAt": "2024-01-15T10:30:00Z"}' }
+            ]
+        });
+
+        // 7. 信息提示卡片 - 多种类型
+        document.getElementById('info-test').innerHTML = `
+            ${VisualCards.createInfoCard({
+                type: 'tip',
+                title: '性能优化建议',
+                text: '使用Redis缓存热点数据可以显著提升系统响应速度，建议缓存命中率保持在85%以上。同时注意设置合理的过期时间。'
+            })}
+            ${VisualCards.createInfoCard({
+                type: 'warning',
+                title: '安全警告',
+                text: '生产环境请务必关闭调试模式，移除所有console.log语句，并确保敏感信息（如数据库密码）不提交到代码仓库。'
+            })}
+            ${VisualCards.createInfoCard({
+                type: 'note',
+                title: '设计规范说明',
+                text: '本章节所有API设计遵循RESTful规范，使用JSON作为数据交换格式。所有时间戳均采用ISO 8601标准格式。'
+            })}
+            ${VisualCards.createInfoCard({
+                type: 'example',
+                title: '实际应用案例',
+                text: '淘宝双11期间，通过多级缓存架构（浏览器缓存+CDN+Redis+本地缓存）支撑了每秒数百万级的查询请求。'
+            })}
+        `;
+
+        // 8. Bento混合布局
+        const bentoCards = `
+            ${VisualCards.createArchitectureCard({
+                title: '云原生架构',
+                subtitle: '容器化微服务部署方案',
+                layers: [
+                    { type: 'client', name: '用户端', desc: 'Web/App', icon: 'client' },
+                    { type: 'network', name: '负载均衡', desc: 'Ingress Controller', icon: 'network' },
+                    { type: 'server', name: 'K8s集群', desc: '容器编排调度', icon: 'cloud' },
+                    { type: 'database', name: '存储层', desc: '云数据库服务', icon: 'database' }
+                ]
+            })}
+            ${VisualCards.createFlowCard({
+                title: 'CI/CD流水线',
+                badge: '自动化部署',
+                steps: [
+                    { title: '代码提交', desc: 'Git Push触发Webhook' },
+                    { title: '自动化测试', desc: '单元测试+集成测试' },
+                    { title: '镜像构建', desc: 'Docker多阶段构建' },
+                    { title: '生产部署', desc: 'K8s滚动更新发布' }
+                ]
+            })}
+            ${VisualCards.createTechStackCard({
+                title: '核心技术',
+                subtitle: '云原生技术栈',
+                items: [
+                    { name: 'Kubernetes', category: '编排', icon: 'cloud' },
+                    { name: 'Docker', category: '容器', icon: 'server' },
+                    { name: 'Prometheus', category: '监控', icon: 'activity' }
+                ]
+            })}
+            ${VisualCards.createInfoCard({
+                type: 'tip',
+                title: '监控告警',
+                text: '建议配置Prometheus + Grafana + AlertManager完整监控体系，设置合理的告警阈值。'
+            })}
+        `;
+        document.getElementById('bento-test').innerHTML = VisualCards.createBentoContainer('mixed', bentoCards);
+    </script>
+</body>
+</html>

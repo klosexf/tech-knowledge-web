@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Cards System - 可视化卡片组件演示</title>
+    <link rel="stylesheet" href="css/visual-cards.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0d9488 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+        
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: #64748b;
+        }
+        
+        .section {
+            margin-bottom: 48px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(180deg, #0d9488, #3b82f6);
+            border-radius: 2px;
+        }
+        
+        .demo-grid {
+            display: grid;
+            gap: 32px;
+        }
+        
+        .demo-grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        @media (max-width: 768px) {
+            .demo-grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1 class="page-title">🎨 Visual Cards System</h1>
+            <p class="page-subtitle">自定义 HTML/CSS 可视化卡片组件系统 - 替代 Mermaid.js</p>
+        </header>
+        
+        <!-- 1. 架构图卡片 -->
+        <section class="section">
+            <h2 class="section-title">架构图卡片 (Architecture Card)</h2>
+            <div class="demo-grid">
+                <div id="arch-demo-1"></div>
+                <div id="arch-demo-2"></div>
+            </div>
+        </section>
+        
+        <!-- 2. 流程图卡片 -->
+        <section class="section">
+            <h2 class="section-title">流程图卡片 (Flow Card)</h2>
+            <div class="demo-grid">
+                <div id="flow-demo-1"></div>
+                <div id="flow-demo-2"></div>
+            </div>
+        </section>
+        
+        <!-- 3. 时序图卡片 -->
+        <section class="section">
+            <h2 class="section-title">时序图卡片 (Sequence Card)</h2>
+            <div class="demo-grid">
+                <div id="sequence-demo"></div>
+            </div>
+        </section>
+        
+        <!-- 4. 思维导图卡片 -->
+        <section class="section">
+            <h2 class="section-title">思维导图卡片 (Mindmap Card)</h2>
+            <div class="demo-grid">
+                <div id="mindmap-demo"></div>
+            </div>
+        </section>
+        
+        <!-- 5. 技术栈卡片 -->
+        <section class="section">
+            <h2 class="section-title">技术栈卡片 (Tech Stack Card)</h2>
+            <div class="demo-grid">
+                <div id="techstack-demo"></div>
+            </div>
+        </section>
+        
+        <!-- 6. 对比卡片 -->
+        <section class="section">
+            <h2 class="section-title">对比卡片 (Comparison Card)</h2>
+            <div class="demo-grid">
+                <div id="comparison-demo"></div>
+            </div>
+        </section>
+        
+        <!-- 7. HTTP结构卡片 -->
+        <section class="section">
+            <h2 class="section-title">HTTP结构卡片 (HTTP Card)</h2>
+            <div class="demo-grid demo-grid-2">
+                <div id="http-request-demo"></div>
+                <div id="http-response-demo"></div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="js/visual-cards.js"></script>
+    <script>
+        // 1. 架构图卡片演示
+        document.getElementById('arch-demo-1').innerHTML = VisualCards.createArchitectureCard({
+            title: '互联网产品技术架构',
+            layers: ['frontend', 'network', 'backend', 'database'],
+            caseStudy: {
+                title: '微信架构案例',
+                description: '微信采用三层架构设计：接入层、逻辑层和存储层。',
+                layers: [
+                    { name: '接入层', description: '提供长连接和短连接服务，支持实时消息推送' },
+                    { name: '逻辑层', description: '业务逻辑服务，处理消息收发、朋友圈等功能' },
+                    { name: '存储层', description: '分布式数据库架构，持久化用户数据' }
+                ]
+            }
+        });
+        
+        document.getElementById('arch-demo-2').innerHTML = VisualCards.createArchitectureCard({
+            title: '三层架构模型',
+            layers: ['frontend', 'backend', 'database']
+        });
+        
+        // 2. 流程图卡片演示
+        document.getElementById('flow-demo-1').innerHTML = VisualCards.createFlowCard({
+            title: '请求响应流程',
+            nodes: [
+                { type: 'client', label: '客户端', sublabel: 'Client', icon: VisualCards.Icons.user, arrowLabel: '发送请求' },
+                { type: 'server', label: '服务器', sublabel: 'Server', icon: VisualCards.Icons.server, arrowLabel: '返回响应' },
+                { type: 'client', label: '客户端', sublabel: 'Client', icon: VisualCards.Icons.user }
+            ],
+            steps: [
+                { title: '构建请求', description: '客户端组装HTTP请求，包含方法、URL、头部和请求体' },
+                { title: '发送请求', description: '通过网络将请求发送到服务器' },
+                { title: '处理响应', description: '客户端解析响应数据，更新用户界面' }
+            ]
+        });
+        
+        document.getElementById('flow-demo-2').innerHTML = VisualCards.createFlowCard({
+            title: '餐厅点餐流程',
+            nodes: [
+                { type: 'client', label: '顾客', icon: VisualCards.Icons.user, arrowLabel: '点餐' },
+                { type: 'server', label: '服务员', icon: VisualCards.Icons.server, arrowLabel: '下单' },
+                { type: 'database', label: '厨房', icon: VisualCards.Icons.database, arrowLabel: '出餐' },
+                { type: 'client', label: '顾客', icon: VisualCards.Icons.user }
+            ]
+        });
+        
+        // 3. 时序图卡片演示
+        document.getElementById('sequence-demo').innerHTML = VisualCards.createSequenceCard({
+            title: '用户登录时序图',
+            participants: [
+                { id: 'user', label: '用户', type: 'client' },
+                { id: 'frontend', label: '前端', type: 'client' },
+                { id: 'backend', label: '后端', type: 'server' },
+                { id: 'db', label: '数据库', type: 'database' }
+            ],
+            messages: [
+                { from: 'user', to: 'frontend', label: '输入账号密码', dashed: false },
+                { from: 'frontend', to: 'backend', label: 'POST /api/login', dashed: false },
+                { from: 'backend', to: 'db', label: '查询用户信息', dashed: false },
+                { from: 'db', to: 'backend', label: '返回用户数据', dashed: true },
+                { from: 'backend', to: 'frontend', label: '返回Token', dashed: true },
+                { from: 'frontend', to: 'user', label: '登录成功', dashed: true }
+            ]
+        });
+        
+        // 4. 思维导图卡片演示
+        document.getElementById('mindmap-demo').innerHTML = VisualCards.createMindmapCard({
+            title: '云原生架构核心概念',
+            branches: [
+                {
+                    title: '容器化',
+                    color: '#3b82f6',
+                    items: ['Docker', 'Containerd', '镜像管理', '容器编排']
+                },
+                {
+                    title: '服务网格',
+                    color: '#10b981',
+                    items: ['Istio', 'Envoy', '流量管理', '安全策略']
+                },
+                {
+                    title: '不可变基础设施',
+                    color: '#f97316',
+                    items: ['基础设施即代码', '声明式API', 'GitOps', '自动化部署']
+                },
+                {
+                    title: '声明式API',
+                    color: '#8b5cf6',
+                    items: ['Kubernetes', 'Helm', 'Operator', 'CRD']
+                }
+            ]
+        });
+        
+        // 5. 技术栈卡片演示
+        document.getElementById('techstack-demo').innerHTML = VisualCards.createTechStackCard({
+            frontend: {
+                title: '前端技术栈',
+                subtitle: '2026年最新',
+                items: [
+                    { name: '基础技术', desc: 'HTML、CSS、JavaScript', rating: 5 },
+                    { name: '编程语言', desc: 'TypeScript', rating: 5 },
+                    { name: '主流框架', desc: 'React / Next.js', rating: 5 },
+                    { name: '现代CSS', desc: 'Tailwind CSS', rating: 4 }
+                ]
+            },
+            backend: {
+                title: '服务端技术栈',
+                description: '服务层的主要目标是降低系统间相互关联的复杂度。2026年，行业已形成Java生态与Go生态并驾齐驱的格局。',
+                items: [
+                    { name: 'Java生态', desc: 'Spring Boot、Spring Cloud', color: '#f97316' },
+                    { name: 'Go语言', desc: 'Gin、Echo', color: '#06b6d4' },
+                    { name: 'Node.js', desc: 'Express、NestJS', color: '#84cc16' },
+                    { name: '微服务架构', desc: 'Nacos、Gateway', color: '#8b5cf6' }
+                ]
+            }
+        });
+        
+        // 6. 对比卡片演示
+        document.getElementById('comparison-demo').innerHTML = VisualCards.createComparisonCard({
+            title: '产品思维 vs 技术思维',
+            itemA: {
+                title: '产品思维',
+                items: [
+                    '关注用户需求和体验',
+                    '以业务价值为导向',
+                    '强调可行性和优先级',
+                    '注重市场反馈和迭代'
+                ]
+            },
+            itemB: {
+                title: '技术思维',
+                items: [
+                    '关注技术实现方案',
+                    '以系统架构为导向',
+                    '强调性能和可维护性',
+                    '注重技术选型和最佳实践'
+                ]
+            }
+        });
+        
+        // 7. HTTP结构卡片演示
+        document.getElementById('http-request-demo').innerHTML = VisualCards.createHTTPCard({
+            title: 'HTTP请求结构',
+            parts: [
+                { label: '请求行', content: 'POST /api/users HTTP/1.1', optional: false },
+                { label: '请求头', content: 'Content-Type: application/json', optional: false },
+                { label: '请求体', content: '{"name": "张三", "email": "zhangsan@example.com"}', optional: true }
+            ]
+        });
+        
+        document.getElementById('http-response-demo').innerHTML = VisualCards.createHTTPCard({
+            title: 'HTTP响应结构',
+            parts: [
+                { label: '状态行', content: 'HTTP/1.1 200 OK', optional: false },
+                { label: '响应头', content: 'Content-Type: application/json', optional: false },
+                { label: '响应体', content: '{"code": 0, "message": "success", "data": {...}}', optional: true }
+            ]
+        });
+    </script>
+</body>
+</html>

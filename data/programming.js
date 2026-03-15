@@ -1,2397 +1,3553 @@
 /**
  * @fileoverview 编程入门知识模块
- * @description 包含 4 个知识点：prog-1, prog-2, prog-3, prog-4
+ * @description 包含 4 个知识点：基本数据类型、逻辑结构、数据结构、函数与方法
  * @module data/programming
- * @version 1.0.0
+ * @version 3.0.0
  * @author Tech Knowledge Web
- * 
- * @example
- * // 导入模块数据
- * import { knowledge } from './programming.js';
- * 
- * // 获取所有知识点
- * console.log(knowledge);
- * 
- * // 根据 categoryId 过滤
- * const items = knowledge.filter(item => item.categoryId === 'programming');
  */
 
-/**
- * 编程入门知识模块知识点数组
- * @type {Array<Object>}
- * @property {string} id - 知识点唯一标识符
- * @property {string} categoryId - 所属分类ID
- * @property {string} title - 知识点标题
- * @property {string} difficulty - 难度级别 (beginner/intermediate/advanced)
- * @property {string} summary - 知识点摘要
- * @property {Object} [technicalContent] - 技术内容详情（可选）
- * @property {string} content - 知识点正文内容（HTML格式）
- */
 var knowledge = [
-{
-            id: 'prog-1',
-            categoryId: 'programming',
-            title: '数据是什么？',
-            difficulty: 'beginner',
-            summary: '用生活中的例子理解程序里的数据，知道数据有哪些类型。',
-            technicalContent: {
-                principle: `
-                    <section class="tech-module" data-module="principle">
-                        <div class="module-header">
-                            <span class="module-icon">🔬</span>
-                            <h2>技术原理：数据类型系统</h2>
-                        </div>
-                        
-                        <div class="highlight-box">
-                            <blockquote>
-                                <strong>数据类型系统（Type System）</strong>是编程语言用于定义、组织和操作数据的核心机制，决定了数据的存储方式、运算规则和合法性验证。
-                            </blockquote>
-                        </div>
-                        
-                        <h3>一、核心概念</h3>
-                        
-                        <h4>1.1 数据类型的本质</h4>
-                        <p>在计算机世界中，<strong>数据类型</strong>是对数据的分类方式，它定义了：</p>
-                        <ul class="feature-list">
-                            <li><strong>数据的取值范围</strong>：如整数类型的最大值、最小值</li>
-                            <li><strong>数据的存储格式</strong>：如字符串的编码方式、数字的二进制表示</li>
-                            <li><strong>数据的操作规则</strong>：如数字可以加减乘除，字符串可以拼接</li>
-                            <li><strong>数据的内存占用</strong>：不同类型占用不同的内存空间</li>
-                        </ul>
-                        
-                        <h4>1.2 类型分类体系</h4>
-                        <div class="tech-diagram">
-                            <div class="diagram-flow">
-                                <div class="diagram-node">
-                                    <div class="node-icon">🔤</div>
-                                    <div class="node-title">基本类型</div>
-                                    <div class="node-desc">String / Number<br/>Boolean / Null</div>
-                                </div>
-                                <div class="diagram-arrow">→</div>
-                                <div class="diagram-node">
-                                    <div class="node-icon">📦</div>
-                                    <div class="node-title">复合类型</div>
-                                    <div class="node-desc">Array / Object<br/>Map / Set</div>
-                                </div>
-                                <div class="diagram-arrow">→</div>
-                                <div class="diagram-node">
-                                    <div class="node-icon">⚙️</div>
-                                    <div class="node-title">内存存储</div>
-                                    <div class="node-desc">栈 / 堆<br/>引用 / 值</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <h3>二、技术特性</h3>
-                        
-                        <h4>2.1 基本类型特性</h4>
-                        <ul class="feature-list">
-                            <li><strong>按值存储</strong>：数据直接存储在变量所在的内存位置</li>
-                            <li><strong>不可变</strong>：基本类型的值一旦创建就不能修改</li>
-                            <li><strong>比较方式</strong>：通过值本身进行比较（=== 比较值和类型）</li>
-                            <li><strong>内存分配</strong>：存储在<strong>栈内存</strong>中，访问速度快</li>
-                        </ul>
-                        
-                        <h4>2.2 复合类型特性</h4>
-                        <ul class="feature-list">
-                            <li><strong>按引用存储</strong>：变量存储的是数据的内存地址（引用）</li>
-                            <li><strong>可变</strong>：复合类型的内容可以修改</li>
-                            <li><strong>比较方式</strong>：比较的是引用地址，而非内容</li>
-                            <li><strong>内存分配</strong>：数据存储在<strong>堆内存</strong>中，变量存储引用</li>
-                        </ul>
-                        
-                        <h4>2.3 类型转换规则</h4>
-                        <div class="info-block">
-                            <p><strong>隐式转换</strong>：JavaScript 在某些操作中自动进行类型转换</p>
-                            <ul class="feature-list">
-                                <li><code>"1" + 1</code> → <code>"11"</code>（数字转字符串）</li>
-                                <li><code>"2" * 3</code> → <code>6</code>（字符串转数字）</li>
-                                <li><code>!!"text"</code> → <code>true</code>（转布尔值）</li>
-                            </ul>
-                        </div>
-                        
-                        <h3>三、应用场景</h3>
-                        
-                        <h4>3.1 数据类型选型对比</h4>
-                        <table class="concept-table">
-                            <thead>
-                                <tr>
-                                    <th>类型名称</th>
-                                    <th>核心特点</th>
-                                    <th>适用场景</th>
-                                    <th>局限性</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>String</strong></td>
-                                    <td>字符序列，UTF-8编码，不可变</td>
-                                    <td>文本内容、ID标识、手机号、邮箱</td>
-                                    <td>不能直接进行数学运算</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Number</strong></td>
-                                    <td>64位浮点数（IEEE 754标准）</td>
-                                    <td>数值计算、年龄、数量、评分</td>
-                                    <td>浮点数精度问题，金额需谨慎</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Boolean</strong></td>
-                                    <td>仅有 true/false 两个值</td>
-                                    <td>状态标记、开关控制、条件判断</td>
-                                    <td>只能表示二元状态</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Object</strong></td>
-                                    <td>键值对集合，无序</td>
-                                    <td>结构化数据、实体建模、配置项</td>
-                                    <td>键只能是字符串或Symbol</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Array</strong></td>
-                                    <td>有序集合，有索引</td>
-                                    <td>列表数据、队列、栈、批量处理</td>
-                                    <td>查找效率低（O(n)）</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <h4>3.2 内存存储对比</h4>
-                        <table class="concept-table">
-                            <thead>
-                                <tr>
-                                    <th>存储方式</th>
-                                    <th>存储内容</th>
-                                    <th>适用类型</th>
-                                    <th>特点</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>栈内存（Stack）</strong></td>
-                                    <td>基本类型的值、引用类型的地址</td>
-                                    <td>String、Number、Boolean</td>
-                                    <td>空间小、速度快、自动释放</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>堆内存（Heap）</strong></td>
-                                    <td>引用类型的实际数据</td>
-                                    <td>Object、Array</td>
-                                    <td>空间大、速度较慢、需垃圾回收</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </section>
-                `,
-                role: `
-                    <section class="tech-module" data-module="role">
-                        <div class="module-header">
-                            <span class="module-icon">🎯</span>
-                            <h2>核心作用：数据类型的价值</h2>
-                        </div>
-                        
-                        <div class="highlight-box">
-                            <blockquote>
-                                数据类型系统是程序世界的"分类法则"，它让计算机知道如何<strong>存储</strong>、<strong>处理</strong>和<strong>验证</strong>数据，是构建可靠软件的基石。
-                            </blockquote>
-                        </div>
-                        
-                        <h3>一、核心概念</h3>
-                        
-                        <h4>1.1 类型系统的本质</h4>
-                        <p><strong>类型系统</strong>是一套规则集合，定义了：</p>
-                        <ul class="feature-list">
-                            <li><strong>数据分类规则</strong>：如何区分不同种类的数据</li>
-                            <li><strong>操作约束规则</strong>：每种类型支持哪些操作</li>
-                            <li><strong>类型兼容规则</strong>：不同类型之间如何转换</li>
-                            <li><strong>类型安全规则</strong>：如何防止类型错误</li>
-                        </ul>
-                        
-                        <h4>1.2 数据建模的本质</h4>
-                        <p><strong>数据建模</strong>是将现实世界的事物抽象为程序中的数据结构：</p>
-                        <ul class="feature-list">
-                            <li><strong>实体抽象</strong>：将"用户"、"订单"等概念转化为数据对象</li>
-                            <li><strong>属性定义</strong>：确定每个实体包含哪些字段</li>
-                            <li><strong>关系建立</strong>：定义实体之间的关联关系</li>
-                            <li><strong>约束设置</strong>：为数据添加验证规则</li>
-                        </ul>
-                        
-                        <h3>二、技术特性</h3>
-                        
-                        <div class="role-grid">
-                            <div class="role-card">
-                                <h4>类型系统特性</h4>
-                                <ul class="feature-list">
-                                    <li><strong>类型检查</strong>
-                                        <ul>
-                                            <li>编译期检查：静态类型语言（TypeScript、Java）</li>
-                                            <li>运行期检查：动态类型语言（JavaScript、Python）</li>
-                                        </ul>
-                                    </li>
-                                    <li><strong>内存分配</strong>
-                                        <ul>
-                                            <li>根据类型确定存储空间大小</li>
-                                            <li>决定数据存储在栈还是堆</li>
-                                        </ul>
-                                    </li>
-                                    <li><strong>运算规则</strong>
-                                        <ul>
-                                            <li>数字支持算术运算</li>
-                                            <li>字符串支持拼接和截取</li>
-                                        </ul>
-                                    </li>
-                                    <li><strong>序列化支持</strong>
-                                        <ul>
-                                            <li>JSON/XML 格式转换</li>
-                                            <li>数据持久化存储</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="role-card">
-                                <h4>数据建模特性</h4>
-                                <ul class="feature-list">
-                                    <li><strong>实体设计</strong>
-                                        <ul>
-                                            <li>用户实体：{ id, name, phone, email }</li>
-                                            <li>订单实体：{ orderId, userId, amount, status }</li>
-                                        </ul>
-                                    </li>
-                                    <li><strong>关系映射</strong>
-                                        <ul>
-                                            <li>一对一：用户-档案</li>
-                                            <li>一对多：用户-订单</li>
-                                            <li>多对多：学生-课程</li>
-                                        </ul>
-                                    </li>
-                                    <li><strong>字段约束</strong>
-                                        <ul>
-                                            <li>必填校验：手机号不能为空</li>
-                                            <li>格式校验：邮箱格式验证</li>
-                                        </ul>
-                                    </li>
-                                    <li><strong>性能优化</strong>
-                                        <ul>
-                                            <li>索引设计：加快查询速度</li>
-                                            <li>分表策略：大数据量处理</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <h3>三、应用场景</h3>
-                        
-                        <h4>3.1 类型系统应用场景</h4>
-                        <table class="concept-table">
-                            <thead>
-                                <tr>
-                                    <th>应用场景</th>
-                                    <th>技术实现</th>
-                                    <th>业务价值</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>接口参数校验</strong></td>
-                                    <td>使用 TypeScript 定义接口类型</td>
-                                    <td>提前发现参数错误，减少运行时异常</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>数据格式转换</strong></td>
-                                    <td>JSON.stringify() / JSON.parse()</td>
-                                    <td>实现前后端数据传输</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>状态机设计</strong></td>
-                                    <td>使用枚举类型定义状态</td>
-                                    <td>确保状态流转的合法性</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>API 文档生成</strong></td>
-                                    <td>基于类型定义自动生成文档</td>
-                                    <td>提高前后端协作效率</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <h4>3.2 数据建模应用场景</h4>
-                        <table class="concept-table">
-                            <thead>
-                                <tr>
-                                    <th>应用场景</th>
-                                    <th>建模方法</th>
-                                    <th>关键考虑</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>用户系统</strong></td>
-                                    <td>用户实体 + 权限实体 + 角色实体</td>
-                                    <td>数据安全、隐私保护</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>订单系统</strong></td>
-                                    <td>订单实体 + 商品实体 + 用户实体</td>
-                                    <td>事务一致性、状态流转</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>内容系统</strong></td>
-                                    <td>文章实体 + 评论实体 + 标签实体</td>
-                                    <td>搜索优化、关联查询</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </section>
-                `,
-                businessScenario: `
-                    <section class="tech-module" data-module="businessScenario">
-                        <div class="module-header">
-                            <span class="module-icon">💼</span>
-                            <h2>业务场景：数据类型的实际应用</h2>
-                        </div>
-                        
-                        <div class="highlight-box">
-                            <blockquote>
-                                在实际业务开发中，<strong>正确的数据类型选择</strong>直接影响系统的稳定性、性能和用户体验。以下是典型的业务场景分析。
-                            </blockquote>
-                        </div>
-                        
-                        <h3>一、核心概念</h3>
-                        
-                        <h4>1.1 业务数据的特点</h4>
-                        <p>业务数据通常具有以下特征：</p>
-                        <ul class="feature-list">
-                            <li><strong>多样性</strong>：文本、数字、日期、文件等多种形式</li>
-                            <li><strong>关联性</strong>：数据之间存在复杂的关联关系</li>
-                            <li><strong>时效性</strong>：数据有创建时间、更新时间、过期时间</li>
-                            <li><strong>敏感性</strong>：部分数据涉及用户隐私，需要加密存储</li>
-                        </ul>
-                        
-                        <h4>1.2 数据类型选择原则</h4>
-                        <ul class="feature-list">
-                            <li><strong>最小够用原则</strong>：选择能满足需求的最小数据类型</li>
-                            <li><strong>安全优先原则</strong>：敏感数据必须加密存储</li>
-                            <li><strong>性能优化原则</strong>：考虑查询效率和存储空间</li>
-                            <li><strong>扩展性原则</strong>：预留字段扩展空间</li>
-                        </ul>
-                        
-                        <h3>二、技术特性</h3>
-                        
-                        <div class="scenario-timeline">
-                            <div class="scenario-item">
-                                <div class="scenario-number">1</div>
-                                <div class="scenario-content">
-                                    <h4>用户注册数据</h4>
-                                    <div class="info-block">
-                                        <p><strong>场景描述</strong>：用户在APP上完成注册，需要收集和存储用户基本信息</p>
-                                    </div>
-                                    <table class="concept-table">
-                                        <thead>
-                                            <tr>
-                                                <th>字段名称</th>
-                                                <th>数据类型</th>
-                                                <th>验证规则</th>
-                                                <th>设计理由</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><strong>手机号</strong></td>
-                                                <td>String</td>
-                                                <td>正则验证：^1[3-9]\\d{9}$</td>
-                                                <td>以0开头、不用计算、需格式校验</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>年龄</strong></td>
-                                                <td>Number</td>
-                                                <td>范围校验：0-150</td>
-                                                <td>需要计算、范围明确</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>是否会员</strong></td>
-                                                <td>Boolean</td>
-                                                <td>默认值：false</td>
-                                                <td>只有两种状态：是/否</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>标签列表</strong></td>
-                                                <td>Array</td>
-                                                <td>最多10个标签</td>
-                                                <td>用户可能有多个兴趣标签</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            
-                            <div class="scenario-item">
-                                <div class="scenario-number">2</div>
-                                <div class="scenario-content">
-                                    <h4>订单数据结构</h4>
-                                    <div class="info-block">
-                                        <p><strong>场景描述</strong>：用户下单购买商品，需要存储完整的订单信息</p>
-                                    </div>
-                                    <table class="concept-table">
-                                        <thead>
-                                            <tr>
-                                                <th>字段名称</th>
-                                                <th>数据类型</th>
-                                                <th>示例值</th>
-                                                <th>设计理由</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><strong>订单对象</strong></td>
-                                                <td>Object</td>
-                                                <td>{ orderId, amount, status }</td>
-                                                <td>包含多个相关字段的结构化数据</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>商品列表</strong></td>
-                                                <td>Array</td>
-                                                <td>[{ productId, name, price }]</td>
-                                                <td>一个订单包含多个商品</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>地址信息</strong></td>
-                                                <td>嵌套 Object</td>
-                                                <td>{ province, city, district }</td>
-                                                <td>省市区街道层级结构</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>订单金额</strong></td>
-                                                <td>Number（分）</td>
-                                                <td>9999（表示99.99元）</td>
-                                                <td>避免浮点数精度问题</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <h3>三、应用场景</h3>
-                        
-                        <h4>3.1 常见业务数据类型选型</h4>
-                        <table class="concept-table">
-                            <thead>
-                                <tr>
-                                    <th>业务场景</th>
-                                    <th>推荐类型</th>
-                                    <th>注意事项</th>
-                                    <th>常见错误</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>金额/价格</strong></td>
-                                    <td>Number（分为单位）</td>
-                                    <td>使用整数存储，避免浮点精度问题</td>
-                                    <td>直接用小数存储，导致计算误差</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>手机号/身份证</strong></td>
-                                    <td>String</td>
-                                    <td>可能以0开头，不需要数学运算</td>
-                                    <td>用Number存储，丢失前导0</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>状态标记</strong></td>
-                                    <td>Boolean 或 枚举</td>
-                                    <td>二元状态用Boolean，多状态用枚举</td>
-                                    <td>用数字0/1表示状态，可读性差</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>时间日期</strong></td>
-                                    <td>Number（时间戳）或 String</td>
-                                    <td>时间戳便于计算，字符串便于显示</td>
-                                    <td>格式不统一，导致解析错误</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>配置项</strong></td>
-                                    <td>Object</td>
-                                    <td>键值对结构，便于扩展</td>
-                                    <td>用多个变量分散存储，难以管理</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <h4>3.2 数据验证最佳实践</h4>
-                        <div class="info-block">
-                            <ul class="feature-list">
-                                <li><strong>前端验证</strong>：即时反馈，提升用户体验</li>
-                                <li><strong>后端验证</strong>：安全保障，防止绕过前端验证</li>
-                                <li><strong>数据库约束</strong>：最后一道防线，确保数据完整性</li>
-                            </ul>
-                        </div>
-                    </section>
-                `,
-                pmDevScenario: `
-                    <section class="tech-module" data-module="pmDevScenario">
-                        <div class="module-header">
-                            <span class="module-icon">🗣️</span>
-                            <h2>产品经理与开发沟通场景</h2>
-                        </div>
-                        
-                        <div class="highlight-box">
-                            <blockquote>
-                                <strong>清晰的数据定义</strong>是产品经理与开发高效协作的基础。模糊的需求描述会导致理解偏差、返工成本增加，甚至线上故障。
-                            </blockquote>
-                        </div>
-                    
-                    <h3>一、核心概念</h3>
-                    
-                    <h4>1.1 数据沟通的关键要素</h4>
-                    <p>产品经理在描述数据需求时，必须明确以下要素：</p>
-                    <ul class="feature-list">
-                        <li><strong>数据类型</strong>：String / Number / Boolean / Object / Array</li>
-                        <li><strong>是否必填</strong>：必填字段需要明确标注</li>
-                        <li><strong>默认值</strong>：字段为空时的默认处理方式</li>
-                        <li><strong>验证规则</strong>：格式要求、取值范围、长度限制</li>
-                        <li><strong>边界情况</strong>：空值、超长、特殊字符如何处理</li>
-                    </ul>
-                    
-                    <h4>1.2 常见沟通误区</h4>
-                    <table class="concept-table">
-                        <thead>
-                            <tr>
-                                <th>误区类型</th>
-                                <th>模糊描述</th>
-                                <th>开发困惑</th>
-                                <th>改进建议</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>类型模糊</strong></td>
-                                <td>"年龄存数字"</td>
-                                <td>整数还是小数？最大多少？</td>
-                                <td>"年龄：整数类型，范围0-150"</td>
-                            </tr>
-                            <tr>
-                                <td><strong>必填不明</strong></td>
-                                <td>"用户填写手机号"</td>
-                                <td>是必填还是选填？</td>
-                                <td>"手机号：必填，11位数字"</td>
-                            </tr>
-                            <tr>
-                                <td><strong>边界不清</strong></td>
-                                <td>"用户名不能太长"</td>
-                                <td>多长算太长？</td>
-                                <td>"用户名：最长20个字符"</td>
-                            </tr>
-                            <tr>
-                                <td><strong>默认缺失</strong></td>
-                                <td>"显示用户积分"</td>
-                                <td>新用户积分是多少？</td>
-                                <td>"积分：默认0，最小值0"</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                    <h3>二、技术特性</h3>
-                    
-                    <h4>2.1 沟通对比案例</h4>
-                    <div class="conversation-box">
-                        <div class="conversation-item bad">
-                            <div class="conv-header">
-                                <span class="conv-icon">❌</span>
-                                <span class="conv-title">错误沟通</span>
-                            </div>
-                            <div class="conv-content">
-                                <p><strong>产品经理：</strong>"用户年龄就存数字吧。"</p>
-                                <p><strong>开发内心：</strong></p>
-                                <ul class="feature-list">
-                                    <li>年龄是整数还是小数？</li>
-                                    <li>最大多少？最小多少？</li>
-                                    <li>可以为空吗？</li>
-                                    <li>负数怎么处理？</li>
-                                </ul>
-                                <p><strong>结果：</strong>数据校验不完善，出现负数年龄、200岁年龄等异常数据</p>
-                            </div>
-                        </div>
-                        
-                        <div class="conversation-item good">
-                            <div class="conv-header">
-                                <span class="conv-icon">✅</span>
-                                <span class="conv-title">正确沟通</span>
-                            </div>
-                            <div class="conv-content">
-                                <p><strong>产品经理：</strong></p>
-                                <div class="info-block">
-                                    <table class="concept-table">
-                                        <thead>
-                                            <tr>
-                                                <th>字段</th>
-                                                <th>类型</th>
-                                                <th>约束</th>
-                                                <th>错误提示</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>年龄</td>
-                                                <td>Integer（整数）</td>
-                                                <td>范围 0-150，必填</td>
-                                                <td>"请输入有效年龄"</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <p><strong>开发：</strong>"明白了，我会在数据库加CHECK约束，API层加参数校验，前端加输入限制。"</p>
-                                <p><strong>结果：</strong>数据质量高，系统稳定</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h3>三、应用场景</h3>
-                    
-                    <h4>3.1 数据设计清单</h4>
-                    <div class="tips-box">
-                        <h5>📋 产品经理数据设计 Checklist</h5>
-                        <table class="concept-table">
-                            <thead>
-                                <tr>
-                                    <th>检查项</th>
-                                    <th>说明</th>
-                                    <th>示例</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>数据类型</strong></td>
-                                    <td>每个字段的数据类型是什么？</td>
-                                    <td>String / Number / Boolean / Object / Array</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>是否必填</strong></td>
-                                    <td>字段是否可以为空？</td>
-                                    <td>手机号必填，昵称选填</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>默认值</strong></td>
-                                    <td>字段为空时的默认值？</td>
-                                    <td>积分默认0，是否会员默认false</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>格式要求</strong></td>
-                                    <td>有没有格式要求？</td>
-                                    <td>手机号、邮箱、身份证号</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>取值范围</strong></td>
-                                    <td>数值的范围限制？</td>
-                                    <td>年龄0-150，评分1-5</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>唯一约束</strong></td>
-                                    <td>是否需要唯一？</td>
-                                    <td>用户ID、订单号、手机号</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>长度限制</strong></td>
-                                    <td>文本的最大长度？</td>
-                                    <td>用户名最长20字，评论最长500字</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>边界处理</strong></td>
-                                    <td>特殊情况怎么处理？</td>
-                                    <td>空值显示"未设置"，超长截断</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <h4>3.2 需求文档模板</h4>
-                    <div class="info-block">
-                        <h5>📝 字段定义模板</h5>
-                        <pre><code>字段名称：[字段名]
-数据类型：[String/Number/Boolean/Object/Array]
-是否必填：[是/否]
-默认值：[无/具体值]
-验证规则：
-  - [格式要求，如：正则表达式]
-  - [范围要求，如：0-150]
-  - [长度要求，如：最长20字符]
-错误提示：[验证失败时的提示语]
-备注：[其他说明]</code></pre>
-                    </div>
-                    </section>
-                `,
-                codeExample: `
-                    <section class="tech-module" data-module="codeExample">
-                        <div class="module-header">
-                            <span class="module-icon">💻</span>
-                            <h2>代码实例：用户注册数据验证</h2>
-                        </div>
-                    
-                    <div class="highlight-box">
-                        <blockquote>
-                            本节通过一个真实的<strong>用户注册场景</strong>，展示不同数据类型的实际使用方式和验证逻辑，帮助产品经理理解代码层面的数据实现。
-                        </blockquote>
-                    </div>
-                    
-                    <h3>一、核心概念</h3>
-                    
-                    <h4>1.1 场景背景</h4>
-                    <p>用户在APP上填写注册表单，需要收集以下信息：</p>
-                    <table class="concept-table">
-                        <thead>
-                            <tr>
-                                <th>字段</th>
-                                <th>数据类型</th>
-                                <th>业务含义</th>
-                                <th>验证要求</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>用户名</strong></td>
-                                <td>String</td>
-                                <td>用户的显示名称</td>
-                                <td>2-20个字符</td>
-                            </tr>
-                            <tr>
-                                <td><strong>手机号</strong></td>
-                                <td>String</td>
-                                <td>登录凭证</td>
-                                <td>11位，以1开头</td>
-                            </tr>
-                            <tr>
-                                <td><strong>年龄</strong></td>
-                                <td>Number</td>
-                                <td>用户年龄</td>
-                                <td>0-150的整数</td>
-                            </tr>
-                            <tr>
-                                <td><strong>是否会员</strong></td>
-                                <td>Boolean</td>
-                                <td>会员状态</td>
-                                <td>默认false</td>
-                            </tr>
-                            <tr>
-                                <td><strong>兴趣爱好</strong></td>
-                                <td>Array</td>
-                                <td>用户兴趣标签</td>
-                                <td>最多10个</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                    <h4>1.2 代码结构说明</h4>
-                    <ul class="feature-list">
-                        <li><strong>数据定义</strong>：使用 Object 类型组织用户的所有信息</li>
-                        <li><strong>数据验证</strong>：使用函数封装验证逻辑，返回验证结果</li>
-                        <li><strong>结果处理</strong>：根据验证结果决定后续流程</li>
-                    </ul>
-                    
-                    <h3>二、技术特性</h3>
-                    
-                    <h4>2.1 完整代码示例</h4>
-                    <div class="code-example">
-                        <div class="code-example-header">
-                            <span class="code-example-title">用户注册数据验证</span>
-                            <span class="code-example-lang">JavaScript</span>
-                        </div>
-                        <div class="code-example-body">
-                            <pre><code>// ==========================================
-// 用户注册 - 数据类型实战示例
-// 场景：用户在APP上填写注册表单
-// ==========================================
-
-// 【第1步：定义用户数据对象】
-// 使用 Object 类型存储用户的完整信息
-const userData = {
-    // String 类型：存储文本信息
-    username: '张三',           // 用户名
-    phone: '13800138000',      // 手机号（字符串存储）
-    email: 'zhangsan@example.com', // 邮箱地址
+    {
+        id: 'prog-1',
+        categoryId: 'programming',
+        title: '基本数据类型',
+        difficulty: 'beginner',
+        summary: '理解程序里的数据"品种"：整型、字符型、浮点型、布尔型，掌握数据类型选择和转换规则。',
+        technicalContent: {
+            principle: `
+<section class="tech-module" data-module="principle">
+<div class="module-header">
+<span class="module-icon">🔬</span>
+<h2>技术原理：数据类型系统</h2>
+</div>
+<div class="highlight-box">
+<blockquote>
+<strong>数据类型（Data Type）</strong>是编程语言中对数据的分类方式，定义了数据的存储方式、取值范围和可执行的操作。
+</blockquote>
+</div>
+<h3>一、四大基本数据类型</h3>
+<h4>1.1 整型（int）</h4>
+<p><strong>专业定义</strong>：用于存储整数的数据类型，不包含小数部分，可以是正数、负数或零。</p>
+<p><strong>大白话</strong>：就是数学里的整数，没有小数点，比如1、100、-50。</p>
+<table class="concept-table">
+<thead>
+<tr><th>概念</th><th>专业解释</th><th>大白话</th><th>例子</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>取值范围</strong></td><td>不同语言范围不同</td><td>能存多大的数</td><td>Java int: -21亿~21亿</td></tr>
+<tr><td><strong>存储大小</strong></td><td>通常占4字节</td><td>占用内存空间</td><td>类似盒子的大小</td></tr>
+<tr><td><strong>运算规则</strong></td><td>整数之间运算</td><td>加减乘除</td><td>3 + 5 = 8</td></tr>
+</tbody>
+</table>
+<div class="info-block">
+<h5>📌 整型分类</h5>
+<ul class="feature-list">
+<li><strong>short（短整型）</strong>：范围小，节省空间</li>
+<li><strong>int（整型）</strong>：最常用，范围适中</li>
+<li><strong>long（长整型）</strong>：范围大，存大数字</li>
+</ul>
+</div>
+<h4>1.2 字符型（String）</h4>
+<p><strong>专业定义</strong>：由零个或多个字符组成的序列，用于表示文本信息。</p>
+<p><strong>大白话</strong>：就是文字，可以是一个字、一个词、一句话，甚至一整篇文章。</p>
+<h4>1.3 浮点型（float/double）</h4>
+<p><strong>专业定义</strong>：用于存储带小数部分的数值，float精度较低，double精度较高。</p>
+<p><strong>大白话</strong>：就是带小数点的数字，用于需要精确计量的场景。</p>
+<div class="warning-box">
+<h5>⚠️ 精度问题警告</h5>
+<p>浮点数存在精度问题：<code>0.1 + 0.2 ≠ 0.3</code>，结果是 <code>0.30000000000000004</code></p>
+<p><strong>解决方案</strong>：金额用整数存储（分为单位），显示时再转换</p>
+</div>
+<h4>1.4 布尔型（boolean）</h4>
+<p><strong>专业定义</strong>：只有两个值：true（真）和false（假），用于表示逻辑状态。</p>
+<p><strong>大白话</strong>：就是"是或否"、"开或关"、"有或无"这种二选一的状态。</p>
+<h3>二、数据类型转换</h3>
+<table class="concept-table">
+<thead>
+<tr><th>转换方向</th><th>专业术语</th><th>大白话</th><th>例子</th></tr>
+</thead>
+<tbody>
+<tr><td>整型→字符串</td><td>类型转换</td><td>数字变文字</td><td>123 → "123"</td></tr>
+<tr><td>字符串→整型</td><td>解析转换</td><td>文字变数字</td><td>"456" → 456</td></tr>
+<tr><td>整型→浮点型</td><td>自动转换</td><td>整数变小数</td><td>5 → 5.0</td></tr>
+<tr><td>浮点型→整型</td><td>强制转换</td><td>小数变整数（丢精度）</td><td>3.9 → 3（不是4！）</td></tr>
+</tbody>
+</table>
+</section>
+`,
+            role: `
+<section class="tech-module" data-module="role">
+<div class="module-header">
+<span class="module-icon">🎯</span>
+<h2>核心作用：数据类型的业务价值</h2>
+</div>
+<div class="highlight-box">
+<blockquote>
+选对数据类型很重要——数据类型决定了数据能存什么、能做什么操作、占用多少空间。
+</blockquote>
+</div>
+<h3>一、数据类型选型指南</h3>
+<table class="concept-table">
+<thead>
+<tr><th>业务场景</th><th>推荐类型</th><th>原因</th><th>常见错误</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>金额/价格</strong></td><td>int（分为单位）</td><td>避免浮点精度问题</td><td>❌ 用float存价格</td></tr>
+<tr><td><strong>手机号/身份证</strong></td><td>String</td><td>可能以0开头，不用计算</td><td>❌ 用int丢失前导0</td></tr>
+<tr><td><strong>状态标记</strong></td><td>Boolean</td><td>只有两种状态</td><td>❌ 用String存"是/否"</td></tr>
+<tr><td><strong>订单状态</strong></td><td>int（枚举）</td><td>多状态，便于查询</td><td>❌ 用String存"待支付"</td></tr>
+<tr><td><strong>评分</strong></td><td>float</td><td>平均值有小数</td><td>❌ 用int丢失精度</td></tr>
+</tbody>
+</table>
+<h3>二、产品经理决策清单</h3>
+<div class="tips-box">
+<h5>📋 设计数据字段时需要明确</h5>
+<ul class="feature-list">
+<li><strong>数据类型</strong>：这个字段存储的是什么类型的数据？</li>
+<li><strong>是否运算</strong>：这个数据需要参与数学运算吗？</li>
+<li><strong>格式要求</strong>：有没有前导零、特殊符号等格式要求？</li>
+<li><strong>精度要求</strong>：需要精确到小数吗？</li>
+<li><strong>状态数量</strong>：只有两种状态吗？是否适合用布尔型？</li>
+</ul>
+</div>
+</section>
+`,
+            businessScenario: `
+<section class="tech-module" data-module="businessScenario">
+<div class="module-header">
+<span class="module-icon">💼</span>
+<h2>业务场景：实际产品中的数据类型</h2>
+</div>
+<h3>案例1：淘宝商品详情页</h3>
+<table class="concept-table">
+<thead>
+<tr><th>前端展示</th><th>数据类型</th><th>示例值</th><th>设计理由</th></tr>
+</thead>
+<tbody>
+<tr><td>商品标题</td><td>String</td><td>"iPhone 15 Pro"</td><td>文本内容</td></tr>
+<tr><td>商品价格</td><td>int（分）</td><td>799900</td><td>避免精度问题</td></tr>
+<tr><td>月销量</td><td>int</td><td>5000</td><td>整数计数</td></tr>
+<tr><td>评分</td><td>float</td><td>4.9</td><td>平均值有小数</td></tr>
+<tr><td>是否包邮</td><td>boolean</td><td>true</td><td>只有两种状态</td></tr>
+<tr><td>商品ID</td><td>long</td><td>1234567890123</td><td>数字可能很大</td></tr>
+</tbody>
+</table>
+<h3>案例2：微信个人信息</h3>
+<table class="concept-table">
+<thead>
+<tr><th>前端展示</th><th>数据类型</th><th>示例值</th></tr>
+</thead>
+<tbody>
+<tr><td>昵称</td><td>String</td><td>"小明"</td></tr>
+<tr><td>微信号</td><td>String</td><td>"xiaoming123"</td></tr>
+<tr><td>手机号</td><td>String</td><td>"138****8000"</td></tr>
+<tr><td>是否已实名</td><td>boolean</td><td>true</td></tr>
+</tbody>
+</table>
+<div class="info-block">
+<h5>💡 为什么手机号用String不用int？</h5>
+<ul class="feature-list">
+<li><strong>前导零</strong>：int会丢失前导零（0138→138）</li>
+<li><strong>国际号码</strong>：无法表示+86前缀</li>
+<li><strong>格式化</strong>：String方便加空格、横线</li>
+<li><strong>不参与计算</strong>：手机号不会做数学运算</li>
+</ul>
+</div>
+<h3>案例3：美团外卖订单</h3>
+<table class="concept-table">
+<thead>
+<tr><th>前端展示</th><th>数据类型</th><th>示例值</th></tr>
+</thead>
+<tbody>
+<tr><td>订单号</td><td>String/long</td><td>"MT202403150001"</td></tr>
+<tr><td>商品数量</td><td>int</td><td>2</td></tr>
+<tr><td>商品单价</td><td>float</td><td>28.00</td></tr>
+<tr><td>是否已支付</td><td>boolean</td><td>true</td></tr>
+<tr><td>订单状态</td><td>int</td><td>2（配送中）</td></tr>
+</tbody>
+</table>
+</section>
+`,
+            pmDevScenario: `
+<section class="tech-module" data-module="pmDevScenario">
+<div class="module-header">
+<span class="module-icon">🗣️</span>
+<h2>产品经理与开发沟通场景</h2>
+</div>
+<h3>场景1：价格字段设计</h3>
+<div class="conversation-box">
+<div class="conversation-item bad">
+<div class="conv-header"><span class="conv-icon">❌</span><span class="conv-title">错误沟通</span></div>
+<div class="conv-content">
+<p><strong>产品经理：</strong>"商品价格我写了个字段，直接用int存就行吧？"</p>
+<p><strong>开发：</strong>"价格有小数啊，9.9元怎么存？"</p>
+</div>
+</div>
+<div class="conversation-item good">
+<div class="conv-header"><span class="conv-icon">✅</span><span class="conv-title">正确沟通</span></div>
+<div class="conv-content">
+<p><strong>产品经理：</strong>"商品价格用int存分，比如9.9元存成990分，避免浮点精度问题。"</p>
+<p><strong>开发：</strong>"明白了，显示时除以100转成元。"</p>
+</div>
+</div>
+</div>
+<h3>场景2：手机号字段设计</h3>
+<div class="conversation-box">
+<div class="conversation-item bad">
+<div class="conv-header"><span class="conv-icon">❌</span><span class="conv-title">错误沟通</span></div>
+<div class="conv-content">
+<p><strong>产品经理：</strong>"用户手机号用int类型存吧，反正都是数字。"</p>
+</div>
+</div>
+<div class="conversation-item good">
+<div class="conv-header"><span class="conv-icon">✅</span><span class="conv-title">正确沟通</span></div>
+<div class="conv-content">
+<p><strong>产品经理：</strong>"手机号用String存，因为：1.可能以0开头；2.国际号码有+号；3.不参与数学运算。"</p>
+</div>
+</div>
+</div>
+<h3>场景3：状态字段设计</h3>
+<div class="conversation-box">
+<div class="conversation-item bad">
+<div class="conv-header"><span class="conv-icon">❌</span><span class="conv-title">错误沟通</span></div>
+<div class="conv-content">
+<p><strong>产品经理：</strong>"订单状态我想用String存，比如'待支付'、'已支付'。"</p>
+<p><strong>开发：</strong>"String有几个问题：占用空间大、容易写错、查询效率低。"</p>
+</div>
+</div>
+<div class="conversation-item good">
+<div class="conv-header"><span class="conv-icon">✅</span><span class="conv-title">正确沟通</span></div>
+<div class="conv-content">
+<p><strong>产品经理：</strong>"订单状态用int：1=待支付，2=已支付，3=已发货...。这样查询效率高，也不容易写错。"</p>
+</div>
+</div>
+</div>
+</section>
+`,
+            codeExample: `
+<section class="tech-module" data-module="codeExample">
+<div class="module-header">
+<span class="module-icon">💻</span>
+<h2>代码实例：数据类型实战</h2>
+</div>
+<div class="code-example">
+<div class="code-example-header">
+<span class="code-example-title">商品数据结构示例</span>
+<span class="code-example-lang">JavaScript</span>
+</div>
+<div class="code-example-body">
+<pre><code>// 商品数据对象
+const product = {
+    // String 类型：文本信息
+    id: "prod_001",
+    name: "iPhone 15 Pro",
+    description: "全新正品...",
     
-    // Number 类型：存储数值信息
-    age: 25,                    // 年龄
-    height: 175,                // 身高（厘米）
+    // int 类型：整数（价格用分存储）
+    priceInCents: 799900,        // 7999.00元 → 存799900分
+    stock: 999,
+    salesCount: 5000,
     
-    // Boolean 类型：存储状态信息
-    isMember: false,            // 是否会员
-    agreedTerms: true,          // 是否同意用户协议
+    // float 类型：带小数
+    rating: 4.9,
+    weight: 0.178,
     
-    // Array 类型：存储列表信息
-    interests: ['读书', '游泳', '编程'], // 兴趣爱好列表
-    addresses: [                // 收货地址列表
-        { label: '家', city: '北京', detail: '朝阳区某某小区' },
-        { label: '公司', city: '北京', detail: '海淀区某某大厦' }
-    ]
+    // boolean 类型：开关状态
+    isFreeShipping: true,
+    isInStock: true,
+    isNew: false,
+    
+    // Array 类型：列表
+    images: ["https://xxx.com/1.jpg", "https://xxx.com/2.jpg"],
+    tags: ["热销", "推荐"]
 };
 
-// 【第2步：数据验证函数】
-function validateUserData(user) {
-    const errors = []; // 存储错误信息
-    
-    // 验证用户名：String类型，长度2-20个字符
-    if (typeof user.username !== 'string') {
-        errors.push('用户名必须是文字');
-    } else if (user.username.length < 2 || user.username.length > 20) {
-        errors.push('用户名长度需要在2-20个字符之间');
-    }
-    
-    // 验证手机号：String类型，11位数字
-    if (!/^1[3-9]\\d{9}$/.test(user.phone)) {
-        errors.push('请输入正确的手机号');
-    }
-    
-    // 验证年龄：Number类型，范围0-150
-    if (typeof user.age !== 'number' || user.age < 0 || user.age > 150) {
-        errors.push('请输入有效的年龄');
-    }
-    
-    // 验证是否同意协议：Boolean类型，必须为true
-    if (user.agreedTerms !== true) {
-        errors.push('请阅读并同意用户协议');
-    }
-    
-    return {
-        isValid: errors.length === 0,  // 是否通过验证
-        errors: errors                    // 错误信息列表
-    };
+// 价格转换函数
+function formatPrice(priceInCents) {
+    return (priceInCents / 100).toFixed(2);
 }
 
-// 【第3步：执行验证并输出结果】
-const result = validateUserData(userData);
+console.log(formatPrice(799900)); // 输出: "7999.00"</code></pre>
+</div>
+</div>
+</section>
+`
+        },
+        content: `# 知识点1：基本数据类型
 
-if (result.isValid) {
-    console.log('✅ 验证通过！可以保存到数据库');
+> **核心问题**：程序里的数据都有哪些"品种"？
+
+## 学习目标
+
+学完本节，你将能够：
+
+- [ ] 理解什么是数据类型，以及为什么要区分数据类型
+- [ ] 掌握整型、字符型、浮点型、布尔型的特点和使用场景
+- [ ] 理解不同数据类型之间的转换规则和注意事项
+- [ ] 能够在需求设计时选择合适的数据类型
+
+---
+
+## 一、核心概念
+
+### 专业解释
+
+**数据类型（Data Type）**：编程语言中对数据的分类方式，定义了数据的存储方式、取值范围和可执行的操作。
+
+- **整型（int）**：用于存储整数，没有小数部分
+- **字符型（String）**：用于存储文本字符串，由一个或多个字符组成
+- **浮点型（float/double）**：用于存储带小数的数值，double精度更高
+- **布尔型（boolean）**：用于存储逻辑值，只有true（真）和false（假）两个值
+
+### 大白话解释
+
+用生活化的语言解释核心概念：
+
+| 技术概念 | 生活类比 | 通俗理解 |
+|---------|---------|---------|
+| 数据类型 | 商品的分类 | 就像超市把商品分成食品、日用品、电器等类别，程序把数据分成不同类型 |
+| 整型（int） | 整数个数的物品 | "买了3个苹果"——只能是整数，不能是3.5个 |
+| 字符型（String） | 文字标签 | "商品名称：可口可乐"——就是一串文字 |
+| 浮点型（float） | 带小数的计量 | "价格：3.5元"——需要精确到小数 |
+| 布尔型（boolean） | 开关状态 | "灯开了吗？"——只有"是"或"否"两种答案 |
+
+---
+
+## 二、生活化类比详解
+
+### 类比主题：超市购物清单
+
+用具体生活场景类比技术概念：
+
+<div class="vc-card vc-datatype" style="margin: 24px 0; padding: 28px; background: white; border-radius: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+<div class="vc-datatype__header" style="display: flex; align-items: center; gap: 16px; margin-bottom: 28px;">
+<div class="vc-datatype__icon" style="width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-size: 24px;">📊</div>
+<div>
+<h3 style="font-size: 20px; font-weight: 700; margin: 0; background: linear-gradient(135deg, #6366f1, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">数据类型类比</h3>
+<p style="font-size: 14px; color: #64748b; margin: 4px 0 0 0;">超市购物清单场景</p>
+</div>
+</div>
+<div class="vc-datatype__grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+<div class="vc-datatype__type" style="background: #f8fafc; border-radius: 12px; padding: 20px; border-left: 4px solid #6366f1;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+<div style="width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #6366f1, #818cf8); color: white; font-weight: 700;">#</div>
+<span style="font-size: 15px; font-weight: 700; color: #0f172a;">整型 int</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">分类:</span> <span style="color: #0f172a; font-weight: 600;">整数</span></div>
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">数量:</span> <span style="color: #0f172a; font-weight: 600;">苹果 × 3</span></div>
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">数量:</span> <span style="color: #0f172a; font-weight: 600;">牛奶 × 2</span></div>
+</div>
+</div>
+<div class="vc-datatype__type" style="background: #f8fafc; border-radius: 12px; padding: 20px; border-left: 4px solid #10b981;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+<div style="width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #10b981, #34d399); color: white; font-weight: 700;">Aa</div>
+<span style="font-size: 15px; font-weight: 700; color: #0f172a;">字符型 String</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">分类:</span> <span style="color: #0f172a; font-weight: 600;">文本</span></div>
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">品名:</span> <span style="color: #0f172a; font-weight: 600;">红富士苹果</span></div>
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">品名:</span> <span style="color: #0f172a; font-weight: 600;">伊利纯牛奶</span></div>
+</div>
+</div>
+<div class="vc-datatype__type" style="background: #f8fafc; border-radius: 12px; padding: 20px; border-left: 4px solid #f59e0b;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+<div style="width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f59e0b, #fbbf24); color: white; font-weight: 700;">3.14</div>
+<span style="font-size: 15px; font-weight: 700; color: #0f172a;">浮点型 float</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">分类:</span> <span style="color: #0f172a; font-weight: 600;">小数</span></div>
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">单价:</span> <span style="color: #0f172a; font-weight: 600;">5.50元</span></div>
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">单价:</span> <span style="color: #0f172a; font-weight: 600;">6.80元</span></div>
+</div>
+</div>
+<div class="vc-datatype__type" style="background: #f8fafc; border-radius: 12px; padding: 20px; border-left: 4px solid #ec4899;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+<div style="width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #ec4899, #f472b6); color: white; font-weight: 700;">✓✗</div>
+<span style="font-size: 15px; font-weight: 700; color: #0f172a;">布尔型 boolean</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">分类:</span> <span style="color: #0f172a; font-weight: 600;">逻辑</span></div>
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">已买:</span> <span style="color: #10b981; font-weight: 600;">true</span> / <span style="color: #ef4444; font-weight: 600;">false</span></div>
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">会员:</span> <span style="color: #10b981; font-weight: 600;">true</span> / <span style="color: #ef4444; font-weight: 600;">false</span></div>
+</div>
+</div>
+</div>
+</div>
+
+**对应到互联网产品：**
+
+| 生活场景 | 互联网产品 | 技术术语 |
+|---------|-----------|---------|
+| 购买数量（3个） | 商品数量、库存数量 | 整型（int） |
+| 商品名称（苹果） | 用户名、商品名、评论内容 | 字符型（String） |
+| 商品价格（5.50元） | 商品价格、用户余额、评分 | 浮点型（float/double） |
+| 是否已购买 | 是否登录、是否VIP、开关状态 | 布尔型（boolean） |
+
+---
+
+## 三、详细原理阐述
+
+### 3.1 整型（int）
+
+**专业定义**：整型是用于存储整数的数据类型，不包含小数部分，可以是正数、负数或零。
+
+**大白话**：就是数学里的整数，没有小数点，比如1、100、-50。
+
+**核心概念：**
+
+| 概念 | 专业解释 | 大白话 | 例子 |
+|-----|---------|-------|-----|
+| 取值范围 | 不同语言范围不同 | 能存多大的数 | Java int: -21亿~21亿 |
+| 存储大小 | 通常占4字节 | 占用内存空间 | 类似盒子的大小 |
+| 运算规则 | 整数之间运算 | 加减乘除 | 3 + 5 = 8 |
+
+**结构卡片：**
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #6366f1;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e0e7ff;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-size: 20px;">#</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">整型类型分类</h4>
+</div>
+<div style="padding: 20px; background: #eef2ff; border-radius: 12px; margin-bottom: 16px;">
+<h5 style="margin: 0 0 12px 0; font-size: 15px; font-weight: 600; color: #4f46e5;">整型（Integer）</h5>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<div style="padding: 10px 16px; background: white; border-radius: 8px; font-size: 14px;"><span style="color: #6366f1; font-weight: 600;">short</span> <span style="color: #64748b;">（短整型）</span>：范围小，节省空间</div>
+<div style="padding: 10px 16px; background: white; border-radius: 8px; font-size: 14px;"><span style="color: #10b981; font-weight: 600;">int</span> <span style="color: #64748b;">（整型）</span>：最常用，范围适中</div>
+<div style="padding: 10px 16px; background: white; border-radius: 8px; font-size: 14px;"><span style="color: #f59e0b; font-weight: 600;">long</span> <span style="color: #64748b;">（长整型）</span>：范围大，存大数字</div>
+</div>
+</div>
+<div style="padding: 16px; background: #f8fafc; border-radius: 12px;">
+<h5 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: #475569;">📌 应用场景</h5>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<span style="padding: 6px 14px; background: white; border-radius: 20px; font-size: 13px; color: #0f172a; border: 1px solid #e2e8f0;">👤 用户ID：12345678</span>
+<span style="padding: 6px 14px; background: white; border-radius: 20px; font-size: 13px; color: #0f172a; border: 1px solid #e2e8f0;">📦 商品库存：999</span>
+<span style="padding: 6px 14px; background: white; border-radius: 20px; font-size: 13px; color: #0f172a; border: 1px solid #e2e8f0;">🛒 订单数量：5</span>
+<span style="padding: 6px 14px; background: white; border-radius: 20px; font-size: 13px; color: #0f172a; border: 1px solid #e2e8f0;">🎂 年龄：25</span>
+</div>
+</div>
+</div>
+
+### 3.2 字符型（String）
+
+**专业定义**：字符型是由零个或多个字符组成的序列，用于表示文本信息。
+
+**大白话**：就是文字，可以是一个字、一个词、一句话，甚至一整篇文章。
+
+**核心概念：**
+
+| 概念 | 专业解释 | 大白话 | 例子 |
+|-----|---------|-------|-----|
+| 字符 | 单个符号 | 一个字或符号 | "A"、"中"、"@" |
+| 字符串 | 字符序列 | 多个字连在一起 | "Hello"、"你好世界" |
+| 空字符串 | 长度为0 | 什么都没有 | "" |
+| 引号 | 表示字符串边界 | 用引号包起来 | "内容" 或 '内容' |
+
+**应用场景卡片：**
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #10b981;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #d1fae5;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #10b981, #34d399); color: white; font-size: 20px;">📝</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">字符串应用场景</h4>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+<div style="padding: 16px; background: #f0fdf4; border-radius: 12px;">
+<h5 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: #059669;">👤 用户信息</h5>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">用户名：</span><span style="color: #0f172a; font-weight: 600;">"张三"</span></div>
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">手机号：</span><span style="color: #0f172a; font-weight: 600;">"13800138000"</span></div>
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">邮箱：</span><span style="color: #0f172a; font-weight: 600;">"zhangsan@example.com"</span></div>
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">地址：</span><span style="color: #0f172a; font-weight: 600;">"北京市朝阳区xxx街道xxx号"</span></div>
+</div>
+</div>
+<div style="padding: 16px; background: #fef3c7; border-radius: 12px;">
+<h5 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: #d97706;">📦 内容信息</h5>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">商品标题：</span><span style="color: #0f172a; font-weight: 600;">"iPhone 15 Pro Max"</span></div>
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">商品描述：</span><span style="color: #0f172a; font-weight: 600;">"全新未拆封，正品保证..."</span></div>
+<div style="padding: 8px 12px; background: white; border-radius: 8px; font-size: 13px;"><span style="color: #64748b;">评论内容：</span><span style="color: #0f172a; font-weight: 600;">"这个商品很好用！"</span></div>
+</div>
+</div>
+</div>
+</div>
+
+### 3.3 浮点型（float/double）
+
+**专业定义**：浮点型是用于存储带小数部分的数值，float精度较低，double精度较高。
+
+**大白话**：就是带小数点的数字，用于需要精确计量的场景。
+
+**核心概念：**
+
+| 概念 | 专业解释 | 大白话 | 例子 |
+|-----|---------|-------|-----|
+| float | 单精度浮点数 | 精度一般，省空间 | 3.14f |
+| double | 双精度浮点数 | 精度高，更常用 | 3.14159265359 |
+| 精度问题 | 浮点数可能有误差 | 小数可能不精确 | 0.1 + 0.2 ≠ 0.3 |
+
+**对比卡片：**
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #f59e0b;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #fef3c7;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f59e0b, #fbbf24); color: white; font-size: 20px;">⚖️</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">float 与 double 对比</h4>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 20px;">
+<div style="padding: 20px; background: #fef3c7; border-radius: 12px; text-align: center;">
+<div style="width: 48px; height: 48px; margin: 0 auto 12px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; font-weight: 700; font-size: 16px;">F</div>
+<h5 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 700; color: #92400e;">float（单精度）</h5>
+<div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px;">
+<div style="padding: 6px 12px; background: white; border-radius: 6px;"><span style="color: #64748b;">精度：</span><span style="color: #0f172a; font-weight: 600;">约7位小数</span></div>
+<div style="padding: 6px 12px; background: white; border-radius: 6px;"><span style="color: #64748b;">占用：</span><span style="color: #0f172a; font-weight: 600;">4字节</span></div>
+<div style="padding: 6px 12px; background: white; border-radius: 6px;"><span style="color: #64748b;">适用：</span><span style="color: #0f172a; font-weight: 600;">一般计算</span></div>
+</div>
+</div>
+<div style="padding: 20px; background: #dbeafe; border-radius: 12px; text-align: center;">
+<div style="width: 48px; height: 48px; margin: 0 auto 12px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; font-weight: 700; font-size: 16px;">D</div>
+<h5 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 700; color: #1e40af;">double（双精度）</h5>
+<div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px;">
+<div style="padding: 6px 12px; background: white; border-radius: 6px;"><span style="color: #64748b;">精度：</span><span style="color: #0f172a; font-weight: 600;">约15位小数</span></div>
+<div style="padding: 6px 12px; background: white; border-radius: 6px;"><span style="color: #64748b;">占用：</span><span style="color: #0f172a; font-weight: 600;">8字节</span></div>
+<div style="padding: 6px 12px; background: white; border-radius: 6px;"><span style="color: #64748b;">适用：</span><span style="color: #0f172a; font-weight: 600;">精确计算</span></div>
+</div>
+</div>
+</div>
+<div style="padding: 16px; background: #f8fafc; border-radius: 12px;">
+<h5 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: #475569;">📌 应用场景</h5>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<span style="padding: 6px 14px; background: white; border-radius: 20px; font-size: 13px; color: #0f172a; border: 1px solid #e2e8f0;">💰 商品价格：99.99元</span>
+<span style="padding: 6px 14px; background: white; border-radius: 20px; font-size: 13px; color: #0f172a; border: 1px solid #e2e8f0;">⭐ 用户评分：4.8分</span>
+<span style="padding: 6px 14px; background: white; border-radius: 20px; font-size: 13px; color: #0f172a; border: 1px solid #e2e8f0;">📍 地理位置：纬度39.9042</span>
+<span style="padding: 6px 14px; background: white; border-radius: 20px; font-size: 13px; color: #0f172a; border: 1px solid #e2e8f0;">🌡️ 温度：36.5°C</span>
+</div>
+</div>
+</div>
+
+### 3.4 布尔型（boolean）
+
+**专业定义**：布尔型只有两个值：true（真）和false（假），用于表示逻辑状态。
+
+**大白话**：就是"是或否"、"开或关"、"有或无"这种二选一的状态。
+
+**核心概念：**
+
+| 概念 | 专业解释 | 大白话 | 例子 |
+|-----|---------|-------|-----|
+| true | 逻辑真 | 是、对、开、有 | 已登录 = true |
+| false | 逻辑假 | 否、错、关、无 | 已登录 = false |
+| 逻辑运算 | 与、或、非 | 组合判断 | A且B、A或B、非A |
+
+**应用场景卡片：**
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #ec4899;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #fce7f3;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #ec4899, #f472b6); color: white; font-size: 20px;">✓✗</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">布尔型应用场景</h4>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+<div style="padding: 16px; background: #fce7f3; border-radius: 12px;">
+<h5 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: #be185d;">👤 用户状态</h5>
+<div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px;">
+<div style="padding: 6px 10px; background: white; border-radius: 6px;"><span style="color: #10b981; font-weight: 600;">true</span>/<span style="color: #ef4444; font-weight: 600;">false</span> <span style="color: #64748b;">isLogin</span></div>
+<div style="padding: 6px 10px; background: white; border-radius: 6px;"><span style="color: #10b981; font-weight: 600;">true</span>/<span style="color: #ef4444; font-weight: 600;">false</span> <span style="color: #64748b;">isVIP</span></div>
+<div style="padding: 6px 10px; background: white; border-radius: 6px;"><span style="color: #10b981; font-weight: 600;">true</span>/<span style="color: #ef4444; font-weight: 600;">false</span> <span style="color: #64748b;">isActive</span></div>
+</div>
+</div>
+<div style="padding: 16px; background: #dbeafe; border-radius: 12px;">
+<h5 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: #1e40af;">🔧 功能开关</h5>
+<div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px;">
+<div style="padding: 6px 10px; background: white; border-radius: 6px;"><span style="color: #10b981; font-weight: 600;">true</span>/<span style="color: #ef4444; font-weight: 600;">false</span> <span style="color: #64748b;">isOpen</span></div>
+<div style="padding: 6px 10px; background: white; border-radius: 6px;"><span style="color: #10b981; font-weight: 600;">true</span>/<span style="color: #ef4444; font-weight: 600;">false</span> <span style="color: #64748b;">isShow</span></div>
+<div style="padding: 6px 10px; background: white; border-radius: 6px;"><span style="color: #10b981; font-weight: 600;">true</span>/<span style="color: #ef4444; font-weight: 600;">false</span> <span style="color: #64748b;">isEnable</span></div>
+</div>
+</div>
+<div style="padding: 16px; background: #d1fae5; border-radius: 12px;">
+<h5 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: #065f46;">✅ 操作结果</h5>
+<div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px;">
+<div style="padding: 6px 10px; background: white; border-radius: 6px;"><span style="color: #10b981; font-weight: 600;">true</span>/<span style="color: #ef4444; font-weight: 600;">false</span> <span style="color: #64748b;">isSuccess</span></div>
+<div style="padding: 6px 10px; background: white; border-radius: 6px;"><span style="color: #10b981; font-weight: 600;">true</span>/<span style="color: #ef4444; font-weight: 600;">false</span> <span style="color: #64748b;">hasError</span></div>
+<div style="padding: 6px 10px; background: white; border-radius: 6px;"><span style="color: #10b981; font-weight: 600;">true</span>/<span style="color: #ef4444; font-weight: 600;">false</span> <span style="color: #64748b;">isValid</span></div>
+</div>
+</div>
+</div>
+</div>
+
+### 3.5 数据类型转换
+
+**专业定义**：将一种数据类型的值转换为另一种数据类型的过程。
+
+**大白话**：就像把"3个苹果"变成"3"这个数字，或者把"3"变成"三"这个文字。
+
+**核心概念：**
+
+| 转换方向 | 专业术语 | 大白话 | 例子 |
+|---------|---------|-------|-----|
+| 整型→字符串 | 类型转换 | 数字变文字 | 123 → "123" |
+| 字符串→整型 | 解析转换 | 文字变数字 | "456" → 456 |
+| 整型→浮点型 | 自动转换 | 整数变小数 | 5 → 5.0 |
+| 浮点型→整型 | 强制转换 | 小数变整数（丢精度）| 3.9 → 3 |
+
+**结构图：**
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────┐
+│                    数据类型转换                                  │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   【整型 → 字符串】                                             │
+│   int age = 25;                                                │
+│   String ageStr = String.valueOf(age);  // "25"                │
+│                                                                 │
+│   【字符串 → 整型】                                             │
+│   String num = "100";                                          │
+│   int number = Integer.parseInt(num);   // 100                 │
+│                                                                 │
+│   【整型 → 浮点型】                                             │
+│   int count = 5;                                               │
+│   float price = count * 1.0f;           // 5.0                  │
+│                                                                 │
+│   【浮点型 → 整型】（注意精度丢失！）                            │
+│   float score = 4.9f;                                          │
+│   int level = (int) score;              // 4（不是5！）          │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+---
+
+## 四、市面产品案例
+
+### 案例1：淘宝商品详情页
+
+**场景**：用户在淘宝查看一个商品的详情页面。
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────┐
+│                    淘宝商品详情数据类型                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  【前端展示】              【数据类型】        【示例值】         │
+│                                                                 │
+│  商品标题                  String             "iPhone 15 Pro"  │
+│  商品价格                  float/double       7999.00          │
+│  月销量                    int                5000             │
+│  库存数量                  int                999              │
+│  评分                      float              4.9              │
+│  是否包邮                  boolean            true             │
+│  是否有货                  boolean            true             │
+│  商品ID                    long               1234567890123    │
+│  商品描述                  String             "全新正品..."     │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+**技术细节表格：**
+
+| 步骤 | 用户视角 | 技术视角 | 涉及组件 |
+|-----|---------|---------|---------|
+| 商品价格 | ¥7999.00 | 需要精确到分 | float/double，支持小数 |
+| 月销量 | 月销5000件 | 只能是整数 | int，整数计数 |
+| 是否包邮 | 包邮标签 | 开关状态 | boolean，只有两种状态 |
+| 商品ID | 用户不关心 | 唯一标识 | long，数字可能很大 |
+
+### 案例2：微信个人信息
+
+**场景**：用户查看自己的微信个人资料页面。
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────┐
+│                    微信个人信息数据类型                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  【前端展示】              【数据类型】        【示例值】         │
+│                                                                 │
+│  昵称                      String             "小明"            │
+│  微信号                    String             "xiaoming123"    │
+│  地区                      String             "北京 朝阳"       │
+│  手机号                    String             "138****8000"    │
+│  是否已实名                boolean            true             │
+│  账号状态                  int                1（正常）         │
+│  注册时间                  long               1609459200000    │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+**为什么手机号用String不用int？**
+
+| 考虑因素 | int类型 | String类型 |
+|---------|--------|-----------|
+| 前导零 | 丢失（0138→138）| 保留（"0138"）|
+| 国际号码 | 无法表示+86 | 可以表示"+86138..." |
+| 格式化 | 不方便 | 方便加空格、横线 |
+| 存储空间 | 较小 | 较大 |
+
+### 案例3：美团外卖订单
+
+**场景**：用户在美团下单购买外卖。
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────┐
+│                    美团外卖订单数据类型                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  【前端展示】              【数据类型】        【示例值】         │
+│                                                                 │
+│  订单号                    String/long        "MT202403150001" │
+│  商品名称                  String             "黄焖鸡米饭"      │
+│  商品数量                  int                2                │
+│  商品单价                  float              28.00            │
+│  配送费                    float              5.00             │
+│  总价                      float              61.00            │
+│  是否已支付                boolean            true             │
+│  是否已送达                boolean            false            │
+│  订单状态                  int                2（配送中）       │
+│  收货地址                  String             "北京市..."       │
+│  备注                      String             "少放辣"          │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+---
+
+## 五、沟通场景
+
+### 场景1：价格字段设计
+
+**背景**：产品经理在设计商品价格字段时，需要与开发确认数据类型。
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────┐
+│                         沟通场景                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  产品经理：商品价格我写了个字段，直接用int存就行吧？              │
+│                                                                 │
+│  开发：价格不能用int，因为有小数，比如9.9元。                    │
+│        建议用decimal或者int存分（990分）。                       │
+│                                                                 │
+│  产品经理：为什么要存分？直接存小数不就行了？                     │
+│                                                                 │
+│  开发：浮点数计算有精度问题，比如0.1+0.2可能不等于0.3。          │
+│        存成分就都是整数，计算不会出错。                          │
+│                                                                 │
+│  产品经理：明白了，那就用分来存，显示的时候再转成元。             │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+**技术原理卡片：**
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #ef4444;">
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+<div style="padding: 20px; background: #fef2f2; border-radius: 12px; border-left: 4px solid #ef4444;">
+<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+<span style="font-size: 24px;">❌</span>
+<h5 style="margin: 0; font-size: 16px; font-weight: 700; color: #dc2626;">错误做法</h5>
+</div>
+<p style="margin: 0 0 12px 0; font-size: 14px; color: #64748b;">直接用float存价格</p>
+<div style="padding: 12px; background: #1e293b; border-radius: 8px; font-family: monospace; font-size: 13px; color: #e2e8f0;">
+<div style="color: #94a3b8;">float price = 0.1 + 0.2;</div>
+<div style="color: #f87171; margin-top: 8px;">// 结果：0.30000000000000004</div>
+<div style="color: #fca5a5;">// 精度丢失！</div>
+</div>
+</div>
+<div style="padding: 20px; background: #f0fdf4; border-radius: 12px; border-left: 4px solid #10b981;">
+<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+<span style="font-size: 24px;">✅</span>
+<h5 style="margin: 0; font-size: 16px; font-weight: 700; color: #059669;">正确做法</h5>
+</div>
+<p style="margin: 0 0 12px 0; font-size: 14px; color: #64748b;">用int存分</p>
+<div style="padding: 12px; background: #1e293b; border-radius: 8px; font-family: monospace; font-size: 13px; color: #e2e8f0;">
+<div style="color: #94a3b8;">int priceInCents = 10 + 20; <span style="color: #6b7280;">// 单位：分</span></div>
+<div style="color: #4ade80; margin-top: 8px;">// 显示时：priceInCents / 100.0</div>
+<div style="color: #86efac;">// 结果：0.30元 ✓</div>
+</div>
+</div>
+</div>
+</div>
+
+### 场景2：手机号字段设计
+
+**背景**：产品经理在设计用户手机号字段。
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────┐
+│                         沟通场景                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  产品经理：用户手机号用int类型存吧，反正都是数字。                │
+│                                                                 │
+│  开发：手机号不建议用int，用String更好。                        │
+│                                                                 │
+│  产品经理：为什么？数字不是用int更合适吗？                        │
+│                                                                 │
+│  开发：几个原因：                                               │
+│        1. 手机号可能以0开头，int会丢失前导零                     │
+│        2. 国际号码有+号，int存不了                              │
+│        3. 手机号不会参与数学运算，没必要用数字类型               │
+│                                                                 │
+│  产品经理：有道理，那就用String。                                │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+### 场景3：状态字段设计
+
+**背景**：产品经理设计订单状态字段。
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────┐
+│                         沟通场景                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  产品经理：订单状态我想用String存，比如"待支付"、"已支付"。       │
+│                                                                 │
+│  开发：状态字段建议用int或者枚举，不用String。                   │
+│                                                                 │
+│  产品经理：String不是更直观吗？                                  │
+│                                                                 │
+│  开发：String有几个问题：                                        │
+│        1. 占用空间大                                            │
+│        2. 容易写错，比如"待支付"写成"待付款"                     │
+│        3. 查询效率低                                            │
+│        用int：1=待支付，2=已支付，3=已发货...                    │
+│                                                                 │
+│  产品经理：明白了，那用int，我会在文档里写清楚对应关系。          │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+---
+
+## 六、常见误区
+
+### 误区1："数字就应该用int存"
+
+**错误认知**：只要是数字，就用整型存储。
+
+**正确理解**：要看数字的用途。
+
+| 对比维度 | 错误理解 | 正确理解 |
+|---------|---------|---------|
+| 手机号 | 用int存 | 用String存（不参与计算，可能有前导零）|
+| 价格 | 用int存 | 用int存分，或用decimal |
+| 数量 | 用int存 | 用int存（正确）|
+| ID | 用int存 | 看情况，大ID用long或String |
+
+**产品经理启示**：数字是否用int，要看是否需要数学运算，以及是否有特殊格式要求。
+
+### 误区2："String可以存任何东西"
+
+**错误认知**：String万能，什么都可以用String存。
+
+**正确理解**：String虽然灵活，但不是万能的。
+
+| 对比维度 | 错误理解 | 正确理解 |
+|---------|---------|---------|
+| 状态字段 | 用String存 | 用int或枚举更高效 |
+| 数量字段 | 用String存 | 用int，方便计算和排序 |
+| 布尔状态 | 用String存"是/否" | 用boolean更节省空间 |
+
+**产品经理启示**：选择数据类型要考虑存储效率、查询效率、计算便利性。
+
+### 误区3："浮点数计算一定精确"
+
+**错误认知**：浮点数就是带小数的精确数字。
+
+**正确理解**：浮点数存在精度问题。
+
+| 对比维度 | 错误理解 | 正确理解 |
+|---------|---------|---------|
+| 0.1+0.2 | 等于0.3 | 可能等于0.30000000000000004 |
+| 金额计算 | 用float | 用decimal或存分 |
+| 精度要求 | float够用 | 高精度用double或decimal |
+
+**产品经理启示**：涉及金额、精度要求高的场景，要提醒开发注意精度问题。
+
+### 误区4："数据类型转换很简单"
+
+**错误认知**：数据类型转换不会有问题。
+
+**正确理解**：类型转换可能导致数据丢失或错误。
+
+| 对比维度 | 错误理解 | 正确理解 |
+|---------|---------|---------|
+| 字符串转数字 | "abc"能转成数字 | 会报错或返回异常值 |
+| 浮点转整型 | 3.9转成4 | 会截断成3，不是四舍五入 |
+| 大数字转小类型 | 没问题 | 可能溢出，变成负数 |
+
+**产品经理启示**：涉及类型转换的需求，要和开发确认边界情况的处理。
+
+---
+
+## 七、思考题
+
+### 思考题1
+
+**问题**：在设计一个用户年龄字段时，应该用什么数据类型？为什么？
+
+<details>
+<summary>点击查看参考答案</summary>
+
+**答案内容：**
+
+建议使用整型（int）存储年龄，原因如下：
+
+1. **年龄是整数**：年龄通常按周岁计算，没有小数
+2. **范围有限**：年龄一般在0-150之间，int完全够用
+3. **便于计算**：可能需要根据年龄做筛选、排序、统计
+4. **节省空间**：int比String占用空间小
+
+但要注意：
+- 如果需要精确到月龄（如婴儿），可以考虑用浮点型或单独存月份
+- 如果需要存储出生日期，建议用日期类型，年龄通过计算得出
+
+</details>
+
+### 思考题2
+
+**问题**：为什么商品评分（如4.8分）用浮点型，而评分人数用整型？
+
+<details>
+<summary>点击查看参考答案</summary>
+
+**答案内容：**
+
+| 字段 | 数据类型 | 原因 |
+|-----|---------|------|
+| 商品评分 | float/double | 评分是平均值，如4.8、4.5等，需要小数 |
+| 评分人数 | int | 人数只能是整数，不能有半个人 |
+
+评分的计算逻辑：
+\`\`\`
+评分 = 所有评分的总和 / 评分人数
+例如：5+4+5+5+4 = 23分，23/5 = 4.6分
+\`\`\`
+
+这就是为什么评分需要浮点型（计算结果有小数），而人数用整型（计数）。
+
+</details>
+
+### 思考题3
+
+**问题**：在设计"用户是否同意用户协议"这个字段时，应该用什么数据类型？
+
+<details>
+<summary>点击查看参考答案</summary>
+
+**答案内容：**
+
+建议使用布尔型（boolean），原因：
+
+1. **只有两种状态**：同意或不同意，没有第三种可能
+2. **语义清晰**：isAgreed = true/false，一目了然
+3. **节省空间**：boolean只占1位
+4. **便于判断**：代码中可以直接 if(isAgreed) 判断
+
+不建议的做法：
+- ❌ 用int存0/1：不够直观
+- ❌ 用String存"是"/"否"：浪费空间
+- ❌ 用String存"true"/"false"：多此一举
+
+</details>
+
+---
+
+## 八、本节小结
+
+### 知识图谱
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────┐
+│                    基本数据类型知识图谱                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│                      ┌─────────────┐                           │
+│                      │  数据类型    │                           │
+│                      └──────┬──────┘                           │
+│                             │                                   │
+│        ┌────────────────────┼────────────────────┐             │
+│        │                    │                    │             │
+│   ┌────▼────┐         ┌─────▼─────┐       ┌─────▼─────┐       │
+│   │数值类型  │         │字符类型    │       │逻辑类型    │       │
+│   └────┬────┘         └───────────┘       └───────────┘       │
+│        │                    │                                   │
+│   ┌────┴────┐               │                                   │
+│   │    │    │               │                                   │
+│ ┌─▼─┐┌─▼─┐┌─▼─┐        ┌───▼───┐                              │
+│ │int││float││long│       │String │        ┌─────────┐          │
+│ └───┘└────┘└───┘        └───────┘        │boolean │          │
+│                                            └─────────┘          │
+│                                                                 │
+│   整数    小数   大整数      文本字符串      true/false        │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+### 产品经理需要记住的3句话
+
+1. **选对类型很重要**——数据类型决定了数据能存什么、能做什么操作
+2. **数字不一定是int**——手机号用String，价格用分存，状态用枚举
+3. **类型转换有风险**——浮点转整型会截断，字符串转数字可能失败
+
+### 自检清单
+
+在提需求前，问自己这些问题：
+
+- [ ] 这个字段存储的是什么类型的数据？
+- [ ] 这个数据需要参与数学运算吗？
+- [ ] 这个数据有格式要求吗（如前导零、特殊符号）？
+- [ ] 这个数据需要精确到小数吗？
+- [ ] 这个字段只有两种状态吗？是否适合用布尔型？
+
+---
+
+## 上一篇 & 下一篇
+
+**上一篇**：[返回篇章导读](./README.md)
+
+**下一篇**：[逻辑结构](./02-逻辑结构.md)`
+    },
+    {
+        id: 'prog-2',
+        categoryId: 'programming',
+        title: '逻辑结构',
+        difficulty: 'beginner',
+        summary: '理解程序如何决定"下一步做什么"：条件判断、条件选择、循环操作三大控制结构。',
+        technicalContent: {
+            principle: `
+<section class="tech-module" data-module="principle">
+<div class="module-header">
+<span class="module-icon">🔬</span>
+<h2>技术原理：程序控制结构</h2>
+</div>
+<div class="highlight-box">
+<blockquote>
+<strong>逻辑结构（Control Structure）</strong>是程序设计中控制代码执行顺序的结构，决定了程序如何根据条件选择执行路径或重复执行某些代码。
+</blockquote>
+</div>
+<h3>一、三大基本结构</h3>
+<div class="tech-diagram">
+<div class="diagram-flow">
+<div class="diagram-node">
+<div class="node-icon">🔀</div>
+<div class="node-title">条件判断</div>
+<div class="node-desc">if-else<br/>根据条件选择</div>
+</div>
+<div class="diagram-arrow">+</div>
+<div class="diagram-node">
+<div class="node-icon">📋</div>
+<div class="node-title">条件选择</div>
+<div class="node-desc">switch-case<br/>根据值选择</div>
+</div>
+<div class="diagram-arrow">+</div>
+<div class="diagram-node">
+<div class="node-icon">🔄</div>
+<div class="node-title">循环操作</div>
+<div class="node-desc">while/for<br/>重复执行</div>
+</div>
+</div>
+</div>
+<h4>1.1 条件判断（if-else）</h4>
+<p><strong>专业定义</strong>：根据布尔表达式的真假，选择执行不同的代码分支。</p>
+<p><strong>大白话</strong>：就是"如果...就...，否则..."的判断逻辑。</p>
+<table class="concept-table">
+<thead><tr><th>概念</th><th>专业解释</th><th>大白话</th></tr></thead>
+<tbody>
+<tr><td><strong>if</strong></td><td>条件为真时执行</td><td>如果...</td></tr>
+<tr><td><strong>else</strong></td><td>条件为假时执行</td><td>否则...</td></tr>
+<tr><td><strong>else if</strong></td><td>多条件判断</td><td>或者如果...</td></tr>
+<tr><td><strong>条件表达式</strong></td><td>返回布尔值的表达式</td><td>判断条件</td></tr>
+</tbody>
+</table>
+<h4>1.2 条件选择（switch-case）</h4>
+<p><strong>专业定义</strong>：根据变量的不同值，跳转到对应的case分支执行。</p>
+<p><strong>大白话</strong>：就像餐厅点餐，点什么菜就做什么菜，不用一个个判断。</p>
+<table class="concept-table">
+<thead><tr><th>概念</th><th>专业解释</th><th>大白话</th></tr></thead>
+<tbody>
+<tr><td><strong>switch</strong></td><td>被判断的变量</td><td>要判断的东西</td></tr>
+<tr><td><strong>case</strong></td><td>可能的值</td><td>各种选项</td></tr>
+<tr><td><strong>break</strong></td><td>跳出switch</td><td>选完就停</td></tr>
+<tr><td><strong>default</strong></td><td>默认情况</td><td>其他情况</td></tr>
+</tbody>
+</table>
+<h4>1.3 循环操作（while/for）</h4>
+<p><strong>专业定义</strong>：重复执行某段代码，直到满足退出条件。</p>
+<p><strong>大白话</strong>：就是"重复做某事，直到达到目标"。</p>
+<table class="concept-table">
+<thead><tr><th>循环类型</th><th>特点</th><th>适用场景</th></tr></thead>
+<tbody>
+<tr><td><strong>while</strong></td><td>先判断后执行</td><td>不确定循环次数</td></tr>
+<tr><td><strong>do-while</strong></td><td>先执行后判断</td><td>至少执行一次</td></tr>
+<tr><td><strong>for</strong></td><td>计数循环</td><td>知道循环次数</td></tr>
+</tbody>
+</table>
+<h3>二、循环控制语句</h3>
+<table class="concept-table">
+<thead><tr><th>语句</th><th>作用</th><th>大白话</th><th>例子</th></tr></thead>
+<tbody>
+<tr><td><strong>break</strong></td><td>跳出整个循环</td><td>不跑了，直接结束</td><td>找到目标就停止</td></tr>
+<tr><td><strong>continue</strong></td><td>跳过本次循环</td><td>这次不算，继续下次</td><td>跳过无效数据</td></tr>
+<tr><td><strong>return</strong></td><td>跳出整个函数</td><td>直接回家</td><td>找到结果就返回</td></tr>
+</tbody>
+</table>
+</section>
+`,
+            role: `
+<section class="tech-module" data-module="role">
+<div class="module-header">
+<span class="module-icon">🎯</span>
+<h2>核心作用：控制程序流程</h2>
+</div>
+<div class="highlight-box">
+<blockquote>
+逻辑结构是程序的"大脑"，决定程序在什么情况下做什么事，以及什么时候重复做某件事。
+</blockquote>
+</div>
+<h3>if-else vs switch-case 选择指南</h3>
+<table class="concept-table">
+<thead><tr><th>对比维度</th><th>if-else</th><th>switch-case</th></tr></thead>
+<tbody>
+<tr><td><strong>条件类型</strong></td><td>范围、布尔、复杂表达式</td><td>固定值</td></tr>
+<tr><td><strong>可读性</strong></td><td>条件多时较乱</td><td>选项多时更清晰</td></tr>
+<tr><td><strong>性能</strong></td><td>逐个判断</td><td>跳转表，更快</td></tr>
+<tr><td><strong>灵活性</strong></td><td>更灵活</td><td>更受限</td></tr>
+</tbody>
+</table>
+<h3>循环选择指南</h3>
+<table class="concept-table">
+<thead><tr><th>场景</th><th>推荐循环</th><th>原因</th></tr></thead>
+<tbody>
+<tr><td>遍历数组/列表</td><td>for</td><td>知道循环次数</td></tr>
+<tr><td>加载直到成功</td><td>while</td><td>不知道要尝试多少次</td></tr>
+<tr><td>处理用户输入</td><td>while</td><td>不知道用户会输入多少次</td></tr>
+<tr><td>分页加载数据</td><td>while</td><td>不知道有多少页</td></tr>
+<tr><td>倒计时功能</td><td>for</td><td>知道循环次数</td></tr>
+</tbody>
+</table>
+</section>
+`,
+            businessScenario: `
+<section class="tech-module" data-module="businessScenario">
+<div class="module-header">
+<span class="module-icon">💼</span>
+<h2>业务场景：实际产品中的逻辑结构</h2>
+</div>
+<h3>案例1：微信登录判断</h3>
+<div class="scenario-timeline">
+<div class="scenario-item">
+<div class="scenario-number">1</div>
+<div class="scenario-content">
+<h4>用户视角</h4>
+<p>打开微信 → 看到首页 or 看到登录页</p>
+</div>
+</div>
+<div class="scenario-item">
+<div class="scenario-number">2</div>
+<div class="scenario-content">
+<h4>技术实现</h4>
+<div class="code-block">
+<pre><code>if (isLogin == true) {
+    显示首页
 } else {
-    console.log('❌ 验证失败：', result.errors);
+    跳转登录页
 }</code></pre>
-                        </div>
-                    </div>
-                    
-                    <h3>三、应用场景</h3>
-                    
-                    <h4>3.1 代码解读（产品经理视角）</h4>
-                    
-                    <div class="code-explanation">
-                        <div class="explanation-item">
-                            <h5>📌 数据对象是什么？</h5>
-                            <p><strong>userData</strong> 就是一个"用户档案袋"，里面装着用户填写的所有信息：</p>
-                            <table class="concept-table">
-                                <thead>
-                                    <tr>
-                                        <th>类型</th>
-                                        <th>包含字段</th>
-                                        <th>特点</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>String</strong></td>
-                                        <td>用户名、手机号、邮箱</td>
-                                        <td>文本信息，不能做数学运算</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Number</strong></td>
-                                        <td>年龄、身高</td>
-                                        <td>数值信息，可以计算</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Boolean</strong></td>
-                                        <td>是否会员、是否同意协议</td>
-                                        <td>只有两种状态：是/否</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Array</strong></td>
-                                        <td>兴趣爱好、收货地址</td>
-                                        <td>可以放多个同类信息</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <div class="explanation-item">
-                            <h5>📌 验证函数在做什么？</h5>
-                            <p>就像快递员检查包裹，确保数据符合要求：</p>
-                            <ul class="feature-list">
-                                <li><strong>类型检查</strong>：<code>typeof</code> 检查数据是不是正确的类型</li>
-                                <li><strong>长度检查</strong>：<code>.length</code> 检查文字长度是否在范围内</li>
-                                <li><strong>格式检查</strong>：正则表达式检查手机号格式</li>
-                                <li><strong>范围检查</strong>：检查数字是否在合理范围内</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="explanation-item">
-                            <h5>📌 与产品功能的关系</h5>
-                            <p>当用户点击"注册"按钮时的完整流程：</p>
-                            <div class="info-block">
-                                <ol class="feature-list">
-                                    <li><strong>数据收集</strong>：前端收集用户填写的数据 → 形成 userData 对象</li>
-                                    <li><strong>前端验证</strong>：调用验证函数检查数据 → validateUserData</li>
-                                    <li><strong>错误提示</strong>：如果有错误，显示错误提示 → errors</li>
-                                    <li><strong>提交保存</strong>：如果验证通过，发送给服务器保存</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h4>3.2 产品经理关注要点</h4>
-                    <div class="tips-box">
-                        <h5>📋 需求文档中需要明确的内容</h5>
-                        <table class="concept-table">
-                            <thead>
-                                <tr>
-                                    <th>关注点</th>
-                                    <th>问题</th>
-                                    <th>示例答案</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>验证规则</strong></td>
-                                    <td>每个字段的验证规则是什么？</td>
-                                    <td>手机号11位、年龄0-150</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>错误提示</strong></td>
-                                    <td>验证失败时提示什么信息？</td>
-                                    <td>"请输入正确的手机号"</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>必填标识</strong></td>
-                                    <td>哪些字段是必填的？</td>
-                                    <td>手机号必填，昵称选填</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>默认值</strong></td>
-                                    <td>字段的默认值是什么？</td>
-                                    <td>是否会员默认false</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>边界处理</strong></td>
-                                    <td>特殊情况怎么处理？</td>
-                                    <td>空值显示"未设置"</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    </section>
-                `
-            },
-            content: `
-                <div class="knowledge-overview">
-                    <h4>【知识点概览】</h4>
-                    <div class="overview-item"><strong>核心内容：</strong>用生活中的例子理解程序中的数据类型，包括字符串、数字、布尔值、数组、对象等基本概念。</div>
-                    <div class="overview-item"><strong>学习目标：</strong>能够识别业务场景中的数据类型，掌握数据字段设计的基本方法，能与技术讨论数据存储方案。</div>
-                    <div class="overview-item"><strong>课程定位：</strong>这是编程入门的第一课，是理解程序如何处理信息的基础，为后续学习程序逻辑奠定基础。</div>
-                </div>
-                
-                <h3>📦 数据就是"东西"</h3>
-                <p>在程序员眼里，世界上的一切都是<strong>数据</strong>。就像你家里的东西一样，数据也有不同的类型。</p>
-                
-                <div class="example-box">
-                    <h4>🏠 打个比方：你家里的东西</h4>
-                    <table class="concept-table">
-                        <tr>
-                            <th>家里的东西</th>
-                            <th>程序里的数据</th>
-                            <th>例子</th>
-                        </tr>
-                        <tr>
-                            <td>写着字的纸条</td>
-                            <td>文字（字符串）</td>
-                            <td>用户名、地址、商品名称</td>
-                        </tr>
-                        <tr>
-                            <td>计算器上的数字</td>
-                            <td>数字（数值）</td>
-                            <td>价格、数量、年龄</td>
-                        </tr>
-                        <tr>
-                            <td>开关（开/关）</td>
-                            <td>真假（布尔值）</td>
-                            <td>是否会员、是否上架</td>
-                        </tr>
-                        <tr>
-                            <td>相册</td>
-                            <td>列表（数组）</td>
-                            <td>购物车里的商品列表</td>
-                        </tr>
-                        <tr>
-                            <td>档案袋（装着各种资料）</td>
-                            <td>对象（字典）</td>
-                            <td>一个用户的全部信息</td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <h3>📝 文字（字符串）</h3>
-                <p><strong>字符串</strong>就是一串文字，用引号包起来。</p>
-                
-                <div class="code-block">
-                    <div class="code-header"><span class="code-lang">生活中的字符串</span></div>
-                    <pre><code>"张三"                    ← 用户名
-"北京市朝阳区"            ← 地址
-"13800138000"            ← 手机号（虽然是数字，但通常当字符串存）
-"这款商品真的很不错！"     ← 评论内容</code></pre>
-                </div>
-                
-                <div class="info-box">
-                    <h4>💡 产品经理要注意</h4>
-                    <ul>
-                        <li>手机号、身份证号虽然是数字，但要用<strong>字符串</strong>存（因为不用计算，而且可能以0开头）</li>
-                        <li>设计字段时要考虑<strong>最大长度</strong>，比如用户名最多20个字</li>
-                        <li>文字内容要考虑<strong>特殊字符</strong>，比如表情符号、引号</li>
-                    </ul>
-                </div>
-                
-                <h3>🔢 数字（数值）</h3>
-                <p>数字就是可以计算的数值，分为整数和小数。</p>
-                
-                <div class="code-block">
-                    <div class="code-header"><span class="code-lang">生活中的数字</span></div>
-                    <pre><code>整数：
-25    ← 年龄
-100   ← 商品库存
-5     ← 评分（1-5星）
+</div>
+</div>
+</div>
+</div>
+<h3>案例2：淘宝订单状态</h3>
+<table class="concept-table">
+<thead><tr><th>订单状态</th><th>显示按钮</th><th>技术实现</th></tr></thead>
+<tbody>
+<tr><td>待支付</td><td>"去支付"</td><td>case 1:</td></tr>
+<tr><td>已支付</td><td>"提醒发货"</td><td>case 2:</td></tr>
+<tr><td>已发货</td><td>"确认收货"</td><td>case 3:</td></tr>
+<tr><td>已完成</td><td>"评价"</td><td>case 4:</td></tr>
+</tbody>
+</table>
+<h3>案例3：抖音视频列表加载</h3>
+<div class="code-block">
+<pre><code>while (用户正在浏览) {
+    if (当前视频是最后一个) {
+        加载更多视频();
+    }
+    if (用户滑到下一个) {
+        播放下一个视频();
+    }
+    if (用户退出) {
+        break;  // 退出循环
+    }
+}</code></pre>
+</div>
+</section>
+`,
+            pmDevScenario: `
+<section class="tech-module" data-module="pmDevScenario">
+<div class="module-header">
+<span class="module-icon">🗣️</span>
+<h2>产品经理与开发沟通场景</h2>
+</div>
+<h3>场景1：需求中的条件判断</h3>
+<div class="conversation-box">
+<div class="conversation-item">
+<div class="conv-content">
+<p><strong>产品经理：</strong>"如果用户是VIP，就显示专属价格，否则显示原价。"</p>
+<p><strong>开发：</strong>"那如果用户既是VIP又是新用户呢？"</p>
+<p><strong>产品经理：</strong>"新用户优先，显示新用户价格。"</p>
+<p><strong>开发：</strong>"明白了，逻辑是这样的：<br/>if (是新用户) { 显示新用户价格 }<br/>else if (是VIP) { 显示VIP价格 }<br/>else { 显示原价 }"</p>
+</div>
+</div>
+</div>
+<h3>场景2：状态机设计</h3>
+<div class="conversation-box">
+<div class="conversation-item">
+<div class="conv-content">
+<p><strong>产品经理：</strong>"订单状态有待支付、已支付、已发货、已完成、已取消。"</p>
+<p><strong>开发：</strong>"我需要确认状态流转规则：待支付可以变成什么状态？"</p>
+<p><strong>产品经理：</strong>"待支付可以变成已支付或已取消。已支付可以变成已发货或已取消（退款）。"</p>
+</div>
+</div>
+</div>
+<h3>场景3：循环加载逻辑</h3>
+<div class="conversation-box">
+<div class="conversation-item">
+<div class="conv-content">
+<p><strong>产品经理：</strong>"商品列表要支持分页加载，每次加载20条。"</p>
+<p><strong>开发：</strong>"那加载到什么时候停止？"</p>
+<p><strong>产品经理：</strong>"没有更多数据时就停止，显示'没有更多了'。"</p>
+</div>
+</div>
+</div>
+</section>
+`,
+            codeExample: `
+<section class="tech-module" data-module="codeExample">
+<div class="module-header">
+<span class="module-icon">💻</span>
+<h2>代码实例：逻辑结构实战</h2>
+</div>
+<div class="code-example">
+<div class="code-example-header">
+<span class="code-example-title">订单状态处理</span>
+<span class="code-example-lang">JavaScript</span>
+</div>
+<div class="code-example-body">
+<pre><code>// 条件判断：用户权限
+if (isNewUser) {
+    showPrice("新用户价格");
+} else if (isVIP) {
+    showPrice("VIP价格");
+} else {
+    showPrice("原价");
+}
 
-小数：
-99.99   ← 商品价格
-4.5     ← 平均评分
-0.85    ← 折扣（85折）</code></pre>
-                </div>
-                
-                <div class="example-box">
-                    <h4>⚠️ 注意：钱怎么存？</h4>
-                    <p>商品价格<strong>不要用小数存</strong>！因为计算机算小数会有误差。</p>
-                    <p><strong>正确做法：</strong>按"分"存整数</p>
-                    <ul>
-                        <li>99.99元 → 存成 9999（分）</li>
-                        <li>显示的时候再除以100</li>
-                    </ul>
-                    <p><strong>产品经理要做什么：</strong>和技术确认价格字段的单位</p>
-                </div>
-                
-                <h3>✅❌ 真假（布尔值）</h3>
-                <p>布尔值只有两种：<strong>是/否</strong>、<strong>真/假</strong>、<strong>开/关</strong></p>
-                
-                <div class="code-block">
-                    <div class="code-header"><span class="code-lang">生活中的布尔值</span></div>
-                    <pre><code>是/否的问题：
-是否会员？      true / false
-是否上架？      true / false
-是否已付款？    true / false
-是否已发货？    true / false
+// 条件选择：订单状态
+switch (orderStatus) {
+    case 1:  // 待支付
+        showButton("去支付");
+        break;
+    case 2:  // 已支付
+        showButton("提醒发货");
+        break;
+    case 3:  // 已发货
+        showButton("确认收货");
+        break;
+    default:
+        showButton("联系客服");
+        break;
+}
 
-开关状态：
-通知开关        开 / 关
-隐私模式        开 / 关</code></pre>
-                </div>
-                
-                <h3>📋 列表（数组）</h3>
-                <p>列表就是一组相同类型的数据，按顺序排列。</p>
-                
-                <div class="example-box">
-                    <h4>🛒 案例：购物车</h4>
-                    <p>你的购物车里有多个商品，这就是一个列表：</p>
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">购物车列表</span></div>
-                        <pre><code>[
-    "iPhone 15",
-    "手机壳",
-    "充电器",
-    "耳机"
-]</code></pre>
-                    </div>
-                </div>
-                
-                <div class="example-box">
-                    <h4>⭐ 案例：评分列表</h4>
-                    <p>一个商品有多个用户评分：</p>
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">评分列表</span></div>
-                        <pre><code>[5, 4, 5, 3, 5, 4, 4, 5]
+// 循环：分页加载
+let page = 1;
+while (hasMoreData) {
+    loadProducts(page);
+    if (products.length === 0) {
+        showNoMore();
+        break;
+    }
+    page++;
+}</code></pre>
+</div>
+</div>
+</section>
+`
+        },
+        content: `# 知识点2：逻辑结构
 
-计算平均分：
-(5+4+5+3+5+4+4+5) ÷ 8 = 4.375</code></pre>
-                    </div>
-                </div>
-                
-                <h3>📁 对象（字典/Map）</h3>
-                <p>对象就像一个档案袋，里面装着一个人的各种信息。</p>
-                
-                <div class="example-box">
-                    <h4>👤 案例：用户信息</h4>
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">一个用户的数据</span></div>
-                        <pre><code>{
-    "用户ID": "12345",
-    "昵称": "小明",
-    "手机号": "13800138000",
-    "年龄": 25,
-    "是否会员": true,
-    "收货地址": [
-        "北京市朝阳区xxx",
-        "上海市浦东新区yyy"
+> **核心问题**：程序如何决定"下一步做什么"？
+
+## 学习目标
+
+学完本节，你将能够：
+
+- [ ] 理解条件判断（if-else）的工作原理和适用场景
+- [ ] 理解条件选择（switch-case）的工作原理和适用场景
+- [ ] 掌握三种循环结构（while、do-while、for）的区别和使用
+- [ ] 能够在需求设计时合理运用逻辑结构描述业务流程
+
+---
+
+## 一、核心概念
+
+### 专业解释
+
+**逻辑结构（Control Structure）**：程序设计中控制代码执行顺序的结构，决定了程序如何根据条件选择执行路径或重复执行某些代码。
+
+- **条件判断（if-else）**：根据条件真假选择执行不同的代码分支
+- **条件选择（switch-case）**：根据变量的不同值选择执行不同的代码分支
+- **循环操作（while/do-while/for）**：重复执行某段代码直到满足退出条件
+
+### 大白话解释
+
+用生活化的语言解释核心概念：
+
+| 技术概念 | 生活类比 | 通俗理解 |
+|---------|---------|---------|
+| 逻辑结构 | 交通路口 | 程序执行的"岔路口"，决定往哪走 |
+| 条件判断（if-else） | 红绿灯 | 绿灯走，红灯停——根据条件做选择 |
+| 条件选择（switch-case） | 餐厅点餐 | 点什么菜就上什么菜——根据选项做选择 |
+| 循环操作 | 跑圈 | 跑够10圈就停——重复做某事直到满足条件 |
+
+---
+
+## 二、生活化类比详解
+
+### 类比主题：出行决策流程
+
+用具体生活场景类比技术概念：
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #6366f1;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e0e7ff;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-size: 20px;">🚗</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">出行决策流程（逻辑结构类比）</h4>
+</div>
+<div style="display: flex; flex-direction: column; gap: 16px;">
+<div style="padding: 16px; background: #eef2ff; border-radius: 12px; border-left: 4px solid #6366f1;">
+<h5 style="margin: 0 0 10px 0; font-size: 14px; font-weight: 600; color: #4f46e5;">【条件判断 if/else】</h5>
+<div style="padding: 12px; background: #1e293b; border-radius: 8px; font-family: monospace; font-size: 13px; color: #e2e8f0;">
+<div><span style="color: #c084fc;">if</span> (下雨) {</div>
+<div style="padding-left: 16px;">打车去上班</div>
+<div>} <span style="color: #c084fc;">else</span> {</div>
+<div style="padding-left: 16px;">骑共享单车</div>
+<div>}</div>
+</div>
+</div>
+<div style="padding: 16px; background: #fef3c7; border-radius: 12px; border-left: 4px solid #f59e0b;">
+<h5 style="margin: 0 0 10px 0; font-size: 14px; font-weight: 600; color: #d97706;">【条件选择 switch/case】</h5>
+<div style="padding: 12px; background: #1e293b; border-radius: 8px; font-family: monospace; font-size: 13px; color: #e2e8f0;">
+<div><span style="color: #c084fc;">switch</span> (今天星期几) {</div>
+<div style="padding-left: 16px;"><span style="color: #fbbf24;">case</span> 周一、周二、周四: 穿正装</div>
+<div style="padding-left: 16px;"><span style="color: #fbbf24;">case</span> 周三、周五: 穿休闲装</div>
+<div style="padding-left: 16px;"><span style="color: #fbbf24;">case</span> 周六、周日: 睡懒觉</div>
+<div>}</div>
+</div>
+</div>
+<div style="padding: 16px; background: #d1fae5; border-radius: 12px; border-left: 4px solid #10b981;">
+<h5 style="margin: 0 0 10px 0; font-size: 14px; font-weight: 600; color: #059669;">【循环操作 while】</h5>
+<div style="padding: 12px; background: #1e293b; border-radius: 8px; font-family: monospace; font-size: 13px; color: #e2e8f0;">
+<div><span style="color: #c084fc;">while</span> (还没到公司) {</div>
+<div style="padding-left: 16px;">继续往前走</div>
+<div>}</div>
+</div>
+</div>
+</div>
+</div>
+
+**对应到互联网产品：**
+
+| 生活场景 | 互联网产品 | 技术术语 |
+|---------|-----------|---------|
+| 下雨就打车 | 未登录就跳转登录页 | 条件判断（if-else）|
+| 周几穿什么 | 订单状态对应不同操作 | 条件选择（switch-case）|
+| 没到公司继续走 | 还有商品继续加载 | 循环操作（while）|
+
+---
+
+## 三、详细原理阐述
+
+### 3.1 条件判断（if-else）
+
+**专业定义**：根据布尔表达式的真假，选择执行不同的代码分支。
+
+**大白话**：就是"如果...就...，否则..."的判断逻辑。
+
+**核心概念：**
+
+| 概念 | 专业解释 | 大白话 | 例子 |
+|-----|---------|-------|-----|
+| if | 条件为真时执行 | 如果... | if(下雨) |
+| else | 条件为假时执行 | 否则... | else |
+| else if | 多条件判断 | 或者如果... | else if(下雪) |
+| 条件表达式 | 返回布尔值的表达式 | 判断条件 | age >= 18 |
+
+**结构卡片：**
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #6366f1;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e0e7ff;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-size: 20px;">🔀</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">if-else 结构</h4>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+<div style="padding: 16px; background: #eef2ff; border-radius: 12px;">
+<h5 style="margin: 0 0 10px 0; font-size: 14px; font-weight: 600; color: #4f46e5;">单分支</h5>
+<div style="padding: 12px; background: #1e293b; border-radius: 8px; font-family: monospace; font-size: 12px; color: #e2e8f0;">
+<div><span style="color: #c084fc;">if</span> (条件) {</div>
+<div style="padding-left: 16px;">执行代码</div>
+<div>}</div>
+</div>
+</div>
+<div style="padding: 16px; background: #fef3c7; border-radius: 12px;">
+<h5 style="margin: 0 0 10px 0; font-size: 14px; font-weight: 600; color: #d97706;">双分支</h5>
+<div style="padding: 12px; background: #1e293b; border-radius: 8px; font-family: monospace; font-size: 12px; color: #e2e8f0;">
+<div><span style="color: #c084fc;">if</span> (条件) {</div>
+<div style="padding-left: 16px; color: #4ade80;">// 条件为真时执行</div>
+<div>} <span style="color: #c084fc;">else</span> {</div>
+<div style="padding-left: 16px; color: #f87171;">// 条件为假时执行</div>
+<div>}</div>
+</div>
+</div>
+<div style="padding: 16px; background: #d1fae5; border-radius: 12px;">
+<h5 style="margin: 0 0 10px 0; font-size: 14px; font-weight: 600; color: #059669;">多分支</h5>
+<div style="padding: 12px; background: #1e293b; border-radius: 8px; font-family: monospace; font-size: 12px; color: #e2e8f0;">
+<div><span style="color: #c084fc;">if</span> (条件1) {</div>
+<div style="padding-left: 16px; color: #4ade80;">// 条件1为真</div>
+<div>} <span style="color: #c084fc;">else if</span> (条件2) {</div>
+<div style="padding-left: 16px; color: #fbbf24;">// 条件2为真</div>
+<div>} <span style="color: #c084fc;">else</span> {</div>
+<div style="padding-left: 16px; color: #94a3b8;">// 都不满足</div>
+<div>}</div>
+</div>
+</div>
+</div>
+</div>
+
+**流程图卡片：**
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #6366f1;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-size: 20px;">📊</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">if-else 流程图</h4>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+<div style="padding: 10px 24px; background: #eef2ff; border-radius: 20px; font-size: 14px; font-weight: 600; color: #4f46e5;">开始</div>
+<div style="font-size: 20px; color: #94a3b8;">↓</div>
+<div style="padding: 14px 24px; background: #fef3c7; border-radius: 8px; font-size: 14px; font-weight: 600; color: #d97706; border: 2px solid #fbbf24;">判断条件</div>
+<div style="display: flex; align-items: center; gap: 60px; margin-top: 8px;">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+<span style="font-size: 12px; color: #10b981; font-weight: 600;">条件为真 →</span>
+<div style="padding: 10px 20px; background: #d1fae5; border-radius: 8px; font-size: 13px; color: #059669; font-weight: 600;">执行代码块A</div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+<span style="font-size: 12px; color: #ef4444; font-weight: 600;">条件为假 →</span>
+<div style="padding: 10px 20px; background: #fee2e2; border-radius: 8px; font-size: 13px; color: #dc2626; font-weight: 600;">执行代码块B</div>
+</div>
+</div>
+<div style="font-size: 20px; color: #94a3b8; margin-top: 8px;">↓</div>
+<div style="padding: 10px 24px; background: #eef2ff; border-radius: 20px; font-size: 14px; font-weight: 600; color: #4f46e5;">结束</div>
+</div>
+</div>
+
+### 3.2 条件选择（switch-case）
+
+**专业定义**：根据变量的不同值，跳转到对应的case分支执行。
+
+**大白话**：就像餐厅点餐，点什么菜就做什么菜，不用一个个判断。
+
+**核心概念：**
+
+| 概念 | 专业解释 | 大白话 | 例子 |
+|-----|---------|-------|-----|
+| switch | 被判断的变量 | 要判断的东西 | switch(星期几) |
+| case | 可能的值 | 各种选项 | case 1: |
+| break | 跳出switch | 选完就停 | break; |
+| default | 默认情况 | 其他情况 | default: |
+
+**结构卡片：**
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #f59e0b;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #fef3c7;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f59e0b, #fbbf24); color: white; font-size: 20px;">📋</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">switch-case 结构</h4>
+</div>
+<div style="padding: 16px; background: #fef3c7; border-radius: 12px; margin-bottom: 16px;">
+<div style="padding: 16px; background: #1e293b; border-radius: 8px; font-family: monospace; font-size: 13px; color: #e2e8f0; line-height: 1.6;">
+<div><span style="color: #c084fc;">switch</span> (变量) {</div>
+<div style="padding-left: 16px; margin-top: 8px;"><span style="color: #fbbf24;">case</span> 值1:</div>
+<div style="padding-left: 32px;">执行代码1</div>
+<div style="padding-left: 32px;"><span style="color: #ef4444;">break;</span></div>
+<div style="padding-left: 16px; margin-top: 8px;"><span style="color: #fbbf24;">case</span> 值2:</div>
+<div style="padding-left: 32px;">执行代码2</div>
+<div style="padding-left: 32px;"><span style="color: #ef4444;">break;</span></div>
+<div style="padding-left: 16px; margin-top: 8px;"><span style="color: #fbbf24;">case</span> 值3:</div>
+<div style="padding-left: 32px;">执行代码3</div>
+<div style="padding-left: 32px;"><span style="color: #ef4444;">break;</span></div>
+<div style="padding-left: 16px; margin-top: 8px;"><span style="color: #94a3b8;">default:</span></div>
+<div style="padding-left: 32px;">默认执行代码</div>
+<div style="padding-left: 32px;"><span style="color: #ef4444;">break;</span></div>
+<div>}</div>
+</div>
+</div>
+<div style="padding: 12px 16px; background: #fef2f2; border-radius: 8px; border-left: 4px solid #ef4444;">
+<span style="font-size: 13px; color: #dc2626; font-weight: 600;">⚠️ 注意：如果不写 break，会继续执行下一个 case（穿透）</span>
+</div>
+</div>
+
+**if-else vs switch-case 对比卡片：**
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #6366f1;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e0e7ff;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-size: 20px;">🔄</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">if-else 与 switch-case 对比</h4>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+<div style="padding: 16px; background: #fef3c7; border-radius: 12px;">
+<h5 style="margin: 0 0 12px 0; font-size: 15px; font-weight: 600; color: #d97706;">if-else</h5>
+<div style="padding: 12px; background: #1e293b; border-radius: 8px; font-family: monospace; font-size: 11px; color: #e2e8f0; line-height: 1.5; margin-bottom: 12px;">
+<div><span style="color: #c084fc;">if</span> (status == 1) {</div>
+<div style="padding-left: 12px;">处理待支付</div>
+<div>} <span style="color: #c084fc;">else if</span> (status == 2) {</div>
+<div style="padding-left: 12px;">处理已支付</div>
+<div>} <span style="color: #c084fc;">else if</span> (status == 3) {</div>
+<div style="padding-left: 12px;">处理已发货</div>
+<div>} <span style="color: #c084fc;">else</span> {</div>
+<div style="padding-left: 12px;">处理其他状态</div>
+<div>}</div>
+</div>
+<div style="font-size: 13px; color: #64748b;">
+<div style="margin-bottom: 6px;"><span style="color: #d97706; font-weight: 600;">适用场景：</span></div>
+<div>✓ 条件是范围判断</div>
+<div>✓ 条件是复杂表达式</div>
+<div>✓ 条件是布尔判断</div>
+</div>
+</div>
+<div style="padding: 16px; background: #dbeafe; border-radius: 12px;">
+<h5 style="margin: 0 0 12px 0; font-size: 15px; font-weight: 600; color: #1d4ed8;">switch-case</h5>
+<div style="padding: 12px; background: #1e293b; border-radius: 8px; font-family: monospace; font-size: 11px; color: #e2e8f0; line-height: 1.5; margin-bottom: 12px;">
+<div><span style="color: #c084fc;">switch</span> (status) {</div>
+<div style="padding-left: 12px;"><span style="color: #fbbf24;">case</span> 1:</div>
+<div style="padding-left: 24px;">处理待支付</div>
+<div style="padding-left: 24px; color: #ef4444;">break;</div>
+<div style="padding-left: 12px;"><span style="color: #fbbf24;">case</span> 2:</div>
+<div style="padding-left: 24px;">处理已支付</div>
+<div style="padding-left: 24px; color: #ef4444;">break;</div>
+<div style="padding-left: 12px;"><span style="color: #fbbf24;">case</span> 3:</div>
+<div style="padding-left: 24px;">处理已发货</div>
+<div style="padding-left: 24px; color: #ef4444;">break;</div>
+<div style="padding-left: 12px;"><span style="color: #94a3b8;">default:</span></div>
+<div style="padding-left: 24px;">处理其他状态</div>
+<div style="padding-left: 24px; color: #ef4444;">break;</div>
+<div>}</div>
+</div>
+<div style="font-size: 13px; color: #64748b;">
+<div style="margin-bottom: 6px;"><span style="color: #1d4ed8; font-weight: 600;">适用场景：</span></div>
+<div>✓ 条件是固定值</div>
+<div>✓ 选项较多时更清晰</div>
+<div>✓ 性能要求高时</div>
+</div>
+</div>
+</div>
+</div>
+
+### 3.3 循环操作（while/do-while/for）
+
+**专业定义**：重复执行某段代码，直到满足退出条件。
+
+**大白话**：就是"重复做某事，直到达到目标"。
+
+**核心概念：**
+
+| 概念 | 专业解释 | 大白话 | 例子 |
+|-----|---------|-------|-----|
+| while | 先判断后执行 | 先看条件，满足再做 | 跑圈，不够继续跑 |
+| do-while | 先执行后判断 | 先做一次，再判断 | 至少吃一口再判断饱没饱 |
+| for | 计数循环 | 跑固定次数 | 跑10圈就停 |
+| 循环变量 | 控制循环的变量 | 计数器 | 第几圈了 |
+| 循环条件 | 继续循环的条件 | 什么时候继续 | 还没跑够10圈 |
+
+**结构卡片：**
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #10b981;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #d1fae5;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #10b981, #34d399); color: white; font-size: 20px;">🔄</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">三种循环结构对比</h4>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+<div style="padding: 16px; background: #eef2ff; border-radius: 12px;">
+<h5 style="margin: 0 0 10px 0; font-size: 14px; font-weight: 600; color: #4f46e5;">while 循环</h5>
+<div style="padding: 12px; background: #1e293b; border-radius: 8px; font-family: monospace; font-size: 12px; color: #e2e8f0; margin-bottom: 10px;">
+<div><span style="color: #c084fc;">while</span> (条件) {</div>
+<div style="padding-left: 16px;">执行代码</div>
+<div>}</div>
+</div>
+<div style="font-size: 12px; color: #64748b;">
+<div style="margin-bottom: 4px;"><span style="color: #4f46e5; font-weight: 600;">特点：</span>先判断条件</div>
+<div><span style="color: #4f46e5; font-weight: 600;">场景：</span>不确定循环次数</div>
+</div>
+</div>
+<div style="padding: 16px; background: #fef3c7; border-radius: 12px;">
+<h5 style="margin: 0 0 10px 0; font-size: 14px; font-weight: 600; color: #d97706;">do-while 循环</h5>
+<div style="padding: 12px; background: #1e293b; border-radius: 8px; font-family: monospace; font-size: 12px; color: #e2e8f0; margin-bottom: 10px;">
+<div><span style="color: #c084fc;">do</span> {</div>
+<div style="padding-left: 16px;">执行代码</div>
+<div>} <span style="color: #c084fc;">while</span> (条件);</div>
+</div>
+<div style="font-size: 12px; color: #64748b;">
+<div style="margin-bottom: 4px;"><span style="color: #d97706; font-weight: 600;">特点：</span>先执行一次</div>
+<div><span style="color: #d97706; font-weight: 600;">场景：</span>至少执行一次</div>
+</div>
+</div>
+<div style="padding: 16px; background: #d1fae5; border-radius: 12px;">
+<h5 style="margin: 0 0 10px 0; font-size: 14px; font-weight: 600; color: #059669;">for 循环</h5>
+<div style="padding: 12px; background: #1e293b; border-radius: 8px; font-family: monospace; font-size: 12px; color: #e2e8f0; margin-bottom: 10px;">
+<div><span style="color: #c084fc;">for</span> (初始化; 条件; 更新) {</div>
+<div style="padding-left: 16px;">执行代码</div>
+<div>}</div>
+</div>
+<div style="font-size: 12px; color: #64748b;">
+<div style="margin-bottom: 4px;"><span style="color: #059669; font-weight: 600;">特点：</span>明确循环次数</div>
+<div><span style="color: #059669; font-weight: 600;">场景：</span>固定次数遍历</div>
+</div>
+</div>
+</div>
+</div>
+
+**流程图卡片：**
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #6366f1;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-size: 20px;">📊</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">while 循环流程图</h4>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+<div style="padding: 10px 24px; background: #eef2ff; border-radius: 20px; font-size: 14px; font-weight: 600; color: #4f46e5;">开始</div>
+<div style="font-size: 20px; color: #94a3b8;">↓</div>
+<div style="padding: 14px 24px; background: #fef3c7; border-radius: 8px; font-size: 14px; font-weight: 600; color: #d97706; border: 2px solid #fbbf24;">判断条件</div>
+<div style="display: flex; align-items: center; gap: 40px;">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+<span style="font-size: 12px; color: #10b981; font-weight: 600;">条件为真 →</span>
+<div style="padding: 10px 20px; background: #d1fae5; border-radius: 8px; font-size: 13px; color: #059669;">执行代码</div>
+<div style="font-size: 20px; color: #94a3b8;">↑</div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+<span style="font-size: 12px; color: #ef4444; font-weight: 600;">条件为假 →</span>
+<div style="padding: 10px 24px; background: #fee2e2; border-radius: 20px; font-size: 14px; font-weight: 600; color: #dc2626;">结束</div>
+</div>
+</div>
+</div>
+</div>
+
+### 3.4 循环控制语句
+
+**专业定义**：用于控制循环执行流程的关键字。
+
+**大白话**：就是"提前结束"或"跳过这次"的控制按钮。
+
+**核心概念：**
+
+| 语句 | 专业解释 | 大白话 | 例子 |
+|-----|---------|-------|-----|
+| break | 跳出整个循环 | 不跑了，直接结束 | 找到目标就停止 |
+| continue | 跳过本次循环 | 这次不算，继续下次 | 跳过无效数据 |
+| return | 跳出整个函数 | 直接回家 | 找到结果就返回 |
+
+**结构图：**
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────┐
+│                    break 与 continue                            │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   【break 示例】                                                │
+│                                                                 │
+│   for (int i = 1; i <= 10; i++) {                              │
+│       if (i == 5) {                                            │
+│           break;  // 到5就停止，不再继续                        │
+│       }                                                         │
+│       打印 i;  // 输出：1, 2, 3, 4                              │
+│   }                                                             │
+│                                                                 │
+│   ─────────────────────────────────────────────────────────    │
+│                                                                 │
+│   【continue 示例】                                             │
+│                                                                 │
+│   for (int i = 1; i <= 5; i++) {                               │
+│       if (i == 3) {                                            │
+│           continue;  // 跳过3，继续下一个                        │
+│       }                                                         │
+│       打印 i;  // 输出：1, 2, 4, 5                              │
+│   }                                                             │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+---
+
+## 四、市面产品案例
+
+### 案例1：微信登录判断
+
+**场景**：用户打开微信，判断是否已登录。
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #07c160;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #d1fae5;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #07c160, #10b981); color: white; font-size: 20px;">💬</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">微信登录判断流程</h4>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+<div style="padding: 16px; background: #f0fdf4; border-radius: 12px;">
+<h5 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: #059669;">👤 用户视角</h5>
+<p style="margin: 0; font-size: 14px; color: #0f172a;">打开微信 → <span style="color: #10b981; font-weight: 600;">看到首页</span> or <span style="color: #ef4444; font-weight: 600;">看到登录页</span></p>
+</div>
+<div style="padding: 16px; background: #1e293b; border-radius: 12px;">
+<h5 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: #10b981;">💻 技术实现</h5>
+<div style="font-family: monospace; font-size: 13px; color: #e2e8f0;">
+<div><span style="color: #c084fc;">if</span> (isLogin == <span style="color: #10b981;">true</span>) {</div>
+<div style="padding-left: 16px;">显示首页</div>
+<div>} <span style="color: #c084fc;">else</span> {</div>
+<div style="padding-left: 16px;">跳转登录页</div>
+<div>}</div>
+</div>
+</div>
+</div>
+</div>
+
+**技术细节表格：**
+
+| 步骤 | 用户视角 | 技术视角 | 逻辑结构 |
+|-----|---------|---------|---------|
+| 1 | 打开App | 启动应用 | - |
+| 2 | 等待加载 | 检查登录状态 | if判断 |
+| 3 | 看到首页/登录页 | 根据判断显示不同页面 | if-else分支 |
+
+### 案例2：淘宝订单状态
+
+**场景**：根据订单状态显示不同的操作按钮。
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #ff6a00;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #ffedd5;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #ff6a00, #fb923c); color: white; font-size: 20px;">🛒</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">淘宝订单状态处理</h4>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px;">
+<div style="padding: 12px; background: #fef3c7; border-radius: 10px; text-align: center;">
+<div style="font-size: 12px; color: #d97706; margin-bottom: 4px;">待支付</div>
+<div style="font-size: 14px; font-weight: 600; color: #0f172a;">去支付</div>
+</div>
+<div style="padding: 12px; background: #dbeafe; border-radius: 10px; text-align: center;">
+<div style="font-size: 12px; color: #1d4ed8; margin-bottom: 4px;">已支付</div>
+<div style="font-size: 14px; font-weight: 600; color: #0f172a;">提醒发货</div>
+</div>
+<div style="padding: 12px; background: #d1fae5; border-radius: 10px; text-align: center;">
+<div style="font-size: 12px; color: #047857; margin-bottom: 4px;">已发货</div>
+<div style="font-size: 14px; font-weight: 600; color: #0f172a;">确认收货</div>
+</div>
+<div style="padding: 12px; background: #fce7f3; border-radius: 10px; text-align: center;">
+<div style="font-size: 12px; color: #be185d; margin-bottom: 4px;">已完成</div>
+<div style="font-size: 14px; font-weight: 600; color: #0f172a;">评价</div>
+</div>
+</div>
+<div style="padding: 16px; background: #1e293b; border-radius: 12px;">
+<h5 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: #10b981;">💻 技术实现</h5>
+<div style="font-family: monospace; font-size: 12px; color: #e2e8f0; line-height: 1.6;">
+<div><span style="color: #c084fc;">switch</span> (orderStatus) {</div>
+<div style="padding-left: 16px;"><span style="color: #fbbf24;">case</span> 1: <span style="color: #94a3b8;">// 待支付</span></div>
+<div style="padding-left: 24px;">显示按钮(<span style="color: #fb923c;">"去支付"</span>);</div>
+<div style="padding-left: 24px; color: #ef4444;">break;</div>
+<div style="padding-left: 16px;"><span style="color: #fbbf24;">case</span> 2: <span style="color: #94a3b8;">// 已支付</span></div>
+<div style="padding-left: 24px;">显示按钮(<span style="color: #60a5fa;">"提醒发货"</span>);</div>
+<div style="padding-left: 24px; color: #ef4444;">break;</div>
+<div style="padding-left: 16px;"><span style="color: #fbbf24;">case</span> 3: <span style="color: #94a3b8;">// 已发货</span></div>
+<div style="padding-left: 24px;">显示按钮(<span style="color: #34d399;">"确认收货"</span>);</div>
+<div style="padding-left: 24px; color: #ef4444;">break;</div>
+<div style="padding-left: 16px;"><span style="color: #fbbf24;">case</span> 4: <span style="color: #94a3b8;">// 已完成</span></div>
+<div style="padding-left: 24px;">显示按钮(<span style="color: #f472b6;">"评价"</span>);</div>
+<div style="padding-left: 24px; color: #ef4444;">break;</div>
+<div style="padding-left: 16px;"><span style="color: #94a3b8;">default:</span></div>
+<div style="padding-left: 24px;">显示按钮(<span style="color: #94a3b8;">"联系客服"</span>);</div>
+<div style="padding-left: 24px; color: #ef4444;">break;</div>
+<div>}</div>
+</div>
+</div>
+</div>
+
+### 案例3：抖音视频列表加载
+
+**场景**：用户滑动浏览抖音视频列表。
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #000;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e5e5e5;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #000, #333); color: white; font-size: 20px;">🎵</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">抖音视频列表加载</h4>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+<div style="padding: 16px; background: #f8fafc; border-radius: 12px;">
+<h5 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: #475569;">👤 用户视角</h5>
+<p style="margin: 0; font-size: 14px; color: #0f172a;">不断滑动 → 看到新视频 → 继续滑动 → 看到新视频...</p>
+</div>
+<div style="padding: 16px; background: #1e293b; border-radius: 12px;">
+<h5 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: #10b981;">💻 技术实现</h5>
+<div style="font-family: monospace; font-size: 12px; color: #e2e8f0; line-height: 1.6;">
+<div><span style="color: #c084fc;">while</span> (用户正在浏览) {</div>
+<div style="padding-left: 16px;"><span style="color: #c084fc;">if</span> (当前视频是最后一个) {</div>
+<div style="padding-left: 32px;">加载更多视频();</div>
+<div style="padding-left: 16px;">}</div>
+<div style="padding-left: 16px;"><span style="color: #c084fc;">if</span> (用户滑到下一个) {</div>
+<div style="padding-left: 32px;">播放下一个视频();</div>
+<div style="padding-left: 16px;">}</div>
+<div style="padding-left: 16px;"><span style="color: #c084fc;">if</span> (用户退出) {</div>
+<div style="padding-left: 32px; color: #ef4444;">break; <span style="color: #94a3b8;">// 退出循环</span></div>
+<div style="padding-left: 16px;">}</div>
+<div>}</div>
+</div>
+</div>
+</div>
+</div>
+
+---
+
+## 五、沟通场景
+
+### 场景1：需求中的条件判断
+
+**背景**：产品经理描述一个用户权限判断的需求。
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #6366f1;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-size: 20px;">💬</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">沟通场景</h4>
+</div>
+<div style="display: flex; flex-direction: column; gap: 16px;">
+<div style="padding: 16px; background: #eef2ff; border-radius: 12px; border-left: 4px solid #6366f1;">
+<div style="font-size: 12px; color: #6366f1; font-weight: 600; margin-bottom: 8px;">👤 产品经理</div>
+<p style="margin: 0; font-size: 14px; color: #0f172a;">如果用户是VIP，就显示专属价格，否则显示原价。</p>
+</div>
+<div style="padding: 16px; background: #d1fae5; border-radius: 12px; border-left: 4px solid #10b981;">
+<div style="font-size: 12px; color: #10b981; font-weight: 600; margin-bottom: 8px;">💻 开发</div>
+<p style="margin: 0; font-size: 14px; color: #0f172a;">好的，这个用if-else判断。那如果用户既是VIP又是新用户呢？</p>
+</div>
+<div style="padding: 16px; background: #eef2ff; border-radius: 12px; border-left: 4px solid #6366f1;">
+<div style="font-size: 12px; color: #6366f1; font-weight: 600; margin-bottom: 8px;">👤 产品经理</div>
+<p style="margin: 0; font-size: 14px; color: #0f172a;">新用户优先，显示新用户价格。</p>
+</div>
+<div style="padding: 16px; background: #1e293b; border-radius: 12px;">
+<div style="font-size: 12px; color: #10b981; font-weight: 600; margin-bottom: 8px;">💻 开发（代码实现）</div>
+<div style="font-family: monospace; font-size: 12px; color: #e2e8f0;">
+<div><span style="color: #c084fc;">if</span> (是新用户) {</div>
+<div style="padding-left: 16px;">显示新用户价格</div>
+<div>} <span style="color: #c084fc;">else if</span> (是VIP) {</div>
+<div style="padding-left: 16px;">显示VIP价格</div>
+<div>} <span style="color: #c084fc;">else</span> {</div>
+<div style="padding-left: 16px;">显示原价</div>
+<div>}</div>
+</div>
+</div>
+</div>
+</div>
+
+**技术原理图：**
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #6366f1;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e0e7ff;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-size: 20px;">💰</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">价格显示逻辑</h4>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+<div style="padding: 10px 24px; background: #eef2ff; border-radius: 20px; font-size: 14px; font-weight: 600; color: #4f46e5;">开始</div>
+<div style="font-size: 20px; color: #94a3b8;">↓</div>
+<div style="padding: 12px 24px; background: #fef3c7; border-radius: 8px; font-size: 14px; font-weight: 600; color: #d97706; border: 2px solid #fbbf24;">判断用户</div>
+<div style="display: flex; align-items: center; gap: 60px; margin-top: 8px;">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+<span style="font-size: 12px; color: #10b981; font-weight: 600;">是新用户 →</span>
+<div style="padding: 8px 16px; background: #d1fae5; border-radius: 8px; font-size: 13px; color: #059669; font-weight: 600;">新用户价格<br/>(最优惠)</div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+<span style="font-size: 12px; color: #ef4444; font-weight: 600;">不是新用户 →</span>
+<div style="padding: 10px 20px; background: #fef3c7; border-radius: 8px; font-size: 13px; font-weight: 600; color: #d97706; border: 2px solid #fbbf24;">是VIP?</div>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 80px; margin-top: 8px;">
+<div style="font-size: 12px; color: #94a3b8;">(已结束)</div>
+<div style="display: flex; gap: 20px;">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+<span style="font-size: 12px; color: #10b981; font-weight: 600;">是VIP →</span>
+<div style="padding: 8px 16px; background: #dbeafe; border-radius: 8px; font-size: 13px; color: #2563eb; font-weight: 600;">VIP价格</div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+<span style="font-size: 12px; color: #ef4444; font-weight: 600;">不是VIP →</span>
+<div style="padding: 8px 16px; background: #f1f5f9; border-radius: 8px; font-size: 13px; color: #475569; font-weight: 600;">原价</div>
+</div>
+</div>
+</div>
+</div>
+
+### 场景2：状态机设计
+
+**背景**：产品经理设计订单状态流转。
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────┐
+│                         沟通场景                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  产品经理：订单状态有待支付、已支付、已发货、已完成、已取消。     │
+│                                                                 │
+│  开发：好的，我需要确认一下状态流转规则：                        │
+│        待支付可以变成什么状态？                                  │
+│                                                                 │
+│  产品经理：待支付可以变成已支付或已取消。                        │
+│                                                                 │
+│  开发：已支付呢？                                               │
+│                                                                 │
+│  产品经理：已支付可以变成已发货或已取消（退款）。                 │
+│                                                                 │
+│  开发：明白了，我用switch-case来处理状态流转：                   │
+│                                                                 │
+│        switch (当前状态) {                                      │
+│            case 待支付:                                         │
+│                允许的操作：支付、取消                            │
+│                break;                                           │
+│            case 已支付:                                         │
+│                允许的操作：发货、退款                            │
+│                break;                                           │
+│            ...                                                  │
+│        }                                                        │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+### 场景3：循环加载逻辑
+
+**背景**：产品经理设计列表加载功能。
+
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #6366f1;">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-size: 20px;">💬</div>
+<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">沟通场景</h4>
+</div>
+<div style="display: flex; flex-direction: column; gap: 16px;">
+<div style="padding: 16px; background: #eef2ff; border-radius: 12px; border-left: 4px solid #6366f1;">
+<div style="font-size: 12px; color: #6366f1; font-weight: 600; margin-bottom: 8px;">👤 产品经理</div>
+<p style="margin: 0; font-size: 14px; color: #0f172a;">商品列表要支持分页加载，每次加载20条。</p>
+</div>
+<div style="padding: 16px; background: #d1fae5; border-radius: 12px; border-left: 4px solid #10b981;">
+<div style="font-size: 12px; color: #10b981; font-weight: 600; margin-bottom: 8px;">💻 开发</div>
+<p style="margin: 0; font-size: 14px; color: #0f172a;">好的，用户滑到底部时触发加载。那加载到什么时候停止？</p>
+</div>
+<div style="padding: 16px; background: #eef2ff; border-radius: 12px; border-left: 4px solid #6366f1;">
+<div style="font-size: 12px; color: #6366f1; font-weight: 600; margin-bottom: 8px;">👤 产品经理</div>
+<p style="margin: 0; font-size: 14px; color: #0f172a;">没有更多数据时就停止，显示"没有更多了"。</p>
+</div>
+<div style="padding: 16px; background: #1e293b; border-radius: 12px;">
+<div style="font-size: 12px; color: #10b981; font-weight: 600; margin-bottom: 8px;">💻 开发（代码实现）</div>
+<div style="font-family: monospace; font-size: 12px; color: #e2e8f0; line-height: 1.6;">
+<div><span style="color: #c084fc;">while</span> (还有更多数据) {</div>
+<div style="padding-left: 16px;"><span style="color: #c084fc;">if</span> (用户滑到底部) {</div>
+<div style="padding-left: 32px;">加载下一页();</div>
+<div style="padding-left: 32px;"><span style="color: #c084fc;">if</span> (返回数据为空) {</div>
+<div style="padding-left: 48px;">显示<span style="color: #fbbf24;">"没有更多了"</span>;</div>
+<div style="padding-left: 48px; color: #ef4444;">break;</div>
+<div style="padding-left: 32px;">}</div>
+<div style="padding-left: 16px;">}</div>
+<div>}</div>
+</div>
+</div>
+<div style="padding: 16px; background: #eef2ff; border-radius: 12px; border-left: 4px solid #6366f1;">
+<div style="font-size: 12px; color: #6366f1; font-weight: 600; margin-bottom: 8px;">👤 产品经理</div>
+<p style="margin: 0; font-size: 14px; color: #0f172a;">对，就是这个意思。</p>
+</div>
+</div>
+</div>
+
+---
+
+## 六、常见误区
+
+### 误区1："if和switch可以随便选"
+
+**错误认知**：if-else和switch-case功能一样，随便用哪个都行。
+
+**正确理解**：两者适用场景不同。
+
+| 对比维度 | if-else | switch-case |
+|---------|---------|-------------|
+| 条件类型 | 范围、布尔、复杂表达式 | 固定值 |
+| 可读性 | 条件多时较乱 | 选项多时更清晰 |
+| 性能 | 逐个判断 | 跳转表，更快 |
+| 灵活性 | 更灵活 | 更受限 |
+
+**产品经理启示**：了解开发为什么选择某种结构，有助于理解代码逻辑。
+
+### 误区2："循环一定会结束"
+
+**错误认知**：写了循环就一定会自动结束。
+
+**正确理解**：如果条件永远为真，循环会无限执行（死循环）。
+
+| 对比维度 | 错误理解 | 正确理解 |
+|---------|---------|---------|
+| 循环条件 | 随便写 | 必须有结束可能 |
+| 循环变量 | 不用管 | 必须有更新 |
+| 死循环 | 不会发生 | 条件写错会导致 |
+
+**产品经理启示**：如果功能出现"卡死"、"无响应"，可能是死循环导致的。
+
+### 误区3："条件越多越好"
+
+**错误认知**：把所有情况都判断一遍，代码更安全。
+
+**正确理解**：条件过多会导致代码复杂、难以维护。
+
+| 对比维度 | 错误理解 | 正确理解 |
+|---------|---------|---------|
+| 条件数量 | 越多越安全 | 适度即可 |
+| 嵌套层级 | 可以很深 | 尽量扁平化 |
+| 代码可读性 | 不重要 | 非常重要 |
+
+**产品经理启示**：需求中的条件判断要清晰明确，避免"套娃"式逻辑。
+
+### 误区4："break和continue一样"
+
+**错误认知**：break和continue都是跳出循环，差不多。
+
+**正确理解**：两者作用完全不同。
+
+| 对比维度 | break | continue |
+|---------|-------|----------|
+| 作用范围 | 跳出整个循环 | 跳过本次循环 |
+| 循环是否继续 | 不继续 | 继续下一次 |
+| 使用场景 | 找到目标就停止 | 跳过无效数据 |
+
+**产品经理启示**：理解这两个概念，有助于理解"提前结束"和"跳过"的区别。
+
+---
+
+## 七、思考题
+
+### 思考题1
+
+**问题**：用户登录时，需要判断用户名是否为空、密码是否为空、用户名是否存在、密码是否正确。这个逻辑应该怎么组织？
+
+<details>
+<summary>点击查看参考答案</summary>
+
+**答案内容：**
+
+应该按顺序逐个判断，任何一个条件不满足就返回对应错误：
+
+\`\`\`
+if (用户名为空) {
+    提示"请输入用户名";
+    返回;
+}
+
+if (密码为空) {
+    提示"请输入密码";
+    返回;
+}
+
+if (用户名不存在) {
+    提示"用户名不存在";
+    返回;
+}
+
+if (密码不正确) {
+    提示"密码错误";
+    返回;
+}
+
+登录成功();
+\`\`\`
+
+这样设计的好处：
+1. 每次只提示一个错误，用户体验更好
+2. 逻辑清晰，便于维护
+3. 避免嵌套过深
+
+</details>
+
+### 思考题2
+
+**问题**：为什么订单状态用switch-case而不是if-else？
+
+<details>
+<summary>点击查看参考答案</summary>
+
+**答案内容：**
+
+订单状态使用switch-case的原因：
+
+1. **状态是固定值**：订单状态是有限的几个固定值（1、2、3、4...），不是范围判断
+2. **可读性更好**：每个状态对应一个case，一目了然
+3. **性能更高**：switch使用跳转表，直接跳到对应分支，不需要逐个判断
+4. **便于扩展**：新增状态只需添加一个case，不影响其他代码
+
+\`\`\`
+switch (status) {
+    case 1: 待支付处理; break;
+    case 2: 已支付处理; break;
+    case 3: 已发货处理; break;
+    case 4: 已完成处理; break;
+}
+\`\`\`
+
+</details>
+
+### 思考题3
+
+**问题**：什么情况下用while循环，什么情况下用for循环？
+
+<details>
+<summary>点击查看参考答案</summary>
+
+**答案内容：**
+
+| 场景 | 推荐循环 | 原因 |
+|-----|---------|------|
+| 遍历数组/列表 | for | 知道循环次数 |
+| 加载直到成功 | while | 不知道要尝试多少次 |
+| 处理用户输入 | while | 不知道用户会输入多少次 |
+| 分页加载数据 | while | 不知道有多少页 |
+| 倒计时功能 | for | 知道循环次数 |
+| 游戏主循环 | while | 不知道什么时候结束 |
+
+**简单记忆：**
+- 知道循环次数 → for
+- 不知道循环次数 → while
+- 至少执行一次 → do-while
+
+</details>
+
+---
+
+## 八、本节小结
+
+### 知识图谱
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────┐
+│                    逻辑结构知识图谱                              │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│                      ┌─────────────┐                           │
+│                      │  逻辑结构    │                           │
+│                      └──────┬──────┘                           │
+│                             │                                   │
+│        ┌────────────────────┼────────────────────┐             │
+│        │                    │                    │             │
+│   ┌────▼────┐         ┌─────▼─────┐       ┌─────▼─────┐       │
+│   │条件判断  │         │条件选择    │       │循环操作    │       │
+│   │if-else  │         │switch-case│       │while/for  │       │
+│   └─────────┘         └───────────┘       └───────────┘       │
+│        │                    │                    │             │
+│   二选一/多选一        多个固定值选择        重复执行           │
+│                                                                 │
+│   控制语句：break（跳出）、continue（跳过）、return（返回）     │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+### 产品经理需要记住的3句话
+
+1. **if-else是"如果...就..."**——用于条件判断，根据不同情况执行不同代码
+2. **switch-case是"根据值选分支"**——用于固定选项，状态机场景常用
+3. **循环是"重复做直到满足条件"**——注意要有结束条件，避免死循环
+
+### 自检清单
+
+在提需求前，问自己这些问题：
+
+- [ ] 这个功能的条件判断逻辑是否清晰？
+- [ ] 有没有遗漏的边界情况？
+- [ ] 状态流转是否完整？有没有"死胡同"状态？
+- [ ] 循环的结束条件是什么？
+- [ ] 条件判断的优先级是否明确？
+
+---
+
+## 上一篇 & 下一篇
+
+**上一篇**：[基本数据类型](./01-基本数据类型.md)
+
+**下一篇**：[数据结构](./03-数据结构.md)`
+    },
+    {
+        id: 'prog-3',
+        categoryId: 'programming',
+        title: '数据结构',
+        difficulty: 'intermediate',
+        summary: '理解数据如何组织才更高效：数组、栈、队列、树四种基本数据结构的特点和适用场景。',
+        technicalContent: {
+            principle: `
+<section class="tech-module" data-module="principle">
+<div class="module-header">
+<span class="module-icon">🔬</span>
+<h2>技术原理：数据组织方式</h2>
+</div>
+<div class="highlight-box">
+<blockquote>
+<strong>数据结构（Data Structure）</strong>是计算机中存储、组织数据的方式，不同的数据结构适用于不同的应用场景。
+</blockquote>
+</div>
+<h3>一、为什么需要数据结构？</h3>
+<p>同样的数据，用不同的方式组织，效果完全不同。数据结构的核心作用：</p>
+<ul class="feature-list">
+<li><strong>高效存储</strong>：节省空间</li>
+<li><strong>快速访问</strong>：快速找到数据</li>
+<li><strong>方便操作</strong>：方便插入、删除、修改</li>
+</ul>
+<h3>二、四大基本数据结构</h3>
+<table class="concept-table">
+<thead><tr><th>结构</th><th>英文名</th><th>特点</th><th>典型应用</th></tr></thead>
+<tbody>
+<tr><td><strong>数组</strong></td><td>Array</td><td>连续存储，随机访问快</td><td>列表、表格</td></tr>
+<tr><td><strong>栈</strong></td><td>Stack</td><td>后进先出（LIFO）</td><td>页面返回、撤销</td></tr>
+<tr><td><strong>队列</strong></td><td>Queue</td><td>先进先出（FIFO）</td><td>任务排队、消息</td></tr>
+<tr><td><strong>树</strong></td><td>Tree</td><td>层级关系</td><td>组织架构、分类</td></tr>
+</tbody>
+</table>
+<h4>2.1 数组（Array）</h4>
+<p><strong>专业定义</strong>：连续内存空间中存储相同类型元素的线性数据结构，通过索引访问元素。</p>
+<p><strong>大白话</strong>：就像一排编号的储物柜，每个柜子大小一样，找第几个很快。</p>
+<table class="concept-table">
+<thead><tr><th>操作</th><th>复杂度</th><th>大白话解释</th></tr></thead>
+<tbody>
+<tr><td>访问元素</td><td>O(1)</td><td>直接通过索引找到，非常快</td></tr>
+<tr><td>修改元素</td><td>O(1)</td><td>直接修改，非常快</td></tr>
+<tr><td>插入元素</td><td>O(n)</td><td>需要移动后面的元素，较慢</td></tr>
+<tr><td>删除元素</td><td>O(n)</td><td>需要移动后面的元素，较慢</td></tr>
+</tbody>
+</table>
+<h4>2.2 栈（Stack）</h4>
+<p><strong>专业定义</strong>：只允许在一端（栈顶）进行插入和删除操作的线性数据结构，遵循后进先出（LIFO）原则。</p>
+<p><strong>大白话</strong>：就像叠盘子，最后放上去的最先拿下来。</p>
+<h4>2.3 队列（Queue）</h4>
+<p><strong>专业定义</strong>：只允许在一端（队尾）插入、另一端（队头）删除的线性数据结构，遵循先进先出（FIFO）原则。</p>
+<p><strong>大白话</strong>：就像排队买票，先来的人先买到票离开。</p>
+<h4>2.4 树（Tree）</h4>
+<p><strong>专业定义</strong>：由节点和边组成的非线性数据结构，有一个根节点，每个节点可以有多个子节点，形成层级关系。</p>
+<p><strong>大白话</strong>：就像公司组织架构，老板在最上面，下面是各部门经理，再下面是员工。</p>
+</section>
+`,
+            role: `
+<section class="tech-module" data-module="role">
+<div class="module-header">
+<span class="module-icon">🎯</span>
+<h2>核心作用：选择合适的数据组织方式</h2>
+</div>
+<div class="highlight-box">
+<blockquote>
+数据结构选择正确，事半功倍；选择错误，事倍功半。
+</blockquote>
+</div>
+<h3>数据结构选择指南</h3>
+<div class="tips-box">
+<h5>📋 决策流程</h5>
+<ul class="feature-list">
+<li>需要随机访问（按位置访问）？→ <strong>数组</strong></li>
+<li>需要频繁在中间插入删除？→ <strong>链表</strong></li>
+<li>有层级关系？→ <strong>树</strong></li>
+<li>需要后进先出？→ <strong>栈</strong></li>
+<li>需要先进先出？→ <strong>队列</strong></li>
+<li>需要快速键值查找？→ <strong>哈希表</strong></li>
+</ul>
+</div>
+<h3>栈 vs 队列 对比</h3>
+<table class="concept-table">
+<thead><tr><th>对比维度</th><th>栈</th><th>队列</th></tr></thead>
+<tbody>
+<tr><td><strong>操作规则</strong></td><td>LIFO（后进先出）</td><td>FIFO（先进先出）</td></tr>
+<tr><td><strong>操作端</strong></td><td>只能操作一端</td><td>两端分别操作</td></tr>
+<tr><td><strong>应用场景</strong></td><td>返回、撤销</td><td>排队、任务处理</td></tr>
+<tr><td><strong>公平性</strong></td><td>不公平（后来的先走）</td><td>公平（先来的先走）</td></tr>
+</tbody>
+</table>
+</section>
+`,
+            businessScenario: `
+<section class="tech-module" data-module="businessScenario">
+<div class="module-header">
+<span class="module-icon">💼</span>
+<h2>业务场景：实际产品中的数据结构</h2>
+</div>
+<h3>案例1：淘宝商品列表（数组）</h3>
+<table class="concept-table">
+<thead><tr><th>用户视角</th><th>技术实现</th></tr></thead>
+<tbody>
+<tr><td>商品列表展示</td><td>products[0], products[1]...</td></tr>
+<tr><td>快速访问第N个商品</td><td>数组随机访问 O(1)</td></tr>
+<tr><td>分页展示</td><td>数组切片</td></tr>
+</tbody>
+</table>
+<h3>案例2：微信页面返回（栈）</h3>
+<div class="scenario-timeline">
+<div class="scenario-item">
+<div class="scenario-number">1</div>
+<div class="scenario-content">
+<h4>用户操作流程</h4>
+<p>首页 → 发现 → 朋友圈 → 朋友圈详情</p>
+</div>
+</div>
+<div class="scenario-item">
+<div class="scenario-number">2</div>
+<div class="scenario-content">
+<h4>页面栈状态</h4>
+<p>[首页, 发现, 朋友圈, 朋友圈详情] ← 栈顶</p>
+<p>点击返回：出栈，显示新的栈顶页面</p>
+</div>
+</div>
+</div>
+<h3>案例3：美团外卖订单处理（队列）</h3>
+<div class="scenario-timeline">
+<div class="scenario-item">
+<div class="scenario-number">1</div>
+<div class="scenario-content">
+<h4>订单队列</h4>
+<p>[订单1, 订单2, 订单3, 订单4, 订单5]</p>
+<p>新订单入队（队尾），商家接单出队（队头）</p>
+</div>
+</div>
+<div class="scenario-item">
+<div class="scenario-number">2</div>
+<div class="scenario-content">
+<h4>为什么用队列？</h4>
+<ul class="feature-list">
+<li>保证订单按时间顺序处理</li>
+<li>公平性：先下单先处理</li>
+</ul>
+</div>
+</div>
+</div>
+<h3>案例4：钉钉组织架构（树）</h3>
+<div class="tech-diagram">
+<div class="diagram-tree">
+<div class="tree-node root">CEO</div>
+<div class="tree-level">
+<div class="tree-node">技术部</div>
+<div class="tree-node">产品部</div>
+<div class="tree-node">运营部</div>
+</div>
+</div>
+</div>
+</section>
+`,
+            pmDevScenario: `
+<section class="tech-module" data-module="pmDevScenario">
+<div class="module-header">
+<span class="module-icon">🗣️</span>
+<h2>产品经理与开发沟通场景</h2>
+</div>
+<h3>场景1：选择列表数据结构</h3>
+<div class="conversation-box">
+<div class="conversation-item">
+<div class="conv-content">
+<p><strong>产品经理：</strong>"商品列表要支持排序、筛选、分页，用什么数据结构？"</p>
+<p><strong>开发：</strong>"列表数据用数组存储，因为需要快速访问第N个商品（分页）、遍历展示所有商品。"</p>
+</div>
+</div>
+</div>
+<h3>场景2：页面跳转设计</h3>
+<div class="conversation-box">
+<div class="conversation-item">
+<div class="conv-content">
+<p><strong>产品经理：</strong>"用户可以从首页进入详情页，再进入评价页，点击返回要逐层返回。"</p>
+<p><strong>开发：</strong>"这个用栈来实现，每次进入新页面就入栈，点击返回就出栈。"</p>
+<p><strong>产品经理：</strong>"那如果我想从评价页直接返回首页呢？"</p>
+<p><strong>开发：</strong>"那需要把栈清空到只剩首页，或者用'返回首页'功能直接清空栈。"</p>
+</div>
+</div>
+</div>
+<h3>场景3：权限系统设计</h3>
+<div class="conversation-box">
+<div class="conversation-item">
+<div class="conv-content">
+<p><strong>产品经理：</strong>"权限要分级管理，管理员可以管理下级，下级只能管理自己的权限。"</p>
+<p><strong>开发：</strong>"这个用树结构来存储权限关系，每个节点代表一个角色，子节点是下级角色。"</p>
+</div>
+</div>
+</div>
+</section>
+`,
+            codeExample: `
+<section class="tech-module" data-module="codeExample">
+<div class="module-header">
+<span class="module-icon">💻</span>
+<h2>代码实例：数据结构实战</h2>
+</div>
+<div class="code-example">
+<div class="code-example-header">
+<span class="code-example-title">数据结构示例</span>
+<span class="code-example-lang">JavaScript</span>
+</div>
+<div class="code-example-body">
+<pre><code>// 数组：商品列表
+const products = [
+    {id: 1, name: "iPhone", price: 7999},
+    {id: 2, name: "iPad", price: 5999},
+    {id: 3, name: "MacBook", price: 12999}
+];
+console.log(products[0]); // 快速访问第一个
+
+// 栈：页面返回
+const pageStack = [];
+pageStack.push("首页");     // 入栈
+pageStack.push("发现");     // 入栈
+pageStack.push("朋友圈");   // 入栈
+console.log(pageStack.pop()); // 出栈：朋友圈
+
+// 队列：订单处理
+const orderQueue = [];
+orderQueue.push("订单1");   // 入队
+orderQueue.push("订单2");   // 入队
+console.log(orderQueue.shift()); // 出队：订单1
+
+// 树：组织架构
+const orgTree = {
+    name: "CEO",
+    children: [
+        {name: "技术部", children: [{name: "前端组"}, {name: "后端组"}]},
+        {name: "产品部", children: [{name: "用户组"}, {name: "内容组"}]}
     ]
-}</code></pre>
-                    </div>
-                </div>
-                
-                <div class="info-box">
-                    <h4>💡 对象 vs 列表的区别</h4>
-                    <table class="concept-table">
-                        <tr>
-                            <th></th>
-                            <th>对象（字典）</th>
-                            <th>列表（数组）</th>
-                        </tr>
-                        <tr>
-                            <td>像什么</td>
-                            <td>档案袋、表格的一行</td>
-                            <td>名单、清单</td>
-                        </tr>
-                        <tr>
-                            <td>存什么</td>
-                            <td>一个事物的多个属性</td>
-                            <td>多个相同的事物</td>
-                        </tr>
-                        <tr>
-                            <td>例子</td>
-                            <td>一个用户的全部信息</td>
-                            <td>所有用户的列表</td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <h3>🎓 产品经理工作指南</h3>
-                
-                <div class="example-box">
-                    <h4>📝 设计数据字段时的 checklist</h4>
-                    <ol>
-                        <li><strong>这个字段是什么类型？</strong>
-                            <ul>
-                                <li>名字、描述 → 字符串</li>
-                                <li>价格、数量 → 数字</li>
-                                <li>是/否 → 布尔值</li>
-                            </ul>
-                        </li>
-                        <li><strong>最大长度是多少？</strong>
-                            <ul>
-                                <li>用户名：20字？50字？</li>
-                                <li>商品标题：100字？</li>
-                            </ul>
-                        </li>
-                        <li><strong>能不能为空？</strong>
-                            <ul>
-                                <li>手机号：必填</li>
-                                <li>昵称：可以空，显示"用户12345"</li>
-                            </ul>
-                        </li>
-                        <li><strong>有没有默认值？</strong>
-                            <ul>
-                                <li>新用户积分：默认0</li>
-                                <li>是否会员：默认false</li>
-                            </ul>
-                        </li>
-                    </ol>
-                </div>
-                
-                <h3>❓ 常见问题</h3>
-                
-                <div class="example-box">
-                    <h4>Q1：时间怎么存？</h4>
-                    <p>时间通常存成<strong>时间戳</strong>（一串数字），表示从1970年1月1日到现在过了多少秒。</p>
-                    <div class="code-block">
-                        <pre><code>2024年1月1日 12:00:00 → 1704081600</code></pre>
-                    </div>
-                    <p><strong>为什么这样存？</strong>方便计算，比如算两个时间差多少天。</p>
-                </div>
-                
-                <div class="example-box">
-                    <h4>Q2：图片、视频怎么存？</h4>
-                    <p>图片和视频<strong>不直接存到数据库</strong>，而是：</p>
-                    <ol>
-                        <li>把图片上传到文件服务器</li>
-                        <li>拿到图片的链接地址</li>
-                        <li>把链接地址（字符串）存到数据库</li>
-                    </ol>
-                    <div class="code-block">
-                        <pre><code>{
-    "用户名": "小明",
-    "头像": "https://xxx.com/avatar/123.jpg"
-}</code></pre>
-                    </div>
-                </div>
-                
-                <div class="example-box">
-                    <h4>Q3：数据类型错了会怎样？</h4>
-                    <p>可能会导致：</p>
-                    <ul>
-                        <li>程序报错崩溃</li>
-                        <li>计算结果错误（比如字符串相加变成拼接）</li>
-                        <li>数据显示异常</li>
-                    </ul>
-                    <p><strong>产品经理要做什么：</strong>写需求时明确每个字段的类型</p>
-                </div>
-            `
+};</code></pre>
+</div>
+</div>
+</section>
+`
         },
+        content: `# 知识点3：数据结构
+
+> **核心问题**：数据如何组织才更高效？
+
+## 学习目标
+
+学完本节，你将能够：
+
+- [ ] 理解数组、栈、队列、树四种基本数据结构的特点
+- [ ] 掌握不同数据结构的适用场景和优缺点
+- [ ] 理解数据结构选择对产品性能的影响
+- [ ] 了解更复杂的数据结构（链表、哈希表）
+- [ ] 能够在需求设计时选择合适的数据结构
+
+---
+
+## 一、核心概念
+
+### 专业解释
+
+**数据结构（Data Structure）**：计算机中存储、组织数据的方式，不同的数据结构适用于不同的应用场景。
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          数据结构的本质                                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   为什么需要数据结构？                                                       │
+│                                                                             │
+│   ┌─────────────────────────────────────────────────────────────────────┐  │
+│   │                                                                     │  │
+│   │   同样的数据，用不同的方式组织，效果完全不同：                         │  │
+│   │                                                                     │  │
+│   │   ┌─────────────────┐        ┌─────────────────┐                    │  │
+│   │   │   散乱的书      │   vs   │   整理好的书架  │                    │  │
+│   │   │                 │        │                 │                    │  │
+│   │   │  找书很慢      │        │  找书很快       │                    │  │
+│   │   │  不好放回去    │        │  容易放回去     │                    │  │
+│   │   └─────────────────┘        └─────────────────┘                    │  │
+│   │                                                                     │  │
+│   └─────────────────────────────────────────────────────────────────────┘  │
+│                                                                             │
+│   数据结构的核心作用：                                                       │
+│   • 高效存储：节省空间                                                     │
+│   • 快速访问：快速找到数据                                                 │
+│   • 方便操作：方便插入、删除、修改                                         │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+### 四大基本数据结构
+
+| 结构 | 英文名 | 特点 | 典型应用 |
+|------|--------|------|----------|
+| 数组 | Array | 连续存储，随机访问快 | 列表、表格 |
+| 栈 | Stack | 后进先出（LIFO） | 页面返回、撤销 |
+| 队列 | Queue | 先进先出（FIFO） | 任务排队、消息 |
+| 树 | Tree | 层级关系 | 组织架构、分类 |
+
+### 大白话解释
+
+| 技术概念 | 生活类比 | 通俗理解 |
+|---------|---------|---------|
+| 数据结构 | 收纳方式 | 就像衣柜有不同的收纳方式，数据也有不同的组织方式 |
+| 数组（Array） | 一排储物柜 | 编号连续，找第几个很快，但插入删除麻烦 |
+| 栈（Stack） | 叠盘子 | 最后放的最先拿，只能从上面操作 |
+| 队列（Queue） | 排队买票 | 先来先服务，从后面排队，前面离开 |
+| 树（Tree） | 公司组织架构 | 有层级关系，一个上级管多个下级 |
+
+---
+
+## 二、生活化类比详解
+
+### 类比主题：超市货架管理
+
+用具体生活场景类比技术概念：
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    超市货架管理（数据结构类比）                               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   【数组-货架】                                                           │
+│   ┌───┬───┬───┬───┬───┬───┐                                              │
+│   │ 0 │ 1 │ 2 │ 3 │ 4 │ 5 │  编号连续，找第几个很快                    │
+│   ├───┼───┼───┼───┼───┼───┤                                              │
+│   │苹果│香蕉│橙子│葡萄│西瓜│草莓│                                        │
+│   └───┴───┴───┴───┴───┴───┘                                              │
+│                                                                             │
+│   【栈-叠放商品】                                                          │
+│   ┌─────────┐                                                             │
+│   │  盘子5  │ ← 最后放入，最先取出                                      │
+│   ├─────────┤                                                             │
+│   │  盘子4  │                                                             │
+│   ├─────────┤                                                             │
+│   │  盘子3  │                                                             │
+│   ├─────────┤                                                             │
+│   │  盘子2  │                                                             │
+│   ├─────────┤                                                             │
+│   │  盘子1  │ ← 最先放入，最后取出                                      │
+│   └─────────┘                                                             │
+│                                                                             │
+│   【队列-排队结账】                                                        │
+│                                                                             │
+│   顾客A → 顾客B → 顾客C → 顾客D → 顾客E                                  │
+│    ↑                                        ↑                              │
+│   先到先服务                              后到后服务                         │
+│   （出队）                                （入队）                         │
+│                                                                             │
+│   【树-商品分类】                                                         │
+│                                                                             │
+│                    ┌─────────┐                                            │
+│                    │  超市   │                                            │
+│                    └────┬────┘                                            │
+│              ┌──────────┼──────────┐                                      │
+│              │          │          │                                      │
+│         ┌────▼───┐┌────▼───┐┌────▼───┐                                  │
+│         │ 食品   ││ 日用品 ││ 电器   │                                   │
+│         └────┬───┘└────┬───┘└────┬───┘                                  │
+│              │          │          │                                      │
+│        ┌─────┴─────┐    │    ┌─────┴─────┐                              │
+│        │     │     │    │    │     │     │                              │
+│      零食  饮料  生鲜  洗护  家电  数码  家居                              │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+**对应到互联网产品：**
+
+| 生活场景 | 互联网产品 | 技术术语 |
+|---------|-----------|---------|
+| 货架商品 | 商品列表、轮播图 | 数组（Array）|
+| 叠盘子 | 页面返回栈、撤销操作 | 栈（Stack）|
+| 排队结账 | 消息队列、任务队列 | 队列（Queue）|
+| 商品分类 | 目录结构、权限树 | 树（Tree）|
+
+---
+
+## 三、详细原理阐述
+
+### 3.1 数组（Array）
+
+**专业定义**：数组是连续内存空间中存储相同类型元素的线性数据结构，通过索引（下标）访问元素。
+
+**大白话**：就像一排编号的储物柜，每个柜子大小一样，找第几个很快。
+
+#### 核心概念
+
+| 概念 | 专业解释 | 大白话 | 例子 |
+|-----|---------|-------|-----|
+| 索引 | 元素的位置编号 | 柜子编号 | arr[0]、arr[1] |
+| 长度 | 数组元素个数 | 有多少个柜子 | arr.length |
+| 连续存储 | 内存空间连续 | 柜子挨着放 | 访问速度快 |
+| 固定大小 | 创建后大小不变 | 柜子数量固定 | 扩容需要新建 |
+
+#### 操作复杂度
+
+| 操作 | 复杂度 | 大白话解释 |
+|-----|-------|---------|
+| 访问元素 | O(1) | 直接通过索引找到，非常快 |
+| 修改元素 | O(1) | 直接修改，非常快 |
+| 插入元素 | O(n) | 需要移动后面的元素，较慢 |
+| 删除元素 | O(n) | 需要移动后面的元素，较慢 |
+
+#### 应用场景
+
+| 场景 | 适用性 | 原因 |
+|-----|--------|------|
+| 商品列表展示 | ✓ 非常适合 | 随机访问，遍历展示 |
+| 轮播图 | ✓ 适合 | 顺序访问，快速切换 |
+| 用户列表 | ✓ 适合 | 分页展示，快速定位 |
+| 频繁插入删除 | ✗ 不适合 | 效率低 |
+
+### 3.2 栈（Stack）
+
+**专业定义**：栈是只允许在一端（栈顶）进行插入和删除操作的线性数据结构，遵循后进先出（LIFO）原则。
+
+**大白话**：就像叠盘子，最后放上去的最先拿下来。
+
+#### 核心概念
+
+| 概念 | 专业解释 | 大白话 | 例子 |
+|-----|---------|-------|-----|
+| 栈顶 | 允许操作的一端 | 最上面的盘子 | 只能从这里操作 |
+| 栈底 | 不允许操作的一端 | 最下面的盘子 | 不能直接操作 |
+| 入栈（push） | 添加元素到栈顶 | 放一个盘子 | stack.push(item) |
+| 出栈（pop） | 移除栈顶元素 | 拿走最上面的盘子 | stack.pop() |
+| LIFO | Last In First Out | 后进先出 | 最后放的最先拿 |
+
+#### 应用场景
+
+| 场景 | 适用性 | 原因 |
+|-----|--------|------|
+| 页面导航返回 | ✓ 非常适合 | 后进先出，符合返回逻辑 |
+| 撤销操作 | ✓ 非常适合 | 撤销是逆序的 |
+| 函数调用 | ✓ 适合 | 调用栈记录执行顺序 |
+| 表达式求值 | ✓ 适合 | 括号匹配等 |
+
+### 3.3 队列（Queue）
+
+**专业定义**：队列是只允许在一端（队尾）插入、另一端（队头）删除的线性数据结构，遵循先进先出（FIFO）原则。
+
+**大白话**：就像排队买票，先来的人先买到票离开。
+
+#### 核心概念
+
+| 概念 | 专业解释 | 大白话 | 例子 |
+|-----|---------|-------|-----|
+| 队头 | 允许删除的一端 | 排伍最前面 | 从这里离开 |
+| 队尾 | 允许插入的一端 | 排伍最后面 | 从这里加入 |
+| 入队（enqueue） | 添加元素到队尾 | 排到队伍后面 | queue.add(item) |
+| 出队（dequeue） | 移除队头元素 | 离开队伍 | queue.poll() |
+| FIFO | First In First Out | 先进先出 | 先来的先走 |
+
+#### 应用场景
+
+| 场景 | 适用性 | 原因 |
+|-----|--------|------|
+| 订单处理 | ✓ 非常适合 | 先下单先处理 |
+| 消息队列 | ✓ 非常适合 | 消息顺序处理 |
+| 任务调度 | ✓ 适合 | 按顺序执行任务 |
+| 打印队列 | ✓ 适合 | 先提交先打印 |
+
+### 3.4 树（Tree）
+
+**专业定义**：树是由节点和边组成的非线性数据结构，有一个根节点，每个节点可以有多个子节点，形成层级关系。
+
+**大白话**：就像公司组织架构，老板在最上面，下面是各部门经理，再下面是员工。
+
+#### 核心概念
+
+| 概念 | 专业解释 | 大白话 | 例子 |
+|-----|---------|-------|-----|
+| 节点 | 树中的元素 | 组织架构中的人 | 每个圆圈 |
+| 根节点 | 没有父节点的节点 | 公司老板 | 最顶层的节点 |
+| 父节点 | 上一级节点 | 直属领导 | 上面的节点 |
+| 子节点 | 下一级节点 | 下属 | 下面的节点 |
+| 叶子节点 | 没有子节点的节点 | 普通员工 | 最底层的节点 |
+| 层级 | 从根到节点的距离 | 职级 | 第几层 |
+
+#### 应用场景
+
+| 场景 | 适用性 | 原因 |
+|-----|--------|------|
+| 组织架构 | ✓ 非常适合 | 天然层级关系 |
+| 商品分类 | ✓ 非常适合 | 多级分类 |
+| 评论回复 | ✓ 适合 | 嵌套评论 |
+| 权限系统 | ✓ 适合 | 权限继承 |
+
+---
+
+## 四、更多数据结构
+
+### 4.1 链表（Linked List）
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          链表结构                                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   【与数组的对比】                                                         │
+│                                                                             │
+│   ┌─────────────────────┐        ┌─────────────────────┐                   │
+│   │       数组         │        │       链表         │                   │
+│   ├─────────────────────┤        ├─────────────────────┤                   │
+│   │ 连续内存，固定大小 │        │ 分散内存，动态大小  │                   │
+│   │ 访问快 O(1)       │        │ 访问慢 O(n)        │                   │
+│   │ 插入慢 O(n)       │        │ 插入快 O(1)        │                   │
+│   └─────────────────────┘        └─────────────────────┘                   │
+│                                                                             │
+│   【链表结构】                                                             │
+│                                                                             │
+│    ┌───┐    ┌───┐    ┌───┐    ┌───┐                                     │
+│    │ A │───>│ B │───>│ C │───>│ D │───> null                          │
+│    └───┘    └───┘    └───┘    └───┘                                     │
+│                                                                             │
+│   【产品经理视角】                                                         │
+│   • 链表适合频繁插入删除的场景                                             │
+│   • 数组适合随机访问的场景                                                 │
+│   • JavaScript中的数组实际是链表实现的                                     │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+### 4.2 哈希表（Hash Table）
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          哈希表结构                                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   【核心思想】通过"键"直接计算出"值"的存储位置                            │
+│                                                                             │
+│   ┌─────────────────────────────────────────────────────────────────────┐  │
+│   │                                                                     │  │
+│   │   输入键 → 哈希函数 → 计算位置 → 获取值                            │  │
+│   │                                                                     │  │
+│   └─────────────────────────────────────────────────────────────────────┘  │
+│                                                                             │
+│   【示例】                                                                 │
+│                                                                             │
+│   用户ID → 哈希计算 → 数组下标 → 用户信息                                 │
+│                                                                             │
+│   "user_001" ──→ 计算 ──→ 位置3 ──→ 获取用户信息                       │
+│                                                                             │
+│   特点：                                                                   │
+│   • 查找速度极快 O(1)                                                     │
+│   • 适合按键查找场景                                                       │
+│   • 需要处理哈希冲突                                                       │
+│                                                                             │
+│   【应用场景】                                                             │
+│   • 用户缓存：用户ID → 用户信息                                           │
+│   • 购物车：商品ID → 商品数量                                             │
+│   • 字典：单词 → 释义                                                     │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+---
+
+## 五、市面产品案例
+
+### 案例1：淘宝商品列表（数组）
+
+**场景**：用户在淘宝浏览商品列表。
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          淘宝商品列表                                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   【用户视角】                                                             │
+│   ┌─────────────────────────────────────────────────────────────────────┐  │
+│   │  商品1    商品2    商品3    商品4    商品5    商品6   │  │
+│   │  图片     图片     图片     图片     图片     图片    │  │
+│   │  名称     名称     名称     名称     名称     名称    │  │
+│   │  价格     价格     价格     价格     价格     价格    │  │
+│   └─────────────────────────────────────────────────────────────────────┘  │
+│                                                                             │
+│   【技术实现】                                                             │
+│                                                                             │
+│   商品数组：                                                               │
+│   products[0] = {名称:"iPhone", 价格:7999}                               │
+│   products[1] = {名称:"iPad", 价格:5999}                                 │
+│   products[2] = {名称:"MacBook", 价格:12999}                              │
+│   ...                                                                     │
+│                                                                             │
+│   为什么用数组？                                                           │
+│   • 商品数量固定一页显示                                                   │
+│   • 需要快速访问第N个商品                                                 │
+│   • 列表遍历展示效率高                                                    │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+### 案例2：微信页面返回（栈）
+
+**场景**：用户在微信中不断打开新页面，点击返回逐层关闭。
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          微信页面返回栈                                    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   【用户操作流程】                                                         │
+│                                                                             │
+│   1. 打开微信首页                                                         │
+│   2. 点击"发现"                                                           │
+│   3. 点击"朋友圈"                                                         │
+│   4. 点击某条朋友圈详情                                                    │
+│   5. 点击返回 → 回到朋友圈列表                                             │
+│   6. 点击返回 → 回到发现页                                                │
+│   7. 点击返回 → 回到首页                                                  │
+│                                                                             │
+│   【技术实现 - 页面栈】                                                   │
+│                                                                             │
+│   页面栈状态变化：                                                         │
+│                                                                             │
+│   操作后栈内容：                                                           │
+│   ┌─────────────────┐                                                    │
+│   │ 朋友圈详情页     │ ← 栈顶（当前页面）                                  │
+│   ├─────────────────┤                                                    │
+│   │ 朋友圈列表页     │                                                    │
+│   ├─────────────────┤                                                    │
+│   │ 发现页          │                                                    │
+│   ├─────────────────┤                                                    │
+│   │ 首页            │ ← 栈底                                            │
+│   └─────────────────┘                                                    │
+│                                                                             │
+│   点击返回：出栈，显示新的栈顶页面                                          │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+### 案例3：外卖订单处理（队列）
+
+**场景**：美团外卖商家按顺序处理订单。
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          美团外卖订单队列                                  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   【用户视角】                                                             │
+│   下单 → 排队等待 → 商家接单 → 制作 → 配送                               │
+│                                                                             │
+│   【技术实现 - 订单队列】                                                  │
+│                                                                             │
+│   订单队列：                                                               │
+│   ┌──────┬──────┬──────┬──────┬──────┐                                 │
+│   │订单1 │订单2 │订单3 │订单4 │订单5 │                                 │
+│   └──────┴──────┴──────┴──────┴──────┘                                 │
+│     ↑                              ↑                                      │
+│    出队                            入队                                    │
+│   （商家处理）                  （新订单加入）                              │
+│                                                                             │
+│   处理流程：                                                               │
+│   1. 新订单入队：加入队列尾部                                              │
+│   2. 商家接单：从队列头部取出订单                                         │
+│   3. 先下单的先被处理（公平性）                                           │
+│                                                                             │
+│   为什么用队列？                                                           │
+│   • 保证订单按时间顺序处理                                                │
+│   • 公平性：先下单先处理                                                  │
+│   • 支持多商家同时处理                                                    │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+### 案例4：钉钉组织架构（树）
+
+**场景**：钉钉中显示公司的组织架构。
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          钉钉组织架构树                                    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│                        ┌─────────┐                                        │
+│                        │   CEO   │                                        │
+│                        └────┬────┘                                        │
+│              ┌───────────────┼───────────────┐                            │
+│              │               │               │                            │
+│         ┌────▼───┐     ┌────▼───┐     ┌────▼───┐                        │
+│         │技术部  │     │产品部  │     │运营部  │                         │
+│         └────┬───┘     └────┬───┘     └────┬───┘                        │
+│              │               │               │                            │
+│       ┌──────┴──────┐       │        ┌──────┴──────┐                    │
+│       │             │       │        │             │                    │
+│    ┌──▼──┐      ┌───▼──┐    │    ┌───▼──┐     ┌───▼──┐              │
+│    │前端 │      │后端  │    │    │用户组│     │内容组│               │
+│    └─────┘      └─────┘    │    └─────┘     └─────┘                      │
+│                             │                                           │
+│                          ┌───▼───┐                                      │
+│                          │设计组 │                                      │
+│                          └───────┘                                      │
+│                                                                             │
+│   为什么用树？                                                             │
+│   • 天然的层级关系                                                        │
+│   • 便于查找某人的上级/下级                                              │
+│   • 支持权限继承                                                          │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+---
+
+## 六、沟通场景
+
+### 场景1：选择列表数据结构
+
+**背景**：产品经理设计一个商品列表功能。
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              沟通场景                                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  产品经理：商品列表要支持排序、筛选、分页，用什么数据结构？                  │
+│                                                                             │
+│  开发：列表数据用数组存储，因为：                                          │
+│        • 需要快速访问第N个商品（分页）                                      │
+│        • 需要遍历展示所有商品                                              │
+│        • 排序后重新生成数组即可                                            │
+│                                                                             │
+│  产品经理：那如果用户要频繁添加商品呢？                                    │
+│                                                                             │
+│  开发：如果频繁插入删除，数组效率不高。                                    │
+│        但商品列表通常是批量加载，不是频繁插入，                             │
+│        所以数组还是合适的选择。                                             │
+│                                                                             │
+│  产品经理：明白了。                                                        │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+### 场景2：页面跳转设计
+
+**背景**：产品经理设计页面跳转逻辑。
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              沟通场景                                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  产品经理：用户可以从首页进入详情页，再进入评价页，                        │
+│           点击返回要逐层返回。                                             │
+│                                                                             │
+│  开发：这个用栈来实现，每次进入新页面就入栈，                              │
+│        点击返回就出栈。                                                    │
+│                                                                             │
+│  产品经理：那如果我想从评价页直接返回首页呢？                              │
+│                                                                             │
+│  开发：那需要把栈清空到只剩首页，相当于多次出栈。                          │
+│        或者用"返回首页"功能，直接清空栈，只留首页。                        │
+│                                                                             │
+│  产品经理：好的，那加一个"返回首页"按钮。                                  │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+### 场景3：权限系统设计
+
+**背景**：产品经理设计权限管理系统。
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              沟通场景                                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  产品经理：权限要分级管理，管理员可以管理下级，                            │
+│           下级只能管理自己的权限。                                         │
+│                                                                             │
+│  开发：这个用树结构来存储权限关系。                                        │
+│        每个节点代表一个角色，子节点是下级角色。                            │
+│                                                                             │
+│  产品经理：那怎么判断某用户有没有权限管理另一个用户？                      │
+│                                                                             │
+│  开发：只需要判断被管理用户是否在管理用户的子树中。                        │
+│        如果是，就有权限；否则没有。                                        │
+│                                                                             │
+│  产品经理：明白了，树结构天然适合这种层级关系。                            │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+---
+
+## 七、常见误区
+
+### 误区1："数组就是列表"
+
+**错误认知**：数组和列表是一回事。
+
+**正确理解**：数组是底层实现，列表是应用概念。
+
+| 对比维度 | 错误理解 | 正确理解 |
+|---------|---------|---------|
+| 概念关系 | 数组=列表 | 数组是实现方式，列表是展示形式 |
+| 大小 | 可以动态变化 | 数组大小固定，列表可动态扩容 |
+| 访问方式 | 一样 | 数组通过索引，列表可多种方式 |
+
+**产品经理启示**：理解底层实现有助于理解性能瓶颈。
+
+### 误区2："栈和队列差不多"
+
+**错误认知**：栈和队列都是线性结构，差不多。
+
+**正确理解**：两者操作规则完全相反。
+
+| 对比维度 | 栈 | 队列 |
+|---------|---|------|
+| 操作规则 | LIFO（后进先出）| FIFO（先进先出）|
+| 操作端 | 只能操作一端 | 两端分别操作 |
+| 应用场景 | 返回、撤销 | 排队、任务处理 |
+| 公平性 | 不公平（后来的先走）| 公平（先来的先走）|
+
+**产品经理启示**：根据业务场景选择合适的数据结构。
+
+### 误区3："树就是目录"
+
+**错误认知**：树结构只用于文件目录。
+
+**正确理解**：树结构应用非常广泛。
+
+| 应用场景 | 树的作用 |
+|---------|---------|
+| 文件目录 | 组织文件层级 |
+| 组织架构 | 管理人员关系 |
+| 权限系统 | 继承和管理权限 |
+| 评论回复 | 嵌套评论结构 |
+| 菜单导航 | 多级菜单 |
+
+**产品经理启示**：遇到层级关系，就可以考虑用树结构。
+
+### 误区4："数据结构只影响性能"
+
+**错误认知**：数据结构只是性能问题，不影响功能。
+
+**正确理解**：数据结构直接影响功能实现。
+
+| 对比维度 | 错误理解 | 正确理解 |
+|---------|---------|---------|
+| 影响范围 | 只影响性能 | 影响功能实现 |
+| 选择依据 | 随便选 | 根据业务场景选择 |
+| 后期修改 | 容易修改 | 改动成本很高 |
+
+**产品经理启示**：数据结构选择错误可能导致功能无法实现。
+
+---
+
+## 八、思考题
+
+### 思考题1
+
+**问题**：为什么浏览器的"后退"按钮用栈实现，而打印机的任务队列用队列实现？
+
+<details>
+<summary>点击查看参考答案</summary>
+
+**答案内容：**
+
+| 场景 | 数据结构 | 原因 |
+|-----|---------|------|
+| 浏览器后退 | 栈 | 最近访问的页面最先返回，符合LIFO |
+| 打印机任务 | 队列 | 先提交的打印任务先处理，符合FIFO |
+
+浏览器后退：
+\`\`\`
+访问顺序：首页 → 列表 → 详情
+后退顺序：详情 → 列表 → 首页
+（最后访问的详情页，最先返回）
+\`\`\`
+
+打印机任务：
+\`\`\`
+提交顺序：文档A → 文档B → 文档C
+打印顺序：文档A → 文档B → 文档C
+（先提交的文档A，先被打印）
+\`\`\`
+
+</details>
+
+### 思考题2
+
+**问题**：商品分类（如：电器→手机→iPhone）应该用什么数据结构？
+
+<details>
+<summary>点击查看参考答案</summary>
+
+**答案内容：**
+
+应该用**树结构**，原因：
+
+1. **天然层级关系**：分类本身就是分层的
+2. **便于查找**：可以从根节点逐层找到目标分类
+3. **便于扩展**：新增分类只需添加节点
+4. **支持继承**：子分类可以继承父分类的属性
+
+\`\`\`
+                    ┌─────────┐
+                    │  商品   │
+                    └────┬────┘
+              ┌──────────┼──────────┐
+              │          │          │
+         ┌────▼───┐┌────▼───┐┌────▼───┐
+         │ 电器   ││ 服装   ││ 食品   │
+         └────┬───┘└────┬───┘└────┬───┘
+              │          │          │
+        ┌─────┴─────┐    │    ┌─────┴─────┐
+        │           │    │    │           │
+      手机        电脑   ...  零食        饮料
+        │
+    ┌───┴───┐
+   iPhone  华为
+\`\`\`
+
+</details>
+
+### 思考题3
+
+**问题**：如果商品列表需要频繁在中间插入新商品，数组还合适吗？应该用什么？
+
+<details>
+<summary>点击查看参考答案</summary>
+
+**答案内容：**
+
+**数组不合适**，因为：
+- 数组插入需要移动后面的所有元素
+- 时间复杂度O(n)，效率低
+
+**更好的选择：链表**
+- 链表插入只需要修改指针
+- 时间复杂度O(1)，效率高
+
+\`\`\`
+数组插入：需要移动后面的元素
+[1, 2, 3, 4, 5]
+在位置2插入X：
+[1, 2, X, 3, 4, 5]  ← 3,4,5都要移动
+
+链表插入：只需要修改指针
+1 → 2 → 3 → 4 → 5
+在2和3之间插入X：
+1 → 2 → X → 3 → 4 → 5  ← 只修改2和X的指针
+\`\`\`
+
+**但实际场景中**：
+- 商品列表通常是批量加载，不是频繁插入
+- 数组的随机访问性能更好
+- 所以商品列表还是常用数组
+
+</details>
+
+### 思考题4
+
+**问题**：购物车中的商品用什么数据结构存储更合适？
+
+<details>
+<summary>点击查看参考答案</summary>
+
+**答案内容：**
+
+购物车商品存储建议用**哈希表+数组组合**：
+
+1. **用哈希表存储**：商品ID → 商品信息
+   - 通过商品ID快速查找、添加、删除
+   - 时间复杂度O(1)
+
+2. **用数组存储商品列表**：用于展示和排序
+   - 方便遍历展示
+   - 方便排序（按价格、时间等）
+
+\`\`\`
+购物车数据结构：
+
+哈希表：
 {
-            id: 'prog-2',
-            categoryId: 'programming',
-            title: '程序怎么做事？',
-            difficulty: 'beginner',
-            summary: '理解程序的执行逻辑：顺序、判断、循环，像做菜谱一样简单。',
-            technicalContent: {
-                principle: `
-                    <h4>🔬 技术原理</h4>
-                    <p>程序执行遵循<strong>控制流（Control Flow）</strong>模型，包括三种基本结构：顺序结构、选择结构、循环结构。</p>
-                    
-                    <div class="tech-diagram">
-                        <div class="diagram-flow">
-                            <div class="diagram-node">
-                                <div class="node-icon">➡️</div>
-                                <div class="node-title">顺序结构</div>
-                                <div class="node-desc">按代码顺序<br/>逐行执行</div>
-                            </div>
-                            <div class="diagram-arrow">→</div>
-                            <div class="diagram-node">
-                                <div class="node-icon">🔀</div>
-                                <div class="node-title">选择结构</div>
-                                <div class="node-desc">if/else<br/>switch/case</div>
-                            </div>
-                            <div class="diagram-arrow">→</div>
-                            <div class="diagram-node">
-                                <div class="node-icon">🔄</div>
-                                <div class="node-title">循环结构</div>
-                                <div class="node-desc">for/while<br/>do-while</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h5>控制流语句对比</h5>
-                    <table class="concept-table">
-                        <tr>
-                            <th>类型</th>
-                            <th>语句</th>
-                            <th>使用场景</th>
-                        </tr>
-                        <tr>
-                            <td>条件判断</td>
-                            <td>if / else if / else</td>
-                            <td>多条件分支判断</td>
-                        </tr>
-                        <tr>
-                            <td>多值匹配</td>
-                            <td>switch / case</td>
-                            <td>枚举值匹配</td>
-                        </tr>
-                        <tr>
-                            <td>计数循环</td>
-                            <td>for</td>
-                            <td>已知次数的循环</td>
-                        </tr>
-                        <tr>
-                            <td>条件循环</td>
-                            <td>while</td>
-                            <td>未知次数的循环</td>
-                        </tr>
-                        <tr>
-                            <td>遍历循环</td>
-                            <td>for...of / for...in</td>
-                            <td>数组/对象遍历</td>
-                        </tr>
-                    </table>
-                `,
-                role: `
-                    <h4>🎯 核心作用</h4>
-                    <div class="role-grid">
-                        <div class="role-card">
-                            <h5>顺序结构</h5>
-                            <ul>
-                                <li><strong>特点</strong>：从上到下，逐行执行</li>
-                                <li><strong>应用</strong>：变量声明、函数调用、数据处理</li>
-                                <li><strong>注意</strong>：依赖关系要正确排序</li>
-                            </ul>
-                        </div>
-                        <div class="role-card">
-                            <h5>选择结构</h5>
-                            <ul>
-                                <li><strong>特点</strong>：根据条件选择执行路径</li>
-                                <li><strong>应用</strong>：权限判断、状态处理、异常分支</li>
-                                <li><strong>注意</strong>：避免深层嵌套，考虑边界条件</li>
-                            </ul>
-                        </div>
-                        <div class="role-card">
-                            <h5>循环结构</h5>
-                            <ul>
-                                <li><strong>特点</strong>：重复执行特定代码块</li>
-                                <li><strong>应用</strong>：批量处理、数据遍历、定时任务</li>
-                                <li><strong>注意</strong>：避免死循环，注意性能优化</li>
-                            </ul>
-                        </div>
-                    </div>
-                `,
-                businessScenario: `
-                    <h4>💼 业务场景</h4>
-                    <div class="scenario-timeline">
-                        <div class="scenario-item">
-                            <div class="scenario-number">1</div>
-                            <div class="scenario-content">
-                                <h5>订单状态处理（选择结构）</h5>
-                                <p><strong>场景</strong>：根据订单状态显示不同操作按钮</p>
-                                <p><strong>逻辑</strong>：待支付→显示"去支付"；待发货→显示"催发货"；已完成→显示"再次购买"</p>
-                            </div>
-                        </div>
-                        <div class="scenario-item">
-                            <div class="scenario-number">2</div>
-                            <div class="scenario-content">
-                                <h5>批量发送通知（循环结构）</h5>
-                                <p><strong>场景</strong>：给100万用户发送活动通知</p>
-                                <p><strong>逻辑</strong>：遍历用户列表→检查发送条件→调用发送接口→记录发送结果</p>
-                            </div>
-                        </div>
-                    </div>
-                `,
-                pmDevScenario: `
-                    <h4>🗣️ 产品经理与开发沟通场景</h4>
-                    <div class="conversation-box">
-                        <div class="conversation-item bad">
-                            <div class="conv-header">
-                                <span class="conv-icon">❌</span>
-                                <span class="conv-title">错误沟通</span>
-                            </div>
-                            <div class="conv-content">
-                                <p><strong>产品经理：</strong>"用户没登录就不能买。"</p>
-                                <p><strong>开发内心：</strong>没登录是跳登录页还是弹窗？登录后是回到当前页还是首页？</p>
-                                <p><strong>结果：</strong>实现与预期不符，反复修改</p>
-                            </div>
-                        </div>
-                        <div class="conversation-item good">
-                            <div class="conv-header">
-                                <span class="conv-icon">✅</span>
-                                <span class="conv-title">正确沟通</span>
-                            </div>
-                            <div class="conv-content">
-                                <p><strong>产品经理：</strong>"未登录用户点击购买时：1. 弹出登录弹窗；2. 登录成功后自动继续购买流程；3. 登录失败提示错误信息。"</p>
-                                <p><strong>开发：</strong>"明白了，我会用if-else处理登录状态，登录成功后回调继续执行购买逻辑。"</p>
-                                <p><strong>结果：</strong>逻辑清晰，一次做对</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tips-box">
-                        <h5>💡 流程设计清单</h5>
-                        <ul>
-                            <li>正常流程是什么？（主流程）</li>
-                            <li>有哪些异常情况？（分支流程）</li>
-                            <li>每个分支的入口条件是什么？</li>
-                            <li>循环的终止条件是什么？</li>
-                            <li>极端情况怎么处理？（空数据、超大数据量）</li>
-                        </ul>
-                    </div>
-                `
-            },
-            content: `
-                <div class="knowledge-overview">
-                    <h4>【知识点概览】</h4>
-                    <div class="overview-item"><strong>核心内容：</strong>理解程序的三大执行逻辑：顺序、判断、循环，学会用流程化的思维方式描述业务逻辑。</div>
-                    <div class="overview-item"><strong>学习目标：</strong>能够用清晰的步骤描述功能流程，掌握编写需求文档的逻辑方法，避免模糊的需求描述。</div>
-                    <div class="overview-item"><strong>课程定位：</strong>这是理解程序如何"做事"的核心课程，是产品经理将业务需求转化为技术语言的关键能力。</div>
-                </div>
-                
-                <h3>🍳 程序就像菜谱</h3>
-                <p>程序做事的方式，就像你按照<strong>菜谱做菜</strong>一样，一步一步来。</p>
-                
-                <div class="example-box">
-                    <h4>📝 菜谱 vs 程序</h4>
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">做番茄炒蛋的菜谱</span></div>
-                        <pre><code>1. 准备2个番茄、3个鸡蛋
-2. 把番茄切块
-3. 把鸡蛋打散
-4. 热锅倒油
-5. 倒入鸡蛋液，炒熟盛出
-6. 再倒油，炒番茄
-7. 倒入鸡蛋，一起炒
-8. 加盐调味
-9. 出锅装盘</code></pre>
-                    </div>
-                    
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">用户下单的程序</span></div>
-                        <pre><code>1. 用户点击"购买"按钮
-2. 检查用户是否登录
-3. 检查商品库存
-4. 计算订单金额
-5. 创建订单
-6. 扣减库存
-7. 跳转到支付页面
-8. 显示"订单创建成功"</code></pre>
-                    </div>
-                </div>
-                
-                <h3>➡️ 顺序执行</h3>
-                <p>最基本的逻辑：<strong>按顺序一步一步做</strong></p>
-                
-                <div class="diagram-box">
-                    <pre style="font-family: monospace; line-height: 2;">
-步骤1 → 步骤2 → 步骤3 → 步骤4
-                    </pre>
-                </div>
-                
-                <div class="example-box">
-                    <h4>📦 案例：发货流程</h4>
-                    <div class="code-block">
-                        <pre><code>1. 用户付款成功
-2. 系统生成发货单
-3. 仓库打印快递单
-4. 拣货员拣货
-5. 打包
-6. 交给快递员
-7. 更新订单状态为"已发货"
-8. 给用户发通知</code></pre>
-                    </div>
-                    <p><strong>注意：</strong>这些步骤必须按顺序做，不能先打包再拣货。</p>
-                </div>
-                
-                <h3>🔀 判断（如果...就...）</h3>
-                <p>程序需要根据不同情况做不同的事，这就是<strong>判断</strong>。</p>
-                
-                <div class="diagram-box">
-                    <pre style="font-family: monospace; line-height: 1.8;">
-        是 → 做A
-       /
-如果？
-       \
-        否 → 做B
-                    </pre>
-                </div>
-                
-                <div class="example-box">
-                    <h4>🎫 案例：买票判断</h4>
-                    <div class="code-block">
-                        <pre><code>如果 年龄 < 6岁:
-    票价 = 0（免票）
-否则 如果 年龄 < 18岁:
-    票价 = 50（儿童票）
-否则 如果 年龄 >= 60岁:
-    票价 = 50（老人票）
-否则:
-    票价 = 100（全价票）</code></pre>
-                    </div>
-                </div>
-                
-                <div class="example-box">
-                    <h4>🛒 案例：购物车结算</h4>
-                    <div class="code-block">
-                        <pre><code>如果 购物车是空的:
-    提示"购物车空空如也，快去选购吧"
-    不执行结算
-否则:
-    如果 有未选中的商品:
-        提示"还有商品未选中，确认只结算选中的吗？"
-    否则:
-        进入结算页面</code></pre>
-                    </div>
-                </div>
-                
-                <h3>🔄 循环（重复做）</h3>
-                <p>有些事情需要<strong>重复做多次</strong>，这就是循环。</p>
-                
-                <div class="diagram-box">
-                    <pre style="font-family: monospace; line-height: 1.8;">
-开始
-  │
-  ▼
-做这件事
-  │
-  ▼
-还有吗？──否──→ 结束
-  │
-  是
-  │
-  └──────────┘
-                    </pre>
-                </div>
-                
-                <div class="example-box">
-                    <h4>📧 案例：群发消息</h4>
-                    <p>要给100个用户发通知：</p>
-                    <div class="code-block">
-                        <pre><code>对于 用户列表 里的每一个用户:
-    发送消息("您的订单已发货")
-    记录发送日志
-结束循环</code></pre>
-                    </div>
-                    <p><strong>结果：</strong>100个用户都收到了消息</p>
-                </div>
-                
-                <div class="example-box">
-                    <h4>🔍 案例：查找商品</h4>
-                    <p>在商品列表里找价格低于100的商品：</p>
-                    <div class="code-block">
-                        <pre><code>结果列表 = 空的
+  "product_001": {数量: 2, 价格: 99},
+  "product_002": {数量: 1, 价格: 199},
+  "product_003": {数量: 3, 价格: 29}
+}
 
-对于 每个商品 in 商品列表:
-    如果 商品.价格 < 100:
-        把商品加入结果列表
-    结束判断
-结束循环
+数组（用于展示）：
+[
+  {商品ID: "product_001", ...},
+  {商品ID: "product_002", ...},
+  {商品ID: "product_003", ...}
+]
+\`\`\`
 
-显示结果列表</code></pre>
-                    </div>
-                </div>
-                
-                <h3>🎯 三种逻辑的组合</h3>
-                <p>实际程序是这三种逻辑的组合：</p>
-                
-                <div class="example-box">
-                    <h4>📦 完整案例：处理订单</h4>
-                    <div class="code-block">
-                        <pre><code>// 1. 获取所有待发货订单（循环的前置）
-待发货订单 = 查询数据库("状态=待发货")
+</details>
 
-// 2. 逐个处理（循环）
-对于 每个订单 in 待发货订单:
-    
-    // 3. 检查库存（判断）
-    如果 订单.商品.库存 >= 订单.数量:
-        // 4. 执行发货流程（顺序）
-        扣减库存(订单.商品, 订单.数量)
-        生成快递单(订单)
-        更新订单状态(订单, "已发货")
-        发送通知(订单.用户, "您的订单已发货")
-    否则:
-        标记缺货(订单)
-        发送通知(订单.用户, "商品缺货，正在补货")
-    结束判断
-    
-结束循环
+---
 
-// 5. 生成报表
-生成今日发货报表()</code></pre>
-                    </div>
-                </div>
-                
-                <h3>🎓 产品经理工作指南</h3>
-                
-                <div class="info-box">
-                    <h4>✍️ 写需求时怎么描述逻辑</h4>
-                    <table class="concept-table">
-                        <tr>
-                            <th>逻辑类型</th>
-                            <th>关键词</th>
-                            <th>例子</th>
-                        </tr>
-                        <tr>
-                            <td>顺序</td>
-                            <td>先...然后...最后...</td>
-                            <td>先验证手机号，然后发验证码，最后进入首页</td>
-                        </tr>
-                        <tr>
-                            <td>判断</td>
-                            <td>如果...就...否则...</td>
-                            <td>如果库存不足，就显示"缺货"，否则显示"立即购买"</td>
-                        </tr>
-                        <tr>
-                            <td>循环</td>
-                            <td>每个...都...</td>
-                            <td>每个选中的商品都要计算价格</td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <div class="example-box">
-                    <h4>❌ 错误示范 vs ✅ 正确示范</h4>
-                    
-                    <h5 style="color: #dc2626;">❌ 模糊的需求</h5>
-                    <p>"用户下单后要处理一下，然后通知用户"</p>
-                    
-                    <h5 style="color: #16a34a;">✅ 清晰的需求</h5>
-                    <div class="code-block">
-                        <pre><code>用户点击"提交订单"后：
-1. 检查用户是否登录（如果没登录，跳转登录页）
-2. 检查商品库存（如果库存不足，提示"库存不足"）
-3. 计算订单总价（商品价格 × 数量 + 运费）
-4. 创建订单，状态设为"待付款"
-5. 扣减商品库存
-6. 给用户发送订单创建成功的通知
-7. 跳转支付页面
+## 九、本节小结
 
-异常处理：
-- 如果第3步计算出错，显示"系统繁忙，请重试"
-- 如果第5步扣减库存失败，回滚订单（取消订单）</code></pre>
-                    </div>
-                </div>
-                
-                <h3>❓ 常见问题</h3>
-                
-                <div class="example-box">
-                    <h4>Q1：什么是"回滚"？</h4>
-                    <p>就像你做错了一道题，用橡皮擦掉重来。</p>
-                    <p><strong>例子：</strong>下单时扣了库存，但支付失败了，要把库存加回去。</p>
-                </div>
-                
-                <div class="example-box">
-                    <h4>Q2：什么是"死循环"？</h4>
-                    <p>循环没有结束条件，一直转圈圈。</p>
-                    <p><strong>例子：</strong>"只要用户没付款，就一直发提醒" → 结果用户被骚扰100条消息</p>
-                    <p><strong>正确做法：</strong>最多提醒3次，或者隔24小时再提醒</p>
-                </div>
-                
-                <div class="example-box">
-                    <h4>Q3：程序出错了会怎样？</h4>
-                    <p>可能出现的情况：</p>
-                    <ul>
-                        <li>程序卡住不动</li>
-                        <li>显示错误信息</li>
-                        <li>直接闪退</li>
-                        <li>数据错乱</li>
-                    </ul>
-                    <p><strong>产品经理要做什么：</strong>设计友好的错误提示，告诉用户发生了什么、该怎么办</p>
-                </div>
-                
-                <h3>🎮 动手试试：代码的四个基本构件</h3>
-                <p>理解了程序的执行逻辑，现在来动手体验一下代码的四个基本构件：<strong>变量、函数、条件、循环</strong>。</p>
-                <p>这四个构件是所有程序的基础，就像乐高的四种基本积木块。掌握它们，你就能理解程序员在写什么。</p>
-                
-                <div class="interactive-demo-section" id="codeConceptsDemoArea"></div>
-            `
+### 知识图谱
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          数据结构知识图谱                                    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│                          ┌─────────────┐                                   │
+│                          │  数据结构    │                                   │
+│                          └──────┬──────┘                                   │
+│                                 │                                           │
+│        ┌──────────────────────┼──────────────────────┐                   │
+│        │                      │                    │                   │
+│   ┌────▼────┐           ┌─────▼─────┐       ┌─────▼─────┐               │
+│   │线性结构  │           │线性结构    │       │非线性结构  │               │
+│   │ 数组    │           │栈/队列    │       │   树      │               │
+│   └─────────┘           └───────────┘       └───────────┘               │
+│        │                    │                    │                       │
+│   连续存储            LIFO/FIFO            层级关系                      │
+│   随机访问快          操作受限              天然分类                      │
+│                                                                             │
+│   扩展结构：                                                              │
+│   • 链表：频繁插入删除                                                   │
+│   • 哈希表：快速键值查找                                                 │
+│                                                                             │
+│   应用场景：                                                              │
+│   • 数组：列表展示、轮播图                                               │
+│   • 栈：页面返回、撤销操作                                               │
+│   • 队列：任务排队、消息处理                                             │
+│   • 树：目录结构、权限管理                                               │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+### 产品经理需要记住的5句话
+
+1. **数组适合列表展示**——访问快，但插入删除慢
+2. **栈是"后进先出"，队列是"先进先出"**——根据业务场景选择
+3. **树适合层级关系**——目录、权限、组织架构都用树
+4. **链表适合频繁插入删除**——但访问慢
+5. **哈希表适合快速查找**——键值对存储
+
+### 自检清单
+
+在提需求前，问自己这些问题：
+
+- [ ] 这个数据需要什么操作？（访问、插入、删除）
+- [ ] 数据之间有什么关系？（平行、层级、顺序）
+- [ ] 是否需要保证公平性？（先来先服务用队列）
+- [ ] 是否有层级关系？（有层级用树）
+- [ ] 操作频率如何？（频繁插入删除考虑链表）
+- [ ] 需要快速查找吗？（需要用哈希表）
+
+---
+
+## 上一篇 & 下一篇
+
+**上一篇**：[逻辑结构](./02-逻辑结构.md)
+
+**下一篇**：[函数与方法](./04-函数与方法.md)`
+    },
+    {
+        id: 'prog-4',
+        categoryId: 'programming',
+        title: '函数与方法',
+        difficulty: 'beginner',
+        summary: '理解如何让代码"一次编写，到处使用"：函数的输入输出、参数传递、返回值设计。',
+        technicalContent: {
+            principle: `
+<section class="tech-module" data-module="principle">
+<div class="module-header">
+<span class="module-icon">🔬</span>
+<h2>技术原理：函数机制</h2>
+</div>
+<div class="module-content">
+<div class="concept-block">
+<h3>核心定义</h3>
+<p><strong>函数（Function）/方法（Method）</strong>：一段可重复使用的代码块，接收输入参数，执行特定操作，返回输出结果。方法是面向对象编程中属于某个对象的函数。</p>
+</div>
+<div class="concept-block">
+<h3>三要素模型</h3>
+<table class="concept-table">
+<tr><th>要素</th><th>说明</th><th>类比</th></tr>
+<tr><td>输入（参数）</td><td>函数接收的外部数据</td><td>榨汁机的原料</td></tr>
+<tr><td>处理（函数体）</td><td>函数内部执行的逻辑</td><td>榨汁机的加工过程</td></tr>
+<tr><td>输出（返回值）</td><td>函数执行后返回的结果</td><td>榨汁机产出的果汁</td></tr>
+</table>
+</div>
+</div>
+</section>
+`,
+            role: `
+<section class="tech-module" data-module="role">
+<div class="module-header">
+<span class="module-icon">🎯</span>
+<h2>核心作用</h2>
+</div>
+<div class="module-content">
+<div class="role-grid">
+<div class="role-card">
+<div class="role-icon">🔄</div>
+<h4>代码复用</h4>
+<p>一次编写，多次使用，避免重复代码</p>
+</div>
+<div class="role-card">
+<div class="role-icon">🧩</div>
+<h4>模块化</h4>
+<p>大问题拆小问题，逻辑更清晰</p>
+</div>
+<div class="role-card">
+<div class="role-icon">🔒</div>
+<h4>封装隐藏</h4>
+<p>隐藏实现细节，只暴露接口</p>
+</div>
+<div class="role-card">
+<div class="role-icon">🔧</div>
+<h4>易于维护</h4>
+<p>修改只需改一处，影响范围可控</p>
+</div>
+</div>
+</div>
+</section>
+`,
+            businessScenario: `
+<section class="tech-module" data-module="business">
+<div class="module-header">
+<span class="module-icon">💼</span>
+<h2>业务场景案例</h2>
+</div>
+<div class="module-content">
+<div class="scenario-card">
+<h4>📱 淘宝订单总价计算</h4>
+<p><strong>场景</strong>：用户下单时系统自动计算订单总价</p>
+<table class="concept-table">
+<tr><th>步骤</th><th>用户视角</th><th>函数作用</th></tr>
+<tr><td>1</td><td>选择商品</td><td>price参数获取单价</td></tr>
+<tr><td>2</td><td>输入数量</td><td>quantity参数获取数量</td></tr>
+<tr><td>3</td><td>应用优惠</td><td>discount参数应用折扣</td></tr>
+<tr><td>4</td><td>显示总价</td><td>返回计算结果total</td></tr>
+</table>
+</div>
+<div class="scenario-card">
+<h4>💬 微信发送消息</h4>
+<p><strong>场景</strong>：用户发送一条消息给好友</p>
+<p>函数接收：发送者ID、接收者ID、消息内容</p>
+<p>函数执行：验证内容 → 保存数据库 → 推送消息 → 更新列表</p>
+<p>函数返回：发送成功/失败状态</p>
+</div>
+<div class="scenario-card">
+<h4>🎬 抖音视频推荐</h4>
+<p><strong>场景</strong>：根据用户兴趣推荐视频</p>
+<p>函数接收：用户ID、推荐数量</p>
+<p>函数执行：获取兴趣标签 → 筛选视频 → 排序 → 返回列表</p>
+</div>
+</div>
+</section>
+`,
+            pmDevScenario: `
+<section class="tech-module" data-module="communication">
+<div class="module-header">
+<span class="module-icon">🗣️</span>
+<h2>沟通场景</h2>
+</div>
+<div class="module-content">
+<div class="dialogue-card">
+<h4>场景1：需求拆分</h4>
+<div class="dialogue">
+<p><strong>产品经理</strong>：用户下单后要检查库存、计算价格、扣减库存、生成订单、发送通知。</p>
+<p><strong>开发</strong>：我会拆分成多个函数：checkStock()、calculatePrice()、reduceStock()、createOrder()、sendNotification()</p>
+<p><strong>好处</strong>：职责单一、易于测试、问题定位快、可复用</p>
+</div>
+</div>
+<div class="dialogue-card">
+<h4>场景2：参数设计</h4>
+<div class="dialogue">
+<p><strong>产品经理</strong>：搜索功能需要支持关键词、分类、价格区间、排序。</p>
+<p><strong>开发</strong>：search(keyword, category, minPrice, maxPrice, sortBy)，可选参数有默认值</p>
+</div>
+</div>
+<div class="dialogue-card">
+<h4>场景3：返回值设计</h4>
+<div class="dialogue">
+<p><strong>产品经理</strong>：登录成功返回用户信息，失败要提示原因。</p>
+<p><strong>开发</strong>：返回对象包含success状态、message提示、user信息</p>
+</div>
+</div>
+</div>
+</section>
+`
         },
-{
-            id: 'prog-3',
-            categoryId: 'programming',
-            title: '数据怎么存放？',
-            difficulty: 'beginner',
-            summary: '理解变量和存储的概念，知道数据存在哪里、怎么找。',
-            technicalContent: {
-                principle: `
-                    <h4>🔬 技术原理</h4>
-                    <p>变量是程序中用于存储数据的<strong>命名存储空间</strong>。不同编程语言有不同的变量声明方式和作用域规则。</p>
-                    
-                    <div class="tech-diagram">
-                        <div class="diagram-flow">
-                            <div class="diagram-node">
-                                <div class="node-icon">📝</div>
-                                <div class="node-title">声明变量</div>
-                                <div class="node-desc">let / const / var<br/>分配内存空间</div>
-                            </div>
-                            <div class="diagram-arrow">→</div>
-                            <div class="diagram-node">
-                                <div class="node-icon">💾</div>
-                                <div class="node-title">存储数据</div>
-                                <div class="node-desc">栈内存（基本类型）<br/>堆内存（引用类型）</div>
-                            </div>
-                            <div class="diagram-arrow">→</div>
-                            <div class="diagram-node">
-                                <div class="node-icon">🔍</div>
-                                <div class="node-title">访问变量</div>
-                                <div class="node-desc">作用域链查找<br/>闭包引用</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h5>变量声明方式对比</h5>
-                    <table class="concept-table">
-                        <tr>
-                            <th>关键字</th>
-                            <th>作用域</th>
-                            <th>是否可变</th>
-                            <th>推荐场景</th>
-                        </tr>
-                        <tr>
-                            <td>var</td>
-                            <td>函数作用域</td>
-                            <td>可变</td>
-                            <td>不推荐使用</td>
-                        </tr>
-                        <tr>
-                            <td>let</td>
-                            <td>块级作用域</td>
-                            <td>可变</td>
-                            <td>需要重新赋值的变量</td>
-                        </tr>
-                        <tr>
-                            <td>const</td>
-                            <td>块级作用域</td>
-                            <td>不可变</td>
-                            <td>常量、配置项</td>
-                        </tr>
-                    </table>
-                `,
-                role: `
-                    <h4>🎯 核心作用</h4>
-                    <div class="role-grid">
-                        <div class="role-card">
-                            <h5>变量作用域</h5>
-                            <ul>
-                                <li><strong>全局作用域</strong>：整个程序可访问</li>
-                                <li><strong>函数作用域</strong>：函数内部可访问</li>
-                                <li><strong>块级作用域</strong>：{} 内部可访问</li>
-                                <li><strong>作用域链</strong>：嵌套作用域的查找机制</li>
-                            </ul>
-                        </div>
-                        <div class="role-card">
-                            <h5>内存管理</h5>
-                            <ul>
-                                <li><strong>栈内存</strong>：存储基本类型和引用地址</li>
-                                <li><strong>堆内存</strong>：存储对象和数组数据</li>
-                                <li><strong>垃圾回收</strong>：自动释放无用内存</li>
-                                <li><strong>内存泄漏</strong>：未正确释放的内存</li>
-                            </ul>
-                        </div>
-                    </div>
-                `,
-                businessScenario: `
-                    <h4>💼 业务场景</h4>
-                    <div class="scenario-timeline">
-                        <div class="scenario-item">
-                            <div class="scenario-number">1</div>
-                            <div class="scenario-content">
-                                <h5>用户状态管理</h5>
-                                <p><strong>场景</strong>：存储用户登录状态和信息</p>
-                                <p><strong>实现</strong>：const token = getToken(); let userInfo = null;</p>
-                                <p><strong>注意</strong>：敏感信息不要存储在全局变量</p>
-                            </div>
-                        </div>
-                        <div class="scenario-item">
-                            <div class="scenario-number">2</div>
-                            <div class="scenario-content">
-                                <h5>配置常量管理</h5>
-                                <p><strong>场景</strong>：API地址、超时时间等配置</p>
-                                <p><strong>实现</strong>：const API_BASE_URL = 'https://api.example.com';</p>
-                                <p><strong>注意</strong>：使用const防止意外修改</p>
-                            </div>
-                        </div>
-                    </div>
-                `,
-                pmDevScenario: `
-                    <h4>🗣️ 产品经理与开发沟通场景</h4>
-                    <div class="conversation-box">
-                        <div class="conversation-item bad">
-                            <div class="conv-header">
-                                <span class="conv-icon">❌</span>
-                                <span class="conv-title">错误沟通</span>
-                            </div>
-                            <div class="conv-content">
-                                <p><strong>产品经理：</strong>"这个数据存起来，后面要用。"</p>
-                                <p><strong>开发内心：</strong>存多久？存在哪里？页面刷新还在吗？要持久化吗？</p>
-                                <p><strong>结果：</strong>数据丢失，用户体验差</p>
-                            </div>
-                        </div>
-                        <div class="conversation-item good">
-                            <div class="conv-header">
-                                <span class="conv-icon">✅</span>
-                                <span class="conv-title">正确沟通</span>
-                            </div>
-                            <div class="conv-content">
-                                <p><strong>产品经理：</strong>"用户选择的商品要保存，关闭页面后再次打开还能看到。需要持久化存储。"</p>
-                                <p><strong>开发：</strong>"明白了，我会用localStorage存储，设置7天过期时间。"</p>
-                                <p><strong>结果：</strong>数据持久化，用户体验好</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tips-box">
-                        <h5>💡 数据存储清单</h5>
-                        <ul>
-                            <li>数据需要存储多久？（页面级/会话级/持久化）</li>
-                            <li>数据量有多大？（影响存储方案选择）</li>
-                            <li>数据是否敏感？（敏感数据需要加密）</li>
-                            <li>是否需要跨设备同步？（需要服务端存储）</li>
-                            <li>数据过期策略是什么？（自动清理机制）</li>
-                        </ul>
-                    </div>
-                `
-            },
-            content: `
-                <div class="knowledge-overview">
-                    <h4>【知识点概览】</h4>
-                    <div class="overview-item"><strong>核心内容：</strong>理解变量和存储的概念，区分内存、本地存储、服务器存储三种方式，掌握数据持久化的基本原理。</div>
-                    <div class="overview-item"><strong>学习目标：</strong>能够判断数据应该存储在哪里，理解数据丢失的原因，设计合理的数据保存策略。</div>
-                    <div class="overview-item"><strong>课程定位：</strong>这是理解数据如何"安家"的基础课程，帮助产品经理做出正确的数据存储决策。</div>
-                </div>
-                
-                <h3>📦 变量就是"盒子"</h3>
-                <p>程序里用<strong>变量</strong>来存数据，就像用盒子装东西。</p>
-                
-                <div class="example-box">
-                    <h4>🎁 打个比方：贴标签的盒子</h4>
-                    <div class="code-block">
-                        <pre><code>盒子A（贴标签：用户名）→ 里面装着："张三"
-盒子B（贴标签：年龄）   → 里面装着：25
-盒子C（贴标签：是否会员）→ 里面装着：是</code></pre>
-                    </div>
-                    <p>在程序里，这些"盒子"就叫<strong>变量</strong>，标签就是<strong>变量名</strong>。</p>
-                </div>
-                
-                <h3>📥 存数据（赋值）</h3>
-                <p>把数据放进变量的过程叫<strong>赋值</strong>。</p>
-                
-                <div class="code-block">
-                    <div class="code-header"><span class="code-lang">赋值语句</span></div>
-                    <pre><code>用户名 = "张三"        ← 把"张三"放进"用户名"这个盒子
-年龄 = 25             ← 把25放进"年龄"这个盒子
-是否会员 = 是         ← 把"是"放进"是否会员"这个盒子</code></pre>
-                </div>
-                
-                <div class="example-box">
-                    <h4>🛒 案例：购物车计算</h4>
-                    <div class="code-block">
-                        <pre><code>商品单价 = 99
-购买数量 = 3
-运费 = 10
+        content: `# 知识点4：函数与方法
 
-商品总价 = 商品单价 × 购买数量    → 297
-订单总价 = 商品总价 + 运费        → 307</code></pre>
-                    </div>
-                    <p>每个"="号就是把右边的计算结果，存到左边的变量里。</p>
-                </div>
-                
-                <h3>📤 取数据（使用变量）</h3>
-                <p>使用变量里的数据，就像从盒子里把东西拿出来用。</p>
-                
-                <div class="code-block">
-                    <div class="code-header"><span class="code-lang">使用变量</span></div>
-                    <pre><code>用户名 = "张三"
-欢迎语 = "你好，" + 用户名     → "你好，张三"
+> **核心问题**：如何让代码"一次编写，到处使用"？
 
-年龄 = 25
-明年年龄 = 年龄 + 1           → 26</code></pre>
-                </div>
-                
-                <h3>🏪 数据存在哪里？</h3>
-                
-                <div class="example-box">
-                    <h4>📍 三种存储位置</h4>
-                    <table class="concept-table">
-                        <tr>
-                            <th>存储位置</th>
-                            <th>像什么</th>
-                            <th>特点</th>
-                            <th>例子</th>
-                        </tr>
-                        <tr>
-                            <td>内存（RAM）</td>
-                            <td>办公桌</td>
-                            <td>快，但断电就消失</td>
-                            <td>APP运行时的临时数据</td>
-                        </tr>
-                        <tr>
-                            <td>本地存储</td>
-                            <td>办公桌抽屉</td>
-                            <td>较慢，但关机还在</td>
-                            <td>记住登录状态、缓存图片</td>
-                        </tr>
-                        <tr>
-                            <td>服务器/数据库</td>
-                            <td>公司档案室</td>
-                            <td>永久保存，多台设备同步</td>
-                            <td>账号信息、订单记录</td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <h3>💾 临时存储（内存）</h3>
-                <p>APP运行时，数据存在内存里，速度快但<strong>断电就没了</strong>。</p>
-                
-                <div class="example-box">
-                    <h4>📝 案例：填写表单</h4>
-                    <p>你在注册页面填写信息：</p>
-                    <div class="code-block">
-                        <pre><code>用户输入：
-手机号 = "13800138000"
-密码 = "123456"
-昵称 = "小明"
+## 学习目标
 
-这些数据暂时存在内存里
+学完本节，你将能够：
 
-如果这时候APP闪退了：
-→ 这些数据就没了，要重新填</code></pre>
-                    </div>
-                </div>
-                
-                <h3>💿 本地存储</h3>
-                <p>把数据存到手机本地，<strong>关掉APP再打开还在</strong>。</p>
-                
-                <div class="example-box">
-                    <h4>🔑 案例：记住登录状态</h4>
-                    <div class="code-block">
-                        <pre><code>登录成功后：
-本地存储.保存("token", "abc123")
-本地存储.保存("用户名", "张三")
+- [ ] 理解函数的基本概念和作用
+- [ ] 掌握函数的输入（参数）和输出（返回值）
+- [ ] 理解函数与方法的区别
+- [ ] 能够在需求设计时合理拆分功能模块
 
-下次打开APP：
-Token = 本地存储.读取("token")
-如果 Token 存在:
-    直接进首页（免登录）
-否则:
-    显示登录页</code></pre>
-                    </div>
-                </div>
-                
-                <div class="info-box">
-                    <h4>💡 本地存储适合存什么？</h4>
-                    <ul>
-                        <li>✅ 登录凭证（Token）</li>
-                        <li>✅ 用户设置（夜间模式、字体大小）</li>
-                        <li>✅ 缓存数据（图片、文章，下次打开更快）</li>
-                        <li>❌ 重要数据（订单、支付信息）→ 要存服务器</li>
-                    </ul>
-                </div>
-                
-                <h3>🌐 服务器存储</h3>
-                <p>重要的数据要存到服务器，这样<strong>换手机也能看到</strong>。</p>
-                
-                <div class="example-box">
-                    <h4>📦 案例：订单数据</h4>
-                    <div class="code-block">
-                        <pre><code>用户下单：
-1. APP收集订单信息（内存）
-2. 发送到服务器
-3. 服务器存到数据库（永久保存）
-4. 返回"保存成功"
+---
 
-用户换手机登录：
-1. 新手机登录账号
-2. 从服务器获取历史订单
-3. 显示给用户</code></pre>
-                    </div>
-                </div>
-                
-                <h3>🎓 产品经理工作指南</h3>
-                
-                <div class="info-box">
-                    <h4>📝 设计功能时，想清楚数据存在哪</h4>
-                    <table class="concept-table">
-                        <tr>
-                            <th>数据类型</th>
-                            <th>存储位置</th>
-                            <th>原因</th>
-                        </tr>
-                        <tr>
-                            <td>用户账号密码</td>
-                            <td>服务器</td>
-                            <td>换设备要能用，要加密</td>
-                        </tr>
-                        <tr>
-                            <td>购物车</td>
-                            <td>服务器（推荐）</td>
-                            <td>换设备同步，不怕APP被删</td>
-                        </tr>
-                        <tr>
-                            <td>浏览记录</td>
-                            <td>本地或服务器</td>
-                            <td>看需求，本地省流量，服务器可同步</td>
-                        </tr>
-                        <tr>
-                            <td>夜间模式开关</td>
-                            <td>本地</td>
-                            <td>个人偏好，不用同步</td>
-                        </tr>
-                        <tr>
-                            <td>草稿箱</td>
-                            <td>本地+服务器</td>
-                            <td>本地先存，有网了同步到服务器</td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <h3>❓ 常见问题</h3>
-                
-                <div class="example-box">
-                    <h4>Q1：为什么有时候APP闪退后数据没了？</h4>
-                    <p>因为数据只存在内存里，没来得及存到本地或服务器。</p>
-                    <p><strong>产品经理要做什么：</strong>重要数据要自动保存，比如写长文章时每隔30秒自动存草稿</p>
-                </div>
-                
-                <div class="example-box">
-                    <h4>Q2：清理缓存会删掉什么？</h4>
-                    <p>清理缓存会删除：</p>
-                    <ul>
-                        <li>下载的图片、视频</li>
-                        <li>临时文件</li>
-                        <li>部分本地存储的数据</li>
-                    </ul>
-                    <p>不会删除：</p>
-                    <ul>
-                        <li>服务器上的数据（订单、账号信息）</li>
-                    </ul>
-                </div>
-                
-                <div class="example-box">
-                    <h4>Q3：为什么换手机后有些数据没了？</h4>
-                    <p>因为那些数据只存在旧手机的本地存储里，没有同步到服务器。</p>
-                    <p><strong>产品经理要做什么：</strong>重要数据要设计同步机制，或者提示用户"数据只保存在本地"</p>
-                </div>
-            `
-        },
-{
-            id: 'prog-4',
-            categoryId: 'programming',
-            title: '功能怎么复用？',
-            difficulty: 'beginner',
-            summary: '理解函数和模块的概念，知道怎么把重复的逻辑封装起来。',
-            technicalContent: {
-                principle: `
-                    <h4>🔬 技术原理</h4>
-                    <p><strong>函数（Function）</strong>是一段可重复使用的代码块，通过参数接收输入，通过返回值输出结果。<strong>模块（Module）</strong>是函数和数据的集合，用于组织代码结构。</p>
-                    
-                    <div class="tech-diagram">
-                        <div class="diagram-flow">
-                            <div class="diagram-node">
-                                <div class="node-icon">📥</div>
-                                <div class="node-title">参数输入</div>
-                                <div class="node-desc">形参 / 实参<br/>默认参数 / 剩余参数</div>
-                            </div>
-                            <div class="diagram-arrow">→</div>
-                            <div class="diagram-node">
-                                <div class="node-icon">⚙️</div>
-                                <div class="node-title">函数执行</div>
-                                <div class="node-desc">函数体<br/>作用域 / 闭包</div>
-                            </div>
-                            <div class="diagram-arrow">→</div>
-                            <div class="diagram-node">
-                                <div class="node-icon">📤</div>
-                                <div class="node-title">返回输出</div>
-                                <div class="node-desc">return 语句<br/>异步返回 Promise</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h5>函数类型对比</h5>
-                    <table class="concept-table">
-                        <tr>
-                            <th>类型</th>
-                            <th>语法</th>
-                            <th>特点</th>
-                        </tr>
-                        <tr>
-                            <td>普通函数</td>
-                            <td>function name() {}</td>
-                            <td>有自己的this绑定</td>
-                        </tr>
-                        <tr>
-                            <td>箭头函数</td>
-                            <td>() => {}</td>
-                            <td>没有自己的this，更简洁</td>
-                        </tr>
-                        <tr>
-                            <td>异步函数</td>
-                            <td>async function() {}</td>
-                            <td>返回Promise，支持await</td>
-                        </tr>
-                        <tr>
-                            <td>构造函数</td>
-                            <td>function Name() {} + new</td>
-                            <td>用于创建对象实例</td>
-                        </tr>
-                    </table>
-                `,
-                role: `
-                    <h4>🎯 核心作用</h4>
-                    <div class="role-grid">
-                        <div class="role-card">
-                            <h5>函数封装</h5>
-                            <ul>
-                                <li><strong>代码复用</strong>：避免重复编写相同逻辑</li>
-                                <li><strong>抽象隐藏</strong>：隐藏实现细节，暴露接口</li>
-                                <li><strong>参数化</strong>：通过参数实现灵活配置</li>
-                                <li><strong>单一职责</strong>：每个函数只做一件事</li>
-                            </ul>
-                        </div>
-                        <div class="role-card">
-                            <h5>模块化</h5>
-                            <ul>
-                                <li><strong>命名空间</strong>：避免全局变量污染</li>
-                                <li><strong>依赖管理</strong>：import/export管理依赖</li>
-                                <li><strong>代码分割</strong>：按功能拆分代码文件</li>
-                                <li><strong>按需加载</strong>：动态导入提升性能</li>
-                            </ul>
-                        </div>
-                    </div>
-                `,
-                businessScenario: `
-                    <h4>💼 业务场景</h4>
-                    <div class="scenario-timeline">
-                        <div class="scenario-item">
-                            <div class="scenario-number">1</div>
-                            <div class="scenario-content">
-                                <h5>工具函数封装</h5>
-                                <p><strong>场景</strong>：日期格式化、金额计算、数据校验</p>
-                                <p><strong>实现</strong>：封装成utils模块，统一管理</p>
-                                <p><strong>示例</strong>：formatDate(date, 'YYYY-MM-DD')</p>
-                            </div>
-                        </div>
-                        <div class="scenario-item">
-                            <div class="scenario-number">2</div>
-                            <div class="scenario-content">
-                                <h5>API请求封装</h5>
-                                <p><strong>场景</strong>：统一的HTTP请求处理</p>
-                                <p><strong>实现</strong>：封装request函数，统一处理token、错误、超时</p>
-                                <p><strong>示例</strong>：request('/api/user', { method: 'GET' })</p>
-                            </div>
-                        </div>
-                    </div>
-                `,
-                pmDevScenario: `
-                    <h4>🗣️ 产品经理与开发沟通场景</h4>
-                    <div class="conversation-box">
-                        <div class="conversation-item bad">
-                            <div class="conv-header">
-                                <span class="conv-icon">❌</span>
-                                <span class="conv-title">错误沟通</span>
-                            </div>
-                            <div class="conv-content">
-                                <p><strong>产品经理：</strong>"这个功能跟那个功能差不多，复制一下就行。"</p>
-                                <p><strong>开发内心：</strong>复制代码会导致维护困难，后期改一个地方要改多处。</p>
-                                <p><strong>结果：</strong>代码冗余，维护成本高，Bug修复困难</p>
-                            </div>
-                        </div>
-                        <div class="conversation-item good">
-                            <div class="conv-header">
-                                <span class="conv-icon">✅</span>
-                                <span class="conv-title">正确沟通</span>
-                            </div>
-                            <div class="conv-content">
-                                <p><strong>产品经理：</strong>"这两个功能的逻辑很相似，能不能做成通用的组件？这样以后改一处就能影响所有地方。"</p>
-                                <p><strong>开发：</strong>"好的，我会把公共逻辑抽离成函数，通过参数控制差异部分。这样维护更方便。"</p>
-                                <p><strong>结果：</strong>代码复用率高，维护成本低</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tips-box">
-                        <h5>💡 函数设计清单</h5>
-                        <ul>
-                            <li>函数名是否清晰表达功能？（动词+名词）</li>
-                            <li>参数数量是否合理？（建议不超过3-4个）</li>
-                            <li>是否有返回值？返回值类型是什么？</li>
-                            <li>是否需要错误处理？异常怎么抛出？</li>
-                            <li>是否需要单元测试？测试用例有哪些？</li>
-                        </ul>
-                    </div>
-                `
-            },
-            content: `
-                <div class="knowledge-overview">
-                    <h4>【知识点概览】</h4>
-                    <div class="overview-item"><strong>核心内容：</strong>理解函数和模块的概念，掌握代码复用的思想，学会识别可复用的功能组件。</div>
-                    <div class="overview-item"><strong>学习目标：</strong>能够识别产品中的可复用功能，理解组件化开发的优势，与技术讨论功能复用方案。</div>
-                    <div class="overview-item"><strong>课程定位：</strong>这是提升开发效率的重要课程，帮助产品经理理解技术架构，做出更合理的产品规划。</div>
-                </div>
-                
-                <h3>🔧 函数就是"工具"</h3>
-                <p>程序里把常用的功能打包成<strong>函数</strong>（也叫方法），就像你家里的工具。</p>
-                
-                <div class="example-box">
-                    <h4>🔨 打个比方：工具箱</h4>
-                    <table class="concept-table">
-                        <tr>
-                            <th>工具</th>
-                            <th>作用</th>
-                            <th>输入</th>
-                            <th>输出</th>
-                        </tr>
-                        <tr>
-                            <td>榨汁机</td>
-                            <td>把水果榨成汁</td>
-                            <td>水果</td>
-                            <td>果汁</td>
-                        </tr>
-                        <tr>
-                            <td>计算器</td>
-                            <td>算加减乘除</td>
-                            <td>数字和运算符</td>
-                            <td>计算结果</td>
-                        </tr>
-                        <tr>
-                            <td>微波炉</td>
-                            <td>加热食物</td>
-                            <td>食物、时间</td>
-                            <td>热好的食物</td>
-                        </tr>
-                    </table>
-                    <p>程序里的<strong>函数</strong>就像这些工具，输入数据，处理，输出结果。</p>
-                </div>
-                
-                <h3>📞 调用函数</h3>
-                <p>使用函数的过程叫<strong>调用</strong>，就像你使用工具一样。</p>
-                
-                <div class="code-block">
-                    <div class="code-header"><span class="code-lang">调用函数的例子</span></div>
-                    <pre><code>// 定义一个计算打折价格的函数
-函数 计算折扣价(原价, 折扣):
-    折扣价 = 原价 × 折扣
-    返回 折扣价
-结束函数
+## 一、核心概念
 
-// 调用函数
-价格1 = 计算折扣价(100, 0.8)    → 80
-价格2 = 计算折扣价(200, 0.5)    → 100
-价格3 = 计算折扣价(50, 0.9)     → 45</code></pre>
-                </div>
-                
-                <div class="example-box">
-                    <h4>🧮 案例：验证手机号</h4>
-                    <div class="code-block">
-                        <pre><code>// 定义验证手机号的函数
-函数 验证手机号(手机号):
-    如果 手机号长度 ≠ 11:
-        返回 "手机号必须是11位"
-    结束如果
-    
-    如果 手机号开头不是 "1":
-        返回 "手机号格式不正确"
-    结束如果
-    
-    返回 "格式正确"
-结束函数
+### 专业解释
 
-// 多处调用
-结果1 = 验证手机号("13800138000")   → "格式正确"
-结果2 = 验证手机号("123")           → "手机号必须是11位"
-结果3 = 验证手机号("23800138000")   → "手机号格式不正确"</code></pre>
-                    </div>
-                    <p><strong>好处：</strong>写一次，到处用，如果要改规则，只改一个地方</p>
-                </div>
-                
-                <h3>📦 模块就是"工具箱"</h3>
-                <p>把相关的函数打包在一起，就是<strong>模块</strong>（也叫组件、类）。</p>
-                
-                <div class="example-box">
-                    <h4>🧰 案例：用户管理模块</h4>
-                    <div class="code-block">
-                        <pre><code>模块：用户管理
+**函数（Function）/方法（Method）**：一段可重复使用的代码块，接收输入参数，执行特定操作，返回输出结果。方法是面向对象编程中属于某个对象的函数。
 
-  函数：注册用户(手机号, 密码)
-    - 检查手机号是否已存在
-    - 加密密码
-    - 保存到数据库
-    - 返回新用户ID
-  
-  函数：登录(手机号, 密码)
-    - 查找用户
-    - 验证密码
-    - 生成登录凭证
-    - 返回凭证
-  
-  函数：修改密码(用户ID, 旧密码, 新密码)
-    - 验证旧密码
-    - 加密新密码
-    - 更新数据库
-    - 返回成功/失败
-  
-  函数：获取用户信息(用户ID)
-    - 查询数据库
-    - 返回用户信息
+- **输入（参数）**：函数接收的外部数据
+- **处理（函数体）**：函数内部执行的逻辑
+- **输出（返回值）**：函数执行后返回的结果
 
-结束模块</code></pre>
-                    </div>
-                </div>
-                
-                <h3>🎯 为什么要复用？</h3>
-                
-                <div class="info-box">
-                    <h4>✅ 复用的好处</h4>
-                    <table class="concept-table">
-                        <tr>
-                            <th>好处</th>
-                            <th>解释</th>
-                            <th>例子</th>
-                        </tr>
-                        <tr>
-                            <td>少写代码</td>
-                            <td>写一次，到处用</td>
-                            <td>验证手机号的功能，全APP共用</td>
-                        </tr>
-                        <tr>
-                            <td>容易修改</td>
-                            <td>改一处，全生效</td>
-                            <td>改折扣计算规则，只改函数内部</td>
-                        </tr>
-                        <tr>
-                            <td>减少错误</td>
-                            <td>用经过测试的代码</td>
-                            <td>用现成的支付模块，更安全</td>
-                        </tr>
-                        <tr>
-                            <td>分工合作</td>
-                            <td>不同人写不同模块</td>
-                            <td>A写用户模块，B写订单模块</td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <h3>🎓 产品经理工作指南</h3>
-                
-                <div class="example-box">
-                    <h4>📝 识别可复用的功能</h4>
-                    <p>设计产品时，看看哪些功能可以做成"通用组件"：</p>
-                    
-                    <h5>常见的可复用组件</h5>
-                    <table class="concept-table">
-                        <tr>
-                            <th>组件</th>
-                            <th>使用场景</th>
-                        </tr>
-                        <tr>
-                            <td>手机号输入框</td>
-                            <td>登录、注册、绑定手机、修改手机号</td>
-                        </tr>
-                        <tr>
-                            <td>地址选择器</td>
-                            <td>添加收货地址、修改地址、定位</td>
-                        </tr>
-                        <tr>
-                            <td>图片上传</td>
-                            <td>上传头像、上传商品图、发带图评论</td>
-                        </tr>
-                        <tr>
-                            <td>支付弹窗</td>
-                            <td>商品购买、充值、打赏</td>
-                        </tr>
-                        <tr>
-                            <td>分享面板</td>
-                            <td>分享商品、分享文章、分享活动</td>
-                        </tr>
-                    </table>
-                    
-                    <p><strong>产品经理要做什么：</strong>设计时标注"这里用通用组件"，避免重复造轮子</p>
-                </div>
-                
-                <h3>❓ 常见问题</h3>
-                
-                <div class="example-box">
-                    <h4>Q1：什么是API？</h4>
-                    <p>API就是<strong>函数的使用说明书</strong>，告诉你：</p>
-                    <ul>
-                        <li>这个函数是干嘛的</li>
-                        <li>需要输入什么（参数）</li>
-                        <li>会返回什么（结果）</li>
-                    </ul>
-                    <p><strong>例子：</strong>微信支付的API，告诉你怎么调用微信支付功能</p>
-                </div>
-                
-                <div class="example-box">
-                    <h4>Q2：什么是SDK？</h4>
-                    <p>SDK就是<strong>工具包</strong>，里面包含了一堆现成的函数和模块。</p>
-                    <p><strong>例子：</strong>高德地图SDK，里面包含了定位、导航、地图显示等功能，直接调用就行</p>
-                </div>
-                
-                <div class="example-box">
-                    <h4>Q3：改一个通用组件会影响哪些地方？</h4>
-                    <p>所有用到这个组件的地方都会受影响。</p>
-                    <p><strong>例子：</strong>改了"手机号输入框"的验证规则，登录、注册、绑定手机页面都会变</p>
-                    <p><strong>产品经理要做什么：</strong>改通用组件前，要确认影响范围，避免意外改坏其他功能</p>
-                </div>
-            `
-        }
+### 大白话解释
+
+用生活化的语言解释核心概念：
+
+| 技术概念 | 生活类比 | 通俗理解 |
+|---------|---------|---------|
+| 函数/方法 | 榨汁机 | 放进去水果（输入），出来果汁（输出） |
+| 参数 | 原料 | 放什么水果进去 |
+| 函数体 | 加工过程 | 机器怎么工作 |
+| 返回值 | 成品 | 出来的是什么 |
+| 调用 | 使用机器 | 按下开关 |
+
+---
+
+## 二、生活化类比详解
+
+### 类比主题：榨汁机的工作原理
+
+\`\`\`
+┌─────────────────────────────────────────────────────────────────┐
+│                    榨汁机（函数类比）                            │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   【输入-参数】                                                │
+│                                                                 │
+│   放入水果：苹果、橙子、西瓜...                                 │
+│       │                                                         │
+│       ▼                                                         │
+│   ┌─────────────────────────────────────────────────────────┐  │
+│   │                    榨汁机（函数体）                       │  │
+│   │   1. 接收水果 → 2. 切碎 → 3. 压榨 → 4. 过滤 → 5. 输出果汁│  │
+│   └─────────────────────────────────────────────────────────┘  │
+│       │                                                         │
+│       ▼                                                         │
+│   【输出-返回值】                                              │
+│   出来果汁：苹果汁、橙汁、西瓜汁...                             │
+└─────────────────────────────────────────────────────────────────┘
+\`\`\`
+
+**对应到互联网产品：**
+
+| 生活场景 | 互联网产品 | 技术术语 |
+|---------|-----------|---------|
+| 放入苹果 | 传入用户ID | 参数（输入）|
+| 榨汁机工作 | 计算逻辑 | 函数体（处理）|
+| 出来苹果汁 | 返回用户信息 | 返回值（输出）|
+
+---
+
+## 三、详细原理阐述
+
+### 3.1 函数的基本结构
+
+| 概念 | 专业解释 | 大白话 | 例子 |
+|-----|---------|-------|-----|
+| 函数名 | 函数的标识符 | 加工厂的名字 | calculatePrice |
+| 参数列表 | 输入数据的定义 | 需要什么原料 | (price, quantity) |
+| 函数体 | 执行的代码逻辑 | 怎么加工 | 计算总价 |
+| 返回值 | 输出结果 | 出来什么产品 | return totalPrice |
+
+### 3.2 函数的参数
+
+| 概念 | 专业解释 | 大白话 | 例子 |
+|-----|---------|-------|-----|
+| 形参 | 定义时的参数 | 预留的位置 | (int price) |
+| 实参 | 调用时传入的值 | 实际给的值 | calculateTotal(100, 2) |
+| 必选参数 | 必须传入的参数 | 必须给的原料 | 价格、数量 |
+| 默认参数 | 有默认值的参数 | 不给就用默认的 | 折扣=0.9 |
+
+### 3.3 函数的返回值
+
+| 概念 | 专业解释 | 大白话 | 例子 |
+|-----|---------|-------|-----|
+| return | 返回关键字 | 产出成品 | return result |
+| 返回值类型 | 返回数据的类型 | 成品类型 | int、String、boolean |
+| 无返回值 | 不返回任何值 | 只做事不产出 | void |
+
+### 3.4 函数与方法的关系
+
+| 对比维度 | 函数 | 方法 |
+|---------|-----|------|
+| 归属 | 独立存在 | 属于某个对象/类 |
+| 调用方式 | 直接调用 | 通过对象调用 |
+| 访问数据 | 只能访问传入的参数 | 可以访问对象的属性 |
+| 示例 | calculateTotal(100, 2) | user.getName() |
+
+---
+
+## 四、市面产品案例
+
+### 案例1：淘宝计算订单总价
+
+| 步骤 | 用户视角 | 技术视角 | 函数作用 |
+|-----|---------|---------|---------|
+| 1 | 选择商品 | 获取商品单价 | price参数 |
+| 2 | 输入数量 | 获取购买数量 | quantity参数 |
+| 3 | 应用优惠 | 获取折扣信息 | discount参数 |
+| 4 | 显示总价 | 调用计算函数 | 返回total |
+
+### 案例2：微信发送消息
+
+函数接收：发送者ID、接收者ID、消息内容
+
+函数执行：验证内容 → 保存数据库 → 推送消息 → 更新列表
+
+函数返回：发送成功/失败状态
+
+### 案例3：抖音视频推荐
+
+函数接收：用户ID、推荐数量
+
+函数执行：获取兴趣标签 → 筛选视频 → 排序 → 返回列表
+
+---
+
+## 五、常见误区
+
+### 误区1："函数越多越好"
+
+**正确理解**：函数拆分要适度，过度拆分会增加复杂度。
+
+### 误区2："函数名随便起"
+
+**正确理解**：函数名要能清晰表达函数的作用，见名知意。
+
+### 误区3："参数越多越灵活"
+
+**正确理解**：参数过多会增加复杂度，一般不超过5个。
+
+### 误区4："函数一定要有返回值"
+
+**正确理解**：有些函数只需要执行操作（如打印日志），不需要返回值。
+
+---
+
+## 六、本节小结
+
+### 产品经理需要记住的3句话
+
+1. **函数是"输入→处理→输出"的黑盒**——知道输入什么、输出什么就行
+2. **函数让代码可以复用**——一次编写，到处使用，修改方便
+3. **方法是属于对象的函数**——需要通过对象调用，可以访问对象数据
+
+### 自检清单
+
+在提需求前，问自己这些问题：
+
+- [ ] 这个功能需要什么输入数据？（参数）
+- [ ] 这个功能要输出什么结果？（返回值）
+- [ ] 这个功能是否可以拆分成更小的步骤？（函数拆分）
+- [ ] 这个功能是否和其他功能有相似之处？（代码复用）
+- [ ] 这个功能的命名是否清晰表达意图？（函数命名）
+`
+    }
 ];
 
-// 浏览器环境：挂载到 window 对象
 if (typeof window !== 'undefined') {
     window.programmingKnowledge = knowledge;
 }
 
-// Node.js 环境：CommonJS 模块导出
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { knowledge };
 }

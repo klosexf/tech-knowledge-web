@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>技术知识学习平台 - 产品经理必备技术知识</title>
-    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>技术知识学习平台 - 产品经理必备技术知识 [V3]</title>
+    <!-- 模块化CSS样式 -->
+    <link rel="stylesheet" href="css/main.css?v=5">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -59,7 +63,7 @@
                     <p class="hero-subtitle">用大白话讲透技术原理，让产品经理与开发无缝沟通</p>
                     <div class="hero-stats">
                         <div class="stat-item">
-                            <span class="stat-number">7</span>
+                            <span class="stat-number">6</span>
                             <span class="stat-label">知识模块</span>
                         </div>
                         <div class="stat-item">
@@ -415,19 +419,119 @@ console.log("消费100元获得积分：" + calculateIntegral(100));</textarea>
         </svg>
     </button>
 
-    <!-- 模块化数据文件 -->
-    <script src="data/categories.js"></script>
-    <script src="data/architecture.js"></script>
-    <script src="data/programming.js"></script>
-    <script src="data/database.js"></script>
-    <script src="data/frontend.js"></script>
-    <script src="data/backend.js"></script>
-    <script src="data/data-analysis.js"></script>
-    <script src="data/index.js"></script>
+    <!-- Mermaid.js 图表库 -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        // 初始化 Mermaid
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'base',
+            themeVariables: {
+                // 基础颜色
+                primaryColor: '#0d9488',
+                primaryTextColor: '#ffffff',
+                primaryBorderColor: '#0f766e',
+                lineColor: '#475569',
+                secondaryColor: '#f0fdfa',
+                tertiaryColor: '#f8fafc',
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                // 时序图专用颜色
+                actorBkg: '#0d9488',
+                actorBorder: '#0f766e',
+                actorTextColor: '#ffffff',
+                actorLineColor: '#475569',
+                signalColor: '#1e293b',
+                signalTextColor: '#1e293b',
+                labelBoxBkg: '#f0fdfa',
+                labelBoxBorderColor: '#0d9488',
+                labelTextColor: '#1e293b',
+                loopTextColor: '#1e293b',
+                noteBorderColor: '#f59e0b',
+                noteBkgColor: '#fffbeb',
+                noteTextColor: '#1e293b',
+                activationBorderColor: '#0f766e',
+                activationBkgColor: '#f0fdfa',
+                sequenceNumberColor: '#ffffff'
+            },
+            sequence: {
+                diagramMarginX: 20,
+                diagramMarginY: 20,
+                actorMargin: 60,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: false,
+                bottomMarginAdj: 1,
+                useMaxWidth: true,
+                rightAngles: false,
+                showSequenceNumbers: false,
+                actorFontSize: 14,
+                actorFontWeight: 600,
+                messageFontSize: 13,
+                messageFontWeight: 400,
+                noteFontSize: 13,
+                noteFontWeight: 400
+            },
+            flowchart: {
+                diagramPadding: 20,
+                useMaxWidth: true,
+                nodeFontSize: 14,
+                nodeFontWeight: 500,
+                edgeLabelFontSize: 13,
+                edgeLabelFontWeight: 400
+            },
+            mindmap: {
+                useMaxWidth: true,
+                padding: 20,
+                maxNodeWidth: 200
+            }
+        });
+    </script>
+    
+    <!-- Motion 动画库 -->
+    <script src="https://cdn.jsdelivr.net/npm/motion@10.18.0/dist/motion.min.js"></script>
+    
+    <!-- 可视化卡片组件样式 v5.0 -->
+    <link rel="stylesheet" href="css/visual-cards-v5.css?v=5">
+    
+    <!-- 可视化卡片组件脚本 v5.0 -->
+    <script src="js/visual-cards-v5.js"></script>
+    
+    <!-- Motion 动画模块化数据文件 -->
+    <script src="data/categories.js?v=3"></script>
+    <script src="data/architecture.js?v=3"></script>
+    <script src="data/programming.js?v=14"></script>
+    <script src="data/database.js?v=3"></script>
+    <script src="data/frontend.js?v=3"></script>
+    <script src="data/backend.js?v=5"></script>
+    <script src="data/data-analysis.js?v=3"></script>
+    <script src="data/index.js?v=5"></script>
+    
+    <!-- 调试脚本：验证数据加载 -->
+    <script>
+        window.addEventListener('load', function() {
+            console.log('=== 数据加载验证 ===');
+            console.log('programmingKnowledge:', window.programmingKnowledge ? window.programmingKnowledge.length : '未定义');
+            console.log('knowledgeData:', window.knowledgeData ? {
+                categories: window.knowledgeData.categories.length,
+                knowledge: window.knowledgeData.knowledge.length
+            } : '未定义');
+            
+            if (window.programmingKnowledge && window.programmingKnowledge[0]) {
+                const k = window.programmingKnowledge[0];
+                console.log('第一个知识点:', k.id, k.title);
+                console.log('内容长度:', k.content ? k.content.length : 0);
+                console.log('是否包含新内容:', k.content && k.content.includes('knowledge-overview'));
+            }
+        });
+    </script>
     
     <!-- 应用脚本 -->
-    <script src="interactive.js"></script>
-    <script src="script.js"></script>
+    <script src="interactive.js?v=3"></script>
+    <script src="script.js?v=3"></script>
     <script src="components/code-concepts-demo.js"></script>
     
     <!-- 手机APP知识模块交互式组件 -->
@@ -435,8 +539,5 @@ console.log("消费100元获得积分：" + calculateIntegral(100));</textarea>
     <script src="components/ui-builder-demo.js"></script>
     <script src="components/app-types-demo.js"></script>
     <script src="components/dev-methods-demo.js"></script>
-    
-    <!-- 互联网基础架构模块交互式组件 -->
-    <script src="components/app-lifecycle-demo.js"></script>
 </body>
 </html>

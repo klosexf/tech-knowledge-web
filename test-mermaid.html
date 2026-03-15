@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mermaid Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .test-content { margin: 20px 0; padding: 20px; border: 1px solid #ddd; }
+        .mermaid-diagram { margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <h1>Mermaid Test Page</h1>
+    <div id="test1" class="test-content"></div>
+    <div id="test2" class="test-content"></div>
+    
+    <script>
+        // Initialize mermaid
+        mermaid.initialize({ 
+            startOnLoad: false,
+            theme: 'default'
+        });
+        
+        // Test 1: Direct mermaid rendering
+        const testContent = `
+\`\`\`mermaid
+flowchart TB
+    subgraph arch["互联网产品技术架构"]
+        subgraph client["表现层 Presentation Layer<br/>前端/客户端 Client"]
+            c1["运行在用户设备上的应用程序"]
+        end
+    end
+\`\`\`
+        `;
+        
+        // Test 2: Parse with marked first
+        const markdownContent = `# Test Content
+
+\`\`\`mermaid
+flowchart TB
+    A --> B
+    B --> C
+\`\`\`
+        `;
+        
+        // Render test 1
+        document.getElementById('test1').innerHTML = marked.parse(testContent);
+        
+        // Render test 2
+        document.getElementById('test2').innerHTML = marked.parse(markdownContent);
+        
+        // Try to render mermaid diagrams
+        setTimeout(() => {
+            console.log('Attempting to render mermaid diagrams...');
+            
+            // Find all code blocks
+            const codeBlocks = document.querySelectorAll('pre code');
+            console.log('Found code blocks:', codeBlocks.length);
+            
+            codeBlocks.forEach((code, index) => {
+                const content = code.textContent;
+                console.log(`Code block ${index}:`, content.substring(0, 50));
+                
+                if (content.trim().startsWith('flowchart')) {
+                    console.log('Found flowchart!');
+                    
+                    const pre = code.parentElement;
+                    const mermaidDiv = document.createElement('div');
+                    mermaidDiv.className = 'mermaid-diagram';
+                    
+                    const id = 'mermaid-' + Date.now() + '-' + index;
+                    mermaid.render(id, content.trim()).then(({ svg }) => {
+                        console.log('Rendered successfully!');
+                        mermaidDiv.innerHTML = svg;
+                        pre.parentNode.replaceChild(mermaidDiv, pre);
+                    }).catch(err => {
+                        console.error('Render error:', err);
+                    });
+                }
+            });
+        }, 1000);
+    </script>
+</body>
+</html>
