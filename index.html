@@ -27,7 +27,7 @@
             </button>
             
             <ul class="nav-menu" id="navMenu">
-                <li class="nav-item"><a href="#home" class="nav-link active">首页</a></li>
+                <li class="nav-item"><a href="#home" class="nav-link active" onclick="goToHome(event)">首页</a></li>
                 <li class="nav-item"><a href="#about" class="nav-link">关于我们</a></li>
             </ul>
             
@@ -136,7 +136,7 @@
                 <section class="categories" id="categories">
                     <div class="section-header">
                         <div class="section-header-left">
-                            <button class="back-btn back-to-categories" id="backToCategories" style="display: none;">
+                            <button class="back-btn back-to-categories" id="backToCategories" style="display: none;" onclick="handleBackToCategoriesClick(event)">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M19 12H5M12 19l-7-7 7-7"/>
                                 </svg>
@@ -203,7 +203,7 @@
 
                 <!-- 知识详情区（默认隐藏） -->
                 <section class="knowledge-detail" id="knowledgeDetail">
-                    <button class="back-btn" id="backBtn">
+                    <button class="back-btn" id="backBtn" onclick="handleBackButtonClick(event)">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M19 12H5M12 19l-7-7 7-7"/>
                         </svg>
@@ -501,13 +501,13 @@ console.log("消费100元获得积分：" + calculateIntegral(100));</textarea>
     <script src="js/visual-cards-v5.js"></script>
     
     <!-- Motion 动画模块化数据文件 -->
-    <script src="data/categories.js?v=3"></script>
+    <script src="data/categories.js?v=4"></script>
     <script src="data/architecture.js?v=3"></script>
-    <script src="data/programming.js?v=14"></script>
+    <script src="data/programming.js?v=17"></script>
     <script src="data/database.js?v=3"></script>
     <script src="data/frontend.js?v=3"></script>
     <script src="data/backend.js?v=5"></script>
-    <script src="data/data-analysis.js?v=3"></script>
+    <script src="data/data-analysis.js?v=5"></script>
     <script src="data/index.js?v=5"></script>
     
     <!-- 调试脚本：验证数据加载 -->
@@ -529,9 +529,233 @@ console.log("消费100元获得积分：" + calculateIntegral(100));</textarea>
         });
     </script>
     
-    <!-- 应用脚本 -->
+    <!-- 首页按钮点击处理 - 直接内联脚本 -->
+    <script>
+        /**
+         * 首页按钮点击处理函数
+         * 直接内联定义，确保可用性
+         */
+        function goToHome(event) {
+            console.log('[goToHome] 首页按钮被点击');
+            
+            // 阻止默认行为
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            try {
+                // 1. 隐藏知识详情
+                var knowledgeDetail = document.getElementById('knowledgeDetail');
+                if (knowledgeDetail) {
+                    knowledgeDetail.classList.remove('active');
+                    console.log('[goToHome] 已隐藏知识详情');
+                }
+                
+                // 2. 显示分类和学习路径
+                var categories = document.querySelector('.categories');
+                var learningPath = document.querySelector('.learning-path');
+                
+                if (categories) {
+                    categories.style.display = 'block';
+                    console.log('[goToHome] 已显示分类区域');
+                }
+                if (learningPath) {
+                    learningPath.style.display = 'block';
+                    console.log('[goToHome] 已显示学习路径');
+                }
+                
+                // 3. 重置标题
+                var categoriesTitle = document.getElementById('categoriesTitle');
+                if (categoriesTitle) {
+                    categoriesTitle.textContent = '技术分类';
+                }
+                
+                // 4. 隐藏返回按钮
+                var backToCategories = document.getElementById('backToCategories');
+                if (backToCategories) {
+                    backToCategories.style.display = 'none';
+                }
+                
+                // 5. 重置筛选器
+                var difficultyFilter = document.getElementById('difficultyFilter');
+                if (difficultyFilter) {
+                    difficultyFilter.value = 'all';
+                }
+                
+                // 6. 重新渲染分类（如果 AppUI 可用）
+                if (typeof AppUI !== 'undefined' && AppUI.renderCategories) {
+                    AppUI.renderCategories();
+                    console.log('[goToHome] 已重新渲染分类');
+                } else {
+                    console.log('[goToHome] AppUI.renderCategories 不可用，跳过渲染');
+                }
+                
+                // 7. 滚动到页面顶部
+                console.log('[goToHome] 开始滚动到页面顶部');
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                console.log('[goToHome] 已滚动到页面顶部');
+                
+                // 8. 更新导航链接激活状态
+                document.querySelectorAll('.nav-link').forEach(function(link) {
+                    link.classList.remove('active');
+                });
+                event.target.classList.add('active');
+                
+                console.log('[goToHome] 首页跳转完成');
+                
+            } catch (error) {
+                console.error('[goToHome] 发生错误:', error);
+                // 即使出错也尝试滚动到顶部
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            
+            return false;
+        }
+        
+        console.log('[Inline Script] goToHome 函数已定义');
+    </script>
+    
+    <!-- 应用脚本 - 模块化架构 -->
+    <!-- 核心模块 -->
+    <script src="js/core/state.js"></script>
+    <script src="js/core/init.js"></script>
+    <script src="js/core/events.js"></script>
+    
+    <!-- UI模块 -->
+    <script src="js/ui/categories.js"></script>
+    <script src="js/ui/search.js"></script>
+    <script src="js/ui/code-editor.js"></script>
+    <script src="js/ui/quiz.js"></script>
+    <script src="js/ui/modal.js"></script>
+    <script src="js/ui/favorites.js"></script>
+    
+    <!-- 渲染模块 -->
+    <script src="js/rendering/content.js"></script>
+    <script src="js/rendering/mermaid.js"></script>
+    <script src="js/rendering/diagram-detection.js"></script>
+    <script src="js/rendering/visual-cards.js"></script>
+    <script src="js/rendering/ascii-diagrams.js"></script>
+    
+    <!-- 交互模块 -->
+    <script src="js/interactive/learning.js"></script>
+    
+    <!-- 工具模块 -->
+    <script src="js/utils/helpers.js"></script>
+    
+    <!-- 主入口 -->
+    <script src="js/main.js"></script>
+    
+    <!-- 返回列表按钮全局处理函数 -->
+    <script>
+        // 全局返回按钮处理函数 - 确保始终可用
+        function handleBackButtonClick(event) {
+            event.preventDefault();
+            console.log('[handleBackButtonClick] 按钮被点击');
+            
+            try {
+                // 方案1：使用模块化代码
+                if (typeof AppUI !== 'undefined' && AppUI.hideKnowledgeDetail) {
+                    console.log('[handleBackButtonClick] 使用 AppUI.hideKnowledgeDetail');
+                    AppUI.hideKnowledgeDetail();
+                    return;
+                }
+                
+                // 方案2：直接操作 DOM
+                console.log('[handleBackButtonClick] 使用降级方案');
+                var knowledgeDetail = document.getElementById('knowledgeDetail');
+                var categories = document.querySelector('.categories');
+                var learningPath = document.querySelector('.learning-path');
+                var categoriesTitle = document.getElementById('categoriesTitle');
+                var backToCategories = document.getElementById('backToCategories');
+                
+                if (knowledgeDetail) {
+                    knowledgeDetail.classList.remove('active');
+                }
+                if (categories) {
+                    categories.style.display = 'block';
+                }
+                if (learningPath) {
+                    learningPath.style.display = 'block';
+                }
+                if (categoriesTitle) {
+                    categoriesTitle.textContent = '技术分类';
+                }
+                if (backToCategories) {
+                    backToCategories.style.display = 'none';
+                }
+                
+                // 滚动到分类区域
+                var categoriesSection = document.getElementById('categories');
+                if (categoriesSection) {
+                    categoriesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                
+                console.log('[handleBackButtonClick] 降级方案执行完成');
+            } catch (error) {
+                console.error('[handleBackButtonClick] 执行失败:', error);
+                alert('返回失败，请刷新页面重试');
+            }
+        }
+        
+        console.log('[全局函数] handleBackButtonClick 已定义');
+        
+        // 分类模块返回按钮处理函数
+        function handleBackToCategoriesClick(event) {
+            event.preventDefault();
+            console.log('[handleBackToCategoriesClick] 按钮被点击');
+            
+            try {
+                // 方案1：使用模块化代码
+                if (typeof AppEvents !== 'undefined' && AppEvents.backToCategoryList) {
+                    console.log('[handleBackToCategoriesClick] 使用 AppEvents.backToCategoryList');
+                    AppEvents.backToCategoryList();
+                    return;
+                }
+                
+                // 方案2：直接操作 DOM
+                console.log('[handleBackToCategoriesClick] 使用降级方案');
+                var categoriesTitle = document.getElementById('categoriesTitle');
+                var backToCategories = document.getElementById('backToCategories');
+                var difficultyFilter = document.getElementById('difficultyFilter');
+                var categoryGrid = document.getElementById('categoryGrid');
+                
+                if (categoriesTitle) {
+                    categoriesTitle.textContent = '技术分类';
+                }
+                if (backToCategories) {
+                    backToCategories.style.display = 'none';
+                }
+                if (difficultyFilter) {
+                    difficultyFilter.value = 'all';
+                }
+                
+                // 重新渲染分类卡片
+                if (typeof AppUI !== 'undefined' && AppUI.renderCategories) {
+                    AppUI.renderCategories();
+                }
+                
+                // 滚动到分类区域
+                var categoriesSection = document.getElementById('categories');
+                if (categoriesSection) {
+                    categoriesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                
+                console.log('[handleBackToCategoriesClick] 降级方案执行完成');
+            } catch (error) {
+                console.error('[handleBackToCategoriesClick] 执行失败:', error);
+                alert('返回失败，请刷新页面重试');
+            }
+        }
+        
+        console.log('[全局函数] handleBackToCategoriesClick 已定义');
+    </script>
+    
+    <!-- 其他组件 -->
     <script src="interactive.js?v=3"></script>
-    <script src="script.js?v=3"></script>
     <script src="components/code-concepts-demo.js"></script>
     
     <!-- 手机APP知识模块交互式组件 -->

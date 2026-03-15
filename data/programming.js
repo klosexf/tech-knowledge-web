@@ -1434,7 +1434,7 @@ while (hasMoreData) {
 <div style="padding: 10px 24px; background: #eef2ff; border-radius: 20px; font-size: 14px; font-weight: 600; color: #4f46e5;">开始</div>
 <div style="font-size: 20px; color: #94a3b8;">↓</div>
 <div style="padding: 14px 24px; background: #fef3c7; border-radius: 8px; font-size: 14px; font-weight: 600; color: #d97706; border: 2px solid #fbbf24;">判断条件</div>
-<div style="display: flex; align-items: center; gap: 60px; margin-top: 8px;">
+
 <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
 <span style="font-size: 12px; color: #10b981; font-weight: 600;">条件为真 →</span>
 <div style="padding: 10px 20px; background: #d1fae5; border-radius: 8px; font-size: 13px; color: #059669; font-weight: 600;">执行代码块A</div>
@@ -1613,27 +1613,26 @@ while (hasMoreData) {
 </div>
 </div>
 
-**流程图卡片：**
+**流程图：**
 
-<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #6366f1;">
+<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #10b981;">
 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-size: 20px;">📊</div>
+<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #10b981, #34d399); color: white; font-size: 20px;">🔄</div>
 <h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">while 循环流程图</h4>
 </div>
 <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
 <div style="padding: 10px 24px; background: #eef2ff; border-radius: 20px; font-size: 14px; font-weight: 600; color: #4f46e5;">开始</div>
 <div style="font-size: 20px; color: #94a3b8;">↓</div>
 <div style="padding: 14px 24px; background: #fef3c7; border-radius: 8px; font-size: 14px; font-weight: 600; color: #d97706; border: 2px solid #fbbf24;">判断条件</div>
-<div style="display: flex; align-items: center; gap: 40px;">
 <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
 <span style="font-size: 12px; color: #10b981; font-weight: 600;">条件为真 →</span>
-<div style="padding: 10px 20px; background: #d1fae5; border-radius: 8px; font-size: 13px; color: #059669;">执行代码</div>
-<div style="font-size: 20px; color: #94a3b8;">↑</div>
+<div style="padding: 10px 20px; background: #d1fae5; border-radius: 8px; font-size: 13px; color: #059669; font-weight: 600;">执行代码</div>
+<div style="font-size: 20px; color: #94a3b8;">↓</div>
+<div style="font-size: 12px; color: #64748b;">回到判断条件</div>
 </div>
 <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
 <span style="font-size: 12px; color: #ef4444; font-weight: 600;">条件为假 →</span>
-<div style="padding: 10px 24px; background: #fee2e2; border-radius: 20px; font-size: 14px; font-weight: 600; color: #dc2626;">结束</div>
-</div>
+<div style="padding: 10px 20px; background: #fee2e2; border-radius: 8px; font-size: 13px; color: #dc2626; font-weight: 600;">结束循环</div>
 </div>
 </div>
 </div>
@@ -1848,38 +1847,14 @@ while (hasMoreData) {
 
 **技术原理图：**
 
-<div class="vc-card" style="margin: 24px 0; padding: 24px; background: white; border-radius: 16px; border: 2px solid #6366f1;">
-<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e0e7ff;">
-<div style="width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-size: 20px;">💰</div>
-<h4 style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">价格显示逻辑</h4>
-</div>
-<div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-<div style="padding: 10px 24px; background: #eef2ff; border-radius: 20px; font-size: 14px; font-weight: 600; color: #4f46e5;">开始</div>
-<div style="font-size: 20px; color: #94a3b8;">↓</div>
-<div style="padding: 12px 24px; background: #fef3c7; border-radius: 8px; font-size: 14px; font-weight: 600; color: #d97706; border: 2px solid #fbbf24;">判断用户</div>
-<div style="display: flex; align-items: center; gap: 60px; margin-top: 8px;">
-<div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
-<span style="font-size: 12px; color: #10b981; font-weight: 600;">是新用户 →</span>
-<div style="padding: 8px 16px; background: #d1fae5; border-radius: 8px; font-size: 13px; color: #059669; font-weight: 600;">新用户价格<br/>(最优惠)</div>
-</div>
-<div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
-<span style="font-size: 12px; color: #ef4444; font-weight: 600;">不是新用户 →</span>
-<div style="padding: 10px 20px; background: #fef3c7; border-radius: 8px; font-size: 13px; font-weight: 600; color: #d97706; border: 2px solid #fbbf24;">是VIP?</div>
-</div>
-</div>
-<div style="display: flex; align-items: center; gap: 80px; margin-top: 8px;">
-<div style="font-size: 12px; color: #94a3b8;">(已结束)</div>
-<div style="display: flex; gap: 20px;">
-<div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
-<span style="font-size: 12px; color: #10b981; font-weight: 600;">是VIP →</span>
-<div style="padding: 8px 16px; background: #dbeafe; border-radius: 8px; font-size: 13px; color: #2563eb; font-weight: 600;">VIP价格</div>
-</div>
-<div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
-<span style="font-size: 12px; color: #ef4444; font-weight: 600;">不是VIP →</span>
-<div style="padding: 8px 16px; background: #f1f5f9; border-radius: 8px; font-size: 13px; color: #475569; font-weight: 600;">原价</div>
-</div>
-</div>
-</div>
+\`\`\`mermaid
+flowchart TD
+    A[开始] --> B{判断用户类型}
+    B -->|是新用户| C[新用户价格<br/>最优惠]
+    B -->|不是新用户| D{是VIP?}
+    D -->|是VIP| E[VIP价格]
+    D -->|不是VIP| F[原价]
+\`\`\`
 </div>
 
 ### 场景2：状态机设计

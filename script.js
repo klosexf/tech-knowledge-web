@@ -14,7 +14,11 @@
         quizScore: 0,
         previousView: null,
         currentCategoryId: null,
-        currentDifficulty: 'all'
+        currentDifficulty: 'all',
+        // 导航历史栈：记录用户的访问路径
+        navigationHistory: [],
+        // 记录进入详情页前的状态
+        detailEntryState: null
     };
     
     const elements = {
@@ -207,6 +211,9 @@
         setupEventListeners();
         updateLineNumbers();
         renderQuiz();
+        
+        // 初始化浏览器历史监听
+        initHistoryListener();
     }
     
     function resetToHomePage() {
@@ -223,46 +230,116 @@
     }
     
     function setupEventListeners() {
-        window.addEventListener('scroll', handleScroll);
-        
-        elements.navToggle.addEventListener('click', toggleNav);
-        
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', handleNavClick);
-        });
-        
-        elements.searchInput.addEventListener('input', debounce(handleSearch, 300));
-        elements.searchBtn.addEventListener('click', handleSearch);
-        elements.closeSearch.addEventListener('click', closeSearch);
-        
-        elements.difficultyFilter.addEventListener('change', filterByDifficulty);
-        
-        elements.backBtn.addEventListener('click', hideKnowledgeDetail);
-        
-        elements.backToCategories.addEventListener('click', backToCategoryList);
-        
-        elements.favoriteBtn.addEventListener('click', toggleFavorite);
-        elements.completeBtn.addEventListener('click', markComplete);
-        
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', switchTab);
-        });
-        
-        elements.runCode.addEventListener('click', executeCode);
-        elements.clearCode.addEventListener('click', clearCode);
-        elements.codeInput.addEventListener('input', updateLineNumbers);
-        elements.codeInput.addEventListener('scroll', syncScroll);
-        
-        elements.prevQuiz.addEventListener('click', prevQuestion);
-        elements.nextQuiz.addEventListener('click', nextQuestion);
-        elements.retryQuiz.addEventListener('click', retryQuiz);
-        
-        elements.modalClose.addEventListener('click', closeModal);
-        elements.modalNext.addEventListener('click', goToNextKnowledge);
-        
-        elements.backToTop.addEventListener('click', scrollToTop);
-        
-        document.addEventListener('click', handleCopyCode);
+        try {
+            window.addEventListener('scroll', handleScroll);
+            
+            if (elements.navToggle) {
+                elements.navToggle.addEventListener('click', toggleNav);
+            }
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', handleNavClick);
+            });
+            
+            if (elements.searchInput) {
+                elements.searchInput.addEventListener('input', debounce(handleSearch, 300));
+            }
+            if (elements.searchBtn) {
+                elements.searchBtn.addEventListener('click', handleSearch);
+            }
+            if (elements.closeSearch) {
+                elements.closeSearch.addEventListener('click', closeSearch);
+            }
+            
+            if (elements.difficultyFilter) {
+                elements.difficultyFilter.addEventListener('change', filterByDifficulty);
+            }
+            
+            // 修复：为返回列表按钮添加健壮的事件绑定和错误处理
+            if (elements.backBtn) {
+                elements.backBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    try {
+                        hideKnowledgeDetail();
+                    } catch (error) {
+                        console.error('返回列表按钮点击失败:', error);
+                        // 降级处理：直接隐藏详情页
+                        if (elements.knowledgeDetail) {
+                            elements.knowledgeDetail.classList.remove('active');
+                        }
+                    }
+                });
+            } else {
+                console.warn('backBtn 元素未找到');
+            }
+            
+            if (elements.backToCategories) {
+                elements.backToCategories.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    try {
+                        backToCategoryList();
+                    } catch (error) {
+                        console.error('返回分类列表按钮点击失败:', error);
+                        // 降级处理：直接滚动到分类区域
+                        const categories = document.getElementById('categories');
+                        if (categories) {
+                            categories.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            } else {
+                console.warn('backToCategories 元素未找到');
+            }
+            
+            if (elements.favoriteBtn) {
+                elements.favoriteBtn.addEventListener('click', toggleFavorite);
+            }
+            if (elements.completeBtn) {
+                elements.completeBtn.addEventListener('click', markComplete);
+            }
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', switchTab);
+            });
+            
+            if (elements.runCode) {
+                elements.runCode.addEventListener('click', executeCode);
+            }
+            if (elements.clearCode) {
+                elements.clearCode.addEventListener('click', clearCode);
+            }
+            if (elements.codeInput) {
+                elements.codeInput.addEventListener('input', updateLineNumbers);
+                elements.codeInput.addEventListener('scroll', syncScroll);
+            }
+            
+            if (elements.prevQuiz) {
+                elements.prevQuiz.addEventListener('click', prevQuestion);
+            }
+            if (elements.nextQuiz) {
+                elements.nextQuiz.addEventListener('click', nextQuestion);
+            }
+            if (elements.retryQuiz) {
+                elements.retryQuiz.addEventListener('click', retryQuiz);
+            }
+            
+            if (elements.modalClose) {
+                elements.modalClose.addEventListener('click', closeModal);
+            }
+            if (elements.modalNext) {
+                elements.modalNext.addEventListener('click', goToNextKnowledge);
+            }
+            
+            if (elements.backToTop) {
+                elements.backToTop.addEventListener('click', scrollToTop);
+            }
+            
+            document.addEventListener('click', handleCopyCode);
+            
+            console.log('事件监听器设置完成');
+        } catch (error) {
+            console.error('设置事件监听器时出错:', error);
+        }
     }
     
     function handleScroll() {
@@ -288,15 +365,27 @@
     
     function handleNavClick(e) {
         const href = e.target.getAttribute('href');
+        console.log('[script.js handleNavClick] 点击导航链接:', href);
         
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         e.target.classList.add('active');
         
         if (href === '#home') {
+            console.log('[script.js handleNavClick] 检测到首页按钮点击');
             e.preventDefault();
+            e.stopPropagation();
+            
             resetToHomePage();
             renderCategories();
-            document.getElementById('categories').scrollIntoView({ behavior: 'smooth' });
+            
+            setTimeout(() => {
+                const categoriesSection = document.getElementById('categories');
+                console.log('[script.js handleNavClick] 滚动到分类区域:', categoriesSection ? '找到' : '未找到');
+                if (categoriesSection) {
+                    categoriesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    console.log('[script.js handleNavClick] 滚动命令已执行');
+                }
+            }, 150);
         }
         
         if (window.innerWidth <= 768) {
@@ -406,42 +495,89 @@
         renderKnowledgeCards(categoryId, difficulty);
     }
     
+    // 显示知识点详情
     function showKnowledgeDetail(id) {
-        const knowledge = knowledgeData.knowledge.find(k => k.id === id);
-        if (!knowledge) return;
-        
-        if (state.currentCategoryId) {
-            state.previousView = 'categoryList';
-        } else {
-            state.previousView = 'home';
-        }
-        
-        state.currentKnowledge = knowledge;
-        addToRecent(id);
-        
-        const category = knowledgeData.categories.find(c => c.id === knowledge.categoryId);
-        
-        elements.detailCategory.textContent = category ? category.name : '';
-        elements.detailDifficulty.textContent = knowledge.difficulty === 'beginner' ? '入门级' : 
-                                                 knowledge.difficulty === 'intermediate' ? '进阶级' : '高级';
-        elements.detailTitle.textContent = knowledge.title;
-        elements.detailSummary.textContent = knowledge.summary;
-        
-        // 渲染内容
-        renderKnowledgeContent(knowledge);
-        
-        updateFavoriteButton();
-        updateCompleteButton();
-        updateNextKnowledge();
-        
-        document.querySelector('.categories').style.display = 'none';
-        document.querySelector('.learning-path').style.display = 'none';
-        elements.knowledgeDetail.classList.add('active');
-        
-        elements.knowledgeDetail.scrollIntoView({ behavior: 'smooth' });
-        
-        if (typeof window.startCodeConceptsDemo === 'function') {
-            setTimeout(() => window.startCodeConceptsDemo(), 100);
+        try {
+            const knowledge = knowledgeData.knowledge.find(k => k.id === id);
+            if (!knowledge) {
+                console.error('未找到知识点:', id);
+                return;
+            }
+            
+            // 记录进入详情页前的状态，用于返回时恢复
+            state.detailEntryState = {
+                categoryId: state.currentCategoryId,
+                difficulty: state.currentDifficulty,
+                scrollPosition: window.scrollY,
+                timestamp: Date.now()
+            };
+            
+            // 兼容旧的 previousView
+            state.previousView = {
+                categoryId: state.currentCategoryId,
+                difficulty: state.currentDifficulty,
+                scrollPosition: window.scrollY
+            };
+            
+            // 使用 History API 保存状态，实现真正的页面回退
+            // 保存当前页面状态，用于返回时恢复
+            const currentState = {
+                type: 'list',
+                categoryId: state.currentCategoryId,
+                difficulty: state.currentDifficulty,
+                scrollPosition: window.scrollY
+            };
+            history.pushState(currentState, '', window.location.href);
+            
+            // 修改 URL 反映当前状态
+            const newUrl = window.location.pathname + '?detail=' + id;
+            history.replaceState({
+                type: 'detail',
+                knowledgeId: id,
+                categoryId: state.currentCategoryId,
+                difficulty: state.currentDifficulty,
+                scrollPosition: window.scrollY
+            }, '', newUrl);
+            
+            state.currentKnowledge = knowledge;
+            addToRecent(id);
+            
+            const category = knowledgeData.categories.find(c => c.id === knowledge.categoryId);
+            
+            elements.detailCategory.textContent = category ? category.name : '';
+            elements.detailDifficulty.textContent = knowledge.difficulty === 'beginner' ? '入门级' : 
+                                                     knowledge.difficulty === 'intermediate' ? '进阶级' : '高级';
+            elements.detailTitle.textContent = knowledge.title;
+            elements.detailSummary.textContent = knowledge.summary;
+            
+            // 渲染内容
+            renderKnowledgeContent(knowledge);
+            
+            updateFavoriteButton();
+            updateCompleteButton();
+            updateNextKnowledge();
+            
+            // 隐藏分类和学习路径区域
+            const categories = document.querySelector('.categories');
+            const learningPath = document.querySelector('.learning-path');
+            if (categories) categories.style.display = 'none';
+            if (learningPath) learningPath.style.display = 'none';
+            
+            elements.knowledgeDetail.classList.add('active');
+            
+            // 平滑滚动到详情页顶部
+            elements.knowledgeDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // 延迟初始化交互式组件
+            if (typeof window.startCodeConceptsDemo === 'function') {
+                setTimeout(() => window.startCodeConceptsDemo(), 100);
+            }
+            
+            console.log('显示知识点详情:', knowledge.title, '- 已保存浏览历史');
+        } catch (error) {
+            console.error('showKnowledgeDetail 执行失败:', error);
+            // 降级处理：尝试至少显示基本信息
+            alert('加载知识点详情失败，请刷新页面重试');
         }
     }
     
@@ -2321,22 +2457,198 @@
         return html;
     }
     
+    // 隐藏知识点详情页，返回到上一个页面
     function hideKnowledgeDetail() {
-        elements.knowledgeDetail.classList.remove('active');
-        document.querySelector('.categories').style.display = 'block';
-        document.querySelector('.learning-path').style.display = 'block';
-        
-        renderCategories();
-        document.getElementById('categories').scrollIntoView({ behavior: 'smooth' });
+        try {
+            console.log('hideKnowledgeDetail 被调用');
+            
+            // 检查元素是否存在
+            if (!elements.knowledgeDetail) {
+                console.error('knowledgeDetail 元素不存在');
+                return;
+            }
+            
+            // 直接执行返回逻辑，确保按钮始终有效
+            const entryState = state.detailEntryState || state.previousView;
+            
+            elements.knowledgeDetail.classList.remove('active');
+            
+            // 恢复进入详情页前的筛选条件
+            const targetDifficulty = entryState && entryState.difficulty ? entryState.difficulty : 'all';
+            const targetCategoryId = entryState && entryState.categoryId ? entryState.categoryId : null;
+            
+            // 更新当前状态
+            state.currentCategoryId = targetCategoryId;
+            state.currentDifficulty = targetDifficulty;
+            
+            // 设置筛选器值
+            if (elements.difficultyFilter) {
+                elements.difficultyFilter.value = targetDifficulty;
+            }
+            
+            // 根据是否有分类筛选来更新标题和内容
+            if (targetCategoryId) {
+                const category = knowledgeData.categories.find(c => c.id === targetCategoryId);
+                if (elements.categoriesTitle && category) {
+                    elements.categoriesTitle.textContent = category.name;
+                }
+                renderKnowledgeCards(targetCategoryId, targetDifficulty);
+            } else {
+                if (elements.categoriesTitle) {
+                    elements.categoriesTitle.textContent = '技术分类';
+                }
+                renderCategories();
+            }
+            
+            // 显示分类和学习路径区域
+            const categories = document.querySelector('.categories');
+            const learningPath = document.querySelector('.learning-path');
+            if (categories) categories.style.display = 'block';
+            if (learningPath) learningPath.style.display = 'block';
+            
+            // 重置当前知识点状态
+            state.currentKnowledge = null;
+            
+            // 恢复滚动位置
+            const targetScroll = entryState && entryState.scrollPosition ? entryState.scrollPosition : 0;
+            if (targetScroll > 0) {
+                setTimeout(() => {
+                    window.scrollTo({ top: targetScroll, behavior: 'auto' });
+                }, 50);
+            } else {
+                const categoriesSection = document.getElementById('categories');
+                if (categoriesSection) {
+                    categoriesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+            
+            // 清除 URL 参数
+            if (window.history.replaceState) {
+                window.history.replaceState({}, '', window.location.pathname);
+            }
+            
+            const returnInfo = targetCategoryId ? '分类列表' : '首页';
+            console.log('已返回到上一个页面:', returnInfo);
+        } catch (error) {
+            console.error('hideKnowledgeDetail 执行失败:', error);
+        }
     }
     
-    function backToCategoryList() {
-        elements.categoriesTitle.textContent = '技术分类';
-        elements.backToCategories.style.display = 'none';
-        elements.difficultyFilter.value = 'all';
+    // 处理浏览器前进/后退按钮的事件
+    function handlePopState(event) {
+        const historyState = event.state;
         
-        renderCategories();
-        document.getElementById('categories').scrollIntoView({ behavior: 'smooth' });
+        console.log('popstate 事件:', historyState);
+        
+        if (!historyState) {
+            // 无状态，说明是直接访问，返回首页
+            resetToHomePage();
+            return;
+        }
+        
+        if (historyState.type === 'detail') {
+            // 前进到详情页
+            if (historyState.knowledgeId) {
+                showKnowledgeDetail(historyState.knowledgeId);
+            }
+        } else if (historyState.type === 'list') {
+            // 返回到列表页
+            elements.knowledgeDetail.classList.remove('active');
+            
+            const targetDifficulty = historyState.difficulty || 'all';
+            const targetCategoryId = historyState.categoryId || null;
+            
+            state.currentCategoryId = targetCategoryId;
+            state.currentDifficulty = targetDifficulty;
+            
+            if (elements.difficultyFilter) {
+                elements.difficultyFilter.value = targetDifficulty;
+            }
+            
+            if (targetCategoryId) {
+                const category = knowledgeData.categories.find(c => c.id === targetCategoryId);
+                if (elements.categoriesTitle && category) {
+                    elements.categoriesTitle.textContent = category.name;
+                }
+                renderKnowledgeCards(targetCategoryId, targetDifficulty);
+            } else {
+                if (elements.categoriesTitle) {
+                    elements.categoriesTitle.textContent = '技术分类';
+                }
+                renderCategories();
+            }
+            
+            const categories = document.querySelector('.categories');
+            const learningPath = document.querySelector('.learning-path');
+            if (categories) categories.style.display = 'block';
+            if (learningPath) learningPath.style.display = 'block';
+            
+            state.currentKnowledge = null;
+            
+            // 恢复滚动位置
+            if (historyState.scrollPosition > 0) {
+                setTimeout(() => {
+                    window.scrollTo({ top: historyState.scrollPosition, behavior: 'auto' });
+                }, 100);
+            }
+            
+            console.log('已通过浏览器返回键返回到列表页');
+        }
+    }
+    
+    // 初始化浏览历史事件监听
+    function initHistoryListener() {
+        window.addEventListener('popstate', handlePopState);
+        
+        // 检查页面加载时的 URL 参数，恢复详情页状态
+        const urlParams = new URLSearchParams(window.location.search);
+        const detailId = urlParams.get('detail');
+        
+        if (detailId) {
+            // 从 URL 进入详情页
+            console.log('从 URL 参数进入详情页:', detailId);
+            // 模拟从首页进入
+            state.currentCategoryId = null;
+            state.currentDifficulty = 'all';
+        }
+    }
+    
+    // 返回到分类列表
+    function backToCategoryList() {
+        try {
+            if (!elements.categoriesTitle) {
+                console.warn('categoriesTitle 元素不存在');
+                return;
+            }
+            
+            elements.categoriesTitle.textContent = '技术分类';
+            
+            if (elements.backToCategories) {
+                elements.backToCategories.style.display = 'none';
+            }
+            
+            if (elements.difficultyFilter) {
+                elements.difficultyFilter.value = 'all';
+            }
+            
+            // 重置状态
+            state.currentCategoryId = null;
+            state.currentDifficulty = 'all';
+            
+            // 重新渲染分类
+            renderCategories();
+            
+            // 平滑滚动到分类区域
+            const categoriesSection = document.getElementById('categories');
+            if (categoriesSection) {
+                categoriesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            console.log('已返回分类列表');
+        } catch (error) {
+            console.error('backToCategoryList 执行失败:', error);
+            throw error;
+        }
     }
     
     function toggleFavorite() {
