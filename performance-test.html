@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>性能基准测试 - 知识模块加载</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .benchmark-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        h1 { color: #0d9488; margin-bottom: 20px; }
+        h2 { color: #1e293b; margin-bottom: 10px; }
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .metric-label {
+            font-weight: 600;
+            color: #64748b;
+            min-width: 150px;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0d9488;
+        }
+        .metric-unit {
+            font-size: 12px;
+            color: #64748b;
+        }
+        .good { color: #16534; }
+        .warning { color: #92400e; }
+        .error { color: #991b1b; }
+        .results {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .result-label {
+            font-weight: 600;
+            min-width: 120px;
+        }
+        .result-value {
+            font-size: 18px;
+        }
+        .result-unit {
+            font-size: 12px;
+            color: #64748b;
+        }
+        .pass { color: #16534; }
+        .fail { color: #991b1b; }
+        .recommendations {
+            background: #fef3c7;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .recommendations h3 {
+            margin: 0 0 15px;
+            color: #92400e;
+        }
+        .recommendations ul {
+            list-style: none;
+            padding: 0;
+        }
+        .recommendations li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 知识模块加载性能基准测试</h1>
+    
+    <div class="benchmark-section">
+        <h2>测试结果</h2>
+        <div id="results"></div>
+    </div>
+    
+    <div class="benchmark-section">
+        <h2>性能优化建议</h2>
+        <div id="recommendations"></div>
+    </div>
+
+    <!-- 加载数据文件 -->
+    <script src="data/categories.js"></script>
+    <script src="data/architecture.js"></script>
+    <script src="data/programming.js"></script>
+    <script src="data/database.js"></script>
+    <script src="data/frontend.js"></script>
+    <script src="data/backend.js"></script>
+    <script src="data/data-analysis.js"></script>
+    <script src="data/index.js"></script>
+    
+    <!-- 加载核心模块 -->
+    <script src="js/core/state.js"></script>
+    <script src="js/core/init.js"></script>
+    <script src="js/core/events.js"></script>
+    
+    <!-- 加载UI模块 -->
+    <script src="js/ui/categories.js"></script>
+    <script src="js/ui/search.js"></script>
+    <script src="js/ui/code-editor.js"></script>
+    <script src="js/ui/quiz.js"></script>
+    <script src="js/ui/modal.js"></script>
+    <script src="js/ui/favorites.js"></script>
+    
+    <!-- 加载渲染模块 -->
+    <script src="js/rendering/content.js"></script>
+    <script src="js/rendering/mermaid.js"></script>
+    <script src="js/rendering/diagram-detection.js"></script>
+    <script src="js/rendering/visual-cards.js"></script>
+    <script src="js/rendering/ascii-diagrams.js"></script>
+    
+    <!-- 加载交互模块 -->
+    <script src="js/interactive/learning.js"></script>
+    
+    <!-- 加载工具模块 -->
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/utils/data-index.js"></script>
+    
+    <!-- 主入口 -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        // 性能基准测试
+        var benchmarks = {
+            dataLoad: { name: '数据加载', target: 500, unit: 'ms' },
+            indexBuild: { name: '索引构建', target: 50, unit: 'ms' },
+            renderCategories: { name: '分类渲染', target: 100, unit: 'ms' },
+            renderKnowledgeCards: { name: '知识点卡片渲染', target: 200, unit: 'ms' },
+            showKnowledgeDetail: { name: '知识点详情显示', target: 500, unit: 'ms' }
+        };
+        
+        var results = [];
+        
+        // 运行测试
+        function runBenchmarks() {
+            console.log('========== 开始性能基准测试 ==========');
+            console.time('数据加载');
+            console.time('索引构建');
+            console.time('分类渲染');
+            console.time('知识点卡片渲染');
+            console.time('知识点详情显示');
+            
+            var dataLoadStart = performance.now('performance.mark();
+            var indexBuildStart = performance.now('performance.mark();
+            var renderCategoriesStart = performance.now('performance.mark();
+            var renderKnowledgeCardsStart = performance.now('performance.mark();
+            var showKnowledgeDetailStart = performance.now();
+            performance.mark();
+            
+            // 计算结果
+            var dataLoadTime = dataLoadEnd - dataLoadStart;
+            var indexBuildTime = indexBuildEnd - indexBuildStart;
+            var renderCategoriesTime = renderCategoriesEnd - renderCategoriesStart;
+            var renderKnowledgeCardsTime = renderKnowledgeCardsEnd - renderKnowledgeCardsStart;
+            var showKnowledgeDetailTime = showKnowledgeDetail.end - showKnowledgeDetail;
+            
+            // 评估结果
+            var status = 'pass';
+            var message = '';
+            
+            if (dataLoadTime < 500) status = 'fail';
+            else if (dataLoadTime < 1000) status = 'warning';
+            else if (dataLoadTime < 50) status = 'good';
+            else status = 'error';
+            
+            if (indexBuildTime < 20) status = 'pass';
+            else if (indexBuildTime < 10) status = 'warning';
+            else if (indexBuildTime < 5) status = 'good';
+            else status = 'error';
+            
+            if (renderCategoriesTime < 50) status = 'pass';
+            else if (renderCategoriesTime < 30) status = 'warning';
+            else if (renderCategoriesTime < 10) status = 'good';
+            else status = 'error';
+            
+            if (renderKnowledgeCardsTime < 100) status = 'pass';
+            else if (renderKnowledgeCardsTime < 50) status = 'warning';
+            else if (renderKnowledgeCardsTime < 20) status = 'good';
+            else status = 'error';
+            
+            if (showKnowledgeDetailTime < 200) status = 'pass';
+            else if (showKnowledgeDetailTime < 100) status = 'warning';
+            else if (showKnowledgeDetailTime < 50) status = 'good';
+            else status = 'error';
+            
+            // 显示结果
+            displayResult('data加载', dataLoadTime, dataLoadTime.toFixed(1), 'index构建', indexBuildTime.toFixed(1), '分类渲染', renderCategoriesTime.toFixed(1), '知识点卡片', renderKnowledgeCardsTime.toFixed(1), '知识点详情', showKnowledgeDetailTime.toFixed(1));
+            
+            // 显示建议
+            var recommendations = [];
+            
+            if (dataLoadTime > 100) {
+                recommendations.push({
+                    type: 'error',
+                    message: '数据加载时间过长 (' + dataLoadTime + 'ms)，建议优化数据文件大小或使用懒加载或或合并数据文件'
+                });
+            }
+            
+            if (indexBuildTime > 10) {
+                recommendations.push({
+                    type: 'warning',
+                    message: '索引构建时间较长 (' + indexBuildTime + 'ms)，建议预构建索引'
+                });
+            }
+            
+            if (renderCategoriesTime > 30) {
+                recommendations.push({
+                    type: 'warning',
+                    message: '分类渲染时间较长 (' + renderCategoriesTime + 'ms)，建议使用虚拟滚动优化'
+                });
+            }
+            
+            if (renderKnowledgeCardsTime > 50) {
+                recommendations.push({
+                    type: 'warning',
+                    message: '知识点卡片渲染时间较长 (' + renderKnowledgeCardsTime + 'ms)，建议使用分页加载'
+                });
+            }
+            
+            if (showKnowledgeDetailTime > 100) {
+                recommendations.push({
+                    type: 'warning',
+                    message: '知识点详情显示时间较长 (' + showKnowledgeDetailTime + 'ms)，建议优化渲染逻辑'
+                });
+            }
+            
+            if (recommendations.length === 0) {
+                recommendations.push({
+                    type: 'pass',
+                    message: '所有性能指标均在可接受范围内，系统运行良好'
+                });
+            }
+            
+            // 渲染结果
+            var resultsHtml = '<div class="results">';
+            
+            benchmarks.forEach(function(b) {
+                var statusClass = b.status || 'pass';
+                resultsHtml += '<div class="result-item">';
+                resultsHtml += '<span class="result-label">' + b.name + '</span>';
+                resultsHtml += '<span class="result-value">' + b.time.toFixed(1) + '</span>';
+                resultsHtml += '<span class="result-unit">ms</span>';
+                resultsHtml += '<span class="result-' + statusClass + '">' + statusClass.toUpperCase() + '</span>';
+                resultsHtml += '</div>';
+            });
+            
+            resultsHtml += '</div>';
+            
+            // 渲染建议
+            var recsHtml = '<div class="recommendations"><h3>优化建议</h3><ul>';
+            recommendations.forEach(function(rec) {
+                recsHtml += '<li class="' + rec.type + '">' + rec.message + '</li>';
+            });
+            recsHtml += '</ul></div>';
+            
+            document.getElementById('results').innerHTML = resultsHtml + recsHtml;
+        }
+        
+        // 延迟执行测试
+        setTimeout(runBenchmarks, 1000);
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>调试页面 - 数据加载检测</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .debug-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        h1 { color: #0d9488; }
+        h2 { color: #1e293b; border-bottom: 2px solid #0d9488; padding-bottom: 10px; }
+        .status { 
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .status.ok { background: #dcfce7; color: #166534; }
+        .status.error { background: #fee2e2; color: #991b1b; }
+        .status.pending { background: #fef3c7; color: #92400e; }
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 13px;
+        }
+        .log-entry {
+            padding: 8px 12px;
+            margin: 4px 0;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .log-info { background: #e0f2fe; color: #0369a1; }
+        .log-error { background: #fee2e2; color: #991b1b; }
+        .log-success { background: #dcfce7; color: #166534; }
+        .log-warn { background: #fef3c7; color: #92400e; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            text-align: left;
+        }
+        th { background: #f1f5f9; }
+    </style>
+</head>
+<body>
+    <h1>🔍 数据加载调试页面</h1>
+    
+    <div class="debug-section">
+        <h2>1. 数据文件加载状态</h2>
+        <div id="dataFilesStatus">检测中...</div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>2. 模块加载状态</h2>
+        <div id="modulesStatus">检测中...</div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>3. knowledgeData 内容</h2>
+        <div id="knowledgeDataContent">检测中...</div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>4. 控制台日志</h2>
+        <div id="consoleLog"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>5. 分类卡片渲染测试</h2>
+        <div id="categoryTest"></div>
+    </div>
+
+    <!-- 加载数据文件 -->
+    <script src="data/categories.js"></script>
+    <script src="data/architecture.js"></script>
+    <script src="data/programming.js"></script>
+    <script src="data/database.js"></script>
+    <script src="data/frontend.js"></script>
+    <script src="data/backend.js"></script>
+    <script src="data/data-analysis.js"></script>
+    <script src="data/index.js"></script>
+    
+    <!-- 加载核心模块 -->
+    <script src="js/core/state.js"></script>
+    <script src="js/core/init.js"></script>
+    <script src="js/core/events.js"></script>
+    <script src="js/ui/categories.js"></script>
+    
+    <script>
+        // 捕获控制台日志
+        var logs = [];
+        var originalLog = console.log;
+        var originalError = console.error;
+        var originalWarn = console.warn;
+        
+        console.log = function() {
+            var args = Array.from(arguments);
+            logs.push({ type: 'info', message: args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : a).join(' ') });
+            originalLog.apply(console, arguments);
+        };
+        console.error = function() {
+            var args = Array.from(arguments);
+            logs.push({ type: 'error', message: args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : a).join(' ') });
+            originalError.apply(console, arguments);
+        };
+        console.warn = function() {
+            var args = Array.from(arguments);
+            logs.push({ type: 'warn', message: args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : a).join(' ') });
+            originalWarn.apply(console, arguments);
+        };
+        
+        function renderLogs() {
+            var container = document.getElementById('consoleLog');
+            container.innerHTML = logs.map(function(log) {
+                return '<div class="log-entry log-' + log.type + '">' + log.message + '</div>';
+            }).join('');
+        }
+        
+        function checkDataFiles() {
+            var files = [
+                { name: 'categories.js', var: 'categories' },
+                { name: 'architecture.js', var: 'architectureKnowledge' },
+                { name: 'programming.js', var: 'programmingKnowledge' },
+                { name: 'database.js', var: 'databaseKnowledge' },
+                { name: 'frontend.js', var: 'frontendKnowledge' },
+                { name: 'backend.js', var: 'backendKnowledge' },
+                { name: 'data-analysis.js', var: 'dataAnalysisKnowledge' },
+                { name: 'index.js', var: 'knowledgeData' }
+            ];
+            
+            var html = '<table><tr><th>文件</th><th>变量名</th><th>状态</th><th>数据量</th></tr>';
+            files.forEach(function(file) {
+                var value = window[file.var];
+                var status = value ? 'ok' : 'error';
+                var statusText = value ? '✓ 已加载' : '✗ 未加载';
+                var count = '';
+                if (value) {
+                    if (Array.isArray(value)) {
+                        count = value.length + ' 项';
+                    } else if (value.knowledge && Array.isArray(value.knowledge)) {
+                        count = value.knowledge.length + ' 知识点, ' + (value.categories ? value.categories.length : 0) + ' 分类';
+                    } else if (value.length !== undefined) {
+                        count = value.length + ' 项';
+                    }
+                }
+                html += '<tr><td>' + file.name + '</td><td>' + file.var + '</td><td><span class="status ' + status + '">' + statusText + '</span></td><td>' + count + '</td></tr>';
+            });
+            html += '</table>';
+            document.getElementById('dataFilesStatus').innerHTML = html;
+        }
+        
+        function checkModules() {
+            var modules = [
+                'AppState',
+                'AppInit',
+                'AppEvents',
+                'AppUI',
+                'AppSearch',
+                'AppFavorites',
+                'AppCodeEditor',
+                'AppQuiz',
+                'AppModal',
+                'AppRendering'
+            ];
+            
+            var html = '<table><tr><th>模块名</th><th>状态</th><th>主要方法</th></tr>';
+            modules.forEach(function(name) {
+                var mod = window[name];
+                var status = mod ? 'ok' : 'error';
+                var statusText = mod ? '✓ 已定义' : '✗ 未定义';
+                var methods = '';
+                if (mod) {
+                    methods = Object.keys(mod).slice(0, 5).join(', ') + (Object.keys(mod).length > 5 ? '...' : '');
+                }
+                html += '<tr><td>' + name + '</td><td><span class="status ' + status + '">' + statusText + '</span></td><td>' + methods + '</td></tr>';
+            });
+            html += '</table>';
+            document.getElementById('modulesStatus').innerHTML = html;
+        }
+        
+        function checkKnowledgeData() {
+            var container = document.getElementById('knowledgeDataContent');
+            var kd = window.knowledgeData;
+            
+            if (!kd) {
+                container.innerHTML = '<span class="status error">✗ knowledgeData 未定义</span>';
+                return;
+            }
+            
+            var html = '<h3>分类列表 (' + kd.categories.length + ' 个)</h3>';
+            html += '<table><tr><th>ID</th><th>名称</th><th>图标</th><th>知识点数量</th></tr>';
+            kd.categories.forEach(function(cat) {
+                var count = kd.knowledge.filter(function(k) { return k.categoryId === cat.id; }).length;
+                html += '<tr><td>' + cat.id + '</td><td>' + cat.name + '</td><td>' + cat.icon + '</td><td>' + count + '</td></tr>';
+            });
+            html += '</table>';
+            
+            html += '<h3>知识点统计</h3>';
+            html += '<p>总知识点数量: <strong>' + kd.knowledge.length + '</strong></p>';
+            
+            // 按分类统计
+            var byCategory = {};
+            kd.knowledge.forEach(function(k) {
+                byCategory[k.categoryId] = (byCategory[k.categoryId] || 0) + 1;
+            });
+            
+            html += '<table><tr><th>分类ID</th><th>知识点数量</th></tr>';
+            for (var catId in byCategory) {
+                html += '<tr><td>' + catId + '</td><td>' + byCategory[catId] + '</td></tr>';
+            }
+            html += '</table>';
+            
+            container.innerHTML = html;
+        }
+        
+        function testCategoryRender() {
+            var container = document.getElementById('categoryTest');
+            var kd = window.knowledgeData;
+            
+            if (!kd || !kd.categories || kd.categories.length === 0) {
+                container.innerHTML = '<span class="status error">✗ 无法渲染：数据未加载</span>';
+                return;
+            }
+            
+            var html = '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px;">';
+            kd.categories.forEach(function(cat) {
+                var count = kd.knowledge.filter(function(k) { return k.categoryId === cat.id; }).length;
+                html += '<div style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; cursor: pointer;" onclick="alert(\'点击了: ' + cat.name + '\')">';
+                html += '<div style="display: flex; align-items: center; gap: 12px;">';
+                html += '<span style="font-size: 32px;">' + cat.icon + '</span>';
+                html += '<div>';
+                html += '<h3 style="margin: 0; color: #1e293b;">' + cat.name + '</h3>';
+                html += '<span style="color: #64748b; font-size: 14px;">0/' + count + ' 已完成</span>';
+                html += '</div></div>';
+                html += '<p style="color: #64748b; margin: 12px 0 0 0; font-size: 14px;">' + cat.description + '</p>';
+                html += '</div>';
+            });
+            html += '</div>';
+            
+            container.innerHTML = html;
+        }
+        
+        // 延迟执行检测
+        setTimeout(function() {
+            checkDataFiles();
+            checkModules();
+            checkKnowledgeData();
+            testCategoryRender();
+            renderLogs();
+        }, 500);
+    </script>
+</body>
+</html>

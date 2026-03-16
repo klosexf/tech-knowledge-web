@@ -12,7 +12,7 @@ var knowledge = [
         categoryId: 'architecture',
         title: '基础技术架构',
         difficulty: 'beginner',
-        summary: '从Markdown文件加载的内容',
+        summary: '理解互联网产品的三层/四层架构：前端、后端、数据库的职责分工，掌握架构演进趋势和选型原则。',
         technicalContent: {
             principle: '',
             role: '',
@@ -861,7 +861,7 @@ flowchart TB
         categoryId: 'architecture',
         title: '请求与响应模型',
         difficulty: 'beginner',
-        summary: '从Markdown文件加载的内容',
+        summary: '理解 HTTP 请求与响应的完整流程：掌握请求方法、状态码、同步/异步请求的使用场景和 API 设计原则。',
         technicalContent: {
             principle: '',
             role: '',
@@ -1669,7 +1669,7 @@ flowchart TB
         categoryId: 'architecture',
         title: '技术思维',
         difficulty: 'beginner',
-        summary: '从Markdown文件加载的内容',
+        summary: '掌握步骤化思维、边界条件识别、异常处理和闭环思维，学会从实现角度设计产品功能。',
         technicalContent: {
             principle: '',
             role: '',
@@ -2552,7 +2552,7 @@ flowchart TB
         categoryId: 'architecture',
         title: '技术边界',
         difficulty: 'beginner',
-        summary: '从Markdown文件加载的内容',
+        summary: '理解能力边界、成本边界、时间边界和质量边界，学会评估需求可行性和做出正确的技术决策。',
         technicalContent: {
             principle: '',
             role: '',
